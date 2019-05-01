@@ -1,0 +1,148 @@
+BINGO:
+
+TODO:
+
+want to possibly be able to play back how the won happened and by who? for now go for easier.
+
+
+create user
+	users cards (owned)
+	users participation
+		simple version would be just link to cards played?
+		users wins
+		users ticked items
+	
+create anom user
+	given a unique id
+	must give a name
+
+create card
+	set name
+	add items
+
+
+
+every card needs:
+	
+	- card name
+	- card unique url (short, nice and shareable)
+	- card creation date
+	- card owner + id? (could be anom)
+		owner:  -name -id -email
+	- card items
+
+
+	card items:
+		- text
+
+
+	during play:
+		- card id and instance no
+		- progress / length
+ 			the instance is the multi-player in play, we only need to fire a win state back to server if they select all items.	
+ 			we need to alert to a loss state if someone wins back to those still playing. Also if someone is close to winning we should send a mini alert about that.
+
+
+cards are masters in their own right, they just happen to have an owner which is secondary.
+Cards can be copied but the original link will be killed so its a new unique card.
+each card handles its players? joiners, anoms?
+
+cards will be killed/archived after a month of inactivity. can only be re-opened by a real user.
+
+
+if someone is playing as anon and decide they like the game, signing up creating a user account should be seamless and save their activity?
+
+
+
+TODO:
+
+figure out instance scope?
+
+	- Person creates a game
+	- Game is created and link sent back + offered?
+	- Person makes a request to link address
+		- random instance id created if not specified?
+		- instance is created on server 
+
+		the id it's self doesnt matter, it's just a signature if you want to join a group they'd all have the same id thats made up.
+
+			- Instance is then sent back as data?
+				- Anyone reqesting with that ID will join THIS instance.
+
+
+player creates
+board is created				
+link sent back
+player joins from that link + (no id), no id specified is given a new instance
+player joins from that link + (id), joins current instance played
+
+all players updates will be PINGED back to THIS instance
+when someone wins this instance alerts on the ping. GAme is over and will be shutdown either after 1 day of inactivity or 1 hour after the win.
+
+
+
+
+
+
+new idea:
+
+
+needs:
+
+get board data
+create board data
+update board data
+delete board data
+
+board create new instance
+board join random instance
+board join specific instance
+
+board get instance progress
+board send client progress
+
+
+Create/Editing/Removing a board:
+	post:/api/board/create
+	get:/api/board/board-id
+	put:/api/board/board-id
+	delete:/api/board/board-id
+
+
+Getting/Joining rando or specific instance:
+	get:/api/instance/board-id/create
+	get:/api/instance/board-id/random
+	get:/api/instance/board-id/instance-id
+
+
+Getting Sending instance info:
+	get:/api/instance/instance-id
+
+	player join (body info)
+	post:/api/instance/instance-id
+
+	player update (body info)
+	put:/api/instance/instance-id
+
+	player leave (body info)
+	delete:/api/instance/instance-id
+
+
+first player to join is Admin, when they leave board is shutdown completely.
+
+
+
+players send:
+	- unique id
+	- animal icon?
+	- current score
+	- words selected
+
+
+server sends on update:
+	- highest score (anon)
+	- on win, which animal + id
+	- which words selected by everyone
+
+
+

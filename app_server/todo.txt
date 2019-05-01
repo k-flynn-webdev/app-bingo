@@ -1,0 +1,19 @@
+
+
+
+
+db separation
+
+
+
+
+need unique visior count possibly?
+data served count?
+
+
+
+
+Add goals and achievments to user accounts
+
+eg best day/month since xxx
+

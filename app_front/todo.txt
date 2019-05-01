@@ -1,0 +1,14 @@
+front - end:
+todo:
+
+	add 404 page?
+
+	admin user search?
+
+	message contact form for admin send as guest/user and read only as admin.	
+	
+
+	-add anom search for board 
+	-better brick wall creation.
+	
+

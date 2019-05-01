@@ -1,0 +1,118 @@
+
+
+function token_decode(t) {
+	if(t === false || t === 'false'){
+		return false;
+	}
+
+	let token = {};
+	let splitTemp = [];
+	splitTemp = t.split('.');
+	token.raw = t;
+	// token.header = JSON.parse( window.atob(splitTemp[0]) );
+	token.payload = JSON.parse( window.atob(splitTemp[1]) );
+	return (token.payload);
+}
+
+function token_get() {
+	let item = window.localStorage.getItem('tokenStringKube');
+	if( item === null ){
+		return '';
+	}
+	return item;
+}
+function token_set(value) {
+	window.localStorage.setItem('tokenStringKube', value);
+}
+function token_delete() {
+	window.localStorage.removeItem('tokenStringKube');
+}
+
+
+export default {
+	namespaced: true,
+	state: {
+		requestObj : Function,
+		session : { 
+			active : Boolean, 
+			user : {
+				id : String,
+				name : String,
+				email : String,
+				role : String,
+			}, 
+			token : 'token' 
+		},
+	},
+	getters: {
+		get_active : function( state ){
+			return state.session.active;
+		},		
+		get_user : function( state ){
+			return state.session.user;
+		},	
+		get_token : function( state ){
+			return state.session.token;
+		},		
+	},
+	mutations: {
+		// to be fired ideally from actions here
+		requestObj : function( state, input ){
+			state.requestObj = input;
+		},		
+		active : function( state, input ){
+			state.session.active = input;
+		},
+		user : function( state, input ){
+			state.session.user.id = input.id;
+			state.session.user.name = input.name;
+			state.session.user.email = input.email;
+			state.session.user.role = input.role;
+		},
+		token : function( state, input ){
+			state.session.token = input;
+			token_set( input );
+			state.requestObj();
+		},
+	},
+	actions: {
+		init : function( context, requestFunc ){
+			context.commit('requestObj', requestFunc );
+
+			let token = token_get();
+			if( token.length < 5){
+				context.dispatch('logout_success');
+			} else {
+				context.dispatch('login_success', token );
+			}
+		},		
+		login_success : function( context, tokenString ){
+			let decode = token_decode( tokenString );
+			context.commit('active', true );
+			context.commit('user', decode );
+			context.commit('token', tokenString );
+		},
+		logout_success : function( context ){
+			let nullUser = {
+				id : '',
+				name : '',
+				email : '',
+				role : '',
+			}
+
+			context.commit('active', false );
+			context.commit('user', nullUser );
+			context.commit('token', '' );
+
+			token_delete();
+		},
+		// for delayed/time consuming actions
+	}
+};
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+index: get( '/*', token.check )
+	- serves vue project
+
+user:
+	create: post( '/api/account/create' )
+	update: put( '/api/account', token.check )
+	delete: delete( '/api/account', token.check )
+
+	login: post( '/api/account/login' )
+	logout: post( '/api/account/logout', token.check )
+
+admin:
+	create: is always assigned via ssh commandshell update
+	panel: get( '/admin/panel', token.check )

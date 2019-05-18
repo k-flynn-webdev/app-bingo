@@ -1,0 +1,126 @@
+
+:root {
+
+	--colour: hsl(310,40%,14%);
+	--colour-inv: hsla(40,35%,80%,1);
+	--colour-accent: hsla(180,65%,40%,1);
+	--colour-accent-alt: hsla(0,75%,60%,1);
+	
+	--colour-button: hsla(45,70%,50%,1);
+	
+	--colour-shade: hsla(0,10%,10%,1);
+
+	--colour-bg-input: hsla(180,65%,40%,.5);
+
+	--colour-positive: hsla(100,50%,50%,.66);
+	--colour-negative: hsla(0,50%,50%,.66);
+
+
+	/*--colour-outline: hsla(33,20%,15%,0.5);*/
+
+/*	--colour-text-positive: hsla(100, 40%, 50%, 1.0);
+	--colour-text-negative: hsla(1, 40%, 50%, 1.0);
+
+	--colour-success: hsla(100, 35%, 80%, 1.0);
+	--colour-warning: hsla(50, 55%, 80%, 1.0);
+
+	
+
+	--colour-input: hsla(1,1%,97%,0.66);*/
+
+
+
+	/*--colour-panel-header: hsla(33,20%,15%,1);*/
+
+	/*--colour-bg: hsla(177, 8%, 53%, 1.0);*/
+	/*--colour-nav: hsla(177, 10%,35%, 1.0);*/
+
+
+
+	/*--colour-hover: hsla(177,50%,50%,0.5);*/
+	/*--colour-focus: hsla(177,50%,50%,0.75);*/
+
+
+	/*--colour-panel: hsla(30, 10%, 96%, 1.0);*/
+	
+	/*--colour-input: hsla(177, 10%, 85%, 1.0);*/
+	/*--colour-input-pre: hsla(177, 10%, 92%, 1.0);*/
+	/*--colour-input-focus: hsla(177, 33%, 80%, 1.0);*/
+	/**/
+	/*--colour-button: hsla(177, 8%, 20%, 1.0);*/
+	/*--colour-button-focus: hsla(177, 40%, 40%, 1.0);*/
+
+	/*--colour-shadow: hsla(177, 8%, 20%, 0.5);*/
+	
+	/*--colour-text-light: hsla(30, 10%, 96%, 1.0);*/
+	/*--colour-text-dark: hsla(177, 8%, 20%, 1.0);*/
+
+
+	
+
+	/*--colour-error: hsla(1, 35%, 80%, 1.0);*/
+
+}
+
+
+
+
+.colour-bg {
+	background-color: var( --colour );
+}
+.colour-bg-inv {
+	background-color: var( --colour-inv );
+}
+.colour-bg-accent {
+	background-color: var( --colour-accent ) !important;
+}
+.colour-bg-accent-alt {
+	background-color: var( --colour-accent-alt ) !important;
+}
+.colour-bg-shade {
+	opacity: 0.7;
+	background-color: var( --colour-shade );	
+}
+
+
+.colour-fill-bg {
+	color: var( --colour );
+	fill: var( --colour );
+}
+.colour-fill-bg-inv {
+	color: var( --colour-inv );
+	fill: var( --colour-inv );
+}
+.colour-fill-accent {
+	color: var( --colour-accent ) !important;
+	fill: var( --colour-accent ) !important;
+}
+.colour-fill-accent-alt {
+	color: var( --colour-accent-alt ) !important;
+	fill: var( --colour-accent-alt ) !important;
+}
+.colour-fill-shade {
+	color: var( --colour-shade );
+	fill: var( --colour-shade );
+}
+
+
+
+.colour-fill-positive{
+	color: var( --colour-positive );
+	fill: var( --colour-positive );	
+}
+.colour-bg-positive{
+	background-color: var( --colour-positive );
+}
+
+.colour-fill-negative{
+	color: var( --colour-negative );
+	fill: var( --colour-negative );	
+}
+.colour-bg-negative{
+	background-color: var( --colour-negative );
+}
+
+
+

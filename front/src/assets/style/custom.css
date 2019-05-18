@@ -1,0 +1,38 @@
+
+:root {
+
+	/*--colour: hsl(310,40%,14%);
+	--colour-inv: hsla(40,35%,80%,1);
+	--colour-accent: hsla(180,65%,40%,1);
+	--colour-accent-alt: hsla(0,75%,60%,1);
+	
+	--colour-button: hsla(33,20%,15%,1);
+*/
+
+	--colour-shadow: hsla(40,25%,70%,.33);
+}
+
+.header {
+	position: relative;
+	background-color: var(--colour-inv);
+	color: var(--colour);
+	transform: skewY(-4deg);
+	margin: 2rem 0;
+
+
+	-webkit-box-shadow: 0px 20px 30px -10px var(--colour-shadow);
+	-moz-box-shadow: 0px 20px 30px -10px var(--colour-shadow);
+	box-shadow: 0px 20px 30px -10px var(--colour-shadow);
+}
+
+.header.custom{
+	text-decoration-line:underline;
+	font-size:2.5rem;
+}
+
+.front-fit-half {
+	display: inline-block;
+	width: 40vw;
+}
+
+

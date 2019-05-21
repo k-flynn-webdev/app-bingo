@@ -20,7 +20,7 @@
 				v-on:change=onValidate_name
 				required>
 
-				<div class="result"></div>
+				<c-field-result></c-field-result>
 
 		</div>
 
@@ -43,19 +43,26 @@
 
 			</span>
 
-			<textarea 
-				class="text colour-fill-bg-inv text-input"
-				style="height: 5.5rem;border-bottom: 1px solid var( --colour-inv );"
-				ref="words"
-				type="string"
-				placeholder="Separate with , new line or use the +" 
-				v-model=form.word_string
-				v-on:change=words_update		
-				required>
+			<div 
+				class="field-alt"
+				ref="wordsParent">
 
-				<!-- <div class="result"></div> -->
+					<textarea 
+						class="text colour-fill-bg-inv text-input"
+						style="height: 5.5rem;border-bottom: 1px solid var( --colour-inv );"
+						ref="words"
+						type="string"
+						placeholder="Separate with , new line or use the +" 
+						v-model=form.word_string
+						v-on:change=words_update
+						required>				
 
-			</textarea>
+					</textarea>
+
+					<c-field-result></c-field-result>
+
+			</div>
+			
 
 
 		</div>
@@ -99,6 +106,7 @@
 	import Panel from '../components/c_panel.vue';
 	// import Message from '../components/c_message.vue';
 	import Tag from '../components/c_tag.vue';
+	import FieldResult from '../components/c_field_result.vue';
 
 	import { submit } from '../mixins/h_submit.js';
 
@@ -165,17 +173,17 @@
 
 			onValidate_words : function(){
 				if( this.form.word_string.length === 0) {
-					this.$refs.words.className = 'text-area';
+					this.$refs.wordsParent.className = 'field-alt';
 					return false;
 				}
 				return this.onValidate_words_check();
 			},
 			onValidate_words_check : function(){
 				if( this.form.word_string.length > this.min_word_length ){
-					this.$refs.words.className = 'text-area pass';
+					this.$refs.wordsParent.className = 'field-alt pass';
 					return true;
 				} else {
-					this.$refs.words.className = 'text-area fail';
+					this.$refs.wordsParent.className = 'field-alt fail';
 					return false;
 				}
 			},
@@ -247,6 +255,7 @@
 			'c-panel' : Panel,
 			// 'c-message' : Message,
 			'c-tag' : Tag,
+			'c-field-result' : FieldResult,
 		},		
 }
 </script>
@@ -259,37 +268,7 @@
 	border-bottom: 1px solid transparent;
 }
 
-.field .result{
-	position: absolute;
-	left: 0;
-	bottom: -6px;
-	width: 100%;
-	height: 5px;
-	transform: scaleY(0);
-	transition: .33s;
-}
-.field.pass .result{
-	transform: scaleY(1);
-	background-color: var( --colour-positive );
-}
-.field.fail .result{
-	transform: scaleY(1);
-	background-color: var( --colour-negative );
-	animation: anim-error 1 .6s ease-out;
-}
-.field.fail{
-	animation: anim-error 1 .6s ease-out;
-}
 
-@keyframes anim-error {
-	0% { transform: translateX(0); }
-	7% { transform: translateX(-.5rem) skewX(5deg); }
-	20% { transform: translateX(.4rem) skewX(-4deg); }
-	40% { transform: translateX(-.3rem) skewX(3deg); }
-	60% { transform: translateX(.2rem) skewX(-2deg); }
-	80% { transform: translateX(-.1rem) skewX(1deg); }
-	100% { transform: translateX(0); }
-}
 
 .add-btn {
 }

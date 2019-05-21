@@ -12,7 +12,7 @@
 			@submit.prevent="onSubmit">
 
 				<c-account-input 
-					v-bind:Input=AccountInfo>
+					v-bind:input=form>
 				</c-account-input>
 				<c-button 
 					v-bind:progress=progress> 
@@ -69,10 +69,10 @@
 					waiting : false, 
 					success : false, 
 					error : false },	
-				AccountInfo : {
-					Name : { show : true, isRequired : true, value : '' },
-					Email : { show : true, isRequired : true, value : '' },
-					Password : { show : true, isRequired : true, value : '' },
+				form : {
+					name : { show : true, isRequired : true, value : '' },
+					email : { show : true, isRequired : true, value : '' },
+					password : { show : true, isRequired : true, value : '' },
 				}								
 			}
 		},

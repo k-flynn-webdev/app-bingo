@@ -6,8 +6,7 @@
 		v-bind:class=get_state>		
 
 		<div v-bind:class=get_message>
-			
-		
+
 			<p 
 				class="text colour-fill-bg label"> 
 				<slot> 
@@ -30,8 +29,7 @@
 
 			</div>
 
-
-			</div>
+		</div>
 
 	</button>
 
@@ -255,10 +253,10 @@
 	}	
 
 	.button.is-success{
-		background-color: var( --colour-text-positive );
+		background-color: var( --colour-positive );
 	}	
 	.button.is-error{
-		background-color: var( --colour-text-negative );
+		background-color: var( --colour-negative );
 	}
 
 </style>

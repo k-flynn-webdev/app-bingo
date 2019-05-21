@@ -1,6 +1,6 @@
 <template>
 
-	<div class="tag text colour-dark colour-text-light text-small">
+	<div class="tag text colour-fill-bg-inv">
 		<slot>
 			new tag
 		</slot>

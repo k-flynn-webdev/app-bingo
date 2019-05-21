@@ -8,7 +8,7 @@
 
 		<div 
 			ref="name"
-			class="field">
+			class="field field-result">
 			
 			<p class="text label colour-fill-bg-inv"> Name: </p>
 			<input 
@@ -16,15 +16,16 @@
 				
 				type="string"
 				placeholder="Board Name here" 
-				v-model=form.name_string
-				v-on:change=onValidate_name
+				v-model=input.name.value
+				v-on:change=validate_name
 				required>
 
-				<c-field-result></c-field-result>
+			<c-field-result>
+			</c-field-result>
 
 		</div>
 
-		<div class="field-column">
+		<div class="field-column ">
 			
 			<span class="label">
 
@@ -44,22 +45,23 @@
 			</span>
 
 			<div 
-				class="field-alt"
+				class="field field-result"
 				ref="wordsParent">
 
 					<textarea 
 						class="text colour-fill-bg-inv text-input"
-						style="height: 5.5rem;border-bottom: 1px solid var( --colour-inv );"
+						style="height: 5.5rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
 						ref="words"
 						type="string"
 						placeholder="Separate with , new line or use the +" 
-						v-model=form.word_string
-						v-on:change=words_update
-						required>				
+						v-model=input.words.value
+						v-on:change=validate_words
+						required>
 
 					</textarea>
 
-					<c-field-result></c-field-result>
+					<c-field-result>
+					</c-field-result>
 
 			</div>
 			
@@ -69,7 +71,7 @@
 
 		<br>
 
-		<div slot="footer">
+		<!-- <div slot="footer">
 
 			<div class="br-small"></div>
 
@@ -86,13 +88,13 @@
 
 			</div>
 
-		</div> 
+		</div>  -->
 
- 			<c-button 
+ 			<!-- <c-button 
  				ref="btnSubmit"
  				v-bind:onClick=onCreate>
  				Create
- 			</c-button>
+ 			</c-button> -->
 
 			<!-- <c-message ref="msgSubmit"></c-message> -->
 
@@ -104,11 +106,13 @@
 
 	import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
-	// import Message from '../components/c_message.vue';
+
 	import Tag from '../components/c_tag.vue';
-	import FieldResult from '../components/c_field_result.vue';
 
 	import { submit } from '../mixins/h_submit.js';
+
+	import Validate from '../helpers/h_validate_input.js';
+	import FieldResult from '../components/c_field_result.vue';
 
 
 	export default {
@@ -117,25 +121,34 @@
 		data(){
 			return {
 				attrs : {
+					word : {
+						min : 3,
+					},
 					server : {
 						max_timeouts : 5,
 						timing : 1500,
 					},
 					action : Object,
-				},	
+				},
+
 				state : {
 					init : false,
 					timeouts : 0,
 				},
-				form : {
-					name_string : '',
-					word_string : '',
+
+				input : {
+					name : {
+						value : '',
+					},
+					words : {
+						value : ''
+					},
 				},
-				words : [],		
-				min_word_length : 3,
+
 			}
 		},
 		methods:{
+			
 			init : function( urls ){
 				if( !this.state.init ){
 					let object = {
@@ -153,95 +166,125 @@
 			},
 
 
-			onValidate_name : function(){
-				if( this.form.name_string.length === 0) {
-					this.$refs.name.className = 'field';
-					return false;
-				}
+			validate_name : function(){
+				let model = this.input.name.value;
+				let elementClass = this.$refs.name;
 
-				return this.onValidate_name_check();
-			},
-			onValidate_name_check : function(){
-				if( this.form.name_string.length > this.min_word_length ){
-					this.$refs.name.className = 'field pass';
-					return true;
-				} else {
-					this.$refs.name.className = 'field fail';
-					return false;
-				}
+				let result = Validate.length( model, 5, 30 );
+
+				this.validate_result( result, elementClass );
 			},
 
-			onValidate_words : function(){
-				if( this.form.word_string.length === 0) {
-					this.$refs.wordsParent.className = 'field-alt';
-					return false;
-				}
-				return this.onValidate_words_check();
-			},
-			onValidate_words_check : function(){
-				if( this.form.word_string.length > this.min_word_length ){
-					this.$refs.wordsParent.className = 'field-alt pass';
-					return true;
-				} else {
-					this.$refs.wordsParent.className = 'field-alt fail';
-					return false;
-				}
-			},
-			validate_reset : function(){
-				let self = this;
-				setTimeout( function(){
-					if( !self.onValidate_name_check() ){
-						self.$refs.name.className = 'text-area';	
-					}
-					if( !self.onValidate_words_check() ){
-						self.$refs.words.className = 'text-area';	
-					}
-				}, self.attrs.server.timing );
+			validate_words : function(){
+				let model = this.input.words.value;
+				let elementClass = this.$refs.wordsParent;
+
+				let result = Validate.length( model, 5 );
+
+				this.validate_result( result, elementClass );
 			},
 
-			onCreate : function( event ){
-				if( 
-					this.attrs.action.url !== undefined 
-					&& this.onValidate_name_check()
-					&& this.onValidate_words_check() ){
 
-					this.attrs.action.body.name = this.form.name_string;
-					this.attrs.action.body.words = this.form.word_string;
 
-					let self = this;	
-					this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+			validate_result : function( test, element ){
+				if( test === null ){
+					this.set_element_default( element );
+					return;
+				}
+				if( !test ){
+					this.set_element_fail( element );
+					return;
+				}
 
-				} else {
-					this.validate_reset();
+				if( test ){
+					this.set_element_pass( element );
+					return;
 				}
 			},
-			onSuccess : function( input ){
-				let self = this;
-				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );				
-				setTimeout( function(){
-					self.$router.push( '/board/' +  input.data.url);
-				}, 3000 );
+
+			set_element_default : function( element ){
+				return element.className = 'field field-result';
 			},
-			onError : function( input ){
-				if( this.state.timeouts < this.attrs.server.max_timeouts ){
-					let self = this;
-					setTimeout( function(){
-						self.state.timeouts +=1
-						self.onSubmit();
-					}, self.attrs.server.timing );
-				}
+			set_element_pass : function( element ){
+				return element.className = 'field field-result pass';
 			},
+			set_element_fail : function( element ){
+				return element.className = 'field field-result fail';
+			},
+
+
+
+			// onValidate_words : function(){
+			// 	if( this.form.word_string.length === 0) {
+			// 		this.$refs.wordsParent.className = 'field-alt';
+			// 		return false;
+			// 	}
+			// 	return this.onValidate_words_check();
+			// },
+			// onValidate_words_check : function(){
+			// 	if( this.form.word_string.length > this.min_word_length ){
+			// 		this.$refs.wordsParent.className = 'field-alt pass';
+			// 		return true;
+			// 	} else {
+			// 		this.$refs.wordsParent.className = 'field-alt fail';
+			// 		return false;
+			// 	}
+			// },
+			// validate_reset : function(){
+			// 	let self = this;
+			// 	setTimeout( function(){
+			// 		if( !self.onValidate_name_check() ){
+			// 			self.$refs.name.className = 'text-area';	
+			// 		}
+			// 		if( !self.onValidate_words_check() ){
+			// 			self.$refs.words.className = 'text-area';	
+			// 		}
+			// 	}, self.attrs.server.timing );
+			// },
+
+			// onCreate : function( event ){
+			// 	if( 
+			// 		this.attrs.action.url !== undefined 
+			// 		&& this.onValidate_name_check()
+			// 		&& this.onValidate_words_check() ){
+
+			// 		// this.attrs.action.body.name = this.form.name_string;
+			// 		// this.attrs.action.body.words = this.form.word_string;
+
+			// 		let self = this;	
+			// 		this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+
+			// 	} else {
+			// 		this.validate_reset();
+			// 	}
+			// },
+			// onSuccess : function( input ){
+			// 	let self = this;
+			// 	self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+			// 	setTimeout( function(){
+			// 		self.$router.push( '/board/' +  input.data.url);
+			// 	}, 3000 );
+			// },
+			// onError : function( input ){
+			// 	if( this.state.timeouts < this.attrs.server.max_timeouts ){
+			// 		let self = this;
+			// 		setTimeout( function(){
+			// 			self.state.timeouts +=1
+			// 			self.onSubmit();
+			// 		}, self.attrs.server.timing );
+			// 	}
+			// },
 
 			words_add : function(){
-				this.form.word_string += ',\n';
+				this.input.words.value += ',\n';
 				this.$refs.words.focus();
 			},
 			words_update : function(){
-				this.onValidate_words();
+				// this.onValidate_words();
 				this.words = [];
-				let temp = this.form.word_string.split(/[,\n\r]+/);
+				let temp = this.input.words.value.split(/[,\n\r]+/);
 				for( let count=0;count<temp.length;count++){
-					if( temp[count].length >= this.min_word_length){
+					if( temp[count].length >= this.attrs.word.min){
 						this.words.push( temp[count] );
 					}
 				}

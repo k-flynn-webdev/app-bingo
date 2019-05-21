@@ -139,9 +139,9 @@ button, .button {
 	padding: 0 0.66rem;
 	position: relative;
 }
-button:hover, .button:hover {
+/*button:hover, .button:hover {
 	transform: scale(1.085);
-}
+}*/
 
 
 .border {

@@ -85,10 +85,23 @@
 				},
 
 				form : {
-					name : { show : true, isRequired : true, value : '' },
-					email : { show : true, isRequired : true, value : '' },
-					password : { show : true, isRequired : true, value : '' },
-				}				
+					name : { 
+						show : true, 
+						isRequired : true, 
+						value : '',
+					},
+					email : { 
+						show : true, 
+						isRequired : true, 
+						value : '',
+					},
+					password : { 
+						show : true, 
+						isRequired : true, 
+						value : '',
+					},
+					validate : true,
+				},			
 			}
 		},
 	

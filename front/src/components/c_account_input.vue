@@ -23,7 +23,8 @@
 				v-bind:required=input.name.isRequired
 				v-on:change=validate_name>
 
-			<c-field-result></c-field-result>
+			<c-field-result>
+			</c-field-result>
 
 		</div>
 
@@ -45,7 +46,8 @@
 				v-bind:required=input.email.isRequired
 				v-on:change=validate_email>
 
-			<c-field-result></c-field-result>
+			<c-field-result>
+			</c-field-result>
 
 		</div>
 
@@ -69,7 +71,8 @@
 				v-bind:required=input.password.isRequired
 				v-on:change=validate_password>
 
-			<c-field-result></c-field-result>
+			<c-field-result>
+			</c-field-result>
 
 		</div>
 
@@ -99,6 +102,7 @@
 				name : Object,
 				email : Object,
 				password : Object,
+				validate : Boolean,
 			}
 		},
 		computed: {
@@ -145,6 +149,9 @@
 			},
 
 			validate_name : function(){
+				if( !this.input.validate ){
+					return;
+				}
 				let model = this.input.name.value;
 				let elementClass = this.$refs.field_name;
 
@@ -153,6 +160,9 @@
 				this.validate_result( result, elementClass );
 			},
 			validate_email : function(){
+				if( !this.input.validate ){
+					return;
+				}
 				let model = this.input.email.value;
 				let elementClass = this.$refs.field_email;
 				let result = Validate.email( model );
@@ -160,6 +170,9 @@
 				this.validate_result( result, elementClass );	
 			},
 			validate_password : function(){
+				if( !this.input.validate ){
+					return;
+				}			
 				let model = this.input.password.value;
 				let elementClass = this.$refs.field_password;
 				let result = Validate.length( model, this.attrs.password, 100 );

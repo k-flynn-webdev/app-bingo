@@ -64,7 +64,7 @@
 
 	export default {
 		name: 'Login',
-		mixins: [ submit ],		
+		mixins: [ submit ],
 		data(){
 			return {
 				attrs : {
@@ -72,7 +72,7 @@
 						max : 30,
 						name : 3,
 						password : 7,
-					},					
+					},
 					server : {
 						max_timeouts : 5,
 						timing : 1500,
@@ -85,10 +85,23 @@
 				},
 
 				form : {
-					name : { show : false, isRequired : false, value : '' },
-					email : { show : true, isRequired : true, value : '' },
-					password : { show : true, isRequired : true, value : '' },
-				}				
+					name : { 
+						show : false, 
+						isRequired : false, 
+						value : '',
+					},
+					email : { 
+						show : true, 
+						isRequired : true, 
+						value : '',
+					},
+					password : { 
+						show : true, 
+						isRequired : true, 
+						value : '',
+					},
+					validate : false,
+				},
 			}
 		},
 	

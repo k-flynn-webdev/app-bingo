@@ -1,23 +1,27 @@
 <template>
 
 	<c-panel>
-		<div slot="header">
+		<template slot="header">
 			Account Logout
-		</div>
+		</template>
 
 		<form 
 			class="form" 
 			action="/api/account/logout" 
 			method ="POST" 
-			@submit.prevent="onSubmit">
+			@submit.prevent="onLogout">
+				
+				<c-message 
+					ref="msgSubmit"
+					class="colour-fill-bg-inv">		
+				</c-message>
+
+				<br>
 
 				<c-button 
-					v-bind:progress=progress> 
-				</c-button>	
-
-			<c-message ref="messageBtn">
-			</c-message>
-
+					ref="btnSubmit">
+					Logout
+				</c-button>
 
 		</form>
 
@@ -31,61 +35,88 @@
 	import Panel from '../components/c_panel.vue';
 	import Message from '../components/c_message.vue';
 
+	import { submit } from '../mixins/h_submit.js';
+
 	export default {
 		name: 'Logout',
+		mixins: [ submit ],		
 		data(){
-			return {			
-				progress : { 
-					waiting : false, 
-					success : false, 
-					error : false },				
+			return {
+				attrs : {				
+					server : {
+						max_timeouts : 5,
+						timing : 1500,
+					},
+					action : Object,
+				},	
+				state : {
+					init : false,
+					timeouts : 0,
+				},			
 			}
 		},
-		created(){
-		},		
+	
 		methods:{
-			button_reset : function(){
-				let self = this;
-				setTimeout( function(){
-					self.progress.waiting = false;
-					self.progress.success = false;
-					self.progress.error = false;
-				}, 1000);
+
+			init : function(){
+				if( !this.state.init ){
+					let object = {
+						url : ('/api/account/logout' ),
+						method : 'POST',
+						JSON : false,
+						body : {
+						},
+					};
+					this.attrs.action = object;
+					this.state.init = true;
+				}
 			},
-			onSubmit : function( event ){
-				this.progress.waiting = true;
+
+			onLogout : function( event ){
+
+				let self = this;	
+				this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+
+			},
+			onSuccess : function( input ){
 				let self = this;
-				this.$request.request_url_form( event, function(error, result){
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'GoodBye!' );
+				self.$store.dispatch('user/logout_success', '');
+				self.logout();
+				
+			},
+			onError : function( input ){
 
-					self.button_reset();
+				if( this.state.timeouts < this.attrs.server.max_timeouts ){
 
-					if( error ){
-						self.progress.error = true;
-						self.$refs.messageBtn.$emit('message', { class : 'error text-negative', message : error.message });
+					this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
 
-						// todo future retry if its server issue?
-						// else spawn a message
-						self.logout();
+					if( input.status !== 408 ){
 						return;
 					}
 
-					self.progress.success = true;
-					self.$refs.messageBtn.$emit('message', { class : 'success text-positive', message : result.message });
-					self.logout();
-				});
+					let self = this;
+					setTimeout( function(){
+						self.state.timeouts +=1
+						self.onSubmit(self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+					}, self.attrs.server.timing );
+				}
 			},
 			logout : function(){
 				let self = this;
 				setTimeout( function(){
-					self.$store.dispatch('user/logout_success', '');
 					self.$router.push( '/' );
-				}, 1000);
-			},
+				}, 2000);
+			},			
+
+		},
+		mounted(){
+			this.init();
 		},
 		components: {
 			'c-button' : Button,
+			'c-message' : Message,
 			'c-panel' : Panel,
-			'c-message' : Message,			
 		},		
 }
 </script>

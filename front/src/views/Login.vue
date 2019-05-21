@@ -127,11 +127,11 @@
 			},
 			onSuccess : function( input ){
 				let self = this;
-				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Hello!' );
 				self.$store.dispatch('user/login_success', input.token);
-				// setTimeout( function(){
-				// 	self.$router.push( '/board/' +  input.data.url);
-				// }, 3000 );
+				setTimeout( function(){
+					self.$router.push( '/');
+				}, 2000 );
 			},
 			onError : function( input ){
 
@@ -150,11 +150,6 @@
 					}, self.attrs.server.timing );
 				}
 			},
-
-
-
-
-
 
 
 		},

@@ -57,6 +57,7 @@
 
 	import { submit } from '../mixins/h_submit.js';
 
+	import Validate from '../helpers/h_validate_input.js';
 
 	export default {
 		name: 'Login',
@@ -107,20 +108,22 @@
 
 
 			onLogin : function( event ){
-				if( 
-					this.attrs.action.url !== undefined 
-					&& this.onValidate_name_check()
-					&& this.onValidate_words_check() ){
 
-					this.attrs.action.body.name = this.form.name_string;
-					this.attrs.action.body.words = this.form.word_string;
 
-					let self = this;	
-					this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+				// if( 
+				// 	this.attrs.action.url !== undefined 
+				// 	&& this.onValidate_name_check()
+				// 	&& this.onValidate_words_check() ){
 
-				} else {
-					this.validate_reset();
-				}
+				// 	this.attrs.action.body.name = this.form.name_string;
+				// 	this.attrs.action.body.words = this.form.word_string;
+
+				// 	let self = this;	
+				// 	this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+
+				// } else {
+				// 	this.validate_reset();
+				// }
 			},
 			onSuccess : function( input ){
 				let self = this;

@@ -1,6 +1,9 @@
 <template>
 
-	<div class="result"></div>
+	<div class="result">
+		<div class="result-pass"></div>
+		<div class="result-fail"></div>
+	</div>
 
 </template>
 
@@ -20,17 +23,40 @@ export default {
 	bottom: -6px;
 	width: 100%;
 	height: 5px;
-	transform: scaleY(0) scaleX(0);
-	transition: 1s;
+	overflow: hidden;
+	opacity: 0;
+	transition: .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
 }
 
-.field-result.pass .result {
-	transform: scaleY(1) scaleX(1);
+
+.result .result-fail, .result .result-pass{
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	transform: translateX(-110%);
+	transition: .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
+	z-index: 1;
+}
+
+.result .result-pass{
 	background-color: var( --colour-positive );
 }
-.field-result.fail .result {
-	transform: scaleY(1) scaleX(1);
+.result .result-fail{
 	background-color: var( --colour-negative );
+}
+
+.field-result.pass .result{
+	opacity: 1;
+}
+.field-result.fail .result{
+	opacity: 1;
+}
+
+.field-result.pass .result-pass {
+	transform: translateX(0);
+}
+.field-result.fail .result-fail {
+	transform: translateX(0);
 }
 .field-result.fail {
 	animation: anim-error 1 .6s ease-out;

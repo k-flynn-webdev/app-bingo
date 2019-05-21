@@ -1,95 +1,188 @@
-
 <template>
 
 	<button 
 		class="button fade-in" 
 		v-on:click=clicked
-		v-bind:class="{ 'is-loading' : waiting, 'is-success' : success, 'is-error' : error }">
+		v-bind:class=get_state>		
 
-			<p class="text text-light"> 
+		<div v-bind:class=get_message>
+
+			<p 
+				class="text colour-fill-depends label"> 
 				<slot> 
 				 	Submit 
 				</slot> 
 			</p> 
 
-			<span class="loading" ></span>
-			<span class="loading" ></span>
-			<span class="loading" ></span>	
+			<p 
+				class="text colour-fill-depends text-bold message">
+					{{ obj.message }} 
+			</p>
+
+			<div 
+				class="anim-container"
+				v-bind:class=get_strobes>
+				
+					<span class="strobe delay-5" ></span>
+					<span class="strobe delay-5" ></span>
+					<span class="strobe delay-5" ></span>
+
+			</div>
+
+		</div>
 
 	</button>
 
 </template>
 
 <script>
+
 	export default {
 		name: 'cButton',
+		data(){
+			return {
+				obj : { 
+					state : '', 
+					strobes : false,
+					hasMessage : false,
+					message : '',
+				},
+				time : {
+					min : 1500,
+					message : 5000,
+				},
+			}
+		},	
 		props: {
 			onClick : Function,
-			progress : Object,
 		},
 		computed : {
-			success : function(){
-				if( this.progress !== undefined ){
-					if( this.progress.success !== undefined ){
-						return this.progress.success;
-					}					
-				}
-				return false;
-			},			
-			waiting : function(){
-				if( this.progress !== undefined ){
-					if( this.progress.waiting !== undefined ){
-						return this.progress.waiting;
-					}					
-				}
-				return false;
+			get_state : function(){
+				return this.obj.state;
 			},
-			error : function(){
-				if( this.progress !== undefined ){
-					if( this.progress.error !== undefined ){
-						return this.progress.error;
-					}					
+			get_strobes : function(){
+				if( this.obj.strobes ){
+					return 'is-active';
 				}
-				return false;
-			},	
+				return '';
+			},
+			get_message : function(){
+				if( this.obj.hasMessage ){
+					return 'msg-is-active';
+				}
+				return '';				
+			},
 		},
 		methods : {
+			set_state : function( input, message ){
+
+				if( input === 'waiting' ){
+					this.obj.state = 'is-waiting';
+					// trigger strobes ...
+					this.set_strobes(true);
+				}
+
+				if( input === 'success' ){
+					this.obj.state = 'is-success';
+					this.set_strobes(false);
+				}
+				if( input === 'error' ){
+					this.obj.state = 'is-error';
+					this.set_strobes(false);
+				}
+				if( input === '' || input === 'reset' ){
+					let self = this;
+					self.set_strobes(false);
+					setTimeout( function(){
+						self.obj.state = '';
+					}, self.time.min );
+				}
+
+				if( input === 'message' ){
+					this.message_set( message );
+				}
+			},
+
+			set_strobes : function( mode ){
+				if( mode ){
+					let self = this;
+					setTimeout( function(){
+						// are we still waiting?
+						if( self.obj.state === 'is-waiting' ){
+							self.obj.strobes = true;	
+						}
+					}, 350);
+				} else {
+					this.obj.strobes = false;	
+				}
+			},
+			message_set : function( input ){
+				this.obj.message = input;
+				this.obj.hasMessage = true;
+				this.message_reset();
+			},
+			message_reset : function(){
+				let self =this;
+				setTimeout( function(){
+					self.obj.hasMessage = false;
+				}, self.time.message );	
+			},
 			clicked : function(){
 				if( this.onClick !== undefined ){
 					this.onClick();
 				}
-			},
-		
+			},			
 		},
-	}
+		mounted(){	
+			this.$on('state', this.set_state );	
+		},
+		beforeDestroy(){
+			this.$off('state', this.set_state );	
+		},		
+		components: {
+		},
+}
+
 </script>
 
 <style>
-	
-	div button:nth-child(1), div .button:nth-child(1){
-		animation-delay: 0.1s;
-	}
-	div button:nth-child(2), div .button:nth-child(2){
-		animation-delay: 0.2s;
-	}
-	div button:nth-child(3), div .button:nth-child(3){
-		animation-delay: 0.3s;
-	}
-	div button:nth-child(4), div .button:nth-child(4){
-		animation-delay: 0.4s;
-	}
 
-	.button{
-		/*overflow: hidden;*/
+
+
+	.button {
+		overflow: hidden;
 		box-sizing: border-box;
 		border-radius: 0.3rem; 
 		padding: 0 0.66rem;
-		background-color: var( --colour-button );
+		position: relative;
 	}
 
 	.button p {
+		position: relative;
+		z-index: 1;
 		transition: 0.5s;
 	}
+
+	.button .message {
+		position: absolute;
+		top: -1.9rem;
+		opacity: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transition: 0.5s;
+	}
+
+	.button .msg-is-active .message{
+		transform: translateY(2rem);
+		opacity: 1;
+	}
+
+	.button .msg-is-active .label{
+		transform: translateY(2rem);
+		opacity: 0;
+	}
+
 	
 	.button.is-loading{
 
@@ -106,54 +199,72 @@
 		opacity: 0.75;
 	}
 
-	.button .loading{
+	.anim-container {
 		position: absolute;
-		top: -0.8rem;
-		left: -1rem;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		z-index: 0;
-		display: inline;
-		height: 3rem;
-		width: 1rem;		
-		background-color: white;
 		opacity: 0;
-		transition: 1s;
-		transform: skew(20deg) translateX(-1rem);
+		transition: .33s;
+		overflow: hidden;
+	}
+	.anim-container.is-active {
+		opacity: 1;
 	}
 
-@keyframes is-loading-anim {
-	0% { transform: skew(20deg) translateX(-.4rem); }
-	100% { transform: skew(20deg) translateX(6.6rem);  }
+	.button .strobe{
+		position: absolute;
+		left: 0;
+		top: 0;
+		
+		width: 100%;
+		height: 100%;
+
+		opacity: 0;
+		display: inline;
+		background-color: white;
+		transform: scaleX(.3) skew(-33deg) translateX(-210%);
+	}
+
+@keyframes is-waiting-anim {
+	0% { 
+		opacity: 0; 
+		transform: scaleX(.3) skew(-33deg) translateX(-210%);
+	}
+	45% { 
+		opacity: 0.5; 
+	}
+	80% {
+		opacity: 0; 
+	}
+	100% { 
+		transform: scaleX(.3) skew(-33deg) translateX(210%);
+	}
 }
 
-	.button.is-loading .loading{
-		opacity: 0.5;
-		animation: is-loading-anim 1.5s ease infinite;	
+	.button.is-waiting .strobe, .button.is-success .strobe, .button.is-error .strobe{
+		animation-name: is-waiting-anim;
+		animation-duration: 1.5s;
+		animation-timing-function: ease;
+		animation-iteration-count: infinite;
 	}
 
-	.button.is-success .loading{
-		opacity: 0.75;	
-		animation: is-loading-anim 1.5s ease infinite;	
-	}
-	.button.is-error .loading{
-		opacity: 0.75;	
-		animation: is-loading-anim 1.5s ease infinite;	
-	}
-
-	.button .loading:nth-child(1){
-		animation-delay: 0;
+	.button.is-success {
+		background-color: var( --colour-positive );
 	}	
-	.button .loading:nth-child(2){
-		animation-delay: 0.4s;
-	}
-	.button .loading:nth-child(3){
-		animation-delay: 0.75s;
+	.button.is-error {
+		background-color: var( --colour-negative );
 	}
 
-	.button.is-success{
-		background-color: var( --colour-text-positive );
+
+	.colour-fill-depends {
+		color: var( --colour );
 	}
-	.button.is-error{
-		background-color: var( --colour-text-negative );
-	}
+	.is-error .colour-fill-depends {
+		color: var( --colour-inv );
+	}	
 
 </style>
+

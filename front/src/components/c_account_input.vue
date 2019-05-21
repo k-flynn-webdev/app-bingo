@@ -1,10 +1,7 @@
 <template>
 
 	<div 
-		class="account-input"
-		v-bind:form-name=form.name
-		v-bind:form-email=form.email
-		v-bind:form-password=form.password>
+		class="account-input">
 
 		<div 
 			v-if=NameShow 
@@ -17,7 +14,7 @@
 			</p>
 			<input 
 				class="text colour-fill-bg-inv text-input" 
-				v-model=form.name
+				v-model=input.name.value
 				type="string" 
 				name="name" 
 				v-bind:pattern=name_pattern
@@ -41,10 +38,10 @@
 			</p>
 			<input 
 				class="text colour-fill-bg-inv text-input" 
-				v-model=form.email
+				v-model=input.email.value
 				type="email" 
 				name="email" 
-				placeholder="Email" 
+				placeholder="Email"
 				v-bind:required=input.email.isRequired
 				v-on:change=validate_email>
 
@@ -63,7 +60,7 @@
 			</p>
 			<input 
 				class="text colour-fill-bg-inv text-input" 
-				v-model=form.password
+				v-model=input.password.value
 				type="password" 
 				name="password"
 				placeholder="Password" 
@@ -94,12 +91,6 @@
 					max : 30,
 					name : 3,
 					password : 7,
-				},
-				form : {
-					name : '',
-					email : '',
-					password : '',
-					state : false,
 				},
 			}
 		},
@@ -135,45 +126,26 @@
 				return pattern;
 			},			
 			name_title : function(){
-				let title = "password must be between " + this.attrs.password + " and " + this.attrs.max + " characters long."
+				let title = "name must be between " + this.attrs.password + " and " + this.attrs.max + " characters long."
 				return title;
 			},
 
 			password_pattern : function(){
 				let pattern = '.{' + this.attrs.password + ',' + '}';
 				return pattern;
-			},			
+			},
 			password_title : function(){
-				let title = "password must be " + this.attrs.password + " characters long."
+				let title = "password must be atleast " + this.attrs.password + " characters long."
 				return title;
 			},
 		},
 		methods : {
+			
 			init : function(){
-				if( this.NameShow ){
-					this.form.name = this.input.name.value;
-				}
-				if( this.EmailShow ){
-					this.form.email = this.input.email.value;
-				}
-				if( this.PasswordShow ){
-					this.form.password = this.input.password.value;
-				}
 			},
 
-			// pattern : function( type ){
-			// 	console.log( type );
-			// 	if( type === 'name' ){
-			// 		return { this.attrs.name, this.attrs.max };
-			// 	}
-			// 	if( type === 'password' ){
-			// 		console.log( { this.attrs.password, this.attrs.max } );
-			// 		return { this.attrs.password, this.attrs.max };
-			// 	}
-			// },
-
 			validate_name : function(){
-				let model = this.form.name;
+				let model = this.input.name.value;
 				let elementClass = this.$refs.field_name;
 
 				let result = Validate.length( model, this.attrs.name, this.attrs.max );
@@ -181,14 +153,14 @@
 				this.validate_result( result, elementClass );
 			},
 			validate_email : function(){
-				let model = this.form.email;
+				let model = this.input.email.value;
 				let elementClass = this.$refs.field_email;
 				let result = Validate.email( model );
 
 				this.validate_result( result, elementClass );	
 			},
 			validate_password : function(){
-				let model = this.form.password;
+				let model = this.input.password.value;
 				let elementClass = this.$refs.field_password;
 				let result = Validate.length( model, this.attrs.password, 100 );
 
@@ -201,13 +173,11 @@
 					return;
 				}
 				if( !test ){
-					this.form.state = false;
 					this.set_element_fail( element );
 					return;
 				}
 
 				if( test ){
-					this.form.state = true;
 					this.set_element_pass( element );
 					return;
 				}

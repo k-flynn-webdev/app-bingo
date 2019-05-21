@@ -102,7 +102,7 @@
 
 <script>
 
-	import Button from '../components/c_buttonNew.vue';
+	import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
 	// import Message from '../components/c_message.vue';
 	import Tag from '../components/c_tag.vue';

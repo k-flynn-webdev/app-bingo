@@ -15,14 +15,17 @@
 					v-bind:input=form>
 				</c-account-input>
 				
-				<c-message ref="messageBtn"></c-message>
+				<c-message 
+					ref="msgSubmit"
+					class="colour-fill-bg-inv">		
+				</c-message>
 
 				<br>
 
 				<c-button 
-					ref="btnSubmit"
-					v-bind:onClick=onLogin> 
-				</c-button>	
+					ref="btnSubmit">
+					Login
+				</c-button>
 
 		</form>
 
@@ -51,7 +54,7 @@
 <script>
 
 	import AccountInput from '../components/c_account_input.vue';
-	import Button from '../components/c_buttonNew.vue';
+	import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
 	import Message from '../components/c_message.vue';
 
@@ -65,6 +68,11 @@
 		data(){
 			return {
 				attrs : {
+					validate : {
+						max : 30,
+						name : 3,
+						password : 7,
+					},					
 					server : {
 						max_timeouts : 5,
 						timing : 1500,
@@ -74,12 +82,8 @@
 				state : {
 					init : false,
 					timeouts : 0,
-				},		
-				// progress : { 
-				// 	waiting : false, 
-				// 	success : false, 
-				// 	error : false 
-				// },				
+				},
+
 				form : {
 					name : { show : false, isRequired : false, value : '' },
 					email : { show : true, isRequired : true, value : '' },
@@ -87,8 +91,7 @@
 				}				
 			}
 		},
-		created(){
-		},		
+	
 		methods:{
 
 			init : function(){
@@ -96,8 +99,10 @@
 					let object = {
 						url : ('/api/account/login' ),
 						method : 'POST',
-						JSON : false,
+						JSON : true,
 						body : {
+							email : '',
+							password : '',
 						},
 					};
 					this.attrs.action = object;
@@ -106,38 +111,42 @@
 			},
 
 
-
 			onLogin : function( event ){
 
+				if( !Validate.email( this.form.email.value ) || 
+					!Validate.length( this.form.password.value, this.attrs.validate.password, 100 )){
+					return;
+				}
 
-				// if( 
-				// 	this.attrs.action.url !== undefined 
-				// 	&& this.onValidate_name_check()
-				// 	&& this.onValidate_words_check() ){
+				this.attrs.action.body.email = this.form.email.value;
+				this.attrs.action.body.password = this.form.password.value;
 
-				// 	this.attrs.action.body.name = this.form.name_string;
-				// 	this.attrs.action.body.words = this.form.word_string;
+				let self = this;	
+				this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
 
-				// 	let self = this;	
-				// 	this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-
-				// } else {
-				// 	this.validate_reset();
-				// }
 			},
 			onSuccess : function( input ){
 				let self = this;
-				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );				
-				setTimeout( function(){
-					self.$router.push( '/board/' +  input.data.url);
-				}, 3000 );
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+				self.$store.dispatch('user/login_success', input.token);
+				// setTimeout( function(){
+				// 	self.$router.push( '/board/' +  input.data.url);
+				// }, 3000 );
 			},
 			onError : function( input ){
+
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
+
+					this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
+
+					if( input.status !== 408 ){
+						return;
+					}
+
 					let self = this;
 					setTimeout( function(){
 						self.state.timeouts +=1
-						self.onSubmit();
+						self.onSubmit(self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
 					}, self.attrs.server.timing );
 				}
 			},
@@ -147,41 +156,7 @@
 
 
 
-			// button_reset : function(){
-			// 	let self = this;
-			// 	setTimeout( function(){
-			// 		self.progress.waiting = false;
-			// 		self.progress.success = false;
-			// 		self.progress.error = false;
-			// 	}, 1000);
-			// },	
-			// onSubmit : function( event ){
-			// 	this.progress.waiting = true;
-			// 	let self = this;
-			// 	this.$request.request_url_form( event, function(error, result){
 
-			// 		self.button_reset();
-
-			// 		if( error ){
-			// 			self.progress.error = true;
-			// 			self.$refs.messageBtn.$emit('message', { class : 'error text-negative', message : error.message });
-			// 			// todo future retry if its server issue?
-			// 			// else spawn a message
-
-			// 			return;
-			// 		}
-
-			// 		self.progress.success = true;
-
-			// 		self.$refs.messageBtn.$emit('message', { class : 'success text-positive', message : result.message });
-
-			// 		setTimeout( function(){
-			// 			self.$store.dispatch('user/login_success', result.token);
-			// 			self.$router.push( '/' );
-			// 		}, 1000);
-
-			// 	});
-			// },
 		},
 		mounted(){
 			this.init();

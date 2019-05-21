@@ -226,7 +226,7 @@
 
 	require('@/assets/style/panel.css');
 
-	import Button from '../components/c_buttonNew.vue';
+	import Button from '../components/c_button.vue';
 	// import Panel from '../components/c_panel.vue';
 
 	import Player from '../components/c_game_player.vue';

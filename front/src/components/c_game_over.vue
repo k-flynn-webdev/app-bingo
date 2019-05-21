@@ -24,7 +24,7 @@
 
 <script>
 
-	import Button from '../components/c_buttonNew.vue';
+	import Button from '../components/c_button.vue';
 	import PopUp from '../components/c_popup.vue';
 	import Message from '../components/c_message.vue';
 

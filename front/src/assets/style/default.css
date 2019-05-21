@@ -125,14 +125,19 @@ li{
 }
 
 button, .button {
-	/*background-color: var( --colour-button );*/
+	background-color: var( --colour-button );
 	height: var( --btn-height-screen-large );
-	border-radius: var( --border-radius-button );
+
 	border: none;
 	outline: none;
-	position: relative;
 	min-width: 4.5rem;
 	transition: transform .2s, background-color 1s;
+
+	overflow: hidden;
+	box-sizing: border-box;
+	border-radius: 0.3rem; 
+	padding: 0 0.66rem;
+	position: relative;
 }
 button:hover, .button:hover {
 	transform: scale(1.085);

@@ -128,20 +128,27 @@ button, .button {
 	background-color: var( --colour-button );
 	height: var( --btn-height-screen-large );
 
-	border: none;
+	border: 1px solid transparent;
 	outline: none;
 	min-width: 4.5rem;
-	transition: transform .2s, background-color 1s;
+	transition: all .03s, background-color 1s;
 
 	overflow: hidden;
 	box-sizing: border-box;
 	border-radius: 0.3rem; 
 	padding: 0 0.66rem;
 	position: relative;
+	pointer-events: all;
+	box-shadow: 1px 3px 0 var( --colour-button-shadow );
+	-webkit-box-shadow: 1px 3px 0 var( --colour-button-shadow );
+	-moz-box-shadow: 1px 3px 0 var( --colour-button-shadow );
 }
-/*button:hover, .button:hover {
-	transform: scale(1.085);
-}*/
+button:active, .button:active {
+	transform: translateX(1px) translateY(3px);
+	box-shadow: 0 1px 0 var( --colour-button-shadow );
+	-webkit-box-shadow: 0 1px 0 var( --colour-button-shadow );
+	-moz-box-shadow: 0 1px 0 var( --colour-button-shadow );	
+}
 
 
 .border {

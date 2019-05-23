@@ -6,97 +6,109 @@
 			Create Board
 		</template>
 
-		<div 
-			ref="name"
-			class="field field-result">
-			
-			<p class="text label colour-fill-bg-inv"> Name: </p>
-			<input 
-				class="text colour-fill-bg-inv text-input"
-				
-				type="string"
-				placeholder="Board Name here" 
-				v-model=input.name.value
-				v-on:change=validate_name
-				required>
-
-			<c-field-result>
-			</c-field-result>
-
-		</div>
-
-		<div class="field-column ">
-			
-			<span class="label">
-
-				<p class="text label colour-fill-bg-inv" style="display:inline-block;">
-					Phrases or Words
-				</p>
-
-				<div 
-					class="input-add colour-bg-inv add-btn anim-3"
-					v-on:click=words_add>
-					<div class="pin">
-						<span class="colour-bg"></span>
-						<span class="colour-bg"></span>
-					</div>
-				</div>
-
-			</span>
+		<form 
+			class="form" 
+			action="/ignore" 
+			@submit.prevent="onCreate">
 
 			<div 
-				class="field field-result"
-				ref="wordsParent">
+				ref="name"
+				class="field field-result">
+				
+				<p class="text label colour-fill-bg-inv"> Name: </p>
+				<input 
+					class="text colour-fill-bg-inv text-input"
+					
+					type="string"
+					placeholder="Board Name here" 
+					v-model=input.name.value
+					v-on:change=validate_name
+					v-bind:pattern=name_pattern
+					v-bind:title=name_title
+					required>
 
-					<textarea 
-						class="text colour-fill-bg-inv text-input"
-						style="height: 5.5rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
-						ref="words"
-						type="string"
-						placeholder="Separate with , new line or use the +" 
-						v-model=input.words.value
-						v-on:change=validate_words
-						required>
-
-					</textarea>
-
-					<c-field-result>
-					</c-field-result>
+				<c-field-result>
+				</c-field-result>
 
 			</div>
-			
 
+			<div class="field-column ">
+				
+				<span class="label">
 
-		</div>
+					<p class="text label colour-fill-bg-inv" style="display:inline-block;">
+						Phrases or Words
+					</p>
 
-		<br>
+					<div 
+						class="input-add colour-bg-inv add-btn anim-3"
+						v-on:click=words_add>
+						<div class="pin">
+							<span class="colour-bg"></span>
+							<span class="colour-bg"></span>
+						</div>
+					</div>
 
-		<!-- <div slot="footer">
+				</span>
+
+				<div 
+					class="field field-result"
+					ref="wordsParent">
+
+						<textarea 
+							class="text colour-fill-bg-inv text-input"
+							style="height: 10rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
+							ref="words"
+							type="string"
+							placeholder="Separate with , new line or use the +" 
+							v-model=input.words.value
+							v-on:change=validate_words
+							required>
+
+						</textarea>
+
+						<c-field-result>
+						</c-field-result>
+
+				</div>
+
+			</div>
+
+			<br>
+
+			<!-- <div slot="footer">
+
+				<div class="br-small"></div>
+
+				<div class="tags phrases">
+
+					<transition-group name="tag">
+
+						<c-tag
+							v-for="(word, index) in words" :key="word">
+								{{ word }}
+						</c-tag>
+
+					</transition-group>	
+
+				</div>
+
+			</div>  -->
+
+			<c-message 
+				ref="msgSubmit"
+				class="colour-fill-bg-inv">		
+			</c-message>
 
 			<div class="br-small"></div>
 
-			<div class="tags phrases">
-
-				<transition-group name="tag">
-
-					<c-tag
-						v-for="(word, index) in words" :key="word">
-							{{ word }}
-					</c-tag>
-
-				</transition-group>	
-
-			</div>
-
-		</div>  -->
-
- 			<!-- <c-button 
- 				ref="btnSubmit"
- 				v-bind:onClick=onCreate>
+ 			<c-button 
+ 				ref="btnSubmit">
  				Create
- 			</c-button> -->
+ 			</c-button>
 
-			<!-- <c-message ref="msgSubmit"></c-message> -->
+	 	</form>		
+
 
 	</c-panel>
 
@@ -106,6 +118,7 @@
 
 	import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
+	import Message from '../components/c_message.vue';
 
 	import Tag from '../components/c_tag.vue';
 
@@ -124,6 +137,11 @@
 					word : {
 						min : 3,
 					},
+					name : {
+						min : 5,
+						max: 30,
+					},
+
 					server : {
 						max_timeouts : 5,
 						timing : 1500,
@@ -147,8 +165,18 @@
 
 			}
 		},
+		computed : {
+			name_pattern : function(){
+				let pattern = '.{' + this.attrs.name.min + ',' + this.attrs.name.max + '}';
+				return pattern;
+			},
+			name_title : function(){
+				let title = "name must be between " + this.attrs.name.min + " and " + this.attrs.name.max + " characters long."
+				return title;
+			},			
+		},
 		methods:{
-			
+
 			init : function( urls ){
 				if( !this.state.init ){
 					let object = {
@@ -170,7 +198,7 @@
 				let model = this.input.name.value;
 				let elementClass = this.$refs.name;
 
-				let result = Validate.length( model, 5, 30 );
+				let result = Validate.length( model, this.attrs.name.min, this.attrs.name.max );
 
 				this.validate_result( result, elementClass );
 			},
@@ -242,53 +270,67 @@
 			// 	}, self.attrs.server.timing );
 			// },
 
-			// onCreate : function( event ){
-			// 	if( 
-			// 		this.attrs.action.url !== undefined 
-			// 		&& this.onValidate_name_check()
-			// 		&& this.onValidate_words_check() ){
+			onCreate : function( event ){
 
-			// 		// this.attrs.action.body.name = this.form.name_string;
-			// 		// this.attrs.action.body.words = this.form.word_string;
+				if( this.attrs.action.url === undefined ){
+					return;
+				}
 
-			// 		let self = this;	
-			// 		this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
 
-			// 	} else {
-			// 		this.validate_reset();
-			// 	}
-			// },
-			// onSuccess : function( input ){
-			// 	let self = this;
-			// 	self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
-			// 	setTimeout( function(){
-			// 		self.$router.push( '/board/' +  input.data.url);
-			// 	}, 3000 );
-			// },
-			// onError : function( input ){
-			// 	if( this.state.timeouts < this.attrs.server.max_timeouts ){
-			// 		let self = this;
-			// 		setTimeout( function(){
-			// 			self.state.timeouts +=1
-			// 			self.onSubmit();
-			// 		}, self.attrs.server.timing );
-			// 	}
-			// },
+
+				// let result = Validate.length( this.input.name.value, 5, 30 );
+				// if( !result ){
+				// 	return;
+				// }
+
+				// this.attrs.action.body.name = this.input.name.value;
+				// this.attrs.action.body.words = this.input.words.value;
+
+				// let self = this;	
+				// this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+
+				// } else {
+					// this.validate_reset();
+				// }
+			},
+			onSuccess : function( input ){
+				let self = this;
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+				setTimeout( function(){
+					self.$router.push( '/board/' +  input.data.url);
+				}, 3000 );
+			},
+			onError : function( input ){
+				if( this.state.timeouts < this.attrs.server.max_timeouts ){
+
+					this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
+
+					if( input.status !== 408 ){
+						return;
+					}
+
+					let self = this;
+					setTimeout( function(){
+						self.state.timeouts +=1
+						self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
+					}, self.attrs.server.timing );
+				}
+			},
 
 			words_add : function(){
 				this.input.words.value += ',\n';
 				this.$refs.words.focus();
 			},
-			words_update : function(){
-				// this.onValidate_words();
-				this.words = [];
-				let temp = this.input.words.value.split(/[,\n\r]+/);
-				for( let count=0;count<temp.length;count++){
-					if( temp[count].length >= this.attrs.word.min){
-						this.words.push( temp[count] );
-					}
-				}
-			},
+			// words_update : function(){
+			// 	// this.onValidate_words();
+			// 	this.words = [];
+			// 	let temp = this.input.words.value.split(/[,\n\r]+/);
+			// 	for( let count=0;count<temp.length;count++){
+			// 		if( temp[count].length >= this.attrs.word.min){
+			// 			this.words.push( temp[count] );
+			// 		}
+			// 	}
+			// },
 		},
 		mounted(){
 			this.init();
@@ -296,7 +338,7 @@
 		components: {
 			'c-button' : Button,
 			'c-panel' : Panel,
-			// 'c-message' : Message,
+			'c-message' : Message,
 			'c-tag' : Tag,
 			'c-field-result' : FieldResult,
 		},		

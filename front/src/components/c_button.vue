@@ -142,18 +142,6 @@
 
 <style>
 
-
-
-	.button {
-		overflow: hidden;
-		box-sizing: border-box;
-		border-radius: 0.3rem; 
-		padding: 0 0.66rem;
-		position: relative;
-		border: 1px solid transparent;
-		pointer-events: all;
-	}
-
 	.button p {
 		position: relative;
 		z-index: 1;

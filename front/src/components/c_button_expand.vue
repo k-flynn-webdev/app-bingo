@@ -142,24 +142,34 @@
 
 
 .slide-fade-enter-active {
-	animation: anim-button-slide-down 1s ease;
+	animation: anim-button-slide-down .4s cubic-bezier(0.35, 0.025, 0.3, 1.1);
 }
 .slide-fade-leave-active {}
 .slide-fade-enter, .slide-fade-leave-to {
 }
 
 .slide-fade-side-enter-active {
-	animation: anim-button-slide-in 1s ease;
+	animation: anim-button-slide-in .4s ease;
 }
 .slide-fade-side-leave-active {}
 .slide-fade-side-enter, .slide-fade-side-leave-to {
 }
 
+@keyframes anim-button-slide-down {
+	0% { 
+		opacity:0; 
+		transform: translateY(-1.5rem);
+	}
+	100% { 
+		opacity:1; 
+		transform: translateY(0);	
+	}
+}
 
 @keyframes anim-button-slide-in {
 	0% { 
 		opacity:0; 
-		transform: translateX(2rem);
+		transform: translateX(1rem);
 	}
 	100% { 
 		opacity:1; 
@@ -167,16 +177,7 @@
 	}
 }
 
-@keyframes anim-button-slide-down {
-	0% { 
-		opacity:0; 
-		transform: translateY(-2rem);
-	}
-	100% { 
-		opacity:1; 
-		transform: translateY(0);	
-	}
-}
+
 
 </style>
 

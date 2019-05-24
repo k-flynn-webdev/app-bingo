@@ -21,20 +21,6 @@
 			</c-button>
 		</div>
 
-<!-- 		<div>
-			<c-button
-				ref="btnJoin"
-				v-bind:onClick=onJoin>
-				Join ID
-			</c-button>	
-
-			<input 
-				class="" 
-				type="string" 
-				v-model=instance>
-		</div> -->
-
-
 		<c-button-expand
 			v-bind:buttonShow=true
 			v-bind:buttonClickClose=true

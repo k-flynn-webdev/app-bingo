@@ -60,7 +60,8 @@
 							style="height: 10rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
 							ref="words"
 							type="string"
-							placeholder="Separate with , new line or use the +" 
+							placeholder="Add 6 words or phrases
+							 seperated by , or use the + button." 
 							v-model=input.words.value
 							v-on:change=validate_words
 							required>
@@ -134,7 +135,10 @@
 		data(){
 			return {
 				attrs : {
-					word : {
+					words_or_prases : {
+						min : 6,
+					},
+					word_or_phrase : {
 						min : 3,
 					},
 					name : {
@@ -194,6 +198,11 @@
 			},
 
 
+			words_add : function(){
+				this.input.words.value += ',\n';
+				this.$refs.words.focus();
+			},
+
 			validate_name : function(){
 				let model = this.input.name.value;
 				let elementClass = this.$refs.name;
@@ -206,11 +215,31 @@
 			validate_words : function(){
 				let model = this.input.words.value;
 				let elementClass = this.$refs.wordsParent;
+				let temp = this.input.words.value.split(/[,\n\r]+/);
 
-				let result = Validate.length( model, 5 );
+				// has min amount of words/prhases?
+				if( temp.length < this.attrs.words_or_prases.min ){
+					this.validate_result( false, elementClass );
+					return false;
+				}
 
-				this.validate_result( result, elementClass );
+				//smallest word/phrase is big enough?
+				let min = 100;
+				// find smallest ..
+				for(let i = 0; i < temp.length; i++){
+					if( temp[i].length < min){
+						min = temp[i].length;
+					}
+				}
+				if( min < this.attrs.word_or_phrase.min ){
+					this.validate_result( false, elementClass );
+					return false;
+				}
+
+				this.validate_result( true, elementClass );
+				return true;
 			},
+
 
 
 
@@ -276,22 +305,18 @@
 					return;
 				}
 
+				if( !this.validate_name() ){
+					return;
+				}
+				if( !this.validate_words() ){
+					return;
+				}
 
+				this.attrs.action.body.name = this.input.name.value;
+				this.attrs.action.body.words = this.input.words.value;
 
-				// let result = Validate.length( this.input.name.value, 5, 30 );
-				// if( !result ){
-				// 	return;
-				// }
-
-				// this.attrs.action.body.name = this.input.name.value;
-				// this.attrs.action.body.words = this.input.words.value;
-
-				// let self = this;	
-				// this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-
-				// } else {
-					// this.validate_reset();
-				// }
+				let self = this;	
+				self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
 			},
 			onSuccess : function( input ){
 				let self = this;
@@ -317,10 +342,7 @@
 				}
 			},
 
-			words_add : function(){
-				this.input.words.value += ',\n';
-				this.$refs.words.focus();
-			},
+
 			// words_update : function(){
 			// 	// this.onValidate_words();
 			// 	this.words = [];

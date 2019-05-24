@@ -13,8 +13,12 @@
 
 	--colour-bg-input: hsla(180,65%,40%,.5);
 
-	--colour-positive: hsla(100,36%,33%,1);
-	--colour-negative: hsla(0,36%,33%,1);
+
+	--colour-positive: hsla(100,40%,40%,1);
+	--colour-positive-shadow: hsla(100,36%,20%,1);
+
+	--colour-negative: hsla(0,50%,40%,1);
+	--colour-negative-shadow: hsla(0,36%,30%,1);
 
 
 	/*--colour-outline: hsla(33,20%,15%,0.5);*/

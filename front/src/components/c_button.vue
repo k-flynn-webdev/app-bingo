@@ -175,10 +175,18 @@
 	.button.is-success {
 		border: 1px solid hsla(20,30%,80%,0.6);
 		background-color: var( --colour-positive );
+
+		box-shadow: 1px 3px 0 var( --colour-positive-shadow );
+		-webkit-box-shadow: 1px 3px 0 var( --colour-positive-shadow );
+		-moz-box-shadow: 1px 3px 0 var( --colour-positive-shadow );
 	}	
 	.button.is-error {
 		border: 1px solid hsla(20,30%,80%,0.6);
 		background-color: var( --colour-negative );
+
+		box-shadow: 1px 3px 0 var( --colour-negative-shadow );
+		-webkit-box-shadow: 1px 3px 0 var( --colour-negative-shadow );
+		-moz-box-shadow: 1px 3px 0 var( --colour-negative-shadow );	
 	}
 
 	.anim-container {

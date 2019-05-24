@@ -125,6 +125,8 @@ li{
 }
 
 button, .button {
+	margin: 0.2rem 0.5rem 0.5rem 0.5rem;
+
 	background-color: var( --colour-button );
 	height: var( --btn-height-screen-large );
 
@@ -139,6 +141,7 @@ button, .button {
 	padding: 0 0.66rem;
 	position: relative;
 	pointer-events: all;
+
 	box-shadow: 1px 3px 0 var( --colour-button-shadow );
 	-webkit-box-shadow: 1px 3px 0 var( --colour-button-shadow );
 	-moz-box-shadow: 1px 3px 0 var( --colour-button-shadow );

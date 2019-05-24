@@ -21,7 +21,7 @@
 			</c-button>
 		</div>
 
-<!-- 		<div>	
+<!-- 		<div>
 			<c-button
 				ref="btnJoin"
 				v-bind:onClick=onJoin>

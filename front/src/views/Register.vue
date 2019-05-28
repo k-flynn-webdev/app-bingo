@@ -31,9 +31,6 @@
 
 		<template slot="footer">
 
-			<br>
-			<br>
-
 			<p class="colour-fill-bg-inv">
 				Already have an account,
 

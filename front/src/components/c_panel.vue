@@ -19,7 +19,7 @@
 
 		<slot name="no-margin" class="main"></slot>
 
-		<footer>
+		<footer class="footer">
 			<p class="text"> 
 				<slot name="footer"></slot>
 			</p>
@@ -34,17 +34,6 @@
 
 	export default {
 		name: 'cPanel',
-		props: {
-			no_split : Boolean,
-		},
-		// computed : {
-		// 	hasSplit : function(){
-		// 		if( this.split === undefined ){
-		// 			return false;
-		// 		}
-		// 		return this.split;
-		// 	},
-		// },
 	}
 
 </script>

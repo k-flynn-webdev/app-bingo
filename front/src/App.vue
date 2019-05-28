@@ -1,63 +1,61 @@
 <template>
 
-	<div style="position: relative;">
+	<div id="app">
 
-		<div id="app">
+		<c-navbar>
 
-			<c-navbar>
-
-				<template>
-					<router-link 
-						class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-						to="/">
-							Home
-					</router-link>
-				</template>
-
+			<template>
 				<router-link 
 					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-					to="/board/create">
-						Create
+					to="/">
+						Home
 				</router-link>
+			</template>
 
-				<template v-slot:active>
-					<router-link 
-						class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-						to="/logout">
-							Logout
-					</router-link>
-					<router-link 
-						class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-						to="/account">
-							Account
-					</router-link>
-					<router-link 
-						class="link title user colour-on-focus colour-bg colour-fill-bg-inv"
-						to="/admin/request">
-							AdminRequest
-					</router-link>
-					<router-link 
-						class="link title admin colour-on-focus colour-bg colour-fill-bg-inv" 
-						to="/admin">
-							AdminBoard
-					</router-link>
-				</template>
+			<router-link 
+				class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+				to="/board/create">
+					Create
+			</router-link>
 
-				<template v-slot:none-active>	
-					<router-link 
-						class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-						to="/login">
-							Login
-					</router-link>
-				</template>
+			<template v-slot:active>
+				<router-link 
+					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					to="/logout">
+						Logout
+				</router-link>
+				<router-link 
+					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					to="/account">
+						Account
+				</router-link>
+				<router-link 
+					class="link title user colour-on-focus colour-bg colour-fill-bg-inv"
+					to="/admin/request">
+						AdminRequest
+				</router-link>
+				<router-link 
+					class="link title admin colour-on-focus colour-bg colour-fill-bg-inv" 
+					to="/admin">
+						AdminBoard
+				</router-link>
+			</template>
 
-			</c-navbar>
+			<template v-slot:none-active>	
+				<router-link 
+					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					to="/login">
+						Login
+				</router-link>
+			</template>
 
-			<router-view/>
+		</c-navbar>
 
-			
+		<div class="body-nav-spacer"></div>
 
-		</div>
+		<router-view/>
+
+		<div class="body-nav-spacer"></div>
 
 		<c-footer></c-footer>
 

@@ -159,6 +159,7 @@
 	}
 
 	.button.msg-is-active, .button.is-error, .button.is-success, .button.is-waiting{
+		border: 1px solid var( --colour-button-highlight );
 		pointer-events: none;
 	}
 
@@ -173,20 +174,18 @@
 	}
 
 	.button.is-success {
-		border: 1px solid hsla(20,30%,80%,0.6);
-		background-color: var( --colour-positive );
+		background-color: var( --colour-button-positive );
 
-		box-shadow: 1px 3px 0 var( --colour-positive-shadow );
-		-webkit-box-shadow: 1px 3px 0 var( --colour-positive-shadow );
-		-moz-box-shadow: 1px 3px 0 var( --colour-positive-shadow );
+		box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
+		-webkit-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
+		-moz-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );		
 	}	
 	.button.is-error {
-		border: 1px solid hsla(20,30%,80%,0.6);
-		background-color: var( --colour-negative );
+		background-color: var( --colour-button-negative );
 
-		box-shadow: 1px 3px 0 var( --colour-negative-shadow );
-		-webkit-box-shadow: 1px 3px 0 var( --colour-negative-shadow );
-		-moz-box-shadow: 1px 3px 0 var( --colour-negative-shadow );	
+		box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );
+		-webkit-box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );
+		-moz-box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );	
 	}
 
 	.anim-container {
@@ -211,7 +210,7 @@
 		
 		width: 100%;
 		height: 100%;
-		background-color: hsl(30,40%,85%);
+		background-color: var( --colour-button-highlight );
 
 		opacity: 0.1;
 		display: inline;

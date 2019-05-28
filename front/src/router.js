@@ -14,7 +14,7 @@ import BoardCreate from './views/Board_Create.vue'
 // import BoardStart from './views/Board_Start.vue'
 // import BoardJoin from './views/Board_Join.vue'
 import BoardLobby from './views/Board_Lobby.vue'
-import Game from './views/Game.vue'
+import BoardGame from './views/Board_Game.vue'
 
 
 Vue.use(Router)
@@ -114,7 +114,7 @@ export default new Router({
     {
       path: '/instance/:instance',
       name: 'board game',
-      component: Game,  
+      component: BoardGame,  
     },      
     // {
     //  path: '/board/:board',

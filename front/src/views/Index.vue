@@ -1,12 +1,9 @@
 <template>
 	
-	<div class="center-auto-h width-90">
-
-
-		<H1 
-			class="header text-funky custom" style="margin-top:4.5rem;">
-				Bullshit Bingo
-		</H1>
+	<c-panel>
+		<template slot="header">
+			Bullshit Bingo
+		</template>
 
 		<c-front-latest></c-front-latest>
 		
@@ -16,7 +13,10 @@
 		<c-front-players></c-front-players>
 		<c-front-games></c-front-games>
 
-	</div>
+		<template slot="footer">
+		</template>
+
+	</c-panel>
 	
 </template>
 
@@ -29,9 +29,13 @@ import WinsPlays from '../components/c_front_wins_plays.vue';
 import Players from '../components/c_front_players.vue';
 import Games from '../components/c_front_games.vue';
 
+import Panel from '../components/c_panel.vue';
+
+
 export default {
 	name: 'home',
 	components: {
+		'c-panel' : Panel,
 		'c-front-latest' : Latest,
 		'c-front-popular' : Popular,
 		'c-front-players' : Players,

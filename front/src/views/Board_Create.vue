@@ -60,8 +60,7 @@
 							style="height: 10rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
 							ref="words"
 							type="string"
-							placeholder="Add 6 words or phrases
-							 seperated by , or use the + button." 
+							placeholder="Add 6 or more words or phrases. Seperate with , new line or +" 
 							v-model=input.words.value
 							v-on:change=validate_words
 							required>
@@ -76,25 +75,6 @@
 			</div>
 
 			<br>
-
-			<!-- <div slot="footer">
-
-				<div class="br-small"></div>
-
-				<div class="tags phrases">
-
-					<transition-group name="tag">
-
-						<c-tag
-							v-for="(word, index) in words" :key="word">
-								{{ word }}
-						</c-tag>
-
-					</transition-group>	
-
-				</div>
-
-			</div>  -->
 
 			<c-message 
 				ref="msgSubmit"
@@ -210,6 +190,7 @@
 				let result = Validate.length( model, this.attrs.name.min, this.attrs.name.max );
 
 				this.validate_result( result, elementClass );
+				return result;
 			},
 
 			validate_words : function(){
@@ -217,8 +198,16 @@
 				let elementClass = this.$refs.wordsParent;
 				let temp = this.input.words.value.split(/[,\n\r]+/);
 
+				let wordsClean = [];
+				for( let b = 0; b < temp.length; b++){
+					let word = temp[b].trim();
+					if( word.length > 0 ){
+						wordsClean.push( word );
+					}
+				}
+
 				// has min amount of words/prhases?
-				if( temp.length < this.attrs.words_or_prases.min ){
+				if( wordsClean.length < this.attrs.words_or_prases.min ){
 					this.validate_result( false, elementClass );
 					return false;
 				}
@@ -226,9 +215,9 @@
 				//smallest word/phrase is big enough?
 				let min = 100;
 				// find smallest ..
-				for(let i = 0; i < temp.length; i++){
-					if( temp[i].length < min){
-						min = temp[i].length;
+				for(let i = 0; i < wordsClean.length; i++){
+					if( wordsClean[i].length < min){
+						min = wordsClean[i].length;
 					}
 				}
 				if( min < this.attrs.word_or_phrase.min ){
@@ -241,8 +230,6 @@
 			},
 
 
-
-
 			validate_result : function( test, element ){
 				if( test === null ){
 					this.set_element_default( element );
@@ -252,7 +239,6 @@
 					this.set_element_fail( element );
 					return;
 				}
-
 				if( test ){
 					this.set_element_pass( element );
 					return;
@@ -270,41 +256,11 @@
 			},
 
 
-
-			// onValidate_words : function(){
-			// 	if( this.form.word_string.length === 0) {
-			// 		this.$refs.wordsParent.className = 'field-alt';
-			// 		return false;
-			// 	}
-			// 	return this.onValidate_words_check();
-			// },
-			// onValidate_words_check : function(){
-			// 	if( this.form.word_string.length > this.min_word_length ){
-			// 		this.$refs.wordsParent.className = 'field-alt pass';
-			// 		return true;
-			// 	} else {
-			// 		this.$refs.wordsParent.className = 'field-alt fail';
-			// 		return false;
-			// 	}
-			// },
-			// validate_reset : function(){
-			// 	let self = this;
-			// 	setTimeout( function(){
-			// 		if( !self.onValidate_name_check() ){
-			// 			self.$refs.name.className = 'text-area';	
-			// 		}
-			// 		if( !self.onValidate_words_check() ){
-			// 			self.$refs.words.className = 'text-area';	
-			// 		}
-			// 	}, self.attrs.server.timing );
-			// },
-
 			onCreate : function( event ){
 
 				if( this.attrs.action.url === undefined ){
 					return;
 				}
-
 				if( !this.validate_name() ){
 					return;
 				}
@@ -342,17 +298,6 @@
 				}
 			},
 
-
-			// words_update : function(){
-			// 	// this.onValidate_words();
-			// 	this.words = [];
-			// 	let temp = this.input.words.value.split(/[,\n\r]+/);
-			// 	for( let count=0;count<temp.length;count++){
-			// 		if( temp[count].length >= this.attrs.word.min){
-			// 			this.words.push( temp[count] );
-			// 		}
-			// 	}
-			// },
 		},
 		mounted(){
 			this.init();

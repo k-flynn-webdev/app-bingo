@@ -2,8 +2,8 @@
 
 	<c-panel>
 
-		<c-init-game>
-		</c-init-game>
+		<c-init-instance></c-init-instance>
+		<c-init-board></c-init-board>
 
 		<div slot="header">
 			<!-- {{ board.name }} -->
@@ -244,7 +244,8 @@
 	// import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
 
-	import InitGame from '../game/c_init_game.vue';
+	import InitBoard from '../game/c_init_board.vue';
+	import InitInstance from '../game/c_init_instance.vue';
 
 	// import Player from '../components/c_game_player.vue';
 	// import PlayerForm from '../components/c_game_player_form.vue';
@@ -338,7 +339,8 @@
 		},		
 		components: {
 			'c-panel' : Panel,
-			'c-init-game' : InitGame,
+			'c-init-board' : InitBoard,
+			'c-init-instance' : InitInstance,
 			// 'c-button' : Button,
 			
 			// 'c-game-state' : State,

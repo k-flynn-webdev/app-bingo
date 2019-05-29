@@ -57,9 +57,21 @@
 					}, self.attrs.server.timing );
 				}
 			},
+			reset : function(){
+				this.$store.dispatch('instance/reset');
+			},
+			exit : function(){
+				this.$root.$off('init.instance');
+				this.$store.dispatch('instance/exit');
+			},
+
 		},
 		mounted() {
 			this.init();
+			this.$root.$on('reset', this.reset );
+		},
+		beforeDestroy(){
+			this.exit();
 		},
 }
 </script>

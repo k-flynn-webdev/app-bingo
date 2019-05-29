@@ -93,9 +93,25 @@ export default {
 
 		set_instance : function( context, input ){
 			context.commit('instance', input );
-			// context.commit('poll', 0 );
 		},
+		reset : function( context ){
+			let tempURL = context.getters.get_instance;
 
+			let input = {
+				url : tempURL.url,
+				data : {
+					game : {
+						win : 0,
+						winner : '',
+					},
+					players : [],
+				},
+				polled : 0,
+			};
+
+			context.commit('instance', input );
+			context.commit('poll', 0 );
+		},
 
 		poll_tick : function( context ){
 			let temp = context.getters.get_polled + 1;

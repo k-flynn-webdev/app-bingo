@@ -6,12 +6,17 @@
 		<c-init-board></c-init-board>
 
 		<div slot="header">
-			<!-- {{ board.name }} -->
+			{{ board_name }}
 		</div>
 
+		<c-game-words></c-game-words>
 
 
 
+		<button
+			v-on:click=reset>
+				Reset
+			</button>
 
 
 		<!-- <c-message ref="messageBtn"></c-message>	 -->
@@ -246,6 +251,8 @@
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
+	
+	import GameWords from '../components/c_words.vue';
 
 	// import Player from '../components/c_game_player.vue';
 	// import PlayerForm from '../components/c_game_player_form.vue';
@@ -261,17 +268,14 @@
 		data(){
 			return {
 				attrs : {
-				},	
-				board : {
-					name : 'BullShit Bingo',
 				},
 			}
 		},	
 		computed : {
 		
 			board_name : function(){
-				return this.$store.getters['game/get_board'].data.name;
-			},	
+				return this.$store.getters['board/get_board'].data.name;
+			},
 			board_score : function(){
 				return this.$store.getters['game/get_score'];
 			},			
@@ -295,7 +299,9 @@
 				// }, 1500);
 			},
 
-
+			reset : function(){
+				this.$root.$emit('reset');
+			},
 			// resetBtn : function(){
 			// 	console.log('btn: reset.');
 			// 	this.$root.$emit('state_reset');
@@ -339,6 +345,7 @@
 		},		
 		components: {
 			'c-panel' : Panel,
+			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
 			// 'c-button' : Button,

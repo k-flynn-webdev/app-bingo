@@ -45,7 +45,10 @@
 
 			board_success : function( input ){
 				this.$store.dispatch('board/set_board', input.data );
+				
 				console.log( input.data );
+
+				this.$root.$emit('setup.words');
 			},
 			board_error : function( input ){
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
@@ -58,13 +61,19 @@
 
 			},
 
+			reset : function(){
+				this.$store.dispatch('board/reset');
+				this.$root.$emit('setup.words');
+			},			
 			exit : function(){
 				this.$root.$off('init.board');
+				this.$store.dispatch('board/exit');
 			},
 			
 		},
 		mounted() {
 			this.$root.$on('init.board', this.init );
+			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();

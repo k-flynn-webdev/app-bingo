@@ -3,6 +3,11 @@
 export default {
 	namespaced: true,
 	state: {
+		action : {
+			url : '',
+			method : 'GET',
+			JSON : false,			
+		},
 		url : '',
 		data : {
 			players : [],
@@ -15,6 +20,9 @@ export default {
 	},
 	getters: {
 
+		get_action : function( state ){
+			return state.action;
+		},
 		get_instance : function( state ){
 			return state;
 		},
@@ -28,6 +36,9 @@ export default {
 	},
 	mutations: {
 
+		action : function( state, input ){
+			state.action.url = input;
+		},
 		instance : function( state, input ){
 			if( input.url !== undefined ){
 				state.url = input.url;
@@ -91,6 +102,9 @@ export default {
 	},
 	actions: {
 
+		set_action : function( context, input ){
+			context.commit('action', input );
+		},
 		set_instance : function( context, input ){
 			context.commit('instance', input );
 		},

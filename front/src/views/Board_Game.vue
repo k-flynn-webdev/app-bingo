@@ -5,6 +5,9 @@
 		<c-init-instance></c-init-instance>
 		<c-init-board></c-init-board>
 
+		<c-update-instance></c-update-instance>
+
+
 		<div slot="header">
 			{{ board_name }}
 		</div>
@@ -252,6 +255,7 @@
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
+	import UpdateInstance from '../game/c_update_instance.vue';
 	
 	import GameWords from '../components/c_words.vue';
 
@@ -351,6 +355,7 @@
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
+			'c-update-instance' : UpdateInstance,
 			// 'c-button' : Button,
 			
 			// 'c-game-state' : State,

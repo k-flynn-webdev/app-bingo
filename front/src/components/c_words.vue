@@ -4,7 +4,7 @@
 
 		<c-word
 			v-for="(word, index) in words_list" 
-			:key="word.word"
+			:key="word.id"
 			v-bind:input=word>
 
 <!-- 			<p class="title colour-fill-bg-inv">
@@ -49,6 +49,16 @@ let array_randomize = function( input ){
 	return new_array;
 }
 
+let word_hash = function (str){
+	let hash = 0;
+	if (str.length == 0) return hash;
+	for (let i = 0; i < str.length; i++) {
+		let char = str.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+}
 
 
 	import Word from '../components/c_word.vue';
@@ -79,6 +89,7 @@ let array_randomize = function( input ){
 						word : tempWords[i],
 						waiting : false,
 						selected : false,
+						id : word_hash( tempWords[i] ),
 					};
 					words.push( newWord );	
 				}
@@ -104,7 +115,7 @@ let array_randomize = function( input ){
 </script>
 
 <style>
-
+/*
 	.word-block {
 		display: inline-block;
 		position: relative;
@@ -140,7 +151,7 @@ let array_randomize = function( input ){
 
 }
 
-
+*/
 
 
 

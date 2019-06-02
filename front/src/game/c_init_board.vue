@@ -28,11 +28,13 @@
 			init : function( board ){
 
 				// let board = this.$store.getters['instance/get_url'];
+				let tempURL = '/api/board/' + board;
 
+				this.$store.dispatch('board/set_action', tempURL );
 				this.$store.dispatch('board/set_board', { url : board });
 
 				let action = {
-					url : ('/api/board/' + board),
+					url : tempURL,
 					method : 'GET',
 					JSON : false };
 

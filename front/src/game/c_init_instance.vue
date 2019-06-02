@@ -28,11 +28,14 @@
 			init : function(){
 
 				let instance = this.$route.params.instance;
+				let tempURL = '/api/instance/' + instance;
 
+				this.$store.dispatch('instance/set_action', tempURL);
 				this.$store.dispatch('instance/set_instance', { url : instance });
+				
 
 				let action = {
-					url : ('/api/instance/' + instance),
+					url : tempURL,
 					method : 'GET',
 					JSON : false };
 

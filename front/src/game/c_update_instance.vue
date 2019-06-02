@@ -21,41 +21,70 @@
 				state : {
 					timeouts : 0,
 				},
+				init : false,
+				words : [],
 			}
 		},	
 
 		methods : {
-			update : function(){
+			setup : function(){
+				this.attrs.action = this.$store.getters['instance/get_action'];
+				this.words = this.$store.getters['game/get_words'];
+				this.init = true;
 
-				let instance = this.$route.params.instance;
+				this.attrs.action.method = 'POST';
+				this.attrs.action.JSON = true;
+			},
 
-				this.$store.dispatch('instance/set_instance', { url : instance });
 
-				let action = {
-					url : ('/api/instance/' + instance),
-					method : 'POST',
-					JSON : true };
+			update : function( input, request ){
+				if( !this.init ){
+					this.setup();
+				}
 
-				this.attrs.action = action;
+				this.$store.dispatch('game/submit_word', input );
+
+				if( !input.selected ){
+					request.player.word = {
+						add : input.word,
+					}
+				} else {
+					request.player.word = {
+						remove : input.word,
+					}
+				}
+
+				this.attrs.action.body = request;
 
 				let self = this;
-				self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-
+				self.onSubmit( self.attrs.action, self, null, null, self.update_success, self.update_error);
 			},
 
 			update_success : function( input ){
-				this.$store.dispatch('instance/set_instance', input.data );
-				console.log( input.data );
-				this.$root.$emit('init.board', input.data.data.board );
+
+				// if( !this.input.selected ){
+				// 	toSend.player.word = {
+				// 		add : this.input.word,
+				// 	}
+				// 	this.$store.dispatch('game/add_word', this.input );
+				// } else {
+				// 	toSend.player.word = {
+				// 		remove : this.input.word,
+				// 	}
+				// 	this.$store.dispatch('game/remove_word', this.input );
+				// }				
+				// this.$store.dispatch('instance/set_instance', input.data );
+				// console.log( input.data );
+				// this.$root.$emit('init.board', input.data.data.board );
 			},
 			update_error : function( input ){
-				if( this.state.timeouts < this.attrs.server.max_timeouts ){
-					let self = this;
-					setTimeout( function(){
-						self.state.timeouts +=1
-						self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-					}, self.attrs.server.timing );
-				}
+				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
+				// 	let self = this;
+				// 	setTimeout( function(){
+				// 		self.state.timeouts +=1
+				// 		self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
+				// 	}, self.attrs.server.timing );
+				// }
 			},
 			// reset : function(){
 			// 	this.$store.dispatch('instance/reset');
@@ -67,11 +96,10 @@
 
 		},
 		mounted() {
-			this.init();
-			this.$root.$on('reset', this.reset );
+			this.$root.$on('word', this.update );
 		},
 		beforeDestroy(){
-			this.exit();
+			// this.exit();
 		},
 }
 </script>

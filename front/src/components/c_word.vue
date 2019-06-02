@@ -6,10 +6,10 @@
 		
 		<c-button
 			ref="word_btn"
-			v-bind:class="{ 'is-success-colour' : input.selected }"
+			v-bind:class="{ 'is-success-colour' : input.selected, 'is-waiting' : input.waiting }"
 			v-bind:onClick=toggle>
 
-			{{ input.word }}
+				{{ input.word }}
 
 		</c-button>
 
@@ -35,7 +35,15 @@
 			// state : Object,
 			input : Object,
 		},
-		// computed : {
+		computed : {
+			// waiting : function(){
+				// if( this.input.waiting ){
+				// 	this.$refs.word_btn.$emit('state', 'waiting');
+				// } else {
+				// 	this.$refs.word_btn.$emit('state', '');
+				// }
+				// return this.input.waiting;
+			// },
 			// word : function(){
 
 				// if( this.state.game.won ){
@@ -45,10 +53,15 @@
 				// 	return 'Lost';
 				// }
 
-				// return this.input.word;								
-			// },			
-		// },
+				// return this.input.word;
+			// },
+		},
 		methods : {
+			reset : function(){
+				if( this.$refs.word_btn !== undefined ){
+					this.$refs.word_btn.$emit('state', '');	
+				}
+			},
 			// init : function(){
 			// 	this.$root.$on('state_reset', this.reset );
 			// },
@@ -139,9 +152,35 @@
 				// emit a submit request?
 
 				// wait on result and it should cascade down?
-				this.$refs.word_btn.$emit('state', 'waiting');
-				this.input.waiting = true;
-				this.$root.$emit('word', this.input.word, !this.input.selected );
+				
+				// this.input.waiting = true;
+				// this.$refs.word_btn.$emit('state', 'waiting');
+
+				let toSend = {
+					player : {
+						url : '111',
+						word : {},
+					},
+				};
+
+
+				if( !this.input.waiting ){
+					this.$refs.word_btn.$emit('state', 'waiting');
+				}
+
+				if( !this.input.selected ){
+					toSend.player.word = {
+						add : this.input.word,
+					}
+				} else {
+					toSend.player.word = {
+						remove : this.input.word,
+					}
+				}
+
+				this.$root.$emit('word', this.input, toSend );
+				
+				
 
 				// this.input.selected = !this.input.selected;
 				// if( this.state.play ){
@@ -159,7 +198,7 @@
 			// },
 		},
 		mounted(){
-			// this.init();
+			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
 			// this.exit();

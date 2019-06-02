@@ -2,15 +2,16 @@
 
 	<div>
 
-		<div
+		<c-word
 			v-for="(word, index) in words_list" 
-			:key="word.word">
+			:key="word.word"
+			v-bind:input=word>
 
-			<p class="title colour-fill-bg-inv">
+<!-- 			<p class="title colour-fill-bg-inv">
 				{{ word.word }}	
-			</p>
+			</p> -->
 
-		</div>
+		</c-word>
 
 	</div>
 
@@ -50,6 +51,8 @@ let array_randomize = function( input ){
 
 
 
+	import Word from '../components/c_word.vue';
+
 	export default {
 		name: 'cWords',
 		data(){
@@ -74,6 +77,7 @@ let array_randomize = function( input ){
 				for( let i = 0; i < display; i++){
 					let newWord = {
 						word : tempWords[i],
+						waiting : false,
 						selected : false,
 					};
 					words.push( newWord );	
@@ -93,6 +97,7 @@ let array_randomize = function( input ){
 			this.exit();
 		},
 		components: {
+			'c-word' : Word,
 		},
 }
 

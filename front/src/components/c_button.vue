@@ -173,14 +173,14 @@
 		opacity: 0;
 	}
 
-	.button.is-success {
+	.button.is-success, .button.is-success-colour {
 		background-color: var( --colour-button-positive );
 
 		box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
 		-webkit-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
 		-moz-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );		
 	}	
-	.button.is-error {
+	.button.is-error, .button.is-error-colour {
 		background-color: var( --colour-button-negative );
 
 		box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );

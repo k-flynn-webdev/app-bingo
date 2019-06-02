@@ -13,10 +13,10 @@
 
 
 
-		<button
-			v-on:click=reset>
+		<c-button
+			v-bind:onClick=reset>
 				Reset
-			</button>
+			</c-button>
 
 
 		<!-- <c-message ref="messageBtn"></c-message>	 -->
@@ -248,11 +248,13 @@
 
 	// import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
+	import Button from '../components/c_button.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
 	
 	import GameWords from '../components/c_words.vue';
+
 
 	// import Player from '../components/c_game_player.vue';
 	// import PlayerForm from '../components/c_game_player_form.vue';
@@ -345,6 +347,7 @@
 		},		
 		components: {
 			'c-panel' : Panel,
+			'c-button' : Button,
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,

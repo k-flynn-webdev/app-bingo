@@ -6,7 +6,7 @@
 		
 		<c-button
 			ref="word_btn"
-			v-bind:class="{ 'is-success-colour' : input.selected, 'is-waiting' : input.waiting }"
+			v-bind:class="{ 'word-selected' : selected, 'word-waiting' : waiting }"
 			v-bind:onClick=toggle>
 
 				{{ input.word }}
@@ -25,42 +25,47 @@
 		name: 'cWord',
 		data(){
 			return {
-				// attrs : {
-				// 	wait : 100,
-				// },
-				// waiting : false,
+				state : {
+					init : false,
+				},
 			}
 		},	
 		props: {
-			// state : Object,
 			input : Object,
 		},
 		computed : {
-			// waiting : function(){
-				// if( this.input.waiting ){
-				// 	this.$refs.word_btn.$emit('state', 'waiting');
-				// } else {
-				// 	this.$refs.word_btn.$emit('state', '');
-				// }
-				// return this.input.waiting;
-			// },
-			// word : function(){
-
-				// if( this.state.game.won ){
-				// 	return 'Won';
-				// }
-				// if( this.state.game.lost ){
-				// 	return 'Lost';
-				// }
-
-				// return this.input.word;
-			// },
+			waiting : function(){
+				if( this.input.waiting ){
+					if( this.state.init ){
+						this.$refs.word_btn.$emit('state', 'waiting');
+					}
+					// this.$refs.word_btn.$emit('state', 'waiting');
+					return true;
+				} else {
+					return false;
+				}
+			},
+			selected : function(){
+				if( this.input.selected ){
+					if( this.state.init ){
+						this.$refs.word_btn.$emit('state', 'success');
+					}
+					// this.$refs.word_btn.$emit('state', 'waiting');
+					return true;
+				} else {
+					return false;
+				}
+			},
 		},
 		methods : {
 			reset : function(){
-				if( this.$refs.word_btn !== undefined ){
-					this.$refs.word_btn.$emit('state', '');	
-				}
+				let self = this;
+				setTimeout( function(){
+					self.state.init = true;
+					if( self.$refs.word_btn !== undefined ){
+						self.$refs.word_btn.$emit('state', '');	
+					}
+				}, 100);
 			},
 			// init : function(){
 			// 	this.$root.$on('state_reset', this.reset );
@@ -163,10 +168,9 @@
 					},
 				};
 
-
-				if( !this.input.waiting ){
-					this.$refs.word_btn.$emit('state', 'waiting');
-				}
+				// if( !this.input.waiting ){
+				// 	this.$refs.word_btn.$emit('state', 'waiting');
+				// }
 
 				if( !this.input.selected ){
 					toSend.player.word = {
@@ -198,6 +202,7 @@
 			// },
 		},
 		mounted(){
+			this.reset();
 			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){

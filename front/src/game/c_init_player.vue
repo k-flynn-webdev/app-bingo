@@ -7,7 +7,7 @@
 	import { submit } from '../mixins/h_submit.js';
 
 	export default {
-		name: 'cUpdateInstance',
+		name: 'cInitPlayer',
 		mixins: [ submit ],
 		data(){
 			return {
@@ -22,70 +22,48 @@
 					timeouts : 0,
 					init : false,
 				},
-				words : [],
 			}
 		},	
 
 		methods : {
-			setup : function(){
+
+			init : function(){
+
+				console.log('ready, starting player init');
+
 				this.attrs.action = this.$store.getters['instance/get_action'];
-				this.words = this.$store.getters['game/get_words'];
+
+				this.attrs.action.method = 'POST';
+				this.attrs.action.JSON = true;
+
+				let body = {
+					url : this.$store.getters['player/get_url'],
+					name : this.$store.getters['player/get_name'],
+					score : this.$store.getters['player/get_score'],
+				};
+
+				this.attrs.action.body = body;
 				this.state.init = true;
 
-				this.attrs.action.method = 'PUT';
-				this.attrs.action.JSON = true;
-			},
-
-
-			update : function( input, request ){
-				if( !this.state.init ){
-					this.setup();
-				}
-
-				this.$store.dispatch('game/submit_word', input );
-
-				if( !input.selected ){
-					request.player.word = {
-						add : input.word,
-					}
+				if( this.$store.getters['player/get_name'].length > 0 ){
+					this.join();
 				} else {
-					request.player.word = {
-						remove : input.word,
-					}
+					// todo show popup window for player join!
+					// then do callback to this again..
 				}
-
-				this.attrs.action.body = request;
-				this.attrs.action.body.player.url = this.$store.getters['player/get_url'];
-
-				let self = this;
-				self.onSubmit( self.attrs.action, self, null, null, self.update_success, self.update_error);
 			},
 
-			update_success : function( input ){
+			join : function(){
+				let self = this;
+				self.onSubmit( self.attrs.action, self, null, null, self.join_success, self.join_error);
+			},
 
-				if( input.status === 202 ){
-					if( input.data.word !== undefined ){
+			join_success : function( input ){
 
-						if( input.data.word.add !== undefined ){
-							this.$store.dispatch('game/add_word', input.data.word.add );
-						}
-						
-						if( input.data.word.remove !== undefined ){
-							this.$store.dispatch('game/remove_word', input.data.word.remove );
-						}
+				// todo update store with new player details?
+				this.$store.dispatch('player/set_player', input.data );
 
-						let scoreObject = {
-							data : {
-								score : input.data.score,
-							},
-						};
-
-						this.$store.dispatch('player/set_player', scoreObject );
-
-					}
-				}
-
-
+				console.log( input.data );
 
 				// if( !this.input.selected ){
 				// 	toSend.player.word = {
@@ -102,7 +80,8 @@
 				// console.log( input.data );
 				// this.$root.$emit('init.board', input.data.data.board );
 			},
-			update_error : function( input ){
+			join_error : function( input ){
+				// todo
 				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
 				// 	let self = this;
 				// 	setTimeout( function(){
@@ -111,9 +90,9 @@
 				// 	}, self.attrs.server.timing );
 				// }
 			},
-			// reset : function(){
-			// 	this.$store.dispatch('instance/reset');
-			// },
+			reset : function(){
+				this.$store.dispatch('player/reset');
+			},
 			// exit : function(){
 			// 	this.$root.$off('init.instance');
 			// 	this.$store.dispatch('instance/exit');
@@ -121,7 +100,8 @@
 
 		},
 		mounted() {
-			this.$root.$on('word', this.update );
+			this.$root.$on('game.ready', this.init );
+			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
 			// this.exit();

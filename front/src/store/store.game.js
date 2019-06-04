@@ -2,12 +2,31 @@
 function word_index( list, word ){
 	let index = -1;
 
+	if( word.id === undefined ){
+		let tempWord = {
+			word : word,
+			id : word_hash( word ),
+		};
+		word = tempWord;
+	}
+
 	for( let i = 0; i < list.length; i++ ){
 		if( list[i].id === word.id ){
 			return i;
 		}
 	}
 	return index;
+}
+
+let word_hash = function (str){
+	let hash = 0;
+	if (str.length == 0) return hash;
+	for (let i = 0; i < str.length; i++) {
+		let char = str.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
 }
 
 

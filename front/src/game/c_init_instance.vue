@@ -31,6 +31,7 @@
 				let tempURL = '/api/instance/' + instance;
 
 				this.$store.dispatch('instance/set_action', tempURL);
+				this.$store.dispatch('player/set_action', tempURL);
 				this.$store.dispatch('instance/set_instance', { url : instance });
 				
 

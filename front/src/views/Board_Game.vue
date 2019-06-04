@@ -4,6 +4,7 @@
 
 		<c-init-instance></c-init-instance>
 		<c-init-board></c-init-board>
+		<c-init-player></c-init-player>
 
 		<c-update-instance></c-update-instance>
 
@@ -255,6 +256,8 @@
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
+	import InitPlayer from '../game/c_init_player.vue';
+
 	import UpdateInstance from '../game/c_update_instance.vue';
 	
 	import GameWords from '../components/c_words.vue';
@@ -355,6 +358,7 @@
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
+			'c-init-player' : InitPlayer,
 			'c-update-instance' : UpdateInstance,
 			// 'c-button' : Button,
 			

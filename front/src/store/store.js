@@ -6,7 +6,7 @@ import user from './store.user.js';
 import game from './store.game.js';
 import board from './store.board.js';
 import instance from './store.instance.js';
-// import player from './store.player.js';
+import player from './store.player.js';
 
 Vue.use(Vuex)
 
@@ -35,6 +35,6 @@ export default new Vuex.Store({
 		game,
 		board,
 		instance,
-		// player,
+		player,
 	}
 })

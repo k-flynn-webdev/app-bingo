@@ -1,15 +1,11 @@
 <template>
 
-	<div>
+	<div v-bind:class="{ 'words-loading' : !state.ready }">
 
 		<c-word
 			v-for="(word, index) in words_list" 
 			:key="word.id"
 			v-bind:input=word>
-
-<!-- 			<p class="title colour-fill-bg-inv">
-				{{ word.word }}	
-			</p> -->
 
 		</c-word>
 
@@ -67,6 +63,12 @@ let word_hash = function (str){
 		name: 'cWords',
 		data(){
 			return {
+				attrs : {
+					wait : 1500,
+				},
+				state : {
+					ready : false,
+				},
 			}
 		},
 		computed : {
@@ -95,6 +97,14 @@ let word_hash = function (str){
 				}
 
 				this.$store.dispatch('game/set_words', words );
+
+				this.$root.$emit('game.ready');
+
+				let self = this;
+				setTimeout(function(){
+					self.state.ready = true;
+				}, self.attrs.wait );
+
 			},
 
 			exit : function(){
@@ -115,6 +125,11 @@ let word_hash = function (str){
 </script>
 
 <style>
+
+.words-loading .button {
+	pointer-events: none !important;
+}	
+
 /*
 	.word-block {
 		display: inline-block;

@@ -6,7 +6,7 @@ export default {
 		action : {
 			url : '',
 			method : 'GET',
-			JSON : false,			
+			JSON : false,
 		},
 		url : '',
 		data : {

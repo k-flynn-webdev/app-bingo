@@ -16,7 +16,6 @@ export default {
 				winner : '',
 			},
 		},
-		polled : 0,
 	},
 	getters: {
 
@@ -25,12 +24,6 @@ export default {
 		},
 		get_instance : function( state ){
 			return state;
-		},
-
-
-
-		get_poll : function( state ){
-			return state.polled;
 		},
 
 	},
@@ -48,9 +41,6 @@ export default {
 				state.data.game.win = input.data.game.win;
 				state.data.game.winner = input.data.game.winner;
 			}
-		},	
-		poll : function( state, input ){
-			state.polled = input;
 		},
 
 		// instance : function( state, input ){
@@ -108,43 +98,17 @@ export default {
 		set_instance : function( context, input ){
 			context.commit('instance', input );
 		},
+
 		reset : function( context ){
 			let tempURL = context.getters.get_instance;
-
-			let input = {
-				url : tempURL.url,
-				data : {
-					game : {
-						win : 0,
-						winner : '',
-					},
-					players : [],
-				},
-				polled : 0,
-			};
-
-			context.commit('instance', input );
-			context.commit('poll', 0 );
-		},
-
-		poll_tick : function( context ){
-			let temp = context.getters.get_polled + 1;
-			context.commit('poll', temp );
+			basic.url = tempURL;
+			context.commit('instance', basic );
 		},
 
 		exit : function( context ){
-			let basic = {
-				url : '',
-				data : {
-					game : {
-						win : 0,
-						winner : '',
-					},
-					players : [],
-				},
-				polled : 0,
-			};
+			basic.url = '';
 			context.commit('instance', basic );
+			context.commit('mode', '' );
 		},
 
 		// set_board : function( context, input ){
@@ -203,4 +167,13 @@ export default {
 	}
 };
 
-
+let basic = {
+	url : '',
+	data : {
+		game : {
+			win : 0,
+			winner : '',
+		},
+		players : [],
+	},
+};

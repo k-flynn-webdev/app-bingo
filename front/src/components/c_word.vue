@@ -39,7 +39,6 @@
 					if( this.state.init ){
 						this.$refs.word_btn.$emit('state', 'waiting');
 					}
-					// this.$refs.word_btn.$emit('state', 'waiting');
 					return true;
 				} else {
 					return false;
@@ -50,7 +49,6 @@
 					if( this.state.init ){
 						this.$refs.word_btn.$emit('state', 'success');
 					}
-					// this.$refs.word_btn.$emit('state', 'waiting');
 					return true;
 				} else {
 					return false;
@@ -67,110 +65,15 @@
 					}
 				}, 100);
 			},
-			// init : function(){
-			// 	this.$root.$on('state_reset', this.reset );
-			// },
-			// reset : function(){
-			// 	this.wordData.selected = false;
-			// },
-
-			add : function(){
-				// let toSend = {
-				// 	player : {
-				// 		url : '',
-				// 		word : {
-				// 			add : this.wordData.word,
-				// 		},
-				// 	},
-				// };
-				// this.submit(toSend, 'add');
-			},
-			remove : function(){
-				// let toSend = {
-				// 	player : {
-				// 		url : '',
-				// 		word : {
-				// 			remove : this.wordData.word,
-				// 		},
-				// 	},
-				// };
-				// this.submit(toSend, 'remove');
-			},
-
-
-
-			// submit : function( toSend, type ){
-			// 	this.waiting = true;
-
-			// 	let player = this.$store.getters['game/get_player'];
-			// 	toSend.player.url = player.url;
-
-			// 	if( type === 'add' ){
-			// 		this.$root.$emit('state_player_submit',
-			// 			toSend, 
-			// 			this.send_success, 
-			// 			this.send_fail );
-			// 	} 
-			// 	if( type === 'remove' ){
-			// 		this.$root.$emit('state_player_submit',
-			// 			toSend, 
-			// 			this.send_success, 
-			// 			this.send_fail );
-			// 	} 
-
-			// },		
-			// send_success : function( input ){
-			// 	this.waiting = false;
-
-			// 	if( input.data.word !== undefined 
-			// 		&& input.data.word.add !== undefined ){
-
-			// 			this.wordData.selected = true;
-			// 			this.$store.dispatch('game/word_add', input.data );
-			// 	}
-
-			// 	if( input.data.word !== undefined 
-			// 		&& input.data.word.remove !== undefined ){
-
-			// 			this.wordData.selected = false;
-			// 			this.$store.dispatch('game/word_remove', input.data );
-			// 	}				
-
-			// },
-
-			// send_fail : function( input ){
-
-			// 	if(	input.status == 401 
-			// 		&& input.message == 'Game has been won.'
-			// 		&& input.win !== undefined 
-			// 		&& input.win ){
-					
-			// 			// alert game is over to game state?
-			// 			this.$root.$emit('instance_update');
-			// 			// force an immediate update to get winner and state of game!
-			// 	}
-			// 	this.waiting = false;			
-			// },
 
 			toggle : function(){
 
-				// emit a submit request?
-
-				// wait on result and it should cascade down?
-				
-				// this.input.waiting = true;
-				// this.$refs.word_btn.$emit('state', 'waiting');
-
 				let toSend = {
 					player : {
-						url : '111',
+						url : '',
 						word : {},
 					},
 				};
-
-				// if( !this.input.waiting ){
-				// 	this.$refs.word_btn.$emit('state', 'waiting');
-				// }
 
 				if( !this.input.selected ){
 					toSend.player.word = {
@@ -183,30 +86,19 @@
 				}
 
 				this.$root.$emit('word', this.input, toSend );
-				
-				
 
-				// this.input.selected = !this.input.selected;
-				// if( this.state.play ){
-					// if( this.input.selected ){
-						// this.input.selected = false;
-						// this.remove();
-					// } else {
-						// this.add();
-					// }
-				// }
 			},
 
-			// exit : function(){
-				// this.$root.$off('state_reset');
-			// },
+			exit : function(){
+				this.$root.$off('reset');
+			},
 		},
 		mounted(){
 			this.reset();
 			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
-			// this.exit();
+			this.exit();
 		},
 		components: {
 			'c-button' : Button,

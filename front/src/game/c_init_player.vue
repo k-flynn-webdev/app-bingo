@@ -27,6 +27,27 @@
 
 		methods : {
 
+			check : function(){
+				// if player already joined and resetting ignore init??
+				if( !this.state.init ){
+					this.init();
+				}
+
+				if( this.$store.getters['player/get_name'] === '' ){
+					// display player join window ...
+					return;
+				}
+
+				if( this.$store.getters['player/get_url'] === '' ){
+					// begin join post process
+					this.join();
+					return;
+				}
+
+
+
+			},
+
 			init : function(){
 
 				console.log('ready, starting player init');
@@ -45,13 +66,16 @@
 				this.attrs.action.body = body;
 				this.state.init = true;
 
-				if( this.$store.getters['player/get_name'].length > 0 ){
-					this.join();
-				} else {
-					// todo show popup window for player join!
-					// then do callback to this again..
-				}
+				// if( this.$store.getters['player/get_name'].length > 0 ){
+				// 	this.join();
+				// } else {
+				// 	// todo show popup window for player join!
+				// 	// then do callback to this again..
+				// }
 			},
+
+
+
 
 			join : function(){
 				let self = this;
@@ -63,7 +87,7 @@
 				// todo update store with new player details?
 				this.$store.dispatch('player/set_player', input.data );
 
-				console.log( input.data );
+				// console.log( input.data );
 
 				// if( !this.input.selected ){
 				// 	toSend.player.word = {
@@ -81,6 +105,23 @@
 				// this.$root.$emit('init.board', input.data.data.board );
 			},
 			join_error : function( input ){
+
+				// console.log( 'input join error' );
+				// console.log( input );
+
+
+				// game won
+				// if( input.status === 401 && input.win !== undefined && input.win ){
+				// 	this.$root.$emit('game.won');
+				// 	// todo
+				// 	console.log('game has been won, trigger exit message.');
+				// }
+
+				// if( input.status === 401 && input.win !== undefined && !input.win ){
+				// 	this.$root.$emit('game.lost');
+				// 	console.log('game has been lost, trigger exit message.');
+				// }
+				
 				// todo
 				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
 				// 	let self = this;
@@ -90,9 +131,9 @@
 				// 	}, self.attrs.server.timing );
 				// }
 			},
-			reset : function(){
-				this.$store.dispatch('player/reset');
-			},
+			// reset : function(){
+				
+			// },
 			// exit : function(){
 			// 	this.$root.$off('init.instance');
 			// 	this.$store.dispatch('instance/exit');
@@ -100,8 +141,8 @@
 
 		},
 		mounted() {
-			this.$root.$on('game.ready', this.init );
-			this.$root.$on('reset', this.reset );
+			this.$root.$on('player.check', this.check );
+			// this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
 			// this.exit();

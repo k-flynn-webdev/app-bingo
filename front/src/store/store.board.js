@@ -1,35 +1,4 @@
 
-
-// let array_sort = function( a, b ){
-// 	return b.length - a.length;
-// }
-// let array_clamp = function( input, clamp ){
-// 	let new_array = [];
-// 	let tempMax = Math.min( clamp, input.length );
-
-// 	for( let count = 0; count < tempMax; count++){
-// 		new_array.push(input[count]);
-// 	}
-// 	return new_array;
-// }
-// let array_randomize = function( input ){
-// 	let new_array = [];
-// 	for( let count = 0; count < input.length; count++){
-// 		new_array.push(input[count]);
-// 	}
-
-// 	for( let count = new_array.length-1; count >= 0; count--){
-// 		let random = Math.floor(Math.random() * (count + 1));
-// 		let temp = new_array[count]
-// 		new_array[count] = new_array[random];
-// 		new_array[random] = temp;
-// 	}
-
-// 	return new_array;
-// }
-
-
-
 export default {
 	namespaced: true,
 	state: {
@@ -89,20 +58,9 @@ export default {
 			context.commit('board', input );
 		},		
 		reset : function( context ){
+			context.commit('board', basic );
 		},
-
 		exit : function( context ){
-			let basic = {
-				url : '',
-				data : {
-					name : '',
-					words : [],
-					game : {
-						win : 0,
-						display : 0,
-					},
-				}
-			}
 			context.commit('board', basic );
 		},
 
@@ -162,4 +120,14 @@ export default {
 	}
 };
 
-
+let basic = {
+	url : '',
+	data : {
+		name : '',
+		words : [],
+		game : {
+			win : 0,
+			display : 0,
+		},
+	}
+}

@@ -33,7 +33,6 @@
 				this.$store.dispatch('instance/set_action', tempURL);
 				this.$store.dispatch('player/set_action', tempURL);
 				this.$store.dispatch('instance/set_instance', { url : instance });
-				
 
 				let action = {
 					url : tempURL,
@@ -49,10 +48,17 @@
 
 			instance_success : function( input ){
 				this.$store.dispatch('instance/set_instance', input.data );
-				console.log( input.data );
-				this.$root.$emit('init.board', input.data.data.board );
+				this.$store.dispatch('game/set_game', { instance : true } );
+				this.$root.$emit('board.init', input.data.data.board );
 			},
+
 			instance_error : function( input ){
+
+			 	// todo work on this.
+
+				console.log( 'input init error' );
+				console.log( input );
+
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
 					let self = this;
 					setTimeout( function(){
@@ -61,9 +67,9 @@
 					}, self.attrs.server.timing );
 				}
 			},
-			reset : function(){
-				this.$store.dispatch('instance/reset');
-			},
+			// reset : function(){
+			// 	this.$store.dispatch('instance/reset');
+			// },
 			exit : function(){
 				this.$root.$off('init.instance');
 				this.$store.dispatch('instance/exit');
@@ -72,7 +78,9 @@
 		},
 		mounted() {
 			this.init();
-			this.$root.$on('reset', this.reset );
+			this.$root.$on('game.ready', this.ready );
+			this.$root.$on('game.won', this.won );
+			this.$root.$on('game.lost', this.won );
 		},
 		beforeDestroy(){
 			this.exit();

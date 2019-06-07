@@ -26,8 +26,6 @@
 
 		methods : {
 			init : function( board ){
-
-				// let board = this.$store.getters['instance/get_url'];
 				let tempURL = '/api/board/' + board;
 
 				this.$store.dispatch('board/set_action', tempURL );
@@ -42,15 +40,12 @@
 
 				let self = this;
 				self.onSubmit( self.attrs.action, self, null, null, self.board_success, self.board_error);
-
 			},
 
 			board_success : function( input ){
 				this.$store.dispatch('board/set_board', input.data );
-				
-				console.log( input.data );
-
-				this.$root.$emit('setup.words');
+				this.$store.dispatch('game/set_game', { board : true } );
+				this.$root.$emit('words.setup');
 			},
 			board_error : function( input ){
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
@@ -65,16 +60,16 @@
 
 			reset : function(){
 				this.$store.dispatch('board/reset');
-				this.$root.$emit('setup.words');
+				this.$root.$emit('words.setup');
 			},			
 			exit : function(){
-				this.$root.$off('init.board');
+				this.$root.$off('board.init');
 				this.$store.dispatch('board/exit');
 			},
 			
 		},
 		mounted() {
-			this.$root.$on('init.board', this.init );
+			this.$root.$on('board.init', this.init );
 			this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){

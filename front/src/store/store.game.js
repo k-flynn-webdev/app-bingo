@@ -33,7 +33,16 @@ let word_hash = function (str){
 export default {
 	namespaced: true,
 	state: {
-		words : [],		
+		words : [],
+		game : {
+			board : false,
+			instance : false,
+			words : false,
+			joined : false,
+			mode : '',
+			// modes : ['', 'won', 'lost', 'playing']
+			poll : 0,
+		},
 	},
 	getters: {
 
@@ -41,12 +50,23 @@ export default {
 			return state.words;
 		},
 
+		get_game : function( state ){
+			return state.game;
+		},
+		get_poll : function( state ){
+			return state.game.poll;
+		},
+
 	},
 	mutations: {
 
 		words : function( state, input ){
-			state.words = input;		
+			state.words = input;
+			if( input.length > 0 ){
+				state.game.words = true;
+			}		
 		},
+
 
 		word_submit : function( state, input ){
 			let index = word_index( state.words, input );
@@ -61,6 +81,37 @@ export default {
 			let index = word_index( state.words, input );
 			state.words[index].selected = false;
 			state.words[index].waiting = false;
+		},
+
+
+		game : function( state, input ){
+			if( input.board !== undefined ){
+				state.game.board = input.board;
+			}
+			if( input.instance !== undefined ){
+				state.game.instance = input.instance;
+			}
+			if( input.joined !== undefined ){
+				state.game.joined = input.joined;
+			}
+
+			if( input.mode !== undefined ){
+
+				if( input.mode === '' ){
+					state.game.mode = input.mode;
+				} else {
+					if( state.game.board &&
+						state.game.instance &&
+						state.game.words &&
+						state.game.joined ){
+
+						state.game.mode = input.mode;
+					}
+				}
+			}
+			if( input.poll !== undefined ){
+				state.game.poll = input.poll;
+			}
 		},
 
 	},
@@ -80,14 +131,32 @@ export default {
 			context.commit('word_remove', input );
 		},
 
+		set_game : function( context, input ){
+			context.commit('game', input );
+		},
+
+		poll : function( context ){
+			let temp = context.getters.get_poll + 1;
+			context.commit('game', { poll : temp } );
+		},
+
 		reset : function( context ){
 			context.commit('words', [] );
+			context.commit('game', basic );
 		},
 		exit : function( context ){
 			context.commit('words', [] );
+			context.commit('game', basic );
 		},
 	}
 };
 
-
+let basic = {
+	board : false,
+	instance : false,
+	words : false,
+	joined : false,
+	mode : '',
+	poll : 0,
+}
 

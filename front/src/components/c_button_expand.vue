@@ -5,6 +5,7 @@
 		class="button-holder">
 
 		<c-button
+			ref="btn"
 			v-bind:onClick=onClickExpand>
 
 				<slot name="label" > 
@@ -106,7 +107,14 @@
 					}, 500);
 				}
 			},
+
+			emit : function( emit, extra ){
+				this.$refs.btn.$emit('state', emit, extra);
+			}
 	
+		},
+		mounted(){	
+			this.$on('state', this.emit );	
 		},
 		components: {
 			'c-button' : Button,

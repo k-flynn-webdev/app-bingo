@@ -83,7 +83,7 @@
 			// },
 			exit : function(){
 				// this.$root.$off('init.instance');
-				this.$store.dispatch('instance/exit');
+				// this.$store.dispatch('instance/exit');
 			},
 
 		},

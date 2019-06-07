@@ -129,10 +129,10 @@ let word_hash = function (str){
 <style>
 
 .words-lock {
-	background-color: hsla(0,50%,50%,1);
+	/*background-color: hsla(0,50%,50%,1);*/
 }
 .words-ready {
-	background-color: hsla(100,50%,50%,.66);
+	/*background-color: hsla(100,50%,50%,.66);*/
 }
 
 .words-lock, .words-lock .button {

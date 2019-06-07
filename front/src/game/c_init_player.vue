@@ -162,9 +162,11 @@
 				self.onSubmit( self.attrs.action, self, null, null, self.reset_success, self.reset_error);				
 			},
 			reset_success : function( input ){
+				this.$root.$emit('reset.success');
 				this.join_success( input );
 			},
 			reset_error : function( input ){
+				this.$root.$emit('reset.fail');
 				console.log( 'error on reset' );
 				console.log( input );
 			},

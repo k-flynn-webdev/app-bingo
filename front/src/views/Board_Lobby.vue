@@ -22,6 +22,7 @@
 		</div>
 
 		<c-button-expand
+			ref="btnJoin"
 			v-bind:buttonShow=true
 			v-bind:buttonClickClose=true
 			v-bind:buttonClick=onJoin>
@@ -146,33 +147,12 @@
 
 
 			onJoin : function( event ){
-
-			// 	this.joinLink.show = !this.joinLink.show;
-
-			// 	let btnPos = this.get_screen_pos(this.$refs.btnJoin.$el);
-			// 	let btnHolder = this.get_screen_pos(this.$refs.btnJoinHolder);
-
-			// 	this.joinLink.styles.left = (btnPos.left - btnHolder.left + (0.5 * btnPos.width)) + 'px';
-
-			// 	this.joinLink.styles.top = (btnPos.height + 10) + 'px';
-			// },
-			// onJoinSubmit : function( event ){
-				// let object = {
-				// 	url : ('/api/instance/' + this.board + '/' + this.instance),
-				// 	method : 'GET',
-				// 	body : '' };
-				
-				// if( this.instance.length > 0){
-				// 	let self = this;	
-				// 	let btn = self.$refs.btnJoin;
-
-				// 	this.onSubmit( object, self, btn, null, self.onSuccess, self.onError);				
-				// }	
-
+				let self = this;
+				self.$refs.btnJoin.$emit('state','waiting');
+				setTimeout( function(){
+					self.$router.push( '/instance/' +  self.join.link);
+				},1000);
 			},					
-	
-
-
 
 
 			onCopy : function(){

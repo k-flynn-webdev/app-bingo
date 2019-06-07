@@ -68,6 +68,14 @@
 			},
 		},
 		methods : {
+			init : function(){
+				this.clear_state();
+				this.message_reset();
+			},
+			clear_state : function(){
+				this.set_strobes(false);
+				this.obj.state = '';
+			},
 			set_state : function( input, message ){
 
 				if( input === 'waiting' ){
@@ -97,6 +105,7 @@
 				}
 
 				if( input === 'message' ){
+					this.clear_state();
 					this.message_set( message );
 				}
 			},
@@ -130,11 +139,7 @@
 					this.onClick();
 				}
 			},
-			init : function(){
-				this.set_strobes(false);
-				this.obj.state = '';
-				this.message_reset();
-			}		
+	
 		},
 		mounted(){	
 			this.$on('state', this.set_state );	

@@ -15,9 +15,12 @@
 
 		<c-game-words></c-game-words>
 
-
+		<br>
+		<br>
 
 		<c-button
+			v-bind:class="{ 'game-ready' : game_ready }"
+			ref="btnReset"
 			v-bind:onClick=reset>
 				Reset
 			</c-button>
@@ -294,12 +297,21 @@
 					return true;
 				}
 				return true;
-			},		
+			},
+			game_ready : function(){
+				let mode = this.$store.getters['game/get_game'].mode;
+				if( mode === 'playing'){
+					return true;
+				}
+				return false;
+			},
 
 		},	
 		methods:{
 
 			init : function(){
+				this.$root.$on('reset.success', this.reset_success );
+				this.$root.$on('reset.fail', this.reset_fail );
 				// this.board.name = 'Bullshit Bingo';
 
 				// let self = this;
@@ -311,7 +323,17 @@
 			reset : function(){
 				this.$root.$emit('player.reset');
 				this.$root.$emit('words.reset');
+				this.$refs.btnReset.$emit('state', 'waiting');
 			},
+			reset_success : function(){
+				console.log('success');
+				this.$refs.btnReset.$emit( 'state', 'message', 'Ready');
+			},
+			reset_fail : function(){
+				console.log('fail');
+				this.$refs.btnReset.$emit( 'state', 'message', 'Error');
+			},
+
 			// resetBtn : function(){
 			// 	console.log('btn: reset.');
 			// 	this.$root.$emit('state_reset');
@@ -346,7 +368,10 @@
 			// player_toggle : function(){
 			// 	this.$root.$emit('player_show');
 			// },			
-
+			exit : function(){
+				this.$root.$off('reset.success', this.reset_success );
+				this.$root.$off('reset.fail', this.reset_fail );				
+			},
 		},
 		mounted() {
 			this.init();

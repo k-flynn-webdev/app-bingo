@@ -30,6 +30,8 @@ let word_hash = function (str){
 }
 
 
+let game_modes = ['', 'playing', 'won', 'lost' ];
+
 export default {
 	namespaced: true,
 	state: {
@@ -39,8 +41,7 @@ export default {
 			instance : false,
 			words : false,
 			joined : false,
-			mode : '',
-			// modes : ['', 'won', 'lost', 'playing']
+			mode : game_modes[0],
 			poll : 0,
 		},
 	},
@@ -95,20 +96,38 @@ export default {
 				state.game.joined = input.joined;
 			}
 
+
+
+			// this is override?
 			if( input.mode !== undefined ){
 
-				if( input.mode === '' ){
-					state.game.mode = input.mode;
+				if( input.mode == game_modes[0] ){
+					state.game.mode = game_modes[0];
 				} else {
+
 					if( state.game.board &&
 						state.game.instance &&
-						state.game.words &&
-						state.game.joined ){
+						state.game.words ){
 
-						state.game.mode = input.mode;
+						for( let i =0; i < game_modes.length;i++){
+							if(game_modes[i] == input.mode ){
+								state.game.mode = game_modes[i];
+							}
+						}
+					
 					}
+
+				}
+			} else {
+
+				if( state.game.board &&
+					state.game.instance &&
+					state.game.joined ){
+					state.game.mode = game_modes[1];
 				}
 			}
+
+
 			if( input.poll !== undefined ){
 				state.game.poll = input.poll;
 			}
@@ -156,7 +175,7 @@ let basic = {
 	instance : false,
 	words : false,
 	joined : false,
-	mode : '',
+	mode : game_modes[0],
 	poll : 0,
 }
 

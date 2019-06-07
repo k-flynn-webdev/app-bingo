@@ -84,13 +84,16 @@
 					this.obj.state = 'is-error';
 					this.set_strobes(false);
 				}
+				// if( input === '' ){
+				// 	let self = this;
+				// 	self.set_strobes(false);
+				// 	setTimeout( function(){
+				// 		self.obj.state = '';
+				// 		self.message_reset();
+				// 	}, self.time.min );
+				// }
 				if( input === '' || input === 'reset' ){
-					let self = this;
-					self.set_strobes(false);
-					setTimeout( function(){
-						self.obj.state = '';
-						self.message_reset();
-					}, self.time.min );
+					this.init();
 				}
 
 				if( input === 'message' ){
@@ -126,10 +129,16 @@
 				if( this.onClick !== undefined ){
 					this.onClick();
 				}
-			},			
+			},
+			init : function(){
+				this.set_strobes(false);
+				this.obj.state = '';
+				this.message_reset();
+			}		
 		},
 		mounted(){	
 			this.$on('state', this.set_state );	
+			this.init();
 		},
 		beforeDestroy(){
 			this.$off('state', this.set_state );	

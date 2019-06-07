@@ -309,7 +309,8 @@
 			},
 
 			reset : function(){
-				this.$root.$emit('reset');
+				this.$root.$emit('player.reset');
+				this.$root.$emit('words.reset');
 			},
 			// resetBtn : function(){
 			// 	console.log('btn: reset.');

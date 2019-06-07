@@ -116,10 +116,19 @@ module.exports = function( App ) {
 							win : true,
 						});
 					}
-					
 
 					let updateResult = request.body.player;
-					updateResult.score = result.data.score;
+
+					Object.assign(updateResult, player_func.safe( result ));
+					// if( result.data.name !== undefined ){
+					// 	updateResult.data.name = result.data.name;
+					// }
+					// if( result.data.words !== undefined ){
+					// 	updateResult.data.words = result.data.words;
+					// }
+					// if( result.data.score !== undefined ){
+					// 	updateResult.data.score = result.data.score;
+					// }
 
 					return response.status(status.success.accepted).json({
 						status : status.success.accepted,

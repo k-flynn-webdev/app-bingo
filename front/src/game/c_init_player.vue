@@ -34,7 +34,7 @@
 				}
 
 				if( this.$store.getters['player/get_name'] === '' ){
-					// display player join window ...
+					// todo display player join window ...
 					return;
 				}
 
@@ -44,7 +44,7 @@
 					return;
 				}
 
-
+				// todo already joined
 
 			},
 
@@ -84,8 +84,11 @@
 
 			join_success : function( input ){
 
-				// todo update store with new player details?
+				console.log('join');
+				console.log(input);
+
 				this.$store.dispatch('player/set_player', input.data );
+				this.$store.dispatch('game/set_game', { joined : true } );
 
 				// console.log( input.data );
 
@@ -106,21 +109,28 @@
 			},
 			join_error : function( input ){
 
+				// todo 
+				this.$store.dispatch('game/set_game', { joined : false } );
+
 				// console.log( 'input join error' );
 				// console.log( input );
 
 
-				// game won
-				// if( input.status === 401 && input.win !== undefined && input.win ){
-				// 	this.$root.$emit('game.won');
-				// 	// todo
-				// 	console.log('game has been won, trigger exit message.');
-				// }
+				// game won / lost
+				if( input.status === 401 && 
+					input.win !== undefined){
 
-				// if( input.status === 401 && input.win !== undefined && !input.win ){
-				// 	this.$root.$emit('game.lost');
-				// 	console.log('game has been lost, trigger exit message.');
-				// }
+					let winType = input.win ? 'won' : 'lost' ;
+
+					this.$store.dispatch('game/set_game', { mode : winType } );
+
+					// this.$root.$emit('game.won');
+					// todo
+					console.log('game has been ' + winType + ', trigger exit message.');
+					console.log(input);
+				}
+
+
 				
 				// todo
 				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
@@ -131,17 +141,45 @@
 				// 	}, self.attrs.server.timing );
 				// }
 			},
-			// reset : function(){
-				
-			// },
+
+
+			reset : function(){
+				console.log('resetting player');
+				if( !this.state.init ){
+					this.init();
+				}
+
+				let bodyObject = {
+					player : {
+						url : this.$store.getters['player/get_url'],
+						word : {
+							reset : true,
+						},
+					},
+				};
+
+				this.attrs.action.body = bodyObject;
+
+				let self = this;
+				self.onSubmit( self.attrs.action, self, null, null, self.reset_success, self.reset_error);				
+			},
+			reset_success : function( input ){
+				this.join_success( input );
+			},
+			reset_error : function( input ){
+				console.log( 'error on reset' );
+				console.log( input );
+			},	
 			// exit : function(){
-			// 	this.$root.$off('init.instance');
+			// this.$root.$off('player.check', this.check );
+			// this.$root.$off('player.reset', this.reset );
 			// 	this.$store.dispatch('instance/exit');
 			// },
 
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
+			this.$root.$on('player.reset', this.reset );
 			// this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){

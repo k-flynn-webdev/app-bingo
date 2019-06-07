@@ -1,6 +1,8 @@
 <template>
 
-	<div v-bind:class="{ 'words-lock' : !is_ready }">
+	<div 
+		class="words-holder"
+		v-bind:class="{ 'words-lock' : !is_ready, 'words-ready' : is_ready, }">
 
 		<c-word
 			v-for="(word, index) in words_list" 
@@ -63,9 +65,6 @@ let word_hash = function (str){
 		name: 'cWords',
 		data(){
 			return {
-				attrs : {
-					wait : 1500,
-				},
 			}
 		},
 		computed : {
@@ -102,16 +101,15 @@ let word_hash = function (str){
 				}
 
 				this.$store.dispatch('game/set_words', words );
-
-				this.$root.$emit('player.check');
 			},
 
 			exit : function(){
-				this.$store.dispatch('game/reset');
+				// this.$store.dispatch('game/reset');
+				this.$root.$off('words.reset', this.setup );
 			},
 		},
 		mounted(){
-			this.$root.$on('words.setup', this.setup );
+			this.$root.$on('words.reset', this.setup );
 		},
 		beforeDestroy(){
 			this.exit();
@@ -125,7 +123,14 @@ let word_hash = function (str){
 
 <style>
 
-.words-lock .button {
+.words-lock {
+	background-color: hsla(0,50%,50%,1);
+}
+.words-ready {
+	background-color: hsla(100,50%,50%,.66);
+}
+
+.words-lock, .words-lock .button {
 	pointer-events: none !important;
 }	
 

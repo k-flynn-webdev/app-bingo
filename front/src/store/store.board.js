@@ -56,9 +56,6 @@ export default {
 		},
 		set_board : function( context, input ){
 			context.commit('board', input );
-		},		
-		reset : function( context ){
-			context.commit('board', basic );
 		},
 		exit : function( context ){
 			context.commit('board', basic );

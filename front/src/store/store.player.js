@@ -45,13 +45,16 @@ export default {
 			if( input.url !== undefined ){
 				state.url = input.url;
 			}
-			if( input.data.name !== undefined ){
-				state.data.name = input.data.name;
-				basic.data.name = input.data.name;
+
+			if( input.data !== undefined ){
+				if( input.data.name !== undefined ){
+					state.data.name = input.data.name;
+					basic.data.name = input.data.name;
+				}
+				if( input.data.score !== undefined ){
+					state.data.score = input.data.score;
+				}
 			}
-			if( input.data.score !== undefined ){
-				state.data.score = input.data.score;
-			}			
 		},
 
 	},

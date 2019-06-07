@@ -61,9 +61,9 @@
 				setTimeout( function(){
 					self.state.init = true;
 					if( self.$refs.word_btn !== undefined ){
-						self.$refs.word_btn.$emit('state', '');	
+						self.$refs.word_btn.$emit('state', 'reset');	
 					}
-				}, 100);
+				}, 1);
 			},
 
 			toggle : function(){
@@ -90,12 +90,12 @@
 			},
 
 			exit : function(){
-				this.$root.$off('reset');
-			},
+				this.$root.$off('words.reset', this.reset );
+			}
 		},
 		mounted(){
 			this.reset();
-			this.$root.$on('reset', this.reset );
+			this.$root.$on('words.reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();

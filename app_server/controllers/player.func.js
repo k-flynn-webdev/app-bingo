@@ -163,6 +163,7 @@ function word_remove( input, player, next ){
 
 function word_reset( player, next ){
 
+	player.data.name = player.data.name;
 	player.data.words = [];
 	player.data.score = 0;
 	player.data.time = Date.now();

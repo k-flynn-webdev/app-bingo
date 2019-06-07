@@ -99,11 +99,11 @@ export default {
 			context.commit('instance', input );
 		},
 
-		reset : function( context ){
-			let tempURL = context.getters.get_instance;
-			basic.url = tempURL;
-			context.commit('instance', basic );
-		},
+		// reset : function( context ){
+		// 	let tempURL = context.getters.get_instance;
+		// 	basic.url = tempURL;
+		// 	context.commit('instance', basic );
+		// },
 
 		exit : function( context ){
 			basic.url = '';

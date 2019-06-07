@@ -47,9 +47,20 @@
 			},
 
 			instance_success : function( input ){
-				this.$store.dispatch('instance/set_instance', input.data );
+
 				this.$store.dispatch('game/set_game', { instance : true } );
+				this.$store.dispatch('instance/set_instance', input.data );
+				
+				//todo set player of game up	
+				// this.$store.dispatch('players/set_players', input.data );
 				this.$root.$emit('board.init', input.data.data.board );
+
+				if( input.data.data.game.winner !== ''){
+					// game is over already?	
+					this.$store.dispatch('game/set_game', { mode : 'lost' } );
+					this.$root.$emit('game.lost');
+				}
+
 			},
 
 			instance_error : function( input ){
@@ -71,16 +82,17 @@
 			// 	this.$store.dispatch('instance/reset');
 			// },
 			exit : function(){
-				this.$root.$off('init.instance');
+				// this.$root.$off('init.instance');
 				this.$store.dispatch('instance/exit');
 			},
 
 		},
 		mounted() {
 			this.init();
-			this.$root.$on('game.ready', this.ready );
-			this.$root.$on('game.won', this.won );
-			this.$root.$on('game.lost', this.won );
+			// this.$root.$on('reset', this.reset );
+			// this.$root.$on('game.ready', this.ready );
+			// this.$root.$on('game.won', this.won );
+			// this.$root.$on('game.lost', this.won );
 		},
 		beforeDestroy(){
 			this.exit();

@@ -95,78 +95,31 @@
 			},
 			update_error : function( input ){
 
+				// game won / lost
+				if( input.status === 401 && 
+					input.win !== undefined){
 
-				// console.log( input );
-				// game won
-				if( input.status === 401 && input.win !== undefined && input.win ){
-					this.$root.$emit('game.won');
-					console.log('game has been won, trigger exit message.');
+					let winType = input.win ? 'won' : 'lost' ;
+
+					this.$store.dispatch('game/set_game', { mode : winType } );
+
+					// this.$root.$emit('game.won');
+					// todo
+					console.log('game has been ' + winType + ', trigger exit message.');
+					console.log(input);
 				}
 
-				if( input.status === 401 && input.win !== undefined && !input.win ){
-					this.$root.$emit('game.lost');
-					console.log('game has been lost, trigger exit message.');
-				}
 
-				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
-				// 	let self = this;
-				// 	setTimeout( function(){
-				// 		self.state.timeouts +=1
-				// 		self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-				// 	}, self.attrs.server.timing );
-				// }
 			},
-			reset : function(){
-				console.log('resetting instance');
-				if( !this.state.init ){
-					this.setup();
-				}
-
-				let bodyObject = {
-					player : {
-						url : this.$store.getters['player/get_url'],
-						word : {
-							reset : true,
-						},
-					},
-				};
-
-				this.attrs.action.body = bodyObject;
-
-				let self = this;
-				self.onSubmit( self.attrs.action, self, null, null, self.reset_success, self.reset_error);				
-			},
-			reset_success : function( input ){
-				console.log( 'success on reset' );
-				console.log( input );
-
-				this.$store.dispatch('player/reset');
-				this.$store.dispatch('instance/reset');
-
-
-				// this.$store.dispatch('game/submit_word', input );
-			},
-			reset_error : function( input ){
-				console.log( 'error on reset' );
-				console.log( input );
-			},		
-
-
-			// won : function(){
-
-			// },	
-
 			
-			exit : function(){
-				this.$root.$off('init.instance');
-				this.$store.dispatch('instance/exit');
-			},
+			// exit : function(){
+			// 	this.$root.$off('init.instance');
+			// 	this.$store.dispatch('instance/exit');
+			// },
 
 		},
 		mounted() {
 			this.$root.$on('word', this.update );
-			this.$root.$on('reset', this.reset );
-			this.$root.$on('game.won', this.won );
 		},
 		beforeDestroy(){
 			// this.exit();

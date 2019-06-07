@@ -100,6 +100,11 @@ let word_hash = function (str){
 					words.push( newWord );	
 				}
 
+				// now sort into smallest > largest
+				words.sort( function(a,b){
+					return b.word.length - a.word.length;	
+				});
+
 				this.$store.dispatch('game/set_words', words );
 			},
 

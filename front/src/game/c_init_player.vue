@@ -84,9 +84,6 @@
 
 			join_success : function( input ){
 
-				console.log('join');
-				console.log(input);
-
 				this.$store.dispatch('player/set_player', input.data );
 				this.$store.dispatch('game/set_game', { joined : true } );
 
@@ -158,6 +155,7 @@
 					},
 				};
 
+				this.attrs.action.method = 'PUT';
 				this.attrs.action.body = bodyObject;
 
 				let self = this;
@@ -169,7 +167,7 @@
 			reset_error : function( input ){
 				console.log( 'error on reset' );
 				console.log( input );
-			},	
+			},
 			// exit : function(){
 			// this.$root.$off('player.check', this.check );
 			// this.$root.$off('player.reset', this.reset );

@@ -25,6 +25,8 @@ let messages = [
 
 function join( req, res, next){
 
+	console.log('joining');
+
 	if( !helpers.existsValid( req.body.name )){
 		return res.status( status.client.input_error).json({
 			status : status.client.input_error,

@@ -326,11 +326,9 @@
 				this.$refs.btnReset.$emit('state', 'waiting');
 			},
 			reset_success : function(){
-				console.log('success');
 				this.$refs.btnReset.$emit( 'state', 'message', 'Ready');
 			},
 			reset_fail : function(){
-				console.log('fail');
 				this.$refs.btnReset.$emit( 'state', 'message', 'Error');
 			},
 

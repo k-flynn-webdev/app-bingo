@@ -1,8 +1,4 @@
 <template>
-
-<!-- 	<transition 
-		name="word" 
-		mode="out-in"> -->
 		
 		<c-button
 			ref="word_btn"
@@ -14,8 +10,6 @@
 
 		</c-button>
 
-<!-- 	</transition>
- -->
 </template>
 
 <script>
@@ -112,6 +106,7 @@
 
 	.word-button{
 		flex: none !important;
+		height: unset !important;
 	}
 
 /*	.button.is-selected{

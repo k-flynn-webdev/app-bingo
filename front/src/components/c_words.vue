@@ -7,7 +7,7 @@
 
 		<div ref="wrds_holder_inner">
 			
-			<transition-group name="task2" tag="div" mode="out-in">
+			<transition-group name="task2" tag="div">
 
 				<c-word
 					class="anim-10"
@@ -19,7 +19,6 @@
 				</c-word>
 
 			</transition-group>
-
 
 		</div>
 
@@ -77,6 +76,10 @@ let word_hash = function (str){
 		name: 'cWords',
 		data(){
 			return {
+				timing : {
+					delay_render : 1.66,
+					delay_each_item : 250,
+				},
 				rendered : false,
 			}
 		},
@@ -126,12 +129,11 @@ let word_hash = function (str){
 							tempArray.push( items[a] );
 						}
 						self.$store.dispatch('game/set_words', tempArray );
-					}, index * 250 );
+					}, index * self.timing.delay_each_item );
 				}
 
 				// delay dispatch
-				let delay = 1.66;
-				let tDelay = delay;
+				let tDelay = self.timing.delay_render;
 
 				if(!this.rendered){
 					tDelay = 0;
@@ -154,7 +156,7 @@ let word_hash = function (str){
 			},
 
 			exit : function(){
-				// this.$store.dispatch('game/reset');
+				this.$store.dispatch('game/set_words', [] );
 				this.$root.$off('words.reset', this.setup );
 			},
 		},
@@ -181,73 +183,52 @@ let word_hash = function (str){
 }
 
 .words-lock {
-	/*background-color: hsla(0,50%,50%,1);*/
 }
 .words-ready {
-	/*background-color: hsla(100,50%,50%,.66);*/
 }
 
 .words-lock, .words-lock .button {
 	pointer-events: none !important;
 }	
 
-
-
-
-
-
 .task2-enter {
 	opacity: 0;
-	border: .5rem transparent solid !important;
+	transform: translateY(-1rem);
 }
+.task2-enter .label {
+	opacity: 0;
+	transform: translateX(-2rem);
+}
+
 
 .task1-enter-to {
-	/*opacity: 0;*/
-	/*background-color: green !important;*/
-	/*transform: translateY(-100%);*/
-	/*position: absolute;*/
 }
-
 .task-enter-active {
-	/*animation: add-task 1s cubic-bezier(.26,.03,0,.9);*/
-	/*background-color: green !important;*/
-	/*animation: add-task .3s cubic-bezier(.26,.03,0,.9) calc( .2s * var(--i));*/
-/*	position: absolute;
-	top: 0;
-	right: 0;*/
-	/*animation: add-task 1s cubic-bezier(.26,.03,0,.9) calc( .2s * var(--i));*/
 }
 .task1-leave-active {
-	/*position: absolute;*/
-	/*background-color: red !important;*/
-/*	position: absolute;
-	bottom: 0;
-	left: 0;*/
-	/*position: absolute;*/
-	/*animation: add-task .3s reverse cubic-bezier(.26,.03,0,.9) calc( .2s * (1 - var(--i)));*/
 }
 .task2-leave, .task2-leave-to {
-	/*opacity: 0;*/
-	/*background-color: red !important;*/
 	animation: remove-task 1s ease calc( .1s * var(--inv-i) );
-	/*opacity: 0;*/
-	/*transform: translateY(-100%);*/
-	
+}
+.task2-leave-to .label {
+	opacity: 0;
+	transition-delay: calc( .1s * var(--inv-i));
+	transition-duration: .66s;
+	transform: translateX(1rem);
 }
 
+
 .task2-move {
-	/*background-color: green !important;*/
-	/*border: green .1rem solid;*/
 	transition: transform 1s ease !important;
 }
 
 @keyframes add-task {
 	0% {
-		/*opacity: 0;*/
+		opacity: 0;
 		transform: translateY(-2rem);
 	}		
 	100% {
-		/*opacity: 1;*/
+		opacity: 1;
 		transform: translateY(0);
 	}
 }
@@ -259,7 +240,7 @@ let word_hash = function (str){
 	}
 	100% {
 		opacity: 0;
-		transform: translateY(1rem);
+		transform: translateY(2rem);
 	}
 }
 
@@ -332,10 +313,11 @@ let word_hash = function (str){
 		}
 	}
 */
-	.words {
+	/*.words {
 		margin: 1rem 0.1rem;
 		text-align: left;
-	}
+	}*/
+
 	/*.word {*/
 		/*text-align: center;*/
 		/*position: relative;*/

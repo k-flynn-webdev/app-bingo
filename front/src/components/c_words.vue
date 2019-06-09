@@ -10,7 +10,6 @@
 			<transition-group name="task2" tag="div">
 
 				<c-word
-					class="anim-10"
 					v-for="(word, index) in words_list" 
 					v-bind:key="word.id"
 					v-bind:style=get_style_task(index)

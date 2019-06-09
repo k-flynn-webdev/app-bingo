@@ -118,7 +118,7 @@ body, footer, .footer {
 }
 
 .body-nav-spacer{
-	height: 2.5rem;
+	height: 2rem;
 	content: "";
 }
 
@@ -148,7 +148,7 @@ button, .button {
 	border: 1px solid transparent;
 	outline: none;
 	min-width: 4.5rem;
-	transition: all .03s, background-color 1s;
+	transition: all .05s, background-color .66s, opacity .66s;
 
 	overflow: hidden;
 	box-sizing: border-box;
@@ -252,17 +252,19 @@ input ,textarea, .input{
 	padding: 0 0.5rem !important;
 	
 	flex: 1;
-	background-color: hsla(10,1%,33%,.5);
+	background-color: var(--colour-bg-input);
 	transition: 0.5s ease;
 }
 textarea {
 	padding-top: .25rem !important;
 }
-
-
-input:focus, .input:focus , textarea:focus {
-	background-color: var( --colour-bg-input )
+input::placeholder, .input::placeholder , textarea::placeholder {
+	color: hsla(1,1%,66%,1);
 }
+input:focus, .input:focus , textarea:focus {
+	background-color: var(--colour-bg-input-focus)
+}
+
 
 .input-add {
 	width: 1.5rem;

@@ -11,11 +11,14 @@
 	/*transform: skew( 0deg ,-3deg);*/
 	position: relative;
 	box-sizing: border-box;
-	margin-top: .5rem;
-	margin-bottom: 2.5rem;
+	/*margin-top: .5rem;*/
+	/*padding: 1rem;*/
+	padding-top: 2rem;
+	/*margin-top: 0;*/
+	margin-bottom: 2rem;
 }
 .panel header p{
-
+	margin: 0 1rem 1.5rem 1rem;
 }
 
 .header-shadow {
@@ -43,6 +46,7 @@
 .panel main{
 	position: relative;
 	margin: .66rem;
+	/*margin-top: 2rem;*/
 	/*margin: 0.5rem var( --margin-screen-large );*/
 	min-height: 2rem;
 }

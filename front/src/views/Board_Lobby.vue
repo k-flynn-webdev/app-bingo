@@ -31,13 +31,13 @@
 				Join
 			</p>
 
-			<div slot="content">
-				<input 
-					class="input text" 
-					type="string" 
-					name="join"
-					v-model=join.link>
-			</div>
+			<input 
+				slot="content"
+				class="text colour-fill-bg-inv text-input" 
+				type="string" 
+				name="join"
+				placeholder="eg 'bc8yh2'"
+				v-model=join.link>
 
 			<p class="text text-bold" slot="button">
 				ok
@@ -54,14 +54,13 @@
 				Share
 			</p>
 
-			<div slot="content">
-				<input 
-					ref="shareLinkURL"
-					class="input text" 
-					type="string" 
-					name="share"
-					v-bind:value=share.link>
-			</div>
+			<input 
+				slot="content"
+				ref="shareLinkURL"
+				class="text colour-fill-bg-inv text-input" 
+				type="string"
+				name="share"
+				v-bind:value=share.link>
 
 			<p class="text text-bold" slot="button">
 				copy
@@ -95,10 +94,10 @@
 				instance : '',
 				
 				join : {
-					link : 'test'
+					link : ''
 				},
 				share : {
-					link : 'this is a link',
+					link : '',
 				},
 			}
 		},

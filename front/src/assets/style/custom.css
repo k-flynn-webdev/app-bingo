@@ -9,19 +9,19 @@
 	--colour-button: hsla(33,20%,15%,1);
 */
 
-	--colour-shadow: hsla(40,25%,70%,.33);
+	/*--colour-shadow: hsla(40,25%,70%,.33);*/
 }
 
 .header {
 	position: relative;
-	background-color: var(--colour-inv);
-	color: var(--colour);
-	transform: skewY(-4deg);
+	/*background-color: var(--colour-inv);*/
+	/*color: var(--colour);*/
+	/*transform: skewY(-4deg);*/
 	margin: 0;
 
-	-webkit-box-shadow: 0px 20px 30px -10px var(--colour-shadow);
+/*	-webkit-box-shadow: 0px 20px 30px -10px var(--colour-shadow);
 	-moz-box-shadow: 0px 20px 30px -10px var(--colour-shadow);
-	box-shadow: 0px 20px 30px -10px var(--colour-shadow);
+	box-shadow: 0px 20px 30px -10px var(--colour-shadow);*/
 }
 
 .header.custom{

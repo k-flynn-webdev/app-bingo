@@ -136,7 +136,6 @@
 		left: 50%;
 		width: 90%;
 		transform: translateX(-50%);
-		background-color: var(--colour-inv);
 		border: solid 1px white;
 		text-align: left;
 		padding: 0.15rem;

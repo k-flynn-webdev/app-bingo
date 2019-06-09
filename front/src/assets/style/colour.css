@@ -1,17 +1,39 @@
 
 :root {
 
-	--colour: hsl(310,40%,14%);
-	--colour-inv: hsla(40,35%,80%,1);
-	--colour-accent: hsla(180,65%,40%,1);
-	--colour-accent-alt: hsla(0,75%,60%,1);
+
+
+/*	--colour: hsla(10,90%,70%,1);
+	--colour-inv: hsla(35,50%,95%,1);
+	--colour-accent: hsl(220,70%,20%);
+	--colour-accent-alt: hsla(240,10%,50%,1);	*/
+
+	--colour: hsl(220,70%,20%);
+	--colour-inv: hsla(35,50%,85%,1);
+	--colour-accent: hsla(10,80%,70%,1); 
+	/*--colour-accent: hsla(10,90%,70%,1);*/
+	/*hsla(170,50%,80%,1);*/
+	/*--colour-accent-alt: hsla(240,10%,50%,1);*/
+	--colour-accent-alt: black;
 	
-	--colour-button: hsla(45,70%,50%,1);
-	--colour-button-shadow: hsla(45,70%,30%,1);
-	
+
+
+
+	--colour-button: hsla(200,60%,60%,1);
+	--colour-button-shadow: hsla(200,30%,35%,1);
+
+
+	--colour-bg-input: hsla(1,1%,90%,.33);
+	--colour-bg-input-focus: hsla(200,40%,50%,1);
+
+
+
+
+
+
 	--colour-shade: hsla(0,10%,10%,1);
 
-	--colour-bg-input: hsla(180,65%,40%,.5);
+
 
 
 	--colour-positive: hsla(100,40%,40%,1);

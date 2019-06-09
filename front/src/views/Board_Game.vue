@@ -323,13 +323,19 @@
 			reset : function(){
 				this.$root.$emit('player.reset');
 				this.$root.$emit('words.reset');
-				this.$refs.btnReset.$emit('state', 'waiting');
+				if( this.$refs.btnReset !== undefined ){
+					this.$refs.btnReset.$emit('state', 'waiting');
+				}
 			},
 			reset_success : function(){
-				this.$refs.btnReset.$emit( 'state', 'message', 'Ready');
+				if( this.$refs.btnReset !== undefined ){
+					this.$refs.btnReset.$emit( 'state', 'message', 'Ready');
+				}
 			},
 			reset_fail : function(){
-				this.$refs.btnReset.$emit( 'state', 'message', 'Error');
+				if( this.$refs.btnReset !== undefined ){
+					this.$refs.btnReset.$emit( 'state', 'message', 'Error');
+				}
 			},
 
 			// resetBtn : function(){

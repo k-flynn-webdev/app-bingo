@@ -107,8 +107,12 @@
 	.word-button{
 		flex: none !important;
 		height: unset !important;
+		background-color: var(--colour-inv);
+		background-color: hsla(35,50%,75%,1);;
 	}
-
+	.word-button p{
+		color: var(--colour);
+	}
 /*	.button.is-selected{
 		background-color: green !important;
 	}*/

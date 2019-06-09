@@ -225,24 +225,29 @@
 		width: 100%;
 		height: 100%;
 		background-color: var( --colour-button-highlight );
+		background-color: hsla(1,10%,90%,1);
 
 		opacity: 0.1;
 		display: inline;
-		transform: scaleX(.3) skew(-33deg) translateX(-210%);
+		transform: scaleX(.175) skew(-33deg) translateX(-210%);
 	}
 
 	@keyframes is-waiting-anim {
 		0% { 
-			opacity: 0.1; 
+			opacity: 0; 
 			transform: scaleX(.3) skew(-33deg) translateX(-210%);
 		}
-		45% { 
-			opacity: 1; 
+		33% { 
+			opacity: 1;
+		}
+		66% {
+			opacity: 1;
 		}
 		80% {
-			opacity: 0.1; 
+			opacity: .1;
 		}
 		100% { 
+			opacity: 0;
 			transform: scaleX(.3) skew(-33deg) translateX(210%);
 		}
 	}
@@ -257,7 +262,7 @@
 	.colour-fill-depends {
 		color: var( --colour );
 	}
-	.is-success .colour-fill-depends, .is-error .colour-fill-depends {
+	.is-message .colour-fill-depends, .is-success .colour-fill-depends, .is-error .colour-fill-depends {
 		color: var( --colour-inv );
 	}	
 

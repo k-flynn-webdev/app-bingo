@@ -1,11 +1,12 @@
 <template>
 
-	<transition 
+<!-- 	<transition 
 		name="word" 
-		mode="out-in">
+		mode="out-in"> -->
 		
 		<c-button
 			ref="word_btn"
+			class="word-button"
 			v-bind:class="{ 'word-selected' : selected, 'word-waiting' : waiting }"
 			v-bind:onClick=toggle>
 
@@ -13,8 +14,8 @@
 
 		</c-button>
 
-	</transition>
-
+<!-- 	</transition>
+ -->
 </template>
 
 <script>
@@ -108,6 +109,10 @@
 </script>
 
 <style>
+
+	.word-button{
+		flex: none !important;
+	}
 
 /*	.button.is-selected{
 		background-color: green !important;

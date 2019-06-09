@@ -1,15 +1,27 @@
 <template>
 
 	<div 
-		class="words-holder"
+		ref="wrds_holder"
+		class="words-holder anim-6"
 		v-bind:class="{ 'words-lock' : !is_ready, 'words-ready' : is_ready, }">
 
-		<c-word
-			v-for="(word, index) in words_list" 
-			:key="word.id"
-			v-bind:input=word>
+		<div ref="wrds_holder_inner">
+			
+			<transition-group name="task2" tag="div" mode="out-in">
 
-		</c-word>
+				<c-word
+					class="anim-10"
+					v-for="(word, index) in words_list" 
+					v-bind:key="word.id"
+					v-bind:style=get_style_task(index)
+					v-bind:input=word>
+
+				</c-word>
+
+			</transition-group>
+
+
+		</div>
 
 	</div>
 
@@ -65,6 +77,7 @@ let word_hash = function (str){
 		name: 'cWords',
 		data(){
 			return {
+				rendered : false,
 			}
 		},
 		computed : {
@@ -105,7 +118,39 @@ let word_hash = function (str){
 					return b.word.length - a.word.length;	
 				});
 
-				this.$store.dispatch('game/set_words', words );
+				let self = this;
+				function delayStart( index, items ){
+					setTimeout( function(){
+						let tempArray = [];
+						for( let a = 0; a < index; a++){
+							tempArray.push( items[a] );
+						}
+						self.$store.dispatch('game/set_words', tempArray );
+					}, index * 250 );
+				}
+
+				// delay dispatch
+				let delay = 1.66;
+				let tDelay = delay;
+
+				if(!this.rendered){
+					tDelay = 0;
+					this.rendered = true;
+				} else {
+					this.$store.dispatch('game/set_words', [] );
+				}
+
+				setTimeout( function(){
+					for( let a = 0; a < words.length; a++){	
+						delayStart(a, words);
+					}
+				}, tDelay * 1000);
+
+			},
+
+			get_style_task : function( index ){
+				let inv = this.words_list.length - index;
+				return { '--i' : index + 1, '--inv-i' : inv - 1 };
 			},
 
 			exit : function(){
@@ -128,6 +173,13 @@ let word_hash = function (str){
 
 <style>
 
+.words-holder {
+	display: block;
+	flex: none;
+	position: relative;
+	min-height: 15rem;
+}
+
 .words-lock {
 	/*background-color: hsla(0,50%,50%,1);*/
 }
@@ -138,6 +190,79 @@ let word_hash = function (str){
 .words-lock, .words-lock .button {
 	pointer-events: none !important;
 }	
+
+
+
+
+
+
+.task2-enter {
+	opacity: 0;
+	border: .5rem transparent solid !important;
+}
+
+.task1-enter-to {
+	/*opacity: 0;*/
+	/*background-color: green !important;*/
+	/*transform: translateY(-100%);*/
+	/*position: absolute;*/
+}
+
+.task-enter-active {
+	/*animation: add-task 1s cubic-bezier(.26,.03,0,.9);*/
+	/*background-color: green !important;*/
+	/*animation: add-task .3s cubic-bezier(.26,.03,0,.9) calc( .2s * var(--i));*/
+/*	position: absolute;
+	top: 0;
+	right: 0;*/
+	/*animation: add-task 1s cubic-bezier(.26,.03,0,.9) calc( .2s * var(--i));*/
+}
+.task1-leave-active {
+	/*position: absolute;*/
+	/*background-color: red !important;*/
+/*	position: absolute;
+	bottom: 0;
+	left: 0;*/
+	/*position: absolute;*/
+	/*animation: add-task .3s reverse cubic-bezier(.26,.03,0,.9) calc( .2s * (1 - var(--i)));*/
+}
+.task2-leave, .task2-leave-to {
+	/*opacity: 0;*/
+	/*background-color: red !important;*/
+	animation: remove-task 1s ease calc( .1s * var(--inv-i) );
+	/*opacity: 0;*/
+	/*transform: translateY(-100%);*/
+	
+}
+
+.task2-move {
+	/*background-color: green !important;*/
+	/*border: green .1rem solid;*/
+	transition: transform 1s ease !important;
+}
+
+@keyframes add-task {
+	0% {
+		/*opacity: 0;*/
+		transform: translateY(-2rem);
+	}		
+	100% {
+		/*opacity: 1;*/
+		transform: translateY(0);
+	}
+}
+
+@keyframes remove-task {
+	0% {
+		opacity: 1;
+		transform:  translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(1rem);
+	}
+}
+
 
 /*
 	.word-block {
@@ -190,7 +315,7 @@ let word_hash = function (str){
 
 
 
-	.word-enter-active {
+	/*.word-enter-active {
 		animation: word-anim-in-out 0.5s both;
 	}
 	.word-leave-active {
@@ -206,54 +331,54 @@ let word_hash = function (str){
 			opacity: 1;
 		}
 	}
-
+*/
 	.words {
 		margin: 1rem 0.1rem;
 		text-align: left;
 	}
-	.word {
-		text-align: center;
+	/*.word {*/
+		/*text-align: center;*/
 		/*position: relative;*/
 		/*width: 50%;*/
 		/*opacity: 1;*/
 		/*display: inline-block;*/
-		background-color: hsl(200,33%,90%);
+		/*background-color: hsl(200,33%,90%);*/
 		/*border-radius: 0;*/
-		margin: 0.2rem;
+		/*margin: 0.2rem;*/
 		/*padding: 0 0.1rem;*/
-		border: none;
-		height: unset;
+		/*border: none;*/
+		/*height: unset;*/
 		/*transform: scale(0.3);*/
 		/*opacity: 0.1;*/
-	}
-	.word.is-waiting{
+	/*}*/
+	/*.word.is-waiting{*/
 		/*background-color: red;*/
-		animation: word-anim-waiting 2s 1s infinite both;
-	}
-	@keyframes word-anim-waiting {
-		0% {
-			opacity: 1;
+		/*animation: word-anim-waiting 2s 1s infinite both;*/
+	/*}*/
+	/*@keyframes word-anim-waiting {*/
+		/*0% {*/
+			/*opacity: 1;*/
 			/*background-color: hsla(100,30%,40%,1)*/
 			/*transform: scale(0.3);*/
 			/*opacity: 0;*/
-		}
-		50% {
-			opacity: .1;
+		/*}*/
+		/*50% {*/
+			/*opacity: .1;*/
 			/*background-color: red;*/
 			/*transform: scale(0.3);*/
 			/*opacity: 0;*/
-		}		
-		100% {
-			opacity: 1;
+		/*}		*/
+		/*100% {*/
+			/*opacity: 1;*/
 			/*background-color: hsla(100,30%,40%,1)*/
 			/*transform: scale(1);*/
 			/*opacity: 1;*/
-		}
-	}
+		/*}*/
+	/*}*/
 
-	.word.is-selected{
+	/*.word.is-selected{
 		background-color: hsl(100,60%,70%);
-	}
+	}*/
 
 </style>
 

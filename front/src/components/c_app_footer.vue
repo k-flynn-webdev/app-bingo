@@ -100,11 +100,10 @@ export default {
 	}
 
 	.app-version {
+		margin-top: .66rem;
 		font-size: .8rem;
 		display: block;
 		text-align: right;
-		/*margin: .5rem;*/
-		/*margin-top: .1rem;*/
 		transform: translateX(-.5rem)  translateY(-.5rem);
 	}
 
@@ -112,6 +111,16 @@ export default {
 		transform: translateY(.15rem);
 		width: 1.5rem;
 	}
+
+@media only screen and (min-width: 600px) {
+
+	.app-version {
+		margin-top: 0;
+		font-size: .6rem;
+	}
+
+}
+
 
 </style>
 

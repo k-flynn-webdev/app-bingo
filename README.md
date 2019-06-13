@@ -1,62 +1,15 @@
-# vue-basic-client-server
-A simple complete Vue.js client and Node.js server project.
+<!-- # vue-basic-client-server -->
+# Bullshit Bingo
+<!-- A simple complete Vue.js client and Node.js server project. -->
 
 
 
 ## Goals
-	
-The goal of this repo was to create a simple secure project with the usual CRUD user operations and a admin dashboard.
-The main frameworks used are JsonWebToken for authorization, Node-Express and MongoDB for the server side. With VueJS for the frontend and VueX store for managing local state. Designed mostly for phone use rather than desktop, updated css to come at a later date.
-
-## Images
-
-![home page](./docs/home.jpg?raw=true "home page")
-
-![navbar](./docs/navbar_guest.jpg?raw=true "navbar")
-![navbar](./docs/navbar_user.jpg?raw=true "navbar")
-![navbar](./docs/navbar_admin.jpg?raw=true "navbar")
-
-![account](./docs/account_login.jpg?raw=true "account")
-![account](./docs/account_register.jpg?raw=true "account")
-![account](./docs/account_logout.jpg?raw=true "account")
-![account](./docs/account_show.jpg?raw=true "account")
-![account](./docs/account_edit.gif?raw=true "account")
-
-![admin](./docs/admin_panel.jpg?raw=true "admin")
+Create an online multiplayer bullshit bingo.
+Easy to generate a board with multiple phrases/words and share with any number of people to join an online session. With the winner being announced to everyone currently playing.
 
 
-
-## Client Page and access 
-	
-Path | visibility | description
-------------- | ------------- | ------------- 
-/					|	(all)			| Home page
-/login				|	(guest)			| Account login
-/register			|	(guest)			| Account creation
-/account			|	(user/admin)	| Account info/edit
-/logout				|	(user/admin)	| Account logout
-/admin/request		|	(user)			| Admin account request
-/admin				|	(admin)			| Admin dashboard
-
-
-
-## Endpoints API and access:
-
-Method | Path | accessability | description
------------- | ------------- | ------------- | ------------- 
-GET 	|	/						| (open)	|	Vue.js package delivery.
-POST 	|	/api/account/login		| (open)	|	Account login.
-POST 	|	/api/account/create		| (open)	|	Account creation.
-PUT 	|	/api/account/			| (secure)	|	Account update (requires token / token blacklisted).
-DELETE 	|	/api/account/			| (secure)	|	Account delete (requires token / token blacklisted).
-POST 	|	/api/account/logout		| (secure)	| 	Account logout (requires token / token blacklisted).
-POST 	|	/api/admin/user/all		| (secure)	| 	Admin dashboard info of all users (requires admin token).
-POST 	|	/api/admin/user/month	| (secure)	| 	Admin dashboard info last 30 days of users (requires admin token).
-POST 	|	/api/admin/user/{ user-id } | (secure)	| Admin dashboard user edit (requires admin token).
-DELETE 	|	/api/admin/user/{ user-id } | (secure)	| Admin dashboard user delete (requires admin token).
-POST 	|	/api/admin/stats		| (secure)	| Admin dashboard database stats (requires admin token).
-POST 	|	/api/admin/reset/{ collection } | (secure)	| Admin dashboard database stats (requires admin token).
-
+wip video here: https://www.instagram.com/p/BumuGBPFBdn/
 
 
 ## Variables:
@@ -98,12 +51,12 @@ options available:
 
 ## To Run:
 
-Working example here: https://warm-chamber-83596.herokuapp.com/
+<!-- Working example here: https://warm-chamber-83596.herokuapp.com/
 
 `NPM start` from the server folder will start the server and serve the front end on request.
 
 You can also run the server and front end seperately. To run the front end `NPM serve` in order to run via the Vue-Cli. 
-
+ -->
 
 
 ## Validation:

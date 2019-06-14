@@ -81,10 +81,10 @@ module.exports = function( App ) {
 
 
 				// if an instance has already been won, notify ..
-				if( result.data.game.winner !== "" ){
+				if( result.data.game.winner.win ){
 
 					return response.status(status.success.accepted).json({
-						status : status.success.accepted,
+						status : status.success.ok,
 						message : 'Game has been won.',
 						data : instance_func.safe( result ),
 					});
@@ -98,9 +98,6 @@ module.exports = function( App ) {
 					});
 
 				}
-
-
-
 
 			});
 	});

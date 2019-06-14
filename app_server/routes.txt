@@ -12,3 +12,107 @@ user:
 admin:
 	create: is always assigned via ssh commandshell update
 	panel: get( '/admin/panel', token.check )
+
+
+
+
+instance:
+	create: (get)('/api/instance/#board-id/create')
+	get random: (get)('/api/instance/#board-id/random')
+	get: (get)('/api/instance/#instance-id')
+
+	#instances will auto delete after being won/lost
+	#instances will auto delete after being empty for an hour
+	#instances will auto delete after everyone is afk for an hour.
+
+	#always returns 
+	(get)
+	{ 
+		status : xxx,
+		message : xxx,
+		data : {
+			url : 'xxx',
+			data : {
+				board : 'xxx',
+				players : [],
+				game : {
+					win : #,
+					winner : {
+						win : false,
+						url : '',
+						name : '',
+						score : #,
+					},
+				},
+			},
+		},
+	}
+
+
+board:
+	create: post('/api/board/create')
+	get: get('/api/board/id')
+
+	#boards by logged in users stay indefinately.
+	#boards (anon) will be archived after 1 weeks of in-activity
+	#boards (anon) will be deleted after a 2months
+
+	#always returns 
+	(get)
+	{ 
+		status : xxx,
+		message : xxx,
+		data : {
+			url : xxxxxx,
+			data : {
+				name : xxx,
+				words : [],
+				game : {
+					win : #,
+					display : #,
+				},
+			},
+		},
+	}
+
+
+player:
+	join: (post)('/api/instance/#instance-id')
+	update: (put)('/api/instance/#instance-id')
+	leave: (delete)('/api/instance/#instance-id')
+
+	#player (anon) will be removed after a 10 mins afk
+
+	#always returns
+	(post/put/delete) 
+	{ 
+		status : xxx,
+		message : xxx,
+		data : {
+			word : {
+				add : xxx,
+				remove : xxx,
+				reset : true,
+			},		
+			url : xxxxxx,
+			data : {
+				name : xxx,
+				score : #,
+				game : {
+					win : #,
+					winner : {
+						win : false,
+						url : xxx,
+						name : xxx,
+						score : #,
+					},
+				},
+			},			
+		},
+	}
+
+
+
+
+
+

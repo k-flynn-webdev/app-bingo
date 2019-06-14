@@ -30,7 +30,8 @@ let word_hash = function (str){
 }
 
 
-let game_modes = ['', 'playing', 'won', 'lost' ];
+let game_modes = ['', 'playing' ];
+let game_result = [ '', 'won', 'lost' ];
 
 export default {
 	namespaced: true,
@@ -42,6 +43,12 @@ export default {
 			words : false,
 			joined : false,
 			mode : game_modes[0],
+			result : game_result[0],
+			winner : {
+				score : 0,
+				url : '',
+				name : '',
+			},
 			poll : 0,
 		},
 	},
@@ -86,6 +93,7 @@ export default {
 
 
 		game : function( state, input ){
+
 			if( input.board !== undefined ){
 				state.game.board = input.board;
 			}
@@ -96,48 +104,65 @@ export default {
 				state.game.joined = input.joined;
 			}
 
+			// let playing = false;
+			if( state.game.board &&
+				state.game.instance &&
+				state.game.words &&
+				state.game.joined &&
+				state.game.mode === game_modes[0] &&
+				state.game.result === game_result[0] ){	
+					console.log('setting to play mode.');
+					state.game.mode = game_modes[1];
+					// playing = true;			
+			} else {
+				state.game.mode = game_modes[0];	
+				state.game.mode = game_result[0];	
+			}
 
+			if( input.result !== undefined &&
+				input.result !== '' ){
+					state.game.result = input.result;
+					console.log( 'game is ' + input.result );
 
-			// this is override?
-			if( input.mode !== undefined ){
-
-				if( input.mode == game_modes[0] ){
-					state.game.mode = game_modes[0];
-				} else {
-
-					if( state.game.board &&
-						state.game.instance &&
-						state.game.words ){
-
-						for( let i =0; i < game_modes.length;i++){
-							if(game_modes[i] == input.mode ){
-								state.game.mode = game_modes[i];
-							}
-						}
-					
+					if( input.winner !== undefined ){
+						state.game.winner.url = input.winner.url;
+						state.game.winner.name = input.winner.name;
+						state.game.winner.score = input.winner.score;
 					}
 
-				}
-			} else {
-
-				if( state.game.board &&
-					state.game.instance &&
-					state.game.joined ){
-					state.game.mode = game_modes[1];
-				}
 			}
 
 
-			if( input.poll !== undefined ){
-				state.game.poll = input.poll;
-			}
+
+			// if( input.mode !== undefined && 
+			// 	state.game.mode === game_modes[1] ){
+
+			// 	console.log( 'input' );
+			// 	console.log( input );
+
+				// if( input.result === game_result[1] || input.result === game_result[2] ){
+			// 		// game is won
+					
+					// let winType = input.result === game_result[1] ? game_result[1] : game_result[2];  
+					// state.game.mode = winType;
+
+				// }
+
+			// }			
+
 		},
+
+		poll : function( state, input ){
+			state.game.poll = input.poll;
+		},
+
 
 	},
 	actions: {
 
 		set_words : function( context, input ){
 			context.commit('words', input );
+			context.commit('game', {} );
 		},
 
 		submit_word : function( context, input ){
@@ -156,7 +181,7 @@ export default {
 
 		poll : function( context ){
 			let temp = context.getters.get_poll + 1;
-			context.commit('game', { poll : temp } );
+			context.commit('poll');
 		},
 
 		reset : function( context ){
@@ -176,6 +201,12 @@ let basic = {
 	words : false,
 	joined : false,
 	mode : game_modes[0],
+	result : game_result[0],
+	winner : {
+		score : 0,
+		url : '',
+		name : '',
+	},	
 	poll : 0,
 }
 

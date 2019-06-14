@@ -16,7 +16,7 @@ function safe( model, all=false ){
 			game : {
 				win : model.data.game.win,
 				display : model.data.game.display,
-			}	
+			},	
 		},
 	};
 

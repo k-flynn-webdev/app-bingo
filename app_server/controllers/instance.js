@@ -165,7 +165,7 @@ function update( instanceFound ){
 	// clearing old or timed out players ..
 	// boot_dead_players( instanceFound );
 
-	if( instanceFound.data.game.winner === "" ){
+	if( !instanceFound.data.game.winner.win ){
 
 		// resetting ..
 		// instanceFound.data.game.ahead = '';

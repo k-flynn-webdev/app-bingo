@@ -5,6 +5,8 @@
 <script>
 
 	import { submit } from '../mixins/h_submit.js';
+	import validate_game from '../helpers/h_validate_game.js';
+
 
 	export default {
 		name: 'cInitInstance',
@@ -55,11 +57,13 @@
 				// this.$store.dispatch('players/set_players', input.data );
 				this.$root.$emit('board.init', input.data.data.board );
 
-				if( input.data.data.game.winner !== ''){
+				validate_game.game( input, this );
+
+				// if( input.data.data.game.winner !== ''){
 					// game is over already?	
-					this.$store.dispatch('game/set_game', { mode : 'lost' } );
-					this.$root.$emit('game.lost');
-				}
+					// this.$store.dispatch('game/set_game', { mode : 'lost' } );
+					// this.$root.$emit('game.lost');
+				// }
 
 			},
 
@@ -67,8 +71,10 @@
 
 			 	// todo work on this.
 
-				console.log( 'input init error' );
-				console.log( input );
+				// console.log( 'input init error' );
+				// console.log( input );
+
+				validate_game.game( input, this );
 
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
 					let self = this;

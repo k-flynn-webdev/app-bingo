@@ -25,7 +25,7 @@ function create( input, next){
 			return next(error);
 		}
 
-		return next(null, board_func.safe( result ));
+		return next(null, result);
 
 	});
 
@@ -52,7 +52,7 @@ function get( input, next ){
 			});
 		}
 
-		return next(null, board_func.safe( result ));
+		return next(null, result);
 
 	});
 }

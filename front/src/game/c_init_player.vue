@@ -5,6 +5,8 @@
 <script>
 
 	import { submit } from '../mixins/h_submit.js';
+	import validate_game from '../helpers/h_validate_game.js';
+
 
 	export default {
 		name: 'cInitPlayer',
@@ -87,6 +89,8 @@
 				this.$store.dispatch('player/set_player', input.data );
 				this.$store.dispatch('game/set_game', { joined : true } );
 
+				validate_game.game( input, this );
+
 				// console.log( input.data );
 
 				// if( !this.input.selected ){
@@ -107,25 +111,26 @@
 			join_error : function( input ){
 
 				// todo 
-				this.$store.dispatch('game/set_game', { joined : false } );
+				this.$store.dispatch('game/set_game', { joined : true } );
 
 				// console.log( 'input join error' );
 				// console.log( input );
 
-
+				validate_game.game( input, this );
+				
 				// game won / lost
-				if( input.status === 401 && 
-					input.win !== undefined){
+				// if( input.status === 401 && 
+				// 	input.win !== undefined){
 
-					let winType = input.win ? 'won' : 'lost' ;
+				// 	let winType = input.win ? 'won' : 'lost' ;
 
-					this.$store.dispatch('game/set_game', { mode : winType } );
+				// 	this.$store.dispatch('game/set_game', { mode : winType } );
 
-					// this.$root.$emit('game.won');
-					// todo
-					console.log('game has been ' + winType + ', trigger exit message.');
-					console.log(input);
-				}
+				// 	// this.$root.$emit('game.won');
+				// 	// todo
+				// 	console.log('game has been ' + winType + ', trigger exit message.');
+				// 	console.log(input);
+				// }
 
 
 				

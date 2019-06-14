@@ -4,9 +4,9 @@ const status = require('../config/status_response.js');
 const helpers = require('./helpers.js');
 
 const instance_validate = require('../controllers/instance.validate.js');
+
 const board_func = require('../controllers/board.func.js');
 const player_func = require('../controllers/player.func.js');
-
 
 
 
@@ -27,18 +27,24 @@ function safe( model, all=false ){
 			players : clean_players( model.data.players ),	
 			game : {
 				win : model.data.game.win,
-				ahead : model.data.game.ahead,
-				winner : model.data.game.winner,
+				// ahead : model.data.game.ahead,
+				// winner : model.data.game.winner,
+				winner : {
+					win : model.data.game.winner.win,
+					url :  model.data.game.winner.url,
+					name :  model.data.game.winner.name,
+					score :  model.data.game.winner.score,
+				},
 			},		
 		},
 	};
 
-	if(model.winner !== undefined ){
-		temp.winner = player_func.safe( model.winner, true);
+	// if(model.winner !== undefined ){
+		// temp.winner = player_func.safe( model.winner, true);
 		// temp.winner.data.name = model.winner.data.name;
 		// temp.winner.data.score = model.winner.data.score;
 		// temp.winner.data.words = model.winner.data.words;
-	}
+	// }
 
 	return temp;
 }
@@ -73,9 +79,8 @@ function create( input_board, input_url=false, next ){
 				players : [],
 				game : {
 					win : result.win,
-					display : result.display,
 				},
-			}
+			},
 		});
 
 		board_func.board_is_played( board_obj );
@@ -91,11 +96,15 @@ exports.create = create;
 
 function instance_won( instance, player ){
 
-	instance.data.game.winner = player.url;
-	instance.winner = player_func.safe(player);
+	instance.data.game.winner.win = true;
+	instance.data.game.winner.url = player.url;
+	instance.data.game.winner.name = player.data.name;
+	instance.data.game.winner.score = player.data.score;
+	instance.data.game.winner.words = player.data.words;
+	// instance.winner = player_func.safe(player);
 
 	board_func.board_is_won( instance.data.board );
-
+	
 }
 exports.instance_won = instance_won;
 

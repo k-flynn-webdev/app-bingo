@@ -26,7 +26,7 @@ module.exports = function( App ) {
 		player_check.join,
 		function(request, response){
 
-			instance.fetch( request.params.instance, function(error, instanceResult){
+			instance.fetch( request.params.instance, function(error, result_instance){
 
 				if( error ){
 					logger.add( error.message );
@@ -37,16 +37,16 @@ module.exports = function( App ) {
 				}
 
 				// if an instance has already been won, you can only send a leave ..
-				if( instanceResult.data.game.winner !== "" ){
+				if( result_instance.data.game.winner.win ){
 					// game has been won already.. end process ..
 					return response.status(status.client.unauthorized).json({ 
 						status : status.client.unauthorized,
 						message : 'Game has been won.', 
-						win : true,
+						data : instance_func.safe( result_instance ),
 					});
-				}				
+				}
 
-				player.create( request.body, instanceResult, function(error, result){
+				player.create( request.body, result_instance, function(error, result_player){
 
 					if( error ){
 						logger.add( error.message );
@@ -56,12 +56,12 @@ module.exports = function( App ) {
 						});	
 					}
 
-					instance.update( instanceResult );
+					instance.update( result_instance );
 
 					return response.status(status.success.created).json({
 						status : status.success.created,
 						message : 'New player joined.',
-						data : player_func.safe( result ),
+						data : player_func.safe( result_player ),
 					});
 				});
 			});
@@ -73,7 +73,7 @@ module.exports = function( App ) {
 		player_check.player,
 		function(request, response){
 
-			instance.fetch( request.params.instance, function(error, instanceResult){
+			instance.fetch( request.params.instance, function(error, result_instance){
 
 				if( error ){
 					logger.add( error.message );
@@ -84,16 +84,16 @@ module.exports = function( App ) {
 				}
 
 				// if an instance has already been won, you can only send a leave ..
-				if( instanceResult.data.game.winner !== "" ){
+				if( result_instance.data.game.winner.win ){
 					// game has been won already.. end process ..
 					return response.status(status.client.unauthorized).json({ 
 						status : status.client.unauthorized,
 						message : 'Game has been won.', 
-						win : true,
+						data : instance_func.safe( result_instance ),
 					});
-				}	
+				}
 
-				player.update( request.body.player, instanceResult, function(error, result){
+				player.update( request.body.player, result_instance, function(error, result_player){
 					
 					if( error ){
 						logger.add( error.message );
@@ -103,32 +103,36 @@ module.exports = function( App ) {
 						});
 					}
 
-					instance.update( instanceResult );
-					instance.update_time( instanceResult );
+					instance.update( result_instance );
+					instance.update_time( result_instance );
 
+					let clean_instance = instance_func.safe( result_instance );
 
-					// did this update win?
-					if( instanceResult.data.game.winner !== "" ){
+					let gameLost = false;
+					let gameWon = false;
+					if( clean_instance.data.game.winner.win ){
+						if( clean_instance.data.game.winner.url === result_player.url ){
+							gameWon = true;
+						} else {
+							gameLost = true;
+						}
+					}
+
+					// if an instance has already been won, you can only send a leave ..
+					if( gameLost ){
 						// game has been won already.. end process ..
 						return response.status(status.client.unauthorized).json({ 
 							status : status.client.unauthorized,
-							message : 'Game has been won.', 
-							win : true,
+							message : 'Game has been lost.',
+							data : clean_instance,
 						});
 					}
 
-					let updateResult = request.body.player;
-
-					Object.assign(updateResult, player_func.safe( result ));
-					// if( result.data.name !== undefined ){
-					// 	updateResult.data.name = result.data.name;
-					// }
-					// if( result.data.words !== undefined ){
-					// 	updateResult.data.words = result.data.words;
-					// }
-					// if( result.data.score !== undefined ){
-					// 	updateResult.data.score = result.data.score;
-					// }
+					let updateResult = request.body.player; // bounce back confirm ..
+					Object.assign(updateResult, player_func.safe( result_player ));
+					if( gameWon ){
+						updateResult.data.game = clean_instance.data.game;
+					}
 
 					return response.status(status.success.accepted).json({
 						status : status.success.accepted,
@@ -145,7 +149,7 @@ module.exports = function( App ) {
 		player_check.player,
 		function(request, response){
 
-			instance.fetch( request.params.instance, function(error, instanceResult){
+			instance.fetch( request.params.instance, function(error, result_instance){
 
 				if( error ){
 					logger.add( error.message );
@@ -155,7 +159,7 @@ module.exports = function( App ) {
 					});	
 				}
 
-				player.remove( request.body.player, instanceResult, function(error, result){
+				player.remove( request.body.player, result_instance, function(error, result_player){
 
 					if( error ){
 						logger.add( error.message );
@@ -165,12 +169,12 @@ module.exports = function( App ) {
 						});	
 					}
 
-					instance.update( instanceResult );
+					instance.update( result_instance );
 					
 					return response.status(status.success.ok).json({
 						status : status.success.ok,
 						message : 'Player removed.',
-						data : result,
+						data : player_func.safe( result_player ),
 					});
 				});
 			});

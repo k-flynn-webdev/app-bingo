@@ -108,8 +108,14 @@
 		flex: none !important;
 		height: unset !important;
 		background-color: var(--colour-inv);
-		background-color: hsla(35,50%,75%,1);;
+		background-color: hsla(50,50%,75%,1);
 	}
+
+/*	.word-button:active{
+		margin: .45rem 0;
+	}*/
+
+
 	.word-button p{
 		color: var(--colour);
 	}

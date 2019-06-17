@@ -155,4 +155,11 @@
 }
 
 
+.colour-fill-darken {
+	color: hsla(10,5%,15%,0.93);
+	fill: hsla(10,5%,15%,0.93);
+}
+.colour-bg-darken {
+	background-color: hsla(10,5%,15%,0.93);
+}
 

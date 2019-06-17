@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
 	<div>
 		<c-word
@@ -195,3 +195,4 @@ let array_randomize = function( input ){
 
 </style>
 
+ -->

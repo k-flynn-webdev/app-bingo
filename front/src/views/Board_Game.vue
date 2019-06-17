@@ -5,6 +5,7 @@
 		<c-init-instance></c-init-instance>
 		<c-init-board></c-init-board>
 		<c-init-player></c-init-player>
+		<c-window-player></c-window-player>
 
 		<c-update-instance></c-update-instance>
 
@@ -267,6 +268,7 @@
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
 	import InitPlayer from '../game/c_init_player.vue';
+	import PlayerWindow from '../components/c_player_window.vue';
 
 	import UpdateInstance from '../game/c_update_instance.vue';
 	
@@ -399,6 +401,7 @@
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
 			'c-init-player' : InitPlayer,
+			'c-window-player' : PlayerWindow,
 			'c-update-instance' : UpdateInstance,
 			// 'c-button' : Button,
 			

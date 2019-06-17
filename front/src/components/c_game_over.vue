@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 	
 	<c-popup class="game-over"
 		v-if=game_state.over 
@@ -74,3 +74,4 @@
 
 </style>
 
+ -->

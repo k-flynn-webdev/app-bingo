@@ -2,39 +2,58 @@
 	
 	<div ref="popup" class="popup-fill" style="z-index: 50;">
 		
-		<div 
-			v-on:click=clicked
-			class="fill-all shade">
-		</div>
+		<transition 
+			appear
+			name="fade">
 		
-		<div class="panel center-auto-h width-95 shadow "
-			style="position: relative;z-index: 10;">
-
-			<header>
-
-				<div style="position:absolute;height:100%;width:100%;">
-					<div 
-						class="options flex-row flex-row-end "
-						style="height:100%;width:100%;">
-						<slot name="options"></slot>
-					</div>
+				<div 
+					v-if=show
+					v-on:click=clicked
+					class="fill-all colour-bg-darken">
 				</div>
 
-				<p class="title text-uppercase text-med text-small"> 
-					<slot name="header" ></slot>
-				</p>
+		</transition>
 
-			</header>
-			<main>
-				<slot></slot>
-				<slot name="no-margin" class="main"></slot>
-			</main>
-			<footer>
-				<p class="text"> 
-					<slot name="footer"></slot>
-				</p>
-			</footer>
-		</div>
+
+		<transition 
+			appear
+			name="slide-in">
+
+				<div 	
+					class="panel center-auto-h"
+					style="position: relative;z-index:50;">
+
+					<header class="">
+
+						<p class="header colour-fill-bg-inv text-funky custom"> 
+							<slot name="header" ></slot>
+						</p>
+
+						<div class="options flex-row flex-row-end header-shadow1">
+							<slot name="options"></slot>
+						</div>
+
+					</header>
+
+					<div class="width-90 center-auto-h">
+
+						<main class="text">	
+							<slot></slot>
+						</main>
+
+						<slot name="no-margin" class="main"></slot>
+
+						<footer class="footer">
+							<p class="text"> 
+								<slot name="footer"></slot>
+							</p>
+						</footer>
+
+					</div>
+
+				</div>
+
+		</transition>
 
 	</div>
 
@@ -42,13 +61,11 @@
 
 <script>
 
-	require('@/assets/style/panel.css');
-
 	export default {
 		name: 'cPopUp',
 		data(){
 			return {
-				show : false,
+				show : true,
 			}
 		},	
 		props: {
@@ -65,7 +82,7 @@
 			document.body.appendChild( this.$refs.popup );
 		},
 		components: {
-		},					
+		},
 }
 
 </script>
@@ -80,7 +97,26 @@
 		height: 100%;
 	}
 
-	.is-success .panel{
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.fade-enter-active, .fade-leave-active {
+	transition: all .6s ease;
+}
+.fade-enter, .fade-leave-to, .slide-in-enter, .slide-in-leave-to {
+	opacity: 0;
+}
+
+.slide-in-enter-active, .slide-in-leave-active {
+	transition: all 1.5s ease;
+}
+.slide-in-enter {
+	transform: translateY(-1.5rem);
+}
+.slide-in-leave-to {
+	transform: translateY(1.5rem);
+}
+
+	/*.is-success .panel{
 		background-color: var( --colour-success );
 	}
 	.is-warning .panel{
@@ -88,7 +124,7 @@
 	}	
 	.is-error .panel{
 		background-color: var( --colour-error );
-	}	
+	}	*/
 
 </style>
 

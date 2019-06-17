@@ -30,6 +30,12 @@ let word_hash = function (str){
 }
 
 let check_ready = function( state ){
+
+	let isGameOver = false;
+	if( state.game.result !== '' ){
+		isGameOver = true;
+	}
+
 	if(	state.game.board &&
 		state.game.instance &&
 		state.game.words &&
@@ -37,11 +43,11 @@ let check_ready = function( state ){
 		state.game.mode === game_modes[0] &&
 		state.game.result === game_result[0] ){
 			state.game.mode = game_modes[1];
-			state.game.result = game_result[0];
+			// state.game.result = game_result[0];
 			return true;
 	} else {
 		state.game.mode = game_modes[0];
-		state.game.result = game_result[0];
+		// state.game.result = game_result[0];
 		return false;		
 	}
 }

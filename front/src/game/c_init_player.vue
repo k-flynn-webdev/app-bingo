@@ -36,12 +36,15 @@
 				}
 
 				if( this.$store.getters['player/get_name'] === '' ){
+					this.$root.$emit('player.show');
 					// todo display player join window ...
 					return;
 				}
 
-				if( this.$store.getters['player/get_url'] === '' ){
+				if( !this.$store.getters['game/get_game'].joined ||
+					this.$store.getters['player/get_url'] === '' ){
 					// begin join post process
+					this.update();
 					this.join();
 					return;
 				}
@@ -59,13 +62,8 @@
 				this.attrs.action.method = 'POST';
 				this.attrs.action.JSON = true;
 
-				let body = {
-					url : this.$store.getters['player/get_url'],
-					name : this.$store.getters['player/get_name'],
-					score : this.$store.getters['player/get_score'],
-				};
+				this.update();
 
-				this.attrs.action.body = body;
 				this.state.init = true;
 
 				// if( this.$store.getters['player/get_name'].length > 0 ){
@@ -74,6 +72,14 @@
 				// 	// todo show popup window for player join!
 				// 	// then do callback to this again..
 				// }
+			},
+			update : function(){
+				let body = {
+					url : this.$store.getters['player/get_url'],
+					name : this.$store.getters['player/get_name'],
+					score : this.$store.getters['player/get_score'],
+				};
+				this.attrs.action.body = body;
 			},
 
 
@@ -87,6 +93,7 @@
 			join_success : function( input ){
 
 				this.$store.dispatch('player/set_player', input.data );
+				this.$root.$emit('player.hide');
 				this.$store.dispatch('game/set_game', { joined : true } );
 
 				validate_game.game( input, this );

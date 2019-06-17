@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
 	<c-game-over 
 		v-bind:game_state=state.game>
@@ -212,3 +212,4 @@
 
 </style>
 
+ -->

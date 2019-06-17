@@ -1,11 +1,11 @@
-<template>
+<!-- <template> -->
 
 	<!-- <c-players-state
 		v-bind:state=state
 		style="position:relative;background-color:black;width:100%;height:100%;">
 		
 	</c-players-state> -->
-
+<!-- 
 </template>
 <script>
 
@@ -179,4 +179,4 @@
 		// },		
 }
 </script>
-
+ -->

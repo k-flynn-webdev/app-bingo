@@ -10,10 +10,12 @@ export default {
 
 			},
 		},
-		url : '',
-		data : {
-			name : 'testName',
-			score : 0,	
+		player : {
+			url : '',
+			data : {
+				name : '',
+				score : 0,	
+			},			
 		},
 	},
 	getters: {
@@ -22,17 +24,17 @@ export default {
 			return state.action;
 		},
 		get_player : function( state ){
-			return state;
+			return state.player;
 		},
 
 		get_url : function( state ){
-			return state.url;
+			return state.player.url;
 		},
 		get_name : function( state ){
-			return state.data.name;
+			return state.player.data.name;
 		},
 		get_score : function( state ){
-			return state.data.score;
+			return state.player.data.score;
 		},
 
 	},
@@ -43,16 +45,16 @@ export default {
 		},
 		player : function( state, input ){
 			if( input.url !== undefined ){
-				state.url = input.url;
+				state.player.url = input.url;
 			}
 
 			if( input.data !== undefined ){
 				if( input.data.name !== undefined ){
-					state.data.name = input.data.name;
+					state.player.data.name = input.data.name;
 					basic.data.name = input.data.name;
 				}
 				if( input.data.score !== undefined ){
-					state.data.score = input.data.score;
+					state.player.data.score = input.data.score;
 				}
 			}
 		},
@@ -80,7 +82,7 @@ export default {
 let basic = {
 	url : '',
 	data : {
-		name : 'testName',
+		name : '',
 		score : 0,
 	},
 };

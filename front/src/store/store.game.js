@@ -29,8 +29,25 @@ let word_hash = function (str){
 	return hash;
 }
 
+let check_ready = function( state ){
+	if(	state.game.board &&
+		state.game.instance &&
+		state.game.words &&
+		state.game.joined &&
+		state.game.mode === game_modes[0] &&
+		state.game.result === game_result[0] ){
+			state.game.mode = game_modes[1];
+			state.game.result = game_result[0];
+			return true;
+	} else {
+		state.game.mode = game_modes[0];
+		state.game.result = game_result[0];
+		return false;		
+	}
+}
 
-let game_modes = ['', 'playing' ];
+
+let game_modes = [ '', 'playing' ];
 let game_result = [ '', 'won', 'lost' ];
 
 export default {
@@ -72,7 +89,8 @@ export default {
 			state.words = input;
 			if( input.length > 0 ){
 				state.game.words = true;
-			}		
+			}
+			check_ready( state );
 		},
 
 
@@ -104,23 +122,14 @@ export default {
 				state.game.joined = input.joined;
 			}
 
-			// let playing = false;
-			if( state.game.board &&
-				state.game.instance &&
-				state.game.words &&
-				state.game.joined &&
-				state.game.mode === game_modes[0] &&
-				state.game.result === game_result[0] ){	
-					console.log('setting to play mode.');
-					state.game.mode = game_modes[1];
-					// playing = true;			
-			} else {
-				state.game.mode = game_modes[0];	
-				state.game.mode = game_result[0];	
+			let isReady = check_ready( state );
+			if( isReady ){
+				console.log('setting to play mode.');
 			}
 
 			if( input.result !== undefined &&
 				input.result !== '' ){
+					state.game.mode = game_modes[0];
 					state.game.result = input.result;
 					console.log( 'game is ' + input.result );
 
@@ -141,8 +150,7 @@ export default {
 	actions: {
 
 		set_words : function( context, input ){
-			context.commit('words', input );
-			context.commit('game', {} );
+			context.commit('words', input );		
 		},
 
 		submit_word : function( context, input ){

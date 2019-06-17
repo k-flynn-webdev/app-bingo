@@ -5,6 +5,7 @@
 <script>
 
 	import { submit } from '../mixins/h_submit.js';
+	import validate_game from '../helpers/h_validate_game.js';
 
 	export default {
 		name: 'cUpdateInstance',
@@ -63,17 +64,20 @@
 
 			update_success : function( input ){
 
-				if( input.status === 202 ){
-					if( input.data.word !== undefined ){
+				validate_game.game( input, this );
 
-						if( input.data.word.add !== undefined ){
-							this.$store.dispatch('game/add_word', input.data.word.add );
-						}
-						
-						if( input.data.word.remove !== undefined ){
-							this.$store.dispatch('game/remove_word', input.data.word.remove );
-						}
+				if( input.status === 202 && 
+					input.data.word !== undefined){
 
+					if( input.data.word.add !== undefined ){
+						this.$store.dispatch('game/add_word', input.data.word.add );
+					}
+					
+					if( input.data.word.remove !== undefined ){
+						this.$store.dispatch('game/remove_word', input.data.word.remove );
+					}
+
+					if( input.data.score !== undefined ){
 						let scoreObject = {
 							data : {
 								score : input.data.score,
@@ -81,8 +85,8 @@
 						};
 
 						this.$store.dispatch('player/set_player', scoreObject );
-
 					}
+
 				} 
 
 
@@ -95,19 +99,21 @@
 			},
 			update_error : function( input ){
 
-				// game won / lost
-				if( input.status === 401 && 
-					input.win !== undefined){
+				validate_game.game( input, this );
 
-					let winType = input.win ? 'won' : 'lost' ;
+				// // game won / lost
+				// if( input.status === 401 && 
+				// 	input.win !== undefined){
 
-					this.$store.dispatch('game/set_game', { mode : winType } );
+				// 	let winType = input.win ? 'won' : 'lost' ;
 
-					// this.$root.$emit('game.won');
-					// todo
-					console.log('game has been ' + winType + ', trigger exit message.');
-					console.log(input);
-				}
+				// 	this.$store.dispatch('game/set_game', { mode : winType } );
+
+				// 	// this.$root.$emit('game.won');
+				// 	// todo
+				// 	console.log('game has been ' + winType + ', trigger exit message.');
+				// 	console.log(input);
+				// }
 
 
 			},

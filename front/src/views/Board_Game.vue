@@ -26,8 +26,10 @@
 		</c-button>
 
 		<br>
+		
 		<span class="text colour-fill-bg-inv">
-			{{ game_state }}
+			{{ game_state.mode }}
+			{{ game_state.result }}
 		</span>
 
 

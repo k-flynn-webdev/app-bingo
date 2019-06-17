@@ -3,8 +3,8 @@
 function game_over( winner, self ){
 
 	console.log( 'validate: winner found' );
-	console.log( self.$store.getters['game/get_game'] );
-	console.log( self.$store.getters['player/get_url'] );
+	// console.log( self.$store.getters['game/get_game'] );
+	// console.log( self.$store.getters['player/get_url'] );
 
 	if( self.$store.getters['player/get_url'] ===  winner.url ){
 		self.$store.dispatch('game/set_game', { result : 'won' , winner : winner } );

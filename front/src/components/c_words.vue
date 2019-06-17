@@ -102,7 +102,7 @@ let word_hash = function (str){
 
 				let words = []
 
-				let display = this.$store.getters['board/get_display'];
+				let display = this.$store.getters['board/get_display'] + 1;
 				let tempWords = array_randomize(this.$store.getters['board/get_words']);
 
 				for( let i = 0; i < display; i++){
@@ -142,7 +142,7 @@ let word_hash = function (str){
 				}
 
 				setTimeout( function(){
-					for( let a = 0; a < words.length; a++){	
+					for( let a = 0; a <= words.length; a++){	
 						delayStart(a, words);
 					}
 				}, tDelay * 1000);

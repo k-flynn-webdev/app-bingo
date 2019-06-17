@@ -129,27 +129,7 @@ export default {
 						state.game.winner.name = input.winner.name;
 						state.game.winner.score = input.winner.score;
 					}
-
 			}
-
-
-
-			// if( input.mode !== undefined && 
-			// 	state.game.mode === game_modes[1] ){
-
-			// 	console.log( 'input' );
-			// 	console.log( input );
-
-				// if( input.result === game_result[1] || input.result === game_result[2] ){
-			// 		// game is won
-					
-					// let winType = input.result === game_result[1] ? game_result[1] : game_result[2];  
-					// state.game.mode = winType;
-
-				// }
-
-			// }			
-
 		},
 
 		poll : function( state, input ){

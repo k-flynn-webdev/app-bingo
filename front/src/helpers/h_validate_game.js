@@ -1,14 +1,5 @@
 
 
-
-// function game_over( self ){
-	// let winType = response.win ? 'won' : 'lost' ;
-	// self.$store.dispatch('game/set_game', { mode : winType } );
-	// console.log('game has been ' + winType + ', trigger exit message.');
-	// console.log(response);
-// }
-
-
 function game_over( winner, self ){
 
 	console.log( 'validate: winner found' );

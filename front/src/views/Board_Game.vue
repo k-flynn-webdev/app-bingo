@@ -23,7 +23,12 @@
 			ref="btnReset"
 			v-bind:onClick=reset>
 				Reset
-			</c-button>
+		</c-button>
+
+		<br>
+		<span class="text colour-fill-bg-inv">
+			{{ game_state }}
+		</span>
 
 
 		<!-- <c-message ref="messageBtn"></c-message>	 -->
@@ -297,6 +302,9 @@
 					return true;
 				}
 				return true;
+			},
+			game_state : function(){
+				return this.$store.getters['game/get_game'];
 			},
 			game_ready : function(){
 				let mode = this.$store.getters['game/get_game'].mode;

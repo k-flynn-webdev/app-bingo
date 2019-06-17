@@ -12,6 +12,9 @@ Easy to generate a board with multiple phrases/words and share with any number o
 wip video here: https://www.instagram.com/p/BumuGBPFBdn/
 
 
+![shot](./docs/current.png?raw=true "current wip")
+
+
 ## Variables:
 
 In order to run smoothly the following enviroment variables need to be supplied.

@@ -93,10 +93,22 @@
 			join_success : function( input ){
 
 				this.$store.dispatch('player/set_player', input.data );
-				this.$root.$emit('player.hide');
+				
 				this.$store.dispatch('game/set_game', { joined : true } );
-
 				validate_game.game( input, this );
+
+				let message = {
+					class : 'text success colour-fill-bg',
+					message : input.message,
+				};
+
+				this.$root.$emit('player.message', message);
+				let self =this;
+				setTimeout( function(){
+					self.$root.$emit('player.hide');
+				}, 3500 );
+				
+				
 
 				// console.log( input.data );
 
@@ -118,13 +130,24 @@
 			join_error : function( input ){
 
 				// todo 
-				this.$store.dispatch('game/set_game', { joined : true } );
+				this.$store.dispatch('game/set_game', { joined : false } );
 
-				// console.log( 'input join error' );
-				// console.log( input );
+				this.$root.$emit('player.message' , input.message );
 
 				validate_game.game( input, this );
-				
+
+				let message = {
+					class : 'text error colour-fill-bg',
+					message : input.message,
+				};
+
+				this.$root.$emit('player.message', message);
+				let self =this;
+				setTimeout( function(){
+					self.$root.$emit('player.hide');
+				}, 3500 );
+
+
 				// game won / lost
 				// if( input.status === 401 && 
 				// 	input.win !== undefined){

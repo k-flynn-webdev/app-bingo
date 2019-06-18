@@ -1,7 +1,9 @@
 <template>
 	
-	<c-popup class="bullshit-menu"
-		v-if=state.display 
+	<c-popup
+		v-if=!state.remove
+		v-bind:onShow=state.display 
+		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_hide>
 
 		<div slot="header" 
@@ -38,6 +40,10 @@
 
 		</div>
 
+		<c-message 
+			ref="msgObj">
+		</c-message>
+
 	</c-popup>
 
 </template>
@@ -61,9 +67,10 @@
 						min : 3,
 						max : 33,
 					},
-					// player : Object,
+					extraClass : 'bullshit-menu',
 				},
 				state : {
+					remove : false,
 					display : false,
 					lock : false,
 					class : '',
@@ -81,35 +88,8 @@
 		},
 
 		methods:{
-			// init : function(){
-
-				// this.$root.$on('player_show', this.window_show );
-				// this.$root.$on('state_reset', this.reset );
-
-				// let player = this.$store.getters['game/get_player'];
-				
-				// player exists but not sent ..
-				// if( this.validate(player.data.name) && !player.joined ){
-					// this.$root.$emit('state_player_join');
-				// }
-
-				// if( !this.validate(player.data.name) ){
-				// 	this.window_show_join()
-				// }					
-
-			// },
 
 			validate : function(){
-				// if( input === '' ){
-				// 	return false;
-				// }
-				// if( input.length < this.attrs.name.min ){
-				// 	return false;
-				// }
-				// if( input.length > this.attrs.name.max ){
-				// 	return false;
-				// }
-				// return true;
 				let model = this.form.name;
 				let elementClass = this.$refs.field_name;
 
@@ -128,77 +108,6 @@
 
 				return result;
 			},
-			// form_same_store : function(){
-			// 	if( this.form.name == this.attrs.player.data.name ){
-			// 		return true;
-			// 	} else {
-			// 		return false;
-			// 	}
-			// },
-
-			// send_form : function(){
-
-			// 	if( !this.validate( this.form.name )){
-			// 		return;
-			// 	}
-
-			// 	if( this.form_same_store() && this.validate( this.form.name )){
-			// 		return this.window_hide();
-			// 	}
-
-			// 	if( !this.attrs.player.joined ){
-
-			// 		this.attrs.player.data.name = this.form.name;
-			// 		this.$store.dispatch('game/set_player', this.attrs.player);
-			// 		this.$root.$emit('state_player_join');
-			// 		this.state.lock = false;
-			// 		this.window_hide();
-
-			// 	} else {
-
-			// 		let toSend = {
-			// 			player : {
-			// 				url : this.$store.getters['game/get_player'].url,
-			// 				name : {
-			// 					update : this.form.name,
-			// 				},
-			// 			},
-			// 		};
-
-			// 		this.$root.$emit('state_player_submit',
-			// 			toSend, 
-			// 			this.send_success, 
-			// 			this.send_fail, 
-			// 			this.$refs.btnOK );
-			// 	}
-			// },
-
-
-			// send_success : function( input ){
-
-			// 	let player = this.$store.getters['game/get_player'];
-			// 	player.data.name = input.data.name.update;
-
-			// 	this.$store.dispatch('game/set_player', player );
-
-			// 	this.state.lock = false;
-			// 	let self = this;
-
-			// 	setTimeout(function(){
-			// 		self.window_hide();
-			// 	},300);
-				
-			// },
-			// send_fail : function( input ){
-			// 	console.log('name change fail');
-			// 	console.log( input );
-			// },		
-
-			window : function(){
-				// this.state.lock = true;
-				this.window_show();
-			},
-
 
 			name_update : function(){
 				let result = this.validate();
@@ -208,6 +117,9 @@
 					this.$store.dispatch('player/set_player', player );
 					this.$root.$emit('player.check');
 				}
+			},
+			message : function( input ){
+				this.$refs.msgObj.$emit('message' , input);
 			},
 
 			window_show : function(){
@@ -222,34 +134,43 @@
 					this.state.lock = false;
 				}
 
+				this.state.remove = false;
 				this.state.display = true;
 			},
 			window_hide : function(){
+				let player = this.$store.getters['game/get_game'];
+				if( player.joined ){
+					this.state.lock = false;
+				}
+
 				if( this.state.lock ){
 					let result = this.validate();
-					if( result ){
-						this.state.lock = false;
+
+					if( result === null || !result ){
+						return
 					}
-					// not allowed to exit unless submitting ..
+				} else {
+					this.state.display = false;
+					let self = this;
+					setTimeout( function(){
+						self.state.remove = true;
+					},1000);
 				}
-				this.state.display = false;
 			},
-			// reset : function(){
-			// 	console.log('game player: resetting.');
-			// 	this.$store.dispatch('game/reset_player');
-			// },		
 
 			exit : function(){
-				// this.$root.$off('init_player');
-				// this.$root.$off('player_show');
-				// this.$root.$off('state_reset');
+				this.$root.$off('player.show', this.window_show );
+				this.$root.$off('player.hide', this.window_hide );
+				this.$root.$off('player.message', this.message );
 			},				
 		},
 		mounted(){
-			this.$root.$on('player.show', this.window );
+			this.$root.$on('player.show', this.window_show );
 			this.$root.$on('player.hide', this.window_hide );
+			this.$root.$on('player.message', this.message );
 		},		
 		beforeDestroy(){
+			this.exit();
 		},		
 		components: {
 			'c-button' : Button,
@@ -278,9 +199,7 @@
 	margin: 0;
 }
 
-/*input ,textarea, .input{
-	background-color: var(--colour-bg-input);
-}*/
+
 .bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
 	background-color: hsla(1,1%,33%,.8);
 }

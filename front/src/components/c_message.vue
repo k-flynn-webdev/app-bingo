@@ -1,7 +1,9 @@
 <template>
 
-	<div class="message">			
-		<p class="" v-bind:class=get_class> {{ get_message }} </p>
+	<div class="message">
+		<p v-bind:class=get_class> 
+				{{ get_message }} 
+		</p>
 	</div>
 
 </template>
@@ -70,8 +72,8 @@
 <style scoped >
 	
 	.message {
-		/*background-color: grey;*/
-	}
+/*		background-color: grey;
+*/	}
 	.message p {
 		transition: all 0.33s, height 0.8s;
 		opacity: 0;

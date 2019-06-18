@@ -1,59 +1,67 @@
 <template>
-	
-	<div ref="popup" class="popup-fill" style="z-index: 50;">
-		
-		<transition 
-			appear
-			name="fade">
-		
-				<div 
-					v-if=show
-					v-on:click=clicked
-					class="fill-all colour-bg-darken">
-				</div>
+	<div ref="parent">
 
-		</transition>
+		<div 
+			ref="popup" 
+			class="popup-fill" 
+			v-bind:class=extraClass
+			style="z-index:30;">
+			
+			<transition 
+				appear
+				name="fade">
+			
+					<div 
+						v-if=onShow
+						v-on:click=clicked
+						class="fill-all colour-bg-darken">
+					</div>
+
+			</transition>
 
 
-		<transition 
-			appear
-			name="slide-in">
+			<transition 
+				appear
+				name="slide-in">
 
-				<div 	
-					class="panel center-auto-h"
-					style="position: relative;z-index:50;">
+					<div 	
+						v-if=onShow
+						class="panel center-auto-h"
+						style="position:relative;z-index:50;">
 
-					<header class="">
+						<header class="">
 
-						<p class="header colour-fill-bg-inv text-funky custom"> 
-							<slot name="header" ></slot>
-						</p>
-
-						<div class="options flex-row flex-row-end header-shadow1">
-							<slot name="options"></slot>
-						</div>
-
-					</header>
-
-					<div class="width-90 center-auto-h">
-
-						<main class="text">	
-							<slot></slot>
-						</main>
-
-						<slot name="no-margin" class="main"></slot>
-
-						<footer class="footer">
-							<p class="text"> 
-								<slot name="footer"></slot>
+							<p class="header colour-fill-bg-inv text-funky custom"> 
+								<slot name="header" ></slot>
 							</p>
-						</footer>
+
+							<div class="options flex-row flex-row-end header-shadow1">
+								<slot name="options"></slot>
+							</div>
+
+						</header>
+
+						<div class="width-90 center-auto-h">
+
+							<main class="text">	
+								<slot></slot>
+							</main>
+
+							<slot name="no-margin" class="main"></slot>
+
+							<footer class="footer">
+								<p class="text"> 
+									<slot name="footer"></slot>
+								</p>
+							</footer>
+
+						</div>
 
 					</div>
 
-				</div>
+			</transition>
 
-		</transition>
+		</div>
 
 	</div>
 
@@ -65,11 +73,14 @@
 		name: 'cPopUp',
 		data(){
 			return {
-				show : true,
+				// show : true,
 			}
 		},	
 		props: {
+			extraClass : String,
 			onClick : Function,
+			onShow : Boolean,
+			onRemove : Boolean,
 		},
 		methods : {
 			clicked : function(){
@@ -77,9 +88,16 @@
 					this.onClick();
 				}
 			},
-		},		
+			exit : function(){
+				// this.onShow = false;
+				this.$refs.parent.appendChild( this.$refs.popup  );
+			},
+		},
 		mounted(){
 			document.body.appendChild( this.$refs.popup );
+		},
+		beforeDestroy(){
+			this.exit();
 		},
 		components: {
 		},

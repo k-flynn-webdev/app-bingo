@@ -151,6 +151,7 @@
 					}
 				} else {
 					this.state.display = false;
+					this.$root.$emit('player.closed');
 					let self = this;
 					setTimeout( function(){
 						self.state.remove = true;

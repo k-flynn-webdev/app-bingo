@@ -14,6 +14,10 @@
 			{{ board_name }}
 		</div>
 
+		<div slot="options">
+			<c-player></c-player>
+		</div>
+
 		<c-game-words></c-game-words>
 
 		<br>
@@ -33,256 +37,24 @@
 			{{ game_state.result }}
 		</span>
 
-
-		<!-- <c-message ref="messageBtn"></c-message>	 -->
-
 	</c-panel>
-
-	<!-- <div class="panel width-90 center-auto-h colour-text-dark">
-		
-		<header class="opt">
-			
-			<p class="colour-bg-inv title text-uppercase text-bold colour-text-light header-shadow"> 
-				{{ board_name }}
-			</p>
-
-			<div class="colour-bg-inv options flex-row flex-row-end header-shadow">
-
-				<p class="score text colour-text-light "> 
-					{{ board_score }}
-				</p>
-
-				<i 
-					v-on:click=player_toggle
-					class="avatar fas fa-user-circle colour-text-light ">
-				</i>
-
-			</div>
-
-		</header>
-
-		<main class="text">	
-			
-
-
-
-		</main>
-
-		<footer>
-
-			<p class="text"> 
-
-
-			</p>
-
-		</footer>
-	</div> -->
-
-
-<!-- 
-<div 
-	class="width-90 center-auto-h colour-text-dark"
-	style="max-width:33rem;">
-	
-		<c-game-state></c-game-state>
-		<c-game-instance></c-game-instance>
-		<c-game-player></c-game-player>
-		<c-game-players></c-game-players>
-
-	<div class="game-panel">
-
-		<header class="colour-bg-inv">
-			
-			<p class="title text-uppercase text-bold colour-text-light"> 
-				
-			</p>
-
-			<div class="options flex-row flex-row-end">
-				<slot name="options"></slot>
-			</div>
-
-		</header> -->
-
-
-
-
-			<!-- <div class="options flex-row flex-row-start">
-
-				<div 
-					class="score-holder"
-					v-if=board_player>
-
-					<p class="score text text-light"> {{ board_score }} </p>
-					<i v-on:click=player_toggle
-						class="fas fa-user-circle text-light"></i>
-
-				</div>
-
-			</div> -->
-
-		<!-- </header> -->
-
-
-
-
-
-		<!-- <div class="main">
-		
-			<c-game-board></c-game-board>
-			
-			<c-game-player-form></c-game-player-form>
-
-		</div>
-
-		<footer>
-				
-				<c-button
-					ref="resetBtn" 
-					class="footer-btn"
-					v-bind:onClick=resetBtn>
-						Reset?
-				</c-button>
-
-				<p class="footer-btn"></p>
-
-				<c-button
-					ref="shareBtn" 
-					class="footer-btn"
-					v-bind:onClick=shareBtn>
-						Share?
-				</c-button>				
-
-		</footer> -->
-
-	<!-- </div> -->
-
-<!-- </div> -->
-
-
-
-
-
-
-	<!-- <div>
-
-		
-
-		<c-panel>
-
-			<template slot="header">
-
-				<p class="title">
-					{{ board_name }}
-				</p>
-
-			</template>
-			
-			<template slot="options">
-
-				<div 
-					class="score-holder"
-					v-if=board_player>
-
-					<p class="score text text-light"> {{ board_score }} </p>	
-					<i v-on:click=player_toggle
-						class="fas fa-user-circle text-light"></i>
-
-				</div>
-	
-			</template>		
-			
-			<c-game-board></c-game-board>
-			
-			<c-game-player-form></c-game-player-form> -->
-
-	<!-- 		<div 
-				slot=no-margin 
-				class="bingo-board"
-				v-bind:class="{ 'is-won' : state.game.won, 'is-almost' : state.game.almost, 'is-lost' : state.game.lost }">
-
-				<c-message ref="messageSrv"></c-message>
-
-				<transition 
-					name="load" 
-					mode="out-in">
-
-					<div 
-						v-if=state.board.loading
-						class="load-icon">
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-						<p class="load-icon-el delay-2"></p>
-					</div>
-
-				</transition>	 -->				
-
-				<!-- <div	 -->
-					<!-- v-if=state.board.ready> -->
-
-					<!-- <c-word
-						v-for="(word, index) in board_words" :key=word.count
-						v-bind:onClick=set_word_click(index)
-						v-bind:class="{ 'is-selected' : word.selected }">
-
-							<p > {{ word.word }} </p>
-		
-					</c-word> -->
-
-				<!-- </div> -->
-
-			<!-- </div>	 -->
-				
-			<!-- <div slot="footer">
-
-				<c-button
-					ref="resetBtn" 
-					v-bind:onClick=resetBtn>
-						Reset?
-				</c-button> -->
-
-				<!-- <div style="position: absolute;right:0;top:0;bottom:0;"> -->
-					<!-- <c-game-player-sync></c-game-player-sync> -->
-				<!-- </div> -->
-
-		<!-- 	</div>
-
-		</c-panel>
-
-	</div> -->
 
 </template>
 
 <script>
 
-
-	// import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
 	import InitPlayer from '../game/c_init_player.vue';
+	import Player from '../components/c_player.vue';
 	import PlayerWindow from '../components/c_player_window.vue';
 
 	import UpdateInstance from '../game/c_update_instance.vue';
 	
 	import GameWords from '../components/c_words.vue';
-
-
-	// import Player from '../components/c_game_player.vue';
-	// import PlayerForm from '../components/c_game_player_form.vue';
-	// import PlayersState from '../components/c_game_players_state.vue';
-
-	// import State from '../components/c_game_state.vue';
-	// import Instance from '../components/c_game_instance.vue';
-	// import Board from '../components/c_game_board.vue';
-
 
 	export default {
 		name: 'BoardGame',
@@ -297,16 +69,16 @@
 			board_name : function(){
 				return this.$store.getters['board/get_board'].data.name;
 			},
-			board_score : function(){
-				return this.$store.getters['game/get_score'];
-			},			
-			board_player : function(){
-				let player = this.$store.getters['game/get_player'];
-				if( player.data.name === '' ){
-					return true;
-				}
-				return true;
-			},
+			// board_score : function(){
+			// 	return this.$store.getters['game/get_score'];
+			// },			
+			// board_player : function(){
+			// 	let player = this.$store.getters['game/get_player'];
+			// 	if( player.data.name === '' ){
+			// 		return true;
+			// 	}
+			// 	return true;
+			// },
 			game_state : function(){
 				return this.$store.getters['game/get_game'];
 			},
@@ -401,6 +173,7 @@
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
 			'c-init-player' : InitPlayer,
+			'c-player' : Player,
 			'c-window-player' : PlayerWindow,
 			'c-update-instance' : UpdateInstance,
 			// 'c-button' : Button,

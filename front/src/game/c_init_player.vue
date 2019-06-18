@@ -106,7 +106,7 @@
 				let self =this;
 				setTimeout( function(){
 					self.$root.$emit('player.hide');
-				}, 3500 );
+				}, 2000 );
 				
 				
 

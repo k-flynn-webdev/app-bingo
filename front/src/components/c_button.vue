@@ -7,9 +7,9 @@
 
 		<p 
 			class="text colour-fill-depends label"> 
-			<slot> 
-			 	Submit 
-			</slot> 
+				<slot> 
+				 	Submit 
+				</slot> 
 		</p> 
 
 		<p 

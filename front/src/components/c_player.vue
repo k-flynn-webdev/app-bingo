@@ -14,12 +14,16 @@
 		</c-button>
 
 		<div 
-			class="hover anim-6"
+			class="hover"
 			v-bind:class="{ 'trigger' : state.display }">
 
-				<p class="center-force-h hover-message text colour-fill-bg">
+			<div style="position: relative;">
+	
+				<p class="anim-6 hover-message text colour-fill-bg">
 					{{ player_name }}
 				</p>
+
+			</div>
 
 		</div>
 
@@ -89,6 +93,7 @@
 		margin: 0;
 		padding: 0;
 		margin-right: 1.5rem !important;
+		box-sizing: border-box;
 	}
 
 	.is-player, .icon {
@@ -105,21 +110,26 @@
 
 	.hover {
 		position: absolute;
-		right: 150%;
-		top: 100%;
+		right: calc(2rem);
+		top: 1rem;
 		z-index: 10;
-		opacity: 0;
-		transform: translateX(1rem) translateY(-1rem);
-	}
-	.hover-trigger:hover .hover, .hover.trigger {
-		opacity: 1;
-		transform: translateX(0) translateY(0);
+		margin: 0;
+		padding: 0;
 	}
 	.hover-message {
+		position: absolute;
+		right: 0;
+		margin: 0;
+		opacity: 0;
 		padding: 0 0.5rem;
 		border-radius: .5rem;
 		background-color: var(--colour-inv);
-	}	
+	}
+	.hover-trigger:hover .hover-message, .trigger .hover-message{
+		opacity: 1;
+		transform: translateX(-1.75rem) translateY(1.75rem);
+	}
+	
 
 
 </style>

@@ -125,7 +125,7 @@
 }
 
 .slide-in-enter-active, .slide-in-leave-active {
-	transition: all 1.5s ease;
+	transition: all 1s ease;
 }
 .slide-in-enter {
 	transform: translateY(-1.5rem);

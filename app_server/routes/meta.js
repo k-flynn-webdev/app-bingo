@@ -1,6 +1,7 @@
 const status = require('../config/status_response.js');
 
 const meta = require('../controllers/games.meta.js');
+const instances = require('../controllers/instance.live.js');
 
 
 module.exports = function( App ) {
@@ -70,6 +71,25 @@ module.exports = function( App ) {
 
 			});
 	});
+
+
+
+	App.get('/meta/instance/all',
+		function(request, response){
+
+			// just return the entire server instances running
+
+			instances.all( function(result){
+
+				return response.status(status.success.ok).json({
+					status : status.success.ok,
+					message : 'Instances current:',
+					data : result,
+				});
+
+			});
+	});
+
 
 
 	App.get('/meta/instance/players',

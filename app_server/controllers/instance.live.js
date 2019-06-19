@@ -32,6 +32,10 @@ function running(){
 exports.running = running;
 
 
+function all( next ){
+	return next(live);
+}
+exports.all = all;
 
 
 

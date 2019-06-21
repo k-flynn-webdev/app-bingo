@@ -9,7 +9,7 @@
 		<div slot="header" 
 			class="">
 				<p class="colour-fill-bg">
-					Join Game
+					{{ button.label }}
 				</p>
 		</div>
 			

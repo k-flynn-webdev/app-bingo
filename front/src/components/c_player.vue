@@ -17,7 +17,7 @@
 			class="hover"
 			v-bind:class="{ 'trigger' : state.display }">
 
-			<div style="position: relative;">
+			<div style="position: relative;pointer-events:none;">
 	
 				<p class="anim-6 hover-message text colour-fill-bg">
 					{{ player_name }}
@@ -124,6 +124,7 @@
 		padding: 0 0.5rem;
 		border-radius: .5rem;
 		background-color: var(--colour-inv);
+		pointer-events: none;
 	}
 	.hover-trigger:hover .hover-message, .trigger .hover-message{
 		opacity: 1;

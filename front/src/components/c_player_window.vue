@@ -7,9 +7,9 @@
 		v-bind:onClick=window_hide>
 
 		<div slot="header" 
-			class="test">
+			class="">
 				<p class="colour-fill-bg">
-					Join Game	
+					Join Game
 				</p>
 		</div>
 			
@@ -34,7 +34,7 @@
 				ref="btnOK"
 				v-bind:onClick=name_update>
 					<p class="colour-fill-bg-inv">
-						OK	
+						{{ button.label }}
 					</p>
 			</c-button>	
 
@@ -75,6 +75,9 @@
 					lock : false,
 					class : '',
 				},	
+				button : {
+					label : '',
+				},
 				form : {
 					name : '',
 				},
@@ -110,11 +113,33 @@
 			},
 
 			name_update : function(){
+
+				//todo check if name is same, if so ignore?
+					// if different and legal trigger the PUT update not POST and start that process.
+
 				let result = this.validate();
 				if( result ){
+
 					let player = this.$store.getters['player/get_player'];
+					let game = this.$store.getters['game/get_game'];
+
+					let hasChanged = player.data.name !== this.form.name;
+
+					if( !hasChanged && game.joined ){
+						this.window_hide();
+						return;
+					}
+
+					// updating 
+					if( hasChanged && game.joined ){
+						this.$root.$emit('player.update', this.form.name );
+						return;
+					}
+
+					// clean join ..
 					player.data.name = this.form.name;
 					this.$store.dispatch('player/set_player', player );
+
 					this.$root.$emit('player.check');
 				}
 			},
@@ -123,14 +148,17 @@
 			},
 
 			window_show : function(){
+
 				let player = this.$store.getters['player/get_player'];
 				this.form.name = player.data.name;
 
 				let game = this.$store.getters['game/get_game'];
 
 				if( !game.joined ){
+					this.button.label = 'Join';
 					this.state.lock = true;	
 				} else {
+					this.button.label = 'Update';
 					this.state.lock = false;
 				}
 
@@ -163,7 +191,7 @@
 				this.$root.$off('player.show', this.window_show );
 				this.$root.$off('player.hide', this.window_hide );
 				this.$root.$off('player.message', this.message );
-			},				
+			},
 		},
 		mounted(){
 			this.$root.$on('player.show', this.window_show );
@@ -175,7 +203,7 @@
 		},		
 		components: {
 			'c-button' : Button,
-			'c-popup' : PopUp,			
+			'c-popup' : PopUp,
 			'c-message' : Message,
 			'c-field-result' : FieldResult,
 		},		

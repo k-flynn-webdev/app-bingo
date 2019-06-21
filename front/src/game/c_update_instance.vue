@@ -37,7 +37,6 @@
 				this.attrs.action.JSON = true;
 			},
 
-
 			update : function( input, request ){
 				if( !this.state.init ){
 					this.setup();
@@ -61,6 +60,79 @@
 				let self = this;
 				self.onSubmit( self.attrs.action, self, null, null, self.update_success, self.update_error);
 			},
+
+			update_player : function( newName ){
+				if( !this.state.init ){
+					this.setup();
+				}
+
+				let game = this.$store.getters['game/get_game']
+				let player = this.$store.getters['player/get_player']
+
+				if( game.joined && player.url !== '' ){
+					this.attrs.action.body = {
+						player : {
+							url : player.url,
+							name : {
+								update : newName,
+							},
+						},
+					};
+				}
+
+				let self = this;
+				self.onSubmit( self.attrs.action, self, null, null, self.update_player_success, self.update_player_error);
+			},
+			update_player_success : function( input ){
+
+				validate_game.game( input, this );
+
+				let player = this.$store.getters['player/get_player']
+
+				player.data.name = input.data.name.update;
+				this.$store.dispatch('player/set_player', player );
+
+				let message = {
+					class : 'text success colour-fill-bg',
+					message : input.message,
+				};
+
+				this.$root.$emit('player.message', message);
+				let self =this;
+				setTimeout( function(){
+					self.$root.$emit('player.hide');
+				}, 2000 );
+
+				
+
+				// if( input.status === 202 && 
+					// input.data.word !== undefined){
+
+					// if( input.data.word.add !== undefined ){
+					// 	this.$store.dispatch('game/add_word', input.data.word.add );
+					// }
+					
+					// if( input.data.word.remove !== undefined ){
+					// 	this.$store.dispatch('game/remove_word', input.data.word.remove );
+					// }
+
+					// if( input.data.score !== undefined ){
+					// 	let scoreObject = {
+					// 		data : {
+					// 			score : input.data.score,
+					// 		},
+					// 	};
+
+					// 	this.$store.dispatch('player/set_player', scoreObject );
+					// }
+				// }
+			},
+			update_player_error : function( input ){
+				validate_game.game( input, this );
+			},
+
+
+
 
 			update_success : function( input ){
 
@@ -118,17 +190,18 @@
 
 			},
 			
-			// exit : function(){
-			// 	this.$root.$off('init.instance');
-			// 	this.$store.dispatch('instance/exit');
-			// },
+			exit : function(){
+				this.$root.$off('word', this.update );
+				this.$root.$off('player.update', this.update_player );
+			},
 
 		},
 		mounted() {
 			this.$root.$on('word', this.update );
+			this.$root.$on('player.update', this.update_player );
 		},
 		beforeDestroy(){
-			// this.exit();
+			this.exit();
 		},
 }
 </script>

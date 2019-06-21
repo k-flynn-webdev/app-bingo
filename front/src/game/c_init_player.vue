@@ -44,13 +44,10 @@
 				if( !this.$store.getters['game/get_game'].joined ||
 					this.$store.getters['player/get_url'] === '' ){
 					// begin join post process
-					this.update();
+					this.set_body();
 					this.join();
 					return;
 				}
-
-				// todo already joined
-
 			},
 
 			init : function(){
@@ -62,18 +59,11 @@
 				this.attrs.action.method = 'POST';
 				this.attrs.action.JSON = true;
 
-				this.update();
+				this.set_body();
 
 				this.state.init = true;
-
-				// if( this.$store.getters['player/get_name'].length > 0 ){
-				// 	this.join();
-				// } else {
-				// 	// todo show popup window for player join!
-				// 	// then do callback to this again..
-				// }
 			},
-			update : function(){
+			set_body : function(){
 				let body = {
 					url : this.$store.getters['player/get_url'],
 					name : this.$store.getters['player/get_name'],
@@ -205,12 +195,10 @@
 				console.log( 'error on reset' );
 				console.log( input );
 			},
-			// exit : function(){
-			// this.$root.$off('player.check', this.check );
-			// this.$root.$off('player.reset', this.reset );
-			// 	this.$store.dispatch('instance/exit');
-			// },
-
+			exit : function(){
+				this.$root.$off('player.check', this.check );
+				this.$root.$off('player.reset', this.reset );
+			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
@@ -218,7 +206,7 @@
 			// this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
-			// this.exit();
+			this.exit();
 		},
 }
 </script>

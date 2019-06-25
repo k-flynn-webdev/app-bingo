@@ -48,6 +48,16 @@
 					this.join();
 					return;
 				}
+
+				if( this.$store.getters['game/get_game'].joined ||
+					this.$store.getters['player/get_url'] !== '' ){
+					// retry join post process
+					this.$store.dispatch('player/exit'); // resetting player data..
+
+					this.set_body();
+					this.join();
+					return;
+				}				
 			},
 
 			init : function(){
@@ -71,8 +81,6 @@
 				};
 				this.attrs.action.body = body;
 			},
-
-
 
 
 			join : function(){
@@ -191,6 +199,9 @@
 				this.join_success( input );
 			},
 			reset_error : function( input ){
+
+				validate_game.game( input, this );
+
 				this.$root.$emit('reset.fail');
 				console.log( 'error on reset' );
 				console.log( input );
@@ -198,10 +209,12 @@
 			exit : function(){
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
+				this.$root.$off('player.reset', this.reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
+			this.$root.$on('player.reset', this.reset );
 			this.$root.$on('player.reset', this.reset );
 			// this.$root.$on('reset', this.reset );
 		},

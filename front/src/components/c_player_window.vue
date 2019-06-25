@@ -6,12 +6,12 @@
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_hide>
 
-		<div slot="header" 
+		<!-- <div slot="header" 
 			class="">
 				<p class="colour-fill-bg">
 					{{ button.label }}
 				</p>
-		</div>
+		</div> -->
 			
 		<div 
 			ref="field_name"
@@ -164,6 +164,7 @@
 
 				this.state.remove = false;
 				this.state.display = true;
+				this.$root.$on('player.message', this.message );
 			},
 			window_hide : function(){
 				let player = this.$store.getters['game/get_game'];
@@ -183,6 +184,7 @@
 					let self = this;
 					setTimeout( function(){
 						self.state.remove = true;
+						self.$root.$off('player.message', this.message );
 					},1000);
 				}
 			},
@@ -190,13 +192,11 @@
 			exit : function(){
 				this.$root.$off('player.show', this.window_show );
 				this.$root.$off('player.hide', this.window_hide );
-				this.$root.$off('player.message', this.message );
 			},
 		},
 		mounted(){
 			this.$root.$on('player.show', this.window_show );
 			this.$root.$on('player.hide', this.window_hide );
-			this.$root.$on('player.message', this.message );
 		},		
 		beforeDestroy(){
 			this.exit();

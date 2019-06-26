@@ -14,7 +14,6 @@ const m_instance = require('../models/instance.model.js');
 
 
 
-
 function base_search( url, board){
 	let url_id = '';
 	let board_id = '';
@@ -242,28 +241,76 @@ function winner( players, win ){
 
 console.log('Removing players after (' + config.game.timeout_secs + ')secs inactivity. ');
 
+
+// run by a cron job?
+function boot_all_cron( next ){
+
+	let result = {
+		message : '',
+		data : {
+			total : {
+				players : 0,
+				instances : 0,				
+			},
+			removed : {
+				players : 0,
+				instances : 0,
+			},
+		},
+	};
+
+	instance_live.all( function( instances_all ){
+
+		result.data.total.instances = instances_all.length;	
+		for( let i = instances_all.length -1; i >= 0; i--){
+			result.data.total.players += instances_all[i].data.players.length;
+		}
+
+		for( let i = instances_all.length -1; i >= 0; i--){
+			result.data.removed.players += boot_dead_players( instances_all[i] );
+		}
+
+		for( let i = instances_all.length -1; i >= 0; i--){
+			result.data.removed.instances += boot_dead_instance( instances_all[i] );
+		}
+
+		result.message = 'Cron job instance finished.';
+		
+		return next(result);
+	});
+}
+exports.boot_all_cron = boot_all_cron;
+
+
 function boot_dead_players( instance ){
+
+	let players_removed = 0;
 
 	for( let i = instance.data.players.length -1; i >= 0; i--){
 		if( !valid_time( instance.data.players[i] )){
 			player.remove_direct( instance.data.players[i], instance );
+			players_removed +=1;
 		}
 	}
 
+	return players_removed;
 }
 
-
 function boot_dead_instance( instance ){
+
+	let instances_removed = 0;
 
 	// close instance ..
 	let playerLength = instance.data.players.length < 1;
 	if( playerLength ){
-		// begin removal..
+		instances_removed +=1;
+		// begin removal after 10sec..
 		setTimeout( function(){
 			remove( instance.url );
 		}, 10 * 1000 );
 	}
 
+	return instances_removed;
 }
 
 function valid_time( player ){

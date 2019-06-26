@@ -2,11 +2,12 @@
 	
 	<div class="players">
 
-		<transition-group name="player-dots" tag="p">
+		<transition-group name="player-dots">
 
 			<c-player-dot
 				v-for="(player, index) in players" 
 				v-bind:key="player.url"
+				v-bind:isPlayer=check_isPlayer(player)
 				v-bind:player=player>
 			</c-player-dot>
 
@@ -30,12 +31,21 @@
 		},
 
 		computed : {
+			player_url : function(){
+				return this.$store.getters['player/get_url'];
+			},
 			players : function(){
 				return this.$store.getters['instance/get_instance'].data.players;
 			},
 		},
 
 		methods:{
+			check_isPlayer : function( input ){
+				if( this.player_url === input.url ){
+					return true;
+				}
+				return false;
+			},
 		},
 		mounted(){
 		},
@@ -55,7 +65,7 @@
 		left: 0;
 		/*width: 100%;*/
 		/*height: 2rem;*/
-		background-color: limegreen;
+		/*background-color: limegreen;*/
 	}
 	
 
@@ -75,6 +85,9 @@
 	/* appear at */
 	.player-dots-enter{
 	}
+	.player-dots-move{
+		transition: transform 1s ease !important;
+	}	
 	/* appearing */
 	.player-dots-enter-active{
 		animation: anim-person-enter var( --anim-time-3 ) backwards;

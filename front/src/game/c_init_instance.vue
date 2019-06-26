@@ -7,6 +7,7 @@
 	import { submit } from '../mixins/h_submit.js';
 	import validate_game from '../helpers/h_validate_game.js';
 
+	let instanceGet = null;
 
 	export default {
 		name: 'cInitInstance',
@@ -22,6 +23,7 @@
 				},
 				state : {
 					timeouts : 0,
+					init : false,
 				},
 			}
 		},	
@@ -43,34 +45,48 @@
 
 				this.attrs.action = action;
 
+				instanceGet = this.instance_get();
+
+			},
+			init_success : function( input ){
+				if( !this.state.init ){
+
+
+					console.log('init success started.');
+
+					this.$store.dispatch('game/set_game', { instance : true } );
+					this.$store.dispatch('instance/set_instance', input.data );
+
+					this.$root.$emit('board.init', input.data.data.board );
+
+					let self = this;
+					setTimeout( function(){
+						self.$emit('trigger', 'Download success.' );
+					}, 1500);
+
+					this.state.init = true;
+				}
+				
+			},
+
+			instance_get : function(){
 				let self = this;
 				self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-
 			},
 
 			instance_success : function( input ){
-
-				this.$store.dispatch('game/set_game', { instance : true } );
-				this.$store.dispatch('instance/set_instance', input.data );
-				
-				//todo set player of game up	
-				// this.$store.dispatch('players/set_players', input.data );
-				
-				this.$root.$emit('board.init', input.data.data.board );
-
-				validate_game.game( input, this );
-
 				let self = this;
-				setTimeout( function(){
-					self.$emit('trigger', 'Download success.' );
-				}, 1500);
-				
 
-				// if( input.data.data.game.winner !== ''){
-					// game is over already?	
-					// this.$store.dispatch('game/set_game', { mode : 'lost' } );
-					// this.$root.$emit('game.lost');
-				// }
+				if( !self.state.init ){
+					self.init_success( input );
+				} 
+
+				self.$store.dispatch('instance/set_players', input.data );
+
+
+				instanceGet = setTimeout( self.instance_get, 10 * 1000 );
+
+				validate_game.game( input, self );
 
 			},
 
@@ -95,6 +111,7 @@
 			// 	this.$store.dispatch('instance/reset');
 			// },
 			exit : function(){
+				clearTimeout( instanceGet );
 				// this.$root.$off('init.instance');
 				// this.$store.dispatch('instance/exit');
 			},

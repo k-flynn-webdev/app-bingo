@@ -12,7 +12,6 @@
 
 		</transition-group>
 
-
 	</div>
 	
 </template>

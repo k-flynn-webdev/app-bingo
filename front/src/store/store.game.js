@@ -128,9 +128,11 @@ export default {
 				state.game.joined = input.joined;
 			}
 
-			let isReady = check_ready( state );
-			if( isReady ){
-				console.log('setting to play mode.');
+			if( state.game.mode !== game_modes[1] ){
+				let isReady = check_ready( state );
+				if( isReady ){
+					console.log('setting to play mode.');
+				}
 			}
 
 			if( input.result !== undefined &&

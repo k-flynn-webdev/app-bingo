@@ -25,7 +25,9 @@ export default {
 		get_instance : function( state ){
 			return state;
 		},
-
+		get_players : function( state ){
+			return state.data.players;
+		},
 	},
 	mutations: {
 
@@ -40,6 +42,12 @@ export default {
 				state.data.players = input.data.players;
 				state.data.game.win = input.data.game.win;
 				state.data.game.winner = input.data.game.winner;
+			}
+		},
+		players : function( state, input ){
+			if( input.data !== undefined && 
+				input.data.players !== undefined){
+					state.data.players = input.data.players;
 			}
 		},
 
@@ -98,7 +106,9 @@ export default {
 		set_instance : function( context, input ){
 			context.commit('instance', input );
 		},
-
+		set_players : function( context, input ){
+			context.commit('players', input );
+		},
 		// reset : function( context ){
 		// 	let tempURL = context.getters.get_instance;
 		// 	basic.url = tempURL;

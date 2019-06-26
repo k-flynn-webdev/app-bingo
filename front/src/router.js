@@ -11,8 +11,6 @@ import Admin from './views/Admin.vue'
 import AdminRequest from './views/AdminRequest.vue'
 
 import BoardCreate from './views/Board_Create.vue'
-// import BoardStart from './views/Board_Start.vue'
-// import BoardJoin from './views/Board_Join.vue'
 import BoardLobby from './views/Board_Lobby.vue'
 import BoardGame from './views/Board_Game.vue'
 

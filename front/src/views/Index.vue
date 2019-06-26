@@ -22,7 +22,7 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+
 import Latest from '../components/c_front_latest.vue';
 import Popular from '../components/c_front_popular.vue';
 import WinsPlays from '../components/c_front_wins_plays.vue';

@@ -34,7 +34,11 @@
 			player : Object,
 			isPlayer : Boolean,
 		},
-		computed : {			
+		computed : {	
+			name_short : function(){
+				let short = this.player.data.name.substring(0,2)
+				return short;
+			},				
 		},
 		methods : {
 		},

@@ -55,9 +55,16 @@
 				
 				//todo set player of game up	
 				// this.$store.dispatch('players/set_players', input.data );
+				
 				this.$root.$emit('board.init', input.data.data.board );
 
 				validate_game.game( input, this );
+
+				let self = this;
+				setTimeout( function(){
+					self.$emit('trigger', 'Download success.' );
+				}, 1500);
+				
 
 				// if( input.data.data.game.winner !== ''){
 					// game is over already?	

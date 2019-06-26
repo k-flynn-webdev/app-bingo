@@ -80,17 +80,17 @@
 					}
 				}
 
-				this.$root.$emit('word', this.input, toSend );
+				this.$root.$emit('player.word', this.input, toSend );
 
 			},
 
 			exit : function(){
-				this.$root.$off('words.reset', this.reset );
+				this.$root.$off('player.words.reset', this.reset );
 			}
 		},
 		mounted(){
 			this.reset();
-			this.$root.$on('words.reset', this.reset );
+			this.$root.$on('player.words.reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();

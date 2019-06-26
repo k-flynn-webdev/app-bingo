@@ -2,12 +2,12 @@
 
 	<c-panel>
 
-		<c-init-instance></c-init-instance>
-		<c-init-board></c-init-board>
-		<c-init-player></c-init-player>
+		<c-init-instance v-on:trigger="messageShow"></c-init-instance>
+		<c-init-board v-on:trigger="messageShow"></c-init-board>
+		<c-init-player v-on:trigger="messageShow"></c-init-player>
 		<c-window-player></c-window-player>
 
-		<c-update-instance></c-update-instance>
+		<c-update-instance v-on:trigger="messageShow"></c-update-instance>
 
 
 		<div slot="header">
@@ -32,6 +32,8 @@
 
 		<br>
 		
+		<!-- <c-message ref="msgObj1"></c-message> -->
+
 		<span class="text colour-fill-bg-inv">
 			{{ game_state.mode }}
 			{{ game_state.result }}
@@ -45,6 +47,7 @@
 
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
+	import Message from '../components/c_message.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
@@ -104,9 +107,14 @@
 				// }, 1500);
 			},
 
+
+			messageShow : function( input ){
+				// this.$refs.msgObj1.$emit('message', { class: 'content colour-fill-bg-inv', message : input } );
+			},
+
 			reset : function(){
 				this.$root.$emit('player.reset');
-				this.$root.$emit('words.reset');
+				this.$root.$emit('player.words.reset');
 				if( this.$refs.btnReset !== undefined ){
 					this.$refs.btnReset.$emit('state', 'waiting');
 				}
@@ -169,6 +177,7 @@
 		components: {
 			'c-panel' : Panel,
 			'c-button' : Button,
+			'c-message' : Message,			
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,

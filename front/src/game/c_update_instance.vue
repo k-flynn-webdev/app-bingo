@@ -37,7 +37,7 @@
 				this.attrs.action.JSON = true;
 			},
 
-			update : function( input, request ){
+			update_word : function( input, request ){
 				if( !this.state.init ){
 					this.setup();
 				}
@@ -92,10 +92,12 @@
 
 						if( input.data.word.add !== undefined ){
 							this.$store.dispatch('game/add_word', input.data.word.add );
+							// this.$emit('trigger', 'Success');
 						}
 						
 						if( input.data.word.remove !== undefined ){
 							this.$store.dispatch('game/remove_word', input.data.word.remove );
+							// this.$emit('trigger', 'Success');
 						}
 
 						if( input.data.score !== undefined ){
@@ -126,6 +128,7 @@
 					let self =this;
 					setTimeout( function(){
 						self.$root.$emit('player.hide');
+						// self.$emit('trigger', 'Success');
 					}, 2000 );
 
 				} 
@@ -165,13 +168,13 @@
 			},
 			
 			exit : function(){
-				this.$root.$off('word', this.update );
+				this.$root.$off('player.word', this.update_word );
 				this.$root.$off('player.update', this.update_player );
 			},
 
 		},
 		mounted() {
-			this.$root.$on('word', this.update );
+			this.$root.$on('player.word', this.update_word );
 			this.$root.$on('player.update', this.update_player );
 		},
 		beforeDestroy(){

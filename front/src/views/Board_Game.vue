@@ -15,7 +15,8 @@
 		</div>
 
 		<div slot="options">
-			<c-player></c-player>
+			<c-players class="item"></c-players>
+			<c-player class="item"></c-player>
 		</div>
 
 		<c-game-words></c-game-words>
@@ -53,6 +54,7 @@
 	import InitInstance from '../game/c_init_instance.vue';
 	import InitPlayer from '../game/c_init_player.vue';
 	import Player from '../components/c_player.vue';
+	import Players from '../components/c_players.vue';
 	import PlayerWindow from '../components/c_player_window.vue';
 
 	import UpdateInstance from '../game/c_update_instance.vue';
@@ -183,6 +185,7 @@
 			'c-init-instance' : InitInstance,
 			'c-init-player' : InitPlayer,
 			'c-player' : Player,
+			'c-players' : Players,
 			'c-window-player' : PlayerWindow,
 			'c-update-instance' : UpdateInstance,
 			// 'c-button' : Button,

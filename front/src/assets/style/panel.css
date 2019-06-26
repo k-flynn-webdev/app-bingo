@@ -35,8 +35,14 @@
 
 
 .panel .options{
-	/*position: relative;*/
+	/*width: 100%;*/
+	position: relative;
+	background-color: blue;
 }
+.panel .options .item{
+	margin: 0 .5rem;
+}
+
 .panel .options .button{
 	/*padding: 0 .1rem;*/
 	/*margin: 0.2rem .1rem !important;*/

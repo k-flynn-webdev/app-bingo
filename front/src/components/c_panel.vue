@@ -8,7 +8,7 @@
 				<slot name="header" ></slot>
 			</p>
 
-			<div class="options flex-row flex-row-end header-shadow1">
+			<div class="options flex-row flex-row-end width-90 center-auto-h">
 				<slot name="options"></slot>
 			</div>
 

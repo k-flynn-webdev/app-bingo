@@ -37,7 +37,6 @@
 .panel .options{
 	/*width: 100%;*/
 	position: relative;
-	background-color: blue;
 }
 .panel .options .item{
 	margin: 0 .5rem;

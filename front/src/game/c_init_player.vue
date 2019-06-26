@@ -209,13 +209,13 @@
 			exit : function(){
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
-				this.$root.$off('player.reset', this.reset );
+				// this.$root.$off('player.reset', this.reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
-			this.$root.$on('player.reset', this.reset );
+			// this.$root.$on('player.reset', this.reset );
 			// this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){

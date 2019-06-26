@@ -51,9 +51,6 @@
 			init_success : function( input ){
 				if( !this.state.init ){
 
-
-					console.log('init success started.');
-
 					this.$store.dispatch('game/set_game', { instance : true } );
 					this.$store.dispatch('instance/set_instance', input.data );
 

@@ -156,11 +156,11 @@ let word_hash = function (str){
 
 			exit : function(){
 				this.$store.dispatch('game/set_words', [] );
-				this.$root.$off('words.reset', this.setup );
+				this.$root.$off('player.words.reset', this.setup );
 			},
 		},
 		mounted(){
-			this.$root.$on('words.reset', this.setup );
+			this.$root.$on('player.words.reset', this.setup );
 		},
 		beforeDestroy(){
 			this.exit();

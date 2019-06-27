@@ -163,3 +163,11 @@
 	background-color: hsla(10,5%,15%,0.93);
 }
 
+.colour-fill-button{
+	color: var( --colour-button );
+	fill: var( --colour-button );	
+}
+.colour-bg-button{
+	background-color: var( --colour-button );
+}
+

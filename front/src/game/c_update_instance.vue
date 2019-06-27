@@ -100,10 +100,10 @@
 							// this.$emit('trigger', 'Success');
 						}
 
-						if( input.data.score !== undefined ){
+						if( input.data.data.score !== undefined ){
 							let scoreObject = {
 								data : {
-									score : input.data.score,
+									score : input.data.data.score,
 								},
 							};
 

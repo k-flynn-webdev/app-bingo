@@ -2,6 +2,8 @@
 	
 	<div class="hover-trigger" style="position:relative;">
 		
+
+
 		<c-button
 			class="is-player"
 			ref="btnPlayer"
@@ -12,6 +14,12 @@
 				</svg>
 
 		</c-button>
+
+		<div class="player-score">
+			<p class="title colour-fill-bg-inv">
+				{{ player_Score }}
+			</p>
+		</div>
 
 		<div 
 			class="hover"
@@ -49,7 +57,10 @@
 
 		computed : {
 			player_name : function(){
-				return this.$store.getters['player/get_player'].data.name;
+				return this.$store.getters['player/get_name'];
+			},
+			player_Score : function(){
+				return this.$store.getters['player/get_score'];
 			},
 		},
 
@@ -101,6 +112,16 @@
 		height: 2.5rem !important;
 		margin: 0;
 		padding: 0;
+	}
+
+
+	.player-score {
+		position: absolute;
+		top: 0;
+		left: 3.5rem;
+	}
+	.player-score .title {
+		transform: scale(1.4);
 	}
 
 	.icon-path {

@@ -3,7 +3,7 @@
 	<div 
 		class="hover-trigger-dot player-dot colour-bg-inv" 
 		style="position:relative;"
-		v-bind:class="{ 'is-player' : isPlayer }">
+		v-bind:class="{ 'is-player' : isPlayer, 'colour-bg-button' : isPlayer }">
 
 		<div 
 			class="hover-dot">
@@ -60,9 +60,9 @@
 		border-radius: .4rem
 	}
 
-	.player-dot.is-player {
+/*	.player-dot.is-player {
 		background-color: yellow;
-	}
+	}*/
 
 	.hover-dot {
 		z-index: 10;

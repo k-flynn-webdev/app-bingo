@@ -13,6 +13,7 @@ export default {
 			players : [],
 			game : {
 				win : 0,
+				display : 0,
 				winner : '',
 			},
 		},
@@ -28,6 +29,12 @@ export default {
 		get_players : function( state ){
 			return state.data.players;
 		},
+		get_win : function( state ){
+			return state.data.game.win;
+		},
+		get_display : function( state ){
+			return state.data.game.display;
+		},				
 	},
 	mutations: {
 
@@ -41,6 +48,7 @@ export default {
 			if( input.data !== undefined ){
 				state.data.players = input.data.players;
 				state.data.game.win = input.data.game.win;
+				state.data.game.display = input.data.game.display;
 				state.data.game.winner = input.data.game.winner;
 			}
 		},
@@ -78,6 +86,7 @@ let basic = {
 	data : {
 		game : {
 			win : 0,
+			display : 0,
 			winner : '',
 		},
 		players : [],

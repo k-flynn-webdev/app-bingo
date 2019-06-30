@@ -5,8 +5,6 @@ import store from './store/store.js'
 
 
 import request from './helpers/request.js';
-import game_cfg from '../../shared/game_cfg.js';
-Vue.prototype.$game_config = game_cfg.CONFIG;
 
 Vue.config.productionTip = true
 

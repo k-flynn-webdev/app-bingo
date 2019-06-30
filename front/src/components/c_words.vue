@@ -101,18 +101,9 @@ let word_hash = function (str){
 				console.log('setting up words');
 
 				let words = []
+				let display = this.$store.getters['instance/get_instance'].data.game.display;
 
-				let tempWordsArray = this.$store.getters['board/get_words'];
-				let display = Math.floor(tempWordsArray.length * this.$game_config.display);
-				if( display < this.$game_config.min ){
-					display = this.$game_config.min;
-				}
-				if( display > this.$game_config.max ){
-					display = this.$game_config.max;
-				}
-
-
-				let tempWords = array_randomize( tempWordsArray );
+				let tempWords = array_randomize( this.$store.getters['board/get_words'] );
 
 				for( let i = 0; i < display; i++){
 					let newWord = {

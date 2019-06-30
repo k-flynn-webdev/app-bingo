@@ -11,10 +11,6 @@ export default {
 		data : {
 			name : '',
 			words : [],
-			game : {
-				display : 0,
-				win : 0,
-			},
 		}
 	},
 	getters: {
@@ -27,9 +23,6 @@ export default {
 		},
 		get_words : function( state ){
 			return state.data.words;
-		},
-		get_display : function( state ){
-			return state.data.game.display;
 		},
 	},
 	mutations: {
@@ -44,7 +37,6 @@ export default {
 			if( input.data !== undefined ){
 				state.data.name = input.data.name;
 				state.data.words = input.data.words;
-				state.data.game = input.data.game;
 			}
 		},	
 
@@ -69,9 +61,5 @@ let basic = {
 	data : {
 		name : '',
 		words : [],
-		game : {
-			win : 0,
-			display : 0,
-		},
 	}
 }

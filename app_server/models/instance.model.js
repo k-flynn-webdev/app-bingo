@@ -15,7 +15,7 @@ var instance = mongoose.Schema({
 		game : {
 			time : { type: Date, required: true, default : Date.now() },
 			win : { type : Number, required : true, default : 0 },
-			// display : { type : Number, required : true, default : 0 },
+			display : { type : Number, required : true, default : 0 },
 			// ahead : { type : String , required : true, default : '' },
 			// winner : { type : String , required : true, default : '' },	
 			winner : { 

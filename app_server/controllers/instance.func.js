@@ -2,6 +2,7 @@ const m_instance = require('../models/instance.model.js');
 
 const status = require('../config/status_response.js');
 const helpers = require('./helpers.js');
+const config = require('../config/config.js');
 
 const instance_validate = require('../controllers/instance.validate.js');
 
@@ -27,6 +28,7 @@ function safe( model, all=false ){
 			players : clean_players( model.data.players ),	
 			game : {
 				win : model.data.game.win,
+				display : model.data.game.display,
 				// ahead : model.data.game.ahead,
 				// winner : model.data.game.winner,
 				winner : {
@@ -60,6 +62,27 @@ exports.safe = safe;
 // }
 // exports.safe_init = safe_init;
 
+function get_var_win( word_count ){
+	let temp_var = Math.floor( word_count * config.game.win );
+	if( temp_var < config.game.min ){
+		temp_var = word_count;
+	}
+	if( temp_var > config.game.max ){
+		temp_var = config.game.max;
+	}
+	return temp_var;
+}
+function get_var_display( word_count ){
+	let temp_var = Math.floor( word_count * config.game.display );
+	if( temp_var < config.game.min ){
+		temp_var = word_count;
+	}
+	if( temp_var > config.game.max ){
+		temp_var = config.game.max;
+	}
+	return temp_var;
+}
+
 
 function create( input_board, input_url=false, next ){
 
@@ -71,6 +94,9 @@ function create( input_board, input_url=false, next ){
 			return next( error );
 		}
 
+		let win_var = get_var_win( result.words.length,  );
+		let display_var = get_var_display( result.words.length );
+
 		let newInstance = new m_instance({
 			url : !input_url ? helpers.randomID(6) : input_url,
 			data : {
@@ -78,10 +104,13 @@ function create( input_board, input_url=false, next ){
 				words : result.words,
 				players : [],
 				game : {
-					win : result.win,
+					win : win_var,
+					display : display_var,
 				},
 			},
 		});
+
+		console.log( newInstance );
 
 		board_func.board_is_played( board_obj );
 

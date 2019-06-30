@@ -6,6 +6,6 @@ let game_cfg = {
 	timeout_secs : 1*60,
 };
 
-export default {
+module.exports = {
 	CONFIG : game_cfg,
 }

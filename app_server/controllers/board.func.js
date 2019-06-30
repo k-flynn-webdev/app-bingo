@@ -13,10 +13,10 @@ function safe( model, all=false ){
 		data : {
 			name : model.data.name, 
 			words : model.data.words,	
-			game : {
-				win : model.data.game.win,
-				display : model.data.game.display,
-			},	
+			// game : {
+				// win : model.data.game.win,
+				// display : model.data.game.display,
+			// },	
 		},
 	};
 
@@ -167,8 +167,8 @@ function board_meta( input, next ){
 
 		let object = { 
 				words : result.data.words,
-				display : result.data.game.display, 
-				win : result.data.game.win,
+				// display : result.data.game.display, 
+				// win : result.data.game.win,
 			};
 
 		return next(null, object);		

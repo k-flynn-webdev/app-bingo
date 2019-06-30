@@ -13,10 +13,10 @@ var board = mongoose.Schema({
 			created : { type: Date, required: true, default : new Date() },
 		},
 		words : { type: Array, required: true },
-		game : {
-			display : { type: Number, required: true, default : 0, },
-			win : { type: Number, required: true, default : 0, },
-		},
+		// game : {
+			// display : { type: Number, required: true, default : 0, },
+			// win : { type: Number, required: true, default : 0, },
+		// },
 		stats : {
 			played : { type: Date, required: true, default : new Date() },
 			plays : { type: Number, required: true, default : 0, },
@@ -30,24 +30,24 @@ module.exports = mongoose.model('Board', board);
 
 function preSaveFunc( object ){
 
-	let tiles_display = Math.round( object.data.words.length * config.game.display );
-	if( tiles_display > config.game.max ){
-		tiles_display = config.game.max;
-	}
+	// let tiles_display = Math.round( object.data.words.length * config.game.display );
+	// if( tiles_display > config.game.max ){
+	// 	tiles_display = config.game.max;
+	// }
 
-	let tiles_win = Math.round( object.data.words.length * config.game.win );
+	// let tiles_win = Math.round( object.data.words.length * config.game.win );
 
-	if( tiles_display == tiles_win ){
-		tiles_display -= 1;
-	}
+	// if( tiles_display == tiles_win ){
+	// 	tiles_display -= 1;
+	// }
 
-	if( object.data.words.length < 7 ){
-		tiles_win = object.data.words.length;
-		tiles_display = object.data.words.length;
-	}
+	// if( object.data.words.length < 7 ){
+	// 	tiles_win = object.data.words.length;
+	// 	tiles_display = object.data.words.length;
+	// }
 
-	object.data.game.display = tiles_display;
-	object.data.game.win = tiles_win;
+	// object.data.game.display = tiles_display;
+	// object.data.game.win = tiles_win;
 	
 	return object;
 }

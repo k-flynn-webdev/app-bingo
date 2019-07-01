@@ -31,11 +31,6 @@ let word_hash = function (str){
 
 let check_ready = function( state ){
 
-	let isGameOver = false;
-	if( state.game.result !== '' ){
-		isGameOver = true;
-	}
-
 	if(	state.game.board &&
 		state.game.instance &&
 		state.game.words &&
@@ -43,11 +38,9 @@ let check_ready = function( state ){
 		state.game.mode === game_modes[0] &&
 		state.game.result === game_result[0] ){
 			state.game.mode = game_modes[1];
-			// state.game.result = game_result[0];
 			return true;
 	} else {
 		state.game.mode = game_modes[0];
-		// state.game.result = game_result[0];
 		return false;		
 	}
 }
@@ -134,12 +127,14 @@ export default {
 				state.game.joined = input.joined;
 			}
 
+			let pre = state.game.mode;
 			if( state.game.mode !== game_modes[1] ){
 				let isReady = check_ready( state );
 				if( isReady ){
 					console.log('setting to play mode.');
 				}
 			}
+			console.log( pre + " : " + state.game.mode );
 
 			if( input.result !== undefined &&
 				input.result !== '' ){
@@ -153,6 +148,7 @@ export default {
 						state.game.winner.data.score = input.winner.data.score;
 					}
 			}
+
 		},
 
 		poll : function( state, input ){

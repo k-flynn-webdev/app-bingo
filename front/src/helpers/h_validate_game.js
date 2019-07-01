@@ -1,47 +1,32 @@
 
 
-// function instance_over( winner, self ){
-
-// 	console.log( 'validate: winner found.' );
-// 	// console.log( self.$store.getters['game/get_game'] );
-// 	// console.log( self.$store.getters['player/get_url'] );
-
-// 	if( self.$store.getters['player/get_url'] ===  winner.url ){
-// 		self.$store.dispatch('game/set_game', { result : 'won' , winner : winner } );
-// 	} else {
-// 		self.$store.dispatch('game/set_game', { result : 'lost' , winner : winner } );
-// 	}
-// }
-
-// function instance_tick( self ){
-// 	self.$store.dispatch('game/set_game', { result : '' } );
-// }
-
-// function player_was_booted( response, self){
-// 	self.$root.$emit('game.exit');
-// }
-
-
-
-
 function game_tick( self ){
+	console.log( ' game: tick' );
 	self.$store.dispatch('game/set_game', { result : '' } );
 }
 function game_won( self, winner ){
+	console.log( ' game: won' );
 	self.$store.dispatch('game/set_game', { result : 'won' , winner : winner } );
 	self.$root.$emit('game.won');
 }
 function game_lost( self, winner ){
+	console.log( ' game: lost' );
 	self.$store.dispatch('game/set_game', { result : 'lost' , winner : winner } );	
 	self.$root.$emit('game.lost');
 }
 function game_kicked( self ){
-	self.$root.$emit('game.kicked');
+	console.log( ' game: kicked' );
+	kick( self );
 }
 function game_afk( self ){
-	// console.log( 'validate: player logged out. re-logging in.' );
-	self.$root.$emit('player.rejoin');
-	self.$root.$emit('player.reset');
+	console.log( ' game: afk kicked' );
+	kick( self );
+}
+function kick( self ){
+	self.$root.$emit('player.words.reset');
+	self.$store.dispatch('game/set_game', { joined : false } );
+	self.$store.dispatch('player/exit');
+	self.$root.$emit('game.kicked');	
 }
 
 
@@ -75,7 +60,6 @@ function validate( response, self ){
 		response.data.data.game.winner !== undefined &&
 		response.data.data.game.winner.url !== undefined ){
 
-		console.log( ' validated' );
 
 			let winnerURL = response.data.data.game.winner.url; 
 			let playerURL = self.$store.getters['player/get_url'];
@@ -84,20 +68,19 @@ function validate( response, self ){
 				response.data.data.game.win &&
 				winnerURL !== '' &&
 				winnerURL === playerURL ){
-					game_won( self, response.data.data.game.winner );
+					return game_won( self, response.data.data.game.winner );
 			}
 
 			if( 
 				response.data.data.game.win &&
 				winnerURL !== '' &&
 				winnerURL !== playerURL ){
-					game_lost( self, response.data.data.game.winner );
+					return game_lost( self, response.data.data.game.winner );
 			}
 
 			// make sure player has joined one time
 			if( playerURL === '' ){
-				game_tick( self );
-				return;
+				return game_tick( self );
 			}
 
 			let playerFound = false; 
@@ -110,9 +93,9 @@ function validate( response, self ){
 			}
 
 			if( playerFound ){
-				game_tick( self );
+				return game_tick( self );
 			} else {
-				game_kicked( self );
+				return game_kicked( self );
 			}
 
 	}

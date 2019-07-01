@@ -47,29 +47,22 @@
 					this.set_body();
 					this.join();
 					return;
-				}			
+				}
 			},
 
 			rejoin : function(){
-
 				console.log('rejoining player.');
-				
-				// retry join post process
-				this.$root.$emit('player.words.reset');
-				this.$store.dispatch('player/exit'); // resetting player data..
-
-				this.set_body();
-				this.join();
+				this.check();
 				return;
 			},
 
 			init : function(){
 
-				console.log('ready, starting player init');
+				console.log('player init');
 
-				this.attrs.action = this.$store.getters['instance/get_action'];
+				// this.attrs.action = this.$store.getters['instance/get_action'];
 
-				this.attrs.action.JSON = true;
+				// this.attrs.action.JSON = true;
 
 				this.set_body();
 
@@ -77,17 +70,20 @@
 			},
 
 			set_body : function(){
+
+				this.attrs.action = this.$store.getters['instance/get_action'];
+
 				let body = {
 					url : this.$store.getters['player/get_url'],
 					name : this.$store.getters['player/get_name'],
 					score : this.$store.getters['player/get_score'],
 				};
 
-				if( body.url === ''){
-					this.attrs.action.method = 'POST';
-				} else {
-					this.attrs.action.method = 'PUT';
-				}
+				// if( body.url === ''){
+				// 	this.attrs.action.method = 'POST';
+				// } else {
+				// 	this.attrs.action.method = 'PUT';
+				// }
 
 				this.attrs.action.body = body;
 			},
@@ -100,7 +96,8 @@
 
 			join_success : function( input ){
 
-				this.attrs.action.method = 'PUT';
+				// this.attrs.action.method = 'PUT';
+				this.$store.dispatch('player/set_method', 'PUT' );
 				this.$store.dispatch('player/set_player', input.data );
 				
 				this.$store.dispatch('game/set_game', { joined : true } );
@@ -115,7 +112,10 @@
 				let self =this;
 				setTimeout( function(){
 					self.$root.$emit('player.hide');
+					self.$root.$emit('player.success');
 				}, 2000 );
+
+				
 				
 				
 

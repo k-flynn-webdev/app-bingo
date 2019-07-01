@@ -18,12 +18,14 @@
 					server : {
 						max_timeouts : 5,
 						timing : 1000,
+						time_sec : 10,
 					},
 					action : Object,
 				},
 				state : {
 					timeouts : 0,
 					init : false,
+					stop : false,
 				},
 			}
 		},	
@@ -71,9 +73,20 @@
 				self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
 			},
 
-			instance_pause : function(){
+
+			instance_start : function(){
+				if( this.state.stop ){
+					console.log('instance start triggered.');
+					this.state.stop = false;
+					this.instance_get();
+				}
+			},
+			instance_stop : function(){
+				console.log( 'instance stopping update');
+				this.state.stop = true;
 				clearTimeout( instanceGet );
 			},
+
 
 			instance_success : function( input ){
 				let self = this;
@@ -84,7 +97,7 @@
 
 				self.$store.dispatch('instance/set_players', input.data );
 
-				instanceGet = setTimeout( self.instance_get, 10 * 1000 );
+				instanceGet = setTimeout( self.instance_get, this.attrs.server.time_sec * this.attrs.server.timing );
 
 				validate_game.game( input, self );
 
@@ -118,18 +131,22 @@
 
 			exit : function(){
 				clearTimeout( instanceGet );
-			this.$root.$off('game.won', this.instance_pause );
-			this.$root.$off('game.lost', this.instance_pause );
-			this.$root.$off('game.kicked', this.instance_pause );
+				this.$root.$off('game.won', this.instance_stop );
+				this.$root.$off('game.lost', this.instance_stop );
+				this.$root.$off('game.kicked', this.instance_stop );
+				// todo fix this player success???
+				this.$root.$off('player.success', this.instance_start );
 			},
 
 		},
 		mounted() {
 			this.init();
 
-			this.$root.$on('game.won', this.instance_pause );
-			this.$root.$on('game.lost', this.instance_pause );
-			this.$root.$on('game.kicked', this.instance_pause );
+			this.$root.$on('game.won', this.instance_stop );
+			this.$root.$on('game.lost', this.instance_stop );
+			this.$root.$on('game.kicked', this.instance_stop );
+			// todo fix this player success???
+			this.$root.$on('player.success', this.instance_start );
 
 			// this.$root.$on('game.exit', this.instance_over );
 			// this.$root.$on('game.ready', this.ready );

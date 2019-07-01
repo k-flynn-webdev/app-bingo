@@ -3,7 +3,7 @@ let game_cfg = {
 	win : 0.65,
 	min : 5,
 	max : 20,
-	timeout_secs : 1*60,
+	timeout_secs : .5*60,
 };
 
 module.exports = {

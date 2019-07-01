@@ -43,6 +43,9 @@ export default {
 		action : function( state, input ){
 			state.action.url = input;
 		},
+		method : function( state, input ){
+			state.action.method = input;
+		},		
 		player : function( state, input ){
 			if( input.url !== undefined ){
 				state.player.url = input.url;
@@ -65,6 +68,10 @@ export default {
 		set_action : function( context, input ){
 			context.commit('action', input );
 		},
+		set_method : function( context, input ){
+			context.commit('method', input );
+		},
+
 		set_player : function( context, input ){
 			context.commit('player', input );
 		},
@@ -74,6 +81,7 @@ export default {
 
 		exit : function( context ){
 			context.commit('player', basic );
+			context.commit('method', 'POST' );
 		},
 
 	}

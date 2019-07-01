@@ -149,7 +149,7 @@
 				this.$refs.btn.$emit('state', 'waiting');
 				this.$root.$emit('player.rejoin');
 			},
-			button_done : function(){
+			button_done : function(){	
 				this.$refs.btn.$emit('state', 'waiting');
 				let self = this;
 				setTimeout( function(){
@@ -198,7 +198,8 @@
 
 			window_hide : function(){
 				this.state.display = false;
-
+				this.time_off();
+				
 				let self = this;
 				setTimeout( function(){
 					self.state.remove = true;

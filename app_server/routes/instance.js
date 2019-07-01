@@ -79,25 +79,18 @@ module.exports = function( App ) {
 					});	
 				}
 
-
+				let msg = 'Latest update.';
 				// if an instance has already been won, notify ..
 				if( result.data.game.winner.win ){
-
-					return response.status(status.success.accepted).json({
-						status : status.success.ok,
-						message : 'Game has been won.',
-						data : instance_func.safe( result ),
-					});
-
-				} else {
-
-					return response.status(status.success.ok).json({
-						status : status.success.ok,
-						message : 'Latest update.',
-						data : instance_func.safe( result ),
-					});
-
+					msg = 'Game has been won.';
 				}
+
+				return response.status(status.success.ok).json({
+					status : status.success.ok,
+					message : msg,
+					data : instance_func.safe( result ),
+				});
+
 
 			});
 	});

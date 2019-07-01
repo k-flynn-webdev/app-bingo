@@ -68,9 +68,11 @@ export default {
 			mode : game_modes[0],
 			result : game_result[0],
 			winner : {
-				score : 0,
 				url : '',
-				name : '',
+				data : {
+					score : 0,
+					name : '',
+				},
 			},
 			poll : 0,
 		},
@@ -147,8 +149,8 @@ export default {
 
 					if( input.winner !== undefined ){
 						state.game.winner.url = input.winner.url;
-						state.game.winner.name = input.winner.name;
-						state.game.winner.score = input.winner.score;
+						state.game.winner.data.name = input.winner.data.name;
+						state.game.winner.data.score = input.winner.data.score;
 					}
 			}
 		},
@@ -203,10 +205,12 @@ let basic = {
 	mode : game_modes[0],
 	result : game_result[0],
 	winner : {
-		score : 0,
 		url : '',
-		name : '',
-	},	
+		data : {
+			score : 0,
+			name : '',
+		},
+	},
 	poll : 0,
 }
 

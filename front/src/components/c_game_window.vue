@@ -13,10 +13,10 @@
 					<br>
 					
 					<c-button
-						ref="btnRejoin"
-						v-bind:onClick=button_rejoin>
+						ref="btn"
+						v-bind:onClick=button_done>
 							<p class="colour-fill-bg-inv">
-								Rejoin
+								Done
 							</p>
 					</c-button>
 
@@ -29,10 +29,10 @@
 					<br>
 
 					<c-button
-						ref="btnRejoin"
-						v-bind:onClick=button_rejoin>
+						ref="btn"
+						v-bind:onClick=button_done>
 							<p class="colour-fill-bg-inv">
-								Rejoin
+								Done
 							</p>
 					</c-button>	
 								
@@ -45,15 +45,18 @@
 				<br>
 
 				<c-button
-					ref="btnRejoin"
+					ref="btn"
 					v-bind:onClick=button_rejoin>
 						<p class="colour-fill-bg-inv">
 							Rejoin
 						</p>
 				</c-button>	
 
-
 			</div>
+
+			<p class="text">
+				( {{ state.time }} )
+			</p>
 
 			<c-message 
 				ref="msgObj">
@@ -69,6 +72,7 @@
 	import PopUp from '../components/c_popup.vue';
 	import Message from '../components/c_message.vue';
 
+	let timeObj = null;
 
 	export default {
 		name: 'cGameWindow',
@@ -88,6 +92,7 @@
 						kicked : false,
 					},
 					message : '',
+					time : 30,
 				},
 			}
 		},
@@ -105,16 +110,14 @@
 
 
 			type_reset : function(){
-				this.state.won = false;
-				this.state.lost = false;
-				this.state.kicked = false;
+				this.state.type.won = false;
+				this.state.type.lost = false;
+				this.state.type.kicked = false;
+				this.state.time = 30;
 			},
 
 			// instance_over : function(){
-			// 	let self = this;
-			// 	setTimeout( function(){
-			// 		self.$router.push('/');
-			// 	}, 2000);
+
 			// },
 
 
@@ -143,17 +146,48 @@
 
 
 			button_rejoin : function(){
+				this.$refs.btn.$emit('state', 'waiting');
 				this.$root.$emit('player.rejoin');
+			},
+			button_done : function(){
+				this.$refs.btn.$emit('state', 'waiting');
+				let self = this;
+				setTimeout( function(){
+					self.window_hide();
+					self.$router.push('/');
+				}, 2000);
+			},
+
+			time_start : function(){
+				this.time_repeat();
+			},
+			time_repeat : function(){
+				let self = this;
+				timeObj = setTimeout( function(){
+					self.time_tick();
+				}, 1000);
+			},			
+			time_tick : function(){
+				this.state.time -=1;
+				if( this.state.time < 1){
+					this.button_done();
+				} else {
+					this.time_repeat();
+				}
+			},
+			time_off : function(){
+				clearTimeout( timeObj );
 			},
 
 
-			window_show : function( forced ){
-
+			window_show : function(){
 				this.state.remove = false;
 				this.state.display = true;
 
 				this.$root.$on('player.message', this.message );
 				this.$root.$on('player.hide', this.window_hide );
+
+				this.time_start();
 			},
 			window_click : function(){
 				if( this.state.lock ){
@@ -177,6 +211,7 @@
 				this.$root.$off('game.won', this.game_won );
 				this.$root.$off('game.lost', this.game_lost );
 				this.$root.$off('game.kicked', this.game_kicked );
+				this.time_off();
 			},
 		},
 		mounted(){

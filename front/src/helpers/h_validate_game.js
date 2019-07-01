@@ -94,6 +94,12 @@ function validate( response, self ){
 					game_lost( self, response.data.data.game.winner );
 			}
 
+			// make sure player has joined one time
+			if( playerURL === '' ){
+				game_tick( self );
+				return;
+			}
+
 			let playerFound = false; 
 			let players = self.$store.getters['instance/get_players'];
 			for( let i = 0; i < players.length; i++){

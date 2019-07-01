@@ -29,38 +29,24 @@ function safe( model, all=false ){
 			game : {
 				win : model.data.game.win,
 				display : model.data.game.display,
-				// ahead : model.data.game.ahead,
-				// winner : model.data.game.winner,
 				winner : {
 					win : model.data.game.winner.win,
 					url :  model.data.game.winner.url,
-					name :  model.data.game.winner.name,
-					score :  model.data.game.winner.score,
+					data : {
+						name : model.data.game.winner.data.name,
+						words : model.data.game.winner.data.words,
+						score : model.data.game.winner.data.score,
+					}, 
 				},
 			},		
 		},
 	};
 
-	// if(model.winner !== undefined ){
-		// temp.winner = player_func.safe( model.winner, true);
-		// temp.winner.data.name = model.winner.data.name;
-		// temp.winner.data.score = model.winner.data.score;
-		// temp.winner.data.words = model.winner.data.words;
-	// }
-
 	return temp;
 }
 exports.safe = safe;
 
-// function safe_init( model ){
-// 	let temp = { 
-// 		instance : model.url,
-// 		board : model.data.board,
-// 	};
 
-// 	return temp;
-// }
-// exports.safe_init = safe_init;
 
 function get_var_win( word_count ){
 	let temp_var = Math.floor( word_count * config.game.win );
@@ -125,40 +111,15 @@ function instance_won( instance, player ){
 
 	instance.data.game.winner.win = true;
 	instance.data.game.winner.url = player.url;
-	instance.data.game.winner.name = player.data.name;
-	instance.data.game.winner.score = player.data.score;
-	instance.data.game.winner.words = player.data.words;
-	// instance.winner = player_func.safe(player);
+	instance.data.game.winner.data.name = player.data.name;
+	instance.data.game.winner.data.score = player.data.score;
+	instance.data.game.winner.data.words = player.data.words;
 
 	board_func.board_is_won( instance.data.board );
 	
 }
 exports.instance_won = instance_won;
 
-
-
-// function update( instance, input ){
-	// use player_validate
-	// let newPlayer = new m_player({
-	// 	url : helpers.randomID(5);
-	// 	name : input.name,
-	// });
-	// return newPlayer;
-// }
-// exports.update = update;
-
-
-// function remove( running, input ){
-
-	// let indexs = find_index(running, input);
-
-	// let temp = [];
-	// for( let i=indexs.length -1; i >= 0; i--){
-	// 	running.splice(indexs[i],1);	
-	// }
-	// return indexs;
-// }
-// exports.remove = remove;
 
 
 

@@ -21,8 +21,10 @@ var instance = mongoose.Schema({
 			winner : { 
 				win : { type : Boolean, required : true, default : false },
 				url : { type : String , required : true, default : '' },
-				name : { type : String , required : true, default : '' },
-				score : { type : Number, required : true, default : 0 },
+				data : {
+					name : { type : String , required : true, default : '' },
+					score : { type : Number, required : true, default : 0 },	
+				},
 			},	
 		},		
 	},

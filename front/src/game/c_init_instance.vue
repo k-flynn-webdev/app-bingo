@@ -71,6 +71,10 @@
 				self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
 			},
 
+			instance_pause : function(){
+				clearTimeout( instanceGet );
+			},
+
 			instance_success : function( input ){
 				let self = this;
 
@@ -80,14 +84,16 @@
 
 				self.$store.dispatch('instance/set_players', input.data );
 
-
 				instanceGet = setTimeout( self.instance_get, 10 * 1000 );
 
 				validate_game.game( input, self );
 
 			},
 
-			// instance_error : function( input ){
+			instance_error : function( input ){
+				let self = this;
+				
+				validate_game.game( input, self );
 
 			 	// todo work on this.
 
@@ -106,20 +112,25 @@
 			// },
 			// reset : function(){
 			// 	this.$store.dispatch('instance/reset');
-			// },
+			},
 
 
 
 			exit : function(){
 				clearTimeout( instanceGet );
-				// this.$root.$off('game.exit', this.instance_over );
-				// this.$root.$off('init.instance');
-				// this.$store.dispatch('instance/exit');
+			this.$root.$off('game.won', this.instance_pause );
+			this.$root.$off('game.lost', this.instance_pause );
+			this.$root.$off('game.kicked', this.instance_pause );
 			},
 
 		},
 		mounted() {
 			this.init();
+
+			this.$root.$on('game.won', this.instance_pause );
+			this.$root.$on('game.lost', this.instance_pause );
+			this.$root.$on('game.kicked', this.instance_pause );
+
 			// this.$root.$on('game.exit', this.instance_over );
 			// this.$root.$on('game.ready', this.ready );
 			// this.$root.$on('game.won', this.won );

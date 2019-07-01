@@ -110,8 +110,6 @@ function create( input_board, input_url=false, next ){
 			},
 		});
 
-		console.log( newInstance );
-
 		board_func.board_is_played( board_obj );
 
 		return next(null, newInstance);

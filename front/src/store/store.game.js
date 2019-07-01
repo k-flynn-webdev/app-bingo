@@ -84,6 +84,10 @@ export default {
 		get_game : function( state ){
 			return state.game;
 		},
+		get_winner : function( state ){
+			return state.game.winner;
+		},
+
 		get_poll : function( state ){
 			return state.game.poll;
 		},

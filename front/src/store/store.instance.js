@@ -75,7 +75,6 @@ export default {
 		exit : function( context ){
 			basic.url = '';
 			context.commit('instance', basic );
-			context.commit('mode', '' );
 		},
 
 	}

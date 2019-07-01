@@ -35,7 +35,7 @@
 				return this.$store.getters['player/get_url'];
 			},
 			players : function(){
-				return this.$store.getters['instance/get_instance'].data.players;
+				return this.$store.getters['instance/get_players'];
 			},
 		},
 

@@ -87,28 +87,32 @@
 
 			},
 
-			instance_error : function( input ){
+			// instance_error : function( input ){
 
 			 	// todo work on this.
 
 				// console.log( 'input init error' );
 				// console.log( input );
 
-				validate_game.game( input, this );
+				// validate_game.game( input, this );
 
-				if( this.state.timeouts < this.attrs.server.max_timeouts ){
-					let self = this;
-					setTimeout( function(){
-						self.state.timeouts +=1
-						self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-					}, self.attrs.server.timing );
-				}
-			},
+				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
+				// 	let self = this;
+				// 	setTimeout( function(){
+				// 		self.state.timeouts +=1
+				// 		self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
+				// 	}, self.attrs.server.timing );
+				// }
+			// },
 			// reset : function(){
 			// 	this.$store.dispatch('instance/reset');
 			// },
+
+
+
 			exit : function(){
 				clearTimeout( instanceGet );
+				// this.$root.$off('game.exit', this.instance_over );
 				// this.$root.$off('init.instance');
 				// this.$store.dispatch('instance/exit');
 			},
@@ -116,7 +120,7 @@
 		},
 		mounted() {
 			this.init();
-			// this.$root.$on('reset', this.reset );
+			// this.$root.$on('game.exit', this.instance_over );
 			// this.$root.$on('game.ready', this.ready );
 			// this.$root.$on('game.won', this.won );
 			// this.$root.$on('game.lost', this.won );

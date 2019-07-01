@@ -41,23 +41,26 @@
 					return;
 				}
 
-				if( !this.$store.getters['game/get_game'].joined ||
+				if( !this.$store.getters['game/get_game'].joined &&
 					this.$store.getters['player/get_url'] === '' ){
 					// begin join post process
 					this.set_body();
 					this.join();
 					return;
-				}
+				}			
+			},
 
-				if( this.$store.getters['game/get_game'].joined ||
-					this.$store.getters['player/get_url'] !== '' ){
-					// retry join post process
-					this.$store.dispatch('player/exit'); // resetting player data..
+			rejoin : function(){
 
-					this.set_body();
-					this.join();
-					return;
-				}				
+				console.log('rejoining player.');
+				
+				// retry join post process
+				this.$root.$emit('player.words.reset');
+				this.$store.dispatch('player/exit'); // resetting player data..
+
+				this.set_body();
+				this.join();
+				return;
 			},
 
 			init : function(){
@@ -66,19 +69,26 @@
 
 				this.attrs.action = this.$store.getters['instance/get_action'];
 
-				this.attrs.action.method = 'POST';
 				this.attrs.action.JSON = true;
 
 				this.set_body();
 
 				this.state.init = true;
 			},
+
 			set_body : function(){
 				let body = {
 					url : this.$store.getters['player/get_url'],
 					name : this.$store.getters['player/get_name'],
 					score : this.$store.getters['player/get_score'],
 				};
+
+				if( body.url === ''){
+					this.attrs.action.method = 'POST';
+				} else {
+					this.attrs.action.method = 'PUT';
+				}
+
 				this.attrs.action.body = body;
 			},
 
@@ -90,6 +100,7 @@
 
 			join_success : function( input ){
 
+				this.attrs.action.method = 'PUT';
 				this.$store.dispatch('player/set_player', input.data );
 				
 				this.$store.dispatch('game/set_game', { joined : true } );
@@ -209,12 +220,14 @@
 			exit : function(){
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
+				this.$root.$off('player.rejoin', this.rejoin );
 				// this.$root.$off('player.reset', this.reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
+			this.$root.$on('player.rejoin', this.rejoin );
 			// this.$root.$on('player.reset', this.reset );
 			// this.$root.$on('reset', this.reset );
 		},

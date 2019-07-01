@@ -5,6 +5,8 @@
 		<c-init-instance v-on:trigger="messageShow"></c-init-instance>
 		<c-init-board v-on:trigger="messageShow"></c-init-board>
 		<c-init-player v-on:trigger="messageShow"></c-init-player>
+		
+		<c-window-game></c-window-game>
 		<c-window-player></c-window-player>
 
 		<c-update-instance v-on:trigger="messageShow"></c-update-instance>
@@ -53,6 +55,7 @@
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
 	import InitPlayer from '../game/c_init_player.vue';
+
 	import Player from '../components/c_player.vue';
 	import Players from '../components/c_players.vue';
 	import PlayerWindow from '../components/c_player_window.vue';
@@ -60,6 +63,8 @@
 	import UpdateInstance from '../game/c_update_instance.vue';
 	
 	import GameWords from '../components/c_words.vue';
+	import GameWindow from '../components/c_game_window.vue';
+
 
 	export default {
 		name: 'BoardGame',
@@ -116,7 +121,6 @@
 				}
 			},
 
-		
 			exit : function(){
 				this.$root.$off('reset.success', this.reset_success );
 				this.$root.$off('reset.fail', this.reset_fail );				
@@ -126,6 +130,7 @@
 			this.init();
 		},
 		beforeDestroy(){
+			this.exit();
 		},		
 		components: {
 			'c-panel' : Panel,
@@ -138,6 +143,7 @@
 			'c-player' : Player,
 			'c-players' : Players,
 			'c-window-player' : PlayerWindow,
+			'c-window-game' : GameWindow,
 			'c-update-instance' : UpdateInstance,
 		},		
 }

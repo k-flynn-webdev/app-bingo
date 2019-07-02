@@ -5,13 +5,6 @@
 		v-bind:onShow=state.display 
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_hide>
-
-		<!-- <div slot="header" 
-			class="">
-				<p class="colour-fill-bg">
-					{{ button.label }}
-				</p>
-		</div> -->
 			
 		<div 
 			ref="field_name"
@@ -113,9 +106,6 @@
 			},
 
 			name_update : function(){
-
-				//todo check if name is same, if so ignore?
-					// if different and legal trigger the PUT update not POST and start that process.
 
 				let result = this.validate();
 				if( result ){

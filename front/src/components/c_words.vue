@@ -98,7 +98,7 @@ let word_hash = function (str){
 		methods : {
 			setup : function(){
 
-				console.log('setting up words');
+				// console.log('setting up words');
 
 				let words = []
 				let display = this.$store.getters['instance/get_instance'].data.game.display;

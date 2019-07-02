@@ -5,22 +5,22 @@ function game_tick( self ){
 	self.$store.dispatch('game/set_game', { result : '' } );
 }
 function game_won( self, winner ){
-	console.log( ' game: won' );
+	// console.log( ' game: won' );
 	self.$store.dispatch('game/set_game', { result : 'won' , winner : winner } );
 	self.$root.$emit('game.won');
 }
 function game_lost( self, winner ){
-	console.log( ' game: lost' );
+	// console.log( ' game: lost' );
 	self.$store.dispatch('game/set_game', { result : 'lost' , winner : winner } );	
 	self.$root.$emit('game.lost');
 }
 function game_kicked( self, response ){
-	console.log( ' game: kicked' );
+	// console.log( ' game: kicked' );
 	// console.log( response );
 	kick( self );
 }
 function game_afk( self ){
-	console.log( ' game: afk kicked' );
+	// console.log( ' game: afk kicked' );
 	kick( self );
 }
 function kick( self ){

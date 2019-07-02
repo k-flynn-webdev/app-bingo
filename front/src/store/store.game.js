@@ -130,7 +130,7 @@ export default {
 			if( state.game.mode !== game_modes[1] ){
 				let isReady = check_ready( state );
 				if( isReady ){
-					console.log('setting to play mode.');
+					// console.log('setting to play mode.');
 				}
 			}
 
@@ -138,7 +138,7 @@ export default {
 				input.result !== '' ){
 					state.game.mode = game_modes[0];
 					state.game.result = input.result;
-					console.log( 'game is ' + input.result );
+					// console.log( 'game is ' + input.result );
 
 					if( input.winner !== undefined ){
 						state.game.winner.url = input.winner.url;

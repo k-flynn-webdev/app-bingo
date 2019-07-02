@@ -18,7 +18,7 @@
 					server : {
 						max_timeouts : 5,
 						timing : 1000,
-						time_sec : 25,
+						time_sec : 8,
 					},
 					action : Object,
 				},
@@ -75,13 +75,13 @@
 
 			instance_start : function(){
 				if( this.state.stop ){
-					console.log('instance start triggered.');
+					// console.log('instance start triggered.');
 					this.state.stop = false;
 					this.instance_get();
 				}
 			},
 			instance_stop : function(){
-				console.log( 'instance stopping update');
+				// console.log( 'instance stopping update');
 				this.state.stop = true;
 				clearTimeout( instanceGet );
 			},

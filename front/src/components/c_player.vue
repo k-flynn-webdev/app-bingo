@@ -70,7 +70,7 @@
 			},
 
 			trigger : function(){
-				console.log('player hide triggered');
+				// console.log('player hide triggered');
 				this.state.display = true;
 				let self = this;
 				setTimeout( function(){

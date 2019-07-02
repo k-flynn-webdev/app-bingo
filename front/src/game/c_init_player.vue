@@ -51,7 +51,7 @@
 			},
 
 			rejoin : function(){
-				console.log('rejoining player.');
+				// console.log('rejoining player.');
 				this.$root.$emit('player.words.reset');
 				this.check();
 				return;
@@ -59,7 +59,7 @@
 
 			init : function(){
 
-				console.log('player init');
+				// console.log('player init');
 
 				this.attrs.action = this.$store.getters['instance/get_action'];
 
@@ -146,7 +146,7 @@
 
 
 			reset : function(){
-				console.log('resetting player');
+				// console.log('resetting player');
 				if( !this.state.init ){
 					this.init();
 				}

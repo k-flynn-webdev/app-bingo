@@ -60,9 +60,7 @@
 
 				console.log('player init');
 
-				// this.attrs.action = this.$store.getters['instance/get_action'];
-
-				// this.attrs.action.JSON = true;
+				this.attrs.action = this.$store.getters['instance/get_action'];
 
 				this.set_body();
 
@@ -71,19 +69,21 @@
 
 			set_body : function(){
 
-				this.attrs.action = this.$store.getters['instance/get_action'];
+				let playerURL = this.$store.getters['player/get_url'];
+				let playerName = this.$store.getters['player/get_name'];
+				let playerScore = this.$store.getters['player/get_score'];
 
 				let body = {
-					url : this.$store.getters['player/get_url'],
-					name : this.$store.getters['player/get_name'],
-					score : this.$store.getters['player/get_score'],
+					url : playerURL,
+					name : playerName,
+					score : playerScore,
 				};
 
-				// if( body.url === ''){
-				// 	this.attrs.action.method = 'POST';
-				// } else {
-				// 	this.attrs.action.method = 'PUT';
-				// }
+				if( playerURL === ''){
+					this.attrs.action.method = 'POST';
+				} else {
+					this.attrs.action.method = 'PUT';
+				}
 
 				this.attrs.action.body = body;
 			},
@@ -96,11 +96,10 @@
 
 			join_success : function( input ){
 
-				// this.attrs.action.method = 'PUT';
-				this.$store.dispatch('player/set_method', 'PUT' );
 				this.$store.dispatch('player/set_player', input.data );
 				
 				this.$store.dispatch('game/set_game', { joined : true } );
+
 				validate_game.game( input, this );
 
 				let message = {
@@ -108,33 +107,16 @@
 					message : input.message,
 				};
 
+				this.$root.$emit('game.stop');
 				this.$root.$emit('player.message', message);
+
 				let self =this;
 				setTimeout( function(){
 					self.$root.$emit('player.hide');
 					self.$root.$emit('player.success');
 				}, 2000 );
 
-				
-				
-				
 
-				// console.log( input.data );
-
-				// if( !this.input.selected ){
-				// 	toSend.player.word = {
-				// 		add : this.input.word,
-				// 	}
-				// 	this.$store.dispatch('game/add_word', this.input );
-				// } else {
-				// 	toSend.player.word = {
-				// 		remove : this.input.word,
-				// 	}
-				// 	this.$store.dispatch('game/remove_word', this.input );
-				// }				
-				// this.$store.dispatch('instance/set_instance', input.data );
-				// console.log( input.data );
-				// this.$root.$emit('init.board', input.data.data.board );
 			},
 			join_error : function( input ){
 
@@ -156,31 +138,6 @@
 					self.$root.$emit('player.hide');
 				}, 3500 );
 
-
-				// game won / lost
-				// if( input.status === 401 && 
-				// 	input.win !== undefined){
-
-				// 	let winType = input.win ? 'won' : 'lost' ;
-
-				// 	this.$store.dispatch('game/set_game', { mode : winType } );
-
-				// 	// this.$root.$emit('game.won');
-				// 	// todo
-				// 	console.log('game has been ' + winType + ', trigger exit message.');
-				// 	console.log(input);
-				// }
-
-
-				
-				// todo
-				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
-				// 	let self = this;
-				// 	setTimeout( function(){
-				// 		self.state.timeouts +=1
-				// 		self.onSubmit( self.attrs.action, self, null, null, self.instance_success, self.instance_error);
-				// 	}, self.attrs.server.timing );
-				// }
 			},
 
 
@@ -221,15 +178,12 @@
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
 				this.$root.$off('player.rejoin', this.rejoin );
-				// this.$root.$off('player.reset', this.reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
 			this.$root.$on('player.rejoin', this.rejoin );
-			// this.$root.$on('player.reset', this.reset );
-			// this.$root.$on('reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();

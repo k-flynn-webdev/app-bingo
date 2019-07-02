@@ -134,7 +134,6 @@ export default {
 					console.log('setting to play mode.');
 				}
 			}
-			console.log( pre + " : " + state.game.mode );
 
 			if( input.result !== undefined &&
 				input.result !== '' ){
@@ -148,6 +147,8 @@ export default {
 						state.game.winner.data.score = input.winner.data.score;
 					}
 			}
+
+			console.log( state.game );
 
 		},
 

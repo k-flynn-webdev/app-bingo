@@ -2,14 +2,6 @@
 export default {
 	namespaced: true,
 	state: {
-		action : {
-			url : '',
-			method : 'POST',
-			JSON : true,
-			body : {
-
-			},
-		},
 		player : {
 			url : '',
 			data : {
@@ -20,13 +12,9 @@ export default {
 	},
 	getters: {
 
-		get_action : function( state ){
-			return state.action;
-		},
 		get_player : function( state ){
 			return state.player;
 		},
-
 		get_url : function( state ){
 			return state.player.url;
 		},
@@ -39,13 +27,7 @@ export default {
 
 	},
 	mutations: {
-
-		action : function( state, input ){
-			state.action.url = input;
-		},
-		method : function( state, input ){
-			state.action.method = input;
-		},		
+	
 		player : function( state, input ){
 			if( input.url !== undefined ){
 				state.player.url = input.url;
@@ -65,23 +47,14 @@ export default {
 	},
 	actions: {
 
-		set_action : function( context, input ){
-			context.commit('action', input );
-		},
-		set_method : function( context, input ){
-			context.commit('method', input );
-		},
-
 		set_player : function( context, input ){
 			context.commit('player', input );
 		},
 		reset : function( context ){
 			context.commit('player', basic );
 		},
-
 		exit : function( context ){
 			context.commit('player', basic );
-			context.commit('method', 'POST' );
 		},
 
 	}

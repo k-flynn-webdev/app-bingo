@@ -14,8 +14,9 @@ function game_lost( self, winner ){
 	self.$store.dispatch('game/set_game', { result : 'lost' , winner : winner } );	
 	self.$root.$emit('game.lost');
 }
-function game_kicked( self ){
+function game_kicked( self, response ){
 	console.log( ' game: kicked' );
+	// console.log( response );
 	kick( self );
 }
 function game_afk( self ){
@@ -95,7 +96,7 @@ function validate( response, self ){
 			if( playerFound ){
 				return game_tick( self );
 			} else {
-				return game_kicked( self );
+				return game_kicked( self, response  );
 			}
 
 	}

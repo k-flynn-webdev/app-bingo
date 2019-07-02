@@ -37,13 +37,12 @@
 				let tempURL = '/api/instance/' + instance;
 
 				this.$store.dispatch('instance/set_action', tempURL);
-				this.$store.dispatch('player/set_action', tempURL);
 				this.$store.dispatch('instance/set_instance', { url : instance });
 
 				let action = {
 					url : tempURL,
 					method : 'GET',
-					JSON : false };
+					JSON : true };
 
 				this.attrs.action = action;
 
@@ -134,7 +133,7 @@
 				this.$root.$off('game.won', this.instance_stop );
 				this.$root.$off('game.lost', this.instance_stop );
 				this.$root.$off('game.kicked', this.instance_stop );
-				// todo fix this player success???
+				this.$root.$off('game.stop', this.instance_stop );
 				this.$root.$off('player.success', this.instance_start );
 			},
 
@@ -145,13 +144,8 @@
 			this.$root.$on('game.won', this.instance_stop );
 			this.$root.$on('game.lost', this.instance_stop );
 			this.$root.$on('game.kicked', this.instance_stop );
-			// todo fix this player success???
+			this.$root.$on('game.stop', this.instance_stop );
 			this.$root.$on('player.success', this.instance_start );
-
-			// this.$root.$on('game.exit', this.instance_over );
-			// this.$root.$on('game.ready', this.ready );
-			// this.$root.$on('game.won', this.won );
-			// this.$root.$on('game.lost', this.won );
 		},
 		beforeDestroy(){
 			this.exit();

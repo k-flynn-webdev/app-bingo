@@ -13,6 +13,18 @@
 		<c-front-players></c-front-players>
 		<c-front-games></c-front-games>
 
+
+		<div class="admin-only">
+			<br>
+			<span class="text colour-fill-bg-inv">Cron Jobs:</span>
+			<router-link 
+				class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+				to="/cron/instance/">
+					clean
+			</router-link>
+		</div>
+
+
 		<template slot="footer">
 		</template>
 

@@ -133,13 +133,14 @@
 					// updating 
 					if( hasChanged && game.joined ){
 						this.$root.$emit('player.update', this.form.name );
+						this.$refs.btnOK.$emit('state', 'waiting');
 						return;
 					}
 
 					// clean join ..
 					player.data.name = this.form.name;
 					this.$store.dispatch('player/set_player', player );
-
+					this.$refs.btnOK.$emit('state', 'waiting');
 					this.$root.$emit('player.check');
 				}
 			},

@@ -18,7 +18,7 @@
 					server : {
 						max_timeouts : 5,
 						timing : 1000,
-						time_sec : 10,
+						time_sec : 25,
 					},
 					action : Object,
 				},

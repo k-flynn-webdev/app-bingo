@@ -54,6 +54,7 @@
 					}
 				}
 
+				this.attrs.action.method = 'PUT';
 				this.attrs.action.body = request;
 				this.attrs.action.body.player.url = this.$store.getters['player/get_url'];
 
@@ -80,6 +81,8 @@
 					};
 				}
 
+				this.attrs.action.method = 'PUT';
+				
 				let self = this;
 				self.onSubmit( self.attrs.action, self, null, null, self.update_success, self.update_error);
 			},

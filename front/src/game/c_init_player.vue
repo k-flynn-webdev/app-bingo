@@ -52,6 +52,7 @@
 
 			rejoin : function(){
 				console.log('rejoining player.');
+				this.$root.$emit('player.words.reset');
 				this.check();
 				return;
 			},
@@ -99,6 +100,7 @@
 				this.$store.dispatch('player/set_player', input.data );
 				
 				this.$store.dispatch('game/set_game', { joined : true } );
+				
 
 				validate_game.game( input, this );
 
@@ -114,6 +116,8 @@
 				setTimeout( function(){
 					self.$root.$emit('player.hide');
 					self.$root.$emit('player.success');
+					self.$store.dispatch('game/set_game', {} );
+					self.$store.dispatch('game/set_game', {} );
 				}, 2000 );
 
 

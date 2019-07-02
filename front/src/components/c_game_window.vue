@@ -146,10 +146,12 @@
 
 
 			button_rejoin : function(){
+				this.time_off();
 				this.$refs.btn.$emit('state', 'waiting');
 				this.$root.$emit('player.rejoin');
 			},
-			button_done : function(){	
+			button_done : function(){
+				this.time_off();
 				this.$refs.btn.$emit('state', 'waiting');
 				let self = this;
 				setTimeout( function(){

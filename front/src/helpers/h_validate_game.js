@@ -1,7 +1,7 @@
 
 
 function game_tick( self ){
-	console.log( ' game: tick' );
+	// console.log( ' game: tick' );
 	self.$store.dispatch('game/set_game', { result : '' } );
 }
 function game_won( self, winner ){
@@ -24,7 +24,6 @@ function game_afk( self ){
 	kick( self );
 }
 function kick( self ){
-	self.$root.$emit('player.words.reset');
 	self.$store.dispatch('game/set_game', { joined : false } );
 	self.$store.dispatch('player/exit');
 	self.$root.$emit('game.kicked');	

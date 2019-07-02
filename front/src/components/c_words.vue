@@ -128,6 +128,12 @@ let word_hash = function (str){
 							tempArray.push( items[a] );
 						}
 						self.$store.dispatch('game/set_words', tempArray );
+
+						// array of words finished .. set game ready!
+						if( tempArray.length === display){
+							self.$store.dispatch('game/set_game', {} );
+						}
+
 					}, index * self.timing.delay_each_item );
 				}
 

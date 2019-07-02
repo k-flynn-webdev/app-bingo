@@ -95,7 +95,6 @@ export default {
 			if( input.length > 0 ){
 				state.game.words = true;
 			}
-			check_ready( state );
 		},
 
 
@@ -147,8 +146,6 @@ export default {
 						state.game.winner.data.score = input.winner.data.score;
 					}
 			}
-
-			console.log( state.game );
 
 		},
 

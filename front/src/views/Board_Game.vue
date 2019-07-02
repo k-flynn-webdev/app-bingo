@@ -34,13 +34,40 @@
 		</c-button>
 
 		<br>
-		
-		<!-- <c-message ref="msgObj1"></c-message> -->
 
 		<span class="text colour-fill-bg-inv">
 			{{ game_state.mode }}
 			{{ game_state.result }}
 		</span>
+
+
+		<c-button-expand
+			v-bind:buttonShow=true
+			v-bind:buttonClickClose=true
+			v-bind:buttonClick=onCopy>
+
+			<p class="label" slot="label">
+				Share
+			</p>
+
+			<input 
+				slot="content"
+				ref="shareLinkURL"
+				class="text colour-fill-bg-inv text-input" 
+				type="string"
+				name="share"
+				v-bind:value=share.link>
+
+			<p class="text text-bold" slot="button">
+				copy
+			</p>
+			
+		</c-button-expand>
+
+		
+		<!-- <c-message ref="msgObj1"></c-message> -->
+
+
 
 	</c-panel>
 
@@ -51,6 +78,7 @@
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
 	import Message from '../components/c_message.vue';
+	import ButtonExpand from '../components/c_button_expand.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
 	import InitInstance from '../game/c_init_instance.vue';
@@ -72,6 +100,9 @@
 			return {
 				attrs : {
 				},
+				share : {
+					link : '',
+				},				
 			}
 		},	
 		computed : {
@@ -96,8 +127,10 @@
 			init : function(){
 				this.$root.$on('reset.success', this.reset_success );
 				this.$root.$on('reset.fail', this.reset_fail );
-			},
 
+				this.board = this.$route.params.board;
+				this.share.link = window.location.href;
+			},
 
 			messageShow : function( input ){
 				// this.$refs.msgObj1.$emit('message', { class: 'content colour-fill-bg-inv', message : input } );
@@ -121,6 +154,12 @@
 				}
 			},
 
+			onCopy : function(){
+				let copyText = this.$refs.shareLinkURL.select();
+				document.execCommand('copy');
+			},
+
+
 			exit : function(){
 				this.$root.$off('reset.success', this.reset_success );
 				this.$root.$off('reset.fail', this.reset_fail );				
@@ -135,7 +174,8 @@
 		components: {
 			'c-panel' : Panel,
 			'c-button' : Button,
-			'c-message' : Message,			
+			'c-message' : Message,
+			'c-button-expand' : ButtonExpand,
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,

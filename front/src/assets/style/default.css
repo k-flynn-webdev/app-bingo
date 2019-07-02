@@ -20,6 +20,16 @@
 }
 
 
+
+.admin-only{
+	background-color: hsla(33,66%,75%,1);
+}
+.admin-only .text, .admin-only .title, .admin-only .header{
+	color: black;
+}
+
+
+
 .no-click {
 	pointer-events: none;
 }

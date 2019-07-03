@@ -8,13 +8,13 @@
 				<slot name="header" ></slot>
 			</p>
 
-			<div class="options flex-row flex-row-end width-90 center-auto-h">
+			<div class="options flex-row flex-row-end width-901 center-auto-h">
 				<slot name="options"></slot>
 			</div>
 
 		</header>
 
-		<div class="width-90 center-auto-h">
+		<div class="width-901 center-auto-h">
 
 			<main class="text">	
 				<slot></slot>

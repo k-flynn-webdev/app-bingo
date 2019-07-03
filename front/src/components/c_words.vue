@@ -7,7 +7,7 @@
 
 		<div ref="wrds_holder_inner">
 			
-			<transition-group name="task2" tag="div">
+			<transition-group name="anim-word" tag="div">
 
 				<c-word
 					v-for="(word, index) in words_list" 
@@ -98,8 +98,6 @@ let word_hash = function (str){
 		methods : {
 			setup : function(){
 
-				// console.log('setting up words');
-
 				let words = []
 				let display = this.$store.getters['instance/get_instance'].data.game.display;
 
@@ -185,6 +183,7 @@ let word_hash = function (str){
 	flex: none;
 	position: relative;
 	min-height: 15rem;
+	width: 100%;
 }
 
 .words-lock {
@@ -196,26 +195,19 @@ let word_hash = function (str){
 	pointer-events: none !important;
 }	
 
-.task2-enter {
+.anim-word-enter {
 	opacity: 0;
 	transform: translateY(-1rem);
 }
-.task2-enter .label {
+.anim-word-enter .label {
 	opacity: 0;
 	transform: translateX(-2rem);
 }
 
-
-.task1-enter-to {
-}
-.task-enter-active {
-}
-.task1-leave-active {
-}
-.task2-leave, .task2-leave-to {
+.anim-word-leave, .anim-word-leave-to {
 	animation: remove-task 1s ease calc( .1s * var(--inv-i) );
 }
-.task2-leave-to .label {
+.anim-word-leave-to .label {
 	opacity: 0;
 	transition-delay: calc( .1s * var(--inv-i));
 	transition-duration: .66s;
@@ -223,7 +215,7 @@ let word_hash = function (str){
 }
 
 
-.task2-move {
+.anim-word-move {
 	transition: transform 1s ease !important;
 }
 
@@ -250,24 +242,6 @@ let word_hash = function (str){
 }
 
 
-/*
-	.word-block {
-		display: inline-block;
-		position: relative;
-		min-width: 3rem;
-	}
-
-	.word-content {
-		transition: 1s ease;
-		text-align: center;
-		padding: 0.5rem 0.75rem;
-		font-size: 0.8rem;
-	}
-	.word-block:hover .word-content {
-		transform: scale(1.075);
-	}
-
-
 @media only screen and (max-width: 400px) {	
 
 }
@@ -286,86 +260,6 @@ let word_hash = function (str){
 
 }
 
-*/
-
-
-
-
-	/*.word-square:after {*/
-		/*content: "";*/
-		/*display: block;*/
-		/*padding-bottom: 5rem;*/
-		/*padding-bottom: 100%;*/
-	/*}*/
-
-
-
-
-	/*.word-enter-active {
-		animation: word-anim-in-out 0.5s both;
-	}
-	.word-leave-active {
-		animation: word-anim-in-out 0.5s reverse both;
-	}
-	@keyframes word-anim-in-out {
-		0% {
-			transform: scale(0.3);
-			opacity: 0;
-		}
-		100% {
-			transform: scale(1);
-			opacity: 1;
-		}
-	}
-*/
-	/*.words {
-		margin: 1rem 0.1rem;
-		text-align: left;
-	}*/
-
-	/*.word {*/
-		/*text-align: center;*/
-		/*position: relative;*/
-		/*width: 50%;*/
-		/*opacity: 1;*/
-		/*display: inline-block;*/
-		/*background-color: hsl(200,33%,90%);*/
-		/*border-radius: 0;*/
-		/*margin: 0.2rem;*/
-		/*padding: 0 0.1rem;*/
-		/*border: none;*/
-		/*height: unset;*/
-		/*transform: scale(0.3);*/
-		/*opacity: 0.1;*/
-	/*}*/
-	/*.word.is-waiting{*/
-		/*background-color: red;*/
-		/*animation: word-anim-waiting 2s 1s infinite both;*/
-	/*}*/
-	/*@keyframes word-anim-waiting {*/
-		/*0% {*/
-			/*opacity: 1;*/
-			/*background-color: hsla(100,30%,40%,1)*/
-			/*transform: scale(0.3);*/
-			/*opacity: 0;*/
-		/*}*/
-		/*50% {*/
-			/*opacity: .1;*/
-			/*background-color: red;*/
-			/*transform: scale(0.3);*/
-			/*opacity: 0;*/
-		/*}		*/
-		/*100% {*/
-			/*opacity: 1;*/
-			/*background-color: hsla(100,30%,40%,1)*/
-			/*transform: scale(1);*/
-			/*opacity: 1;*/
-		/*}*/
-	/*}*/
-
-	/*.word.is-selected{
-		background-color: hsl(100,60%,70%);
-	}*/
 
 </style>
 

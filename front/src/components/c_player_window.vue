@@ -4,7 +4,7 @@
 		v-if=!state.remove
 		v-bind:onShow=state.display 
 		v-bind:extraClass=attrs.extraClass
-		v-bind:onClick=window_hide>
+		v-bind:onClick=window_click>
 			
 		<div 
 			ref="field_name"
@@ -140,6 +140,9 @@
 
 			window_show : function(){
 
+				this.$root.$on('player.message', this.message );
+				this.$root.$on('player.hide', this.window_hide );
+				
 				let player = this.$store.getters['player/get_player'];
 				this.form.name = player.data.name;
 
@@ -154,9 +157,16 @@
 				}
 
 				this.state.remove = false;
-				this.state.display = true;
-				this.$root.$on('player.message', this.message );
+				this.state.display = true;		
 			},
+
+			window_click : function(){
+				if( this.state.lock ){
+					return;
+				}
+				this.window_hide();
+			},
+
 			window_hide : function(){
 				let player = this.$store.getters['game/get_game'];
 				if( player.joined ){
@@ -176,18 +186,17 @@
 					setTimeout( function(){
 						self.state.remove = true;
 						self.$root.$off('player.message', this.message );
+						self.$root.$off('player.hide', this.window_hide );
 					},1000);
 				}
 			},
 
 			exit : function(){
-				this.$root.$off('player.show', this.window_show );
-				this.$root.$off('player.hide', this.window_hide );
+				this.$root.$off('player.show', this.window_show );	
 			},
 		},
 		mounted(){
 			this.$root.$on('player.show', this.window_show );
-			this.$root.$on('player.hide', this.window_hide );
 		},		
 		beforeDestroy(){
 			this.exit();

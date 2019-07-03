@@ -206,6 +206,7 @@
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
 				this.$root.$off('player.rejoin', this.rejoin );
+				this.$root.$off('player.remove', this.remove );
 				this.$root.$off('game.pre.reset', this.game_reset );
 
 				this.remove();
@@ -215,6 +216,7 @@
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
 			this.$root.$on('player.rejoin', this.rejoin );
+			this.$root.$on('player.remove', this.remove );
 			this.$root.$on('game.pre.reset', this.game_reset );
 		},
 		beforeDestroy(){

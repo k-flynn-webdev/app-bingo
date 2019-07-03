@@ -2,7 +2,8 @@
 
 
 	<div 
-		class="hover-trigger">
+		class="hover-trigger"
+		v-bind:class="{ 'hover-force' : state.display }">
 
 			<p class="anim-6 hover-message-left text colour-fill-bg">
 				{{ player_name }}

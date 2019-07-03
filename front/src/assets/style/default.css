@@ -43,11 +43,11 @@
 	pointer-events: none;
 	transform: translateX(50%) translateY(50%);
 }
-.hover-trigger:hover .hover-message {
+.hover-trigger:hover .hover-message, .hover-trigger.hover-force .hover-message {
 	opacity: 1;
 	transform: translateX( calc(100% + 1rem) ) translateY(50%);
 }
-.hover-trigger:hover .hover-message-left {
+.hover-trigger:hover .hover-message-left, .hover-trigger.hover-force .hover-message-left {
 	opacity: 1;
 	transform: translateX( calc(-100% + -1rem) ) translateY(50%);
 }

@@ -24,7 +24,7 @@
 
 				<c-button
 					v-if=state.type.kicked
-					ref="btn"
+					ref="btnRejoin"
 					v-bind:onClick=button_rejoin>
 						<p class="colour-fill-bg-inv">
 							Rejoin
@@ -32,8 +32,8 @@
 				</c-button>	
 
 				<c-button
-					ref="btn"
-					v-bind:onClick=button_done>
+					ref="btnHome"
+					v-bind:onClick=button_home>
 						<p class="colour-fill-bg-inv">
 							Home
 						</p>
@@ -133,12 +133,12 @@
 
 			button_rejoin : function(){
 				this.time_off();
-				this.$refs.btn.$emit('state', 'waiting');
+				this.$refs.btnRejoin.$emit('state', 'waiting');
 				this.$root.$emit('player.rejoin');
 			},
-			button_done : function(){
+			button_home : function(){
 				this.time_off();
-				this.$refs.btn.$emit('state', 'waiting');
+				this.$refs.btnHome.$emit('state', 'waiting');
 				
 				let self = this;
 				setTimeout( function(){
@@ -148,6 +148,7 @@
 			},
 			button_new : function(){
 				this.time_off();
+				this.$refs.btnNew.$emit('state', 'waiting');
 
 				let board = this.$store.getters['board/get_board'].url;
 
@@ -159,7 +160,7 @@
 				this.$root.$emit( 'player.remove' );	
 
 				let self = this;
-				this.onSubmit( object, self, this.$refs.btn, null, self.onSuccess, self.onError);
+				this.onSubmit( object, self, this.$refs.btnNew, null, self.onSuccess, self.onError);
 			},
 			onSuccess : function( input ){
 				let self = this;

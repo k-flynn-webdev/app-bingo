@@ -6,45 +6,24 @@
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_click>
 
-			<div
-				v-if=state.type.lost>
-					<p> {{ state.message }} </p>
-
-					<br>
-					
-					<c-button
-						ref="btn"
-						v-bind:onClick=button_done>
-							<p class="colour-fill-bg-inv">
-								Done
-							</p>
-					</c-button>
-
-			</div>
-
-			<div
-				v-if=state.type.won>
-					<p> {{ state.message }} </p>
-
-					<br>
-
-					<c-button
-						ref="btn"
-						v-bind:onClick=button_done>
-							<p class="colour-fill-bg-inv">
-								Done
-							</p>
-					</c-button>	
-								
-			</div>
-
-			<div
-				v-if=state.type.kicked>
-					<p> {{ state.message }} </p>
+			<div>
+				<p>
+					{{ state.message }} 
+				</p>
 
 				<br>
 
 				<c-button
+					v-if=state.type.lost||state.type.won
+					ref="btnNew"
+					v-bind:onClick=button_new>
+						<p class="colour-fill-bg-inv">
+							New
+						</p>
+				</c-button>
+
+				<c-button
+					v-if=state.type.kicked
 					ref="btn"
 					v-bind:onClick=button_rejoin>
 						<p class="colour-fill-bg-inv">
@@ -52,15 +31,23 @@
 						</p>
 				</c-button>	
 
+				<c-button
+					ref="btn"
+					v-bind:onClick=button_done>
+						<p class="colour-fill-bg-inv">
+							Home
+						</p>
+				</c-button>
+
 			</div>
 
-			<p class="text">
-				( {{ state.time }} )
-			</p>
+		<p class="text">
+			( {{ state.time }} )
+		</p>
 
-			<c-message 
-				ref="msgObj">
-			</c-message>
+		<c-message 
+			ref="msgObj">
+		</c-message>
 
 	</c-popup>
 
@@ -71,11 +58,14 @@
 	import Button from '../components/c_button.vue';
 	import PopUp from '../components/c_popup.vue';
 	import Message from '../components/c_message.vue';
+	import { submit } from '../mixins/h_submit.js';
+
 
 	let timeObj = null;
 
 	export default {
 		name: 'cGameWindow',
+		mixins: [ submit ],
 		data(){
 			return {
 				attrs : {
@@ -116,10 +106,6 @@
 				this.state.time = 30;
 			},
 
-			// instance_over : function(){
-
-			// },
-
 
 			game_won : function(){
 				this.type_reset();
@@ -158,6 +144,46 @@
 					self.window_hide();
 					self.$router.push('/');
 				}, 2000);
+			},
+			button_new : function(){
+				this.time_off();
+
+				let board = this.$store.getters['board/get_board'].url;
+
+				let object = {
+					url : ('/api/instance/' + board + '/create'),
+					method : 'GET',
+					body : '' };
+
+				let self = this;
+				this.onSubmit( object, self, this.$refs.btn, null, self.onSuccess, self.onError);
+			},
+			onSuccess : function( input ){
+				let self = this;
+				self.window_hide();
+				setTimeout( function(){
+					// kill all local data?
+					// self.$store.dispatch();
+					self.$store.dispatch('board/exit');
+					self.$store.dispatch('instance/exit');
+					self.$store.dispatch('player/exit');
+					self.$store.dispatch('game/exit');
+
+					self.$router.push( '/instance/' +  input.data.url);
+					
+					self.$root.$emit('game.reset');
+
+					// auto rejoin as current name?
+					// self.$root.$emit('player.rejoin');
+					// self.$root.$emit('player.reset');
+					// self.$root.$emit('player.words.reset');
+				}, 1500);
+			},
+			onError: function( input ){
+				let self = this;
+				// TODO retry?
+				// setTimeout( function(){
+				// }, 2000);
 			},
 
 			time_start : function(){

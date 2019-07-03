@@ -117,7 +117,6 @@
 					self.$root.$emit('player.hide');
 					self.$root.$emit('player.success');
 					self.$store.dispatch('game/set_game', {} );
-					self.$store.dispatch('game/set_game', {} );
 				}, 2000 );
 
 
@@ -178,16 +177,22 @@
 				console.log( 'error on reset' );
 				console.log( input );
 			},
+			game_reset : function(){
+				this.state.init = false;
+			},
+
 			exit : function(){
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
 				this.$root.$off('player.rejoin', this.rejoin );
+				this.$root.$off('game.reset', this.game_reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
 			this.$root.$on('player.rejoin', this.rejoin );
+			this.$root.$on('game.reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

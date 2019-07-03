@@ -23,7 +23,7 @@
 					timeouts : 0,
 					init : false,
 				},
-				words : [],
+				// words : [],
 			}
 		},	
 
@@ -170,15 +170,25 @@
 
 			},
 			
+			game_reset : function(){
+				this.state.init = false;
+			},
+
 			exit : function(){
 				this.$root.$off('player.word', this.update_word );
 				this.$root.$off('player.update', this.update_player );
+				this.$root.$off('game.reset', this.game_reset );
 			},
+
+
+				
+
 
 		},
 		mounted() {
 			this.$root.$on('player.word', this.update_word );
 			this.$root.$on('player.update', this.update_player );
+			this.$root.$on('game.reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

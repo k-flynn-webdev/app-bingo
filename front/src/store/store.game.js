@@ -67,9 +67,9 @@ export default {
 					name : '',
 				},
 			},
-			poll : 0,
 		},
 	},
+	
 	getters: {
 
 		get_words : function( state ){
@@ -81,10 +81,6 @@ export default {
 		},
 		get_winner : function( state ){
 			return state.game.winner;
-		},
-
-		get_poll : function( state ){
-			return state.game.poll;
 		},
 
 	},
@@ -149,8 +145,17 @@ export default {
 
 		},
 
-		poll : function( state, input ){
-			state.game.poll = input.poll;
+		exit : function( state, input ){
+			state.words = [];
+			state.game.board = false;
+			state.game.instance = false;
+			state.game.words = false;
+			state.game.joined = false;
+			state.game.mode = game_modes[0];
+			state.game.result = game_result[0];
+			state.game.winner.url = '';
+			state.game.winner.data.name = '';
+			state.game.winner.data.score = 0;
 		},
 
 
@@ -175,36 +180,28 @@ export default {
 			context.commit('game', input );
 		},
 
-		poll : function( context ){
-			let temp = context.getters.get_poll + 1;
-			context.commit('poll');
-		},
-
-		reset : function( context ){
-			context.commit('words', [] );
-			context.commit('game', basic );
-		},
 		exit : function( context ){
-			context.commit('words', [] );
-			context.commit('game', basic );
+			context.commit('exit' );
 		},
 	}
 };
 
 let basic = {
-	board : false,
-	instance : false,
-	words : false,
-	joined : false,
-	mode : game_modes[0],
-	result : game_result[0],
-	winner : {
-		url : '',
-		data : {
-			score : 0,
-			name : '',
+	words : [],
+	game : {
+		board : false,
+		instance : false,
+		words : false,
+		joined : false,
+		mode : game_modes[0],
+		result : game_result[0],
+		winner : {
+			url : '',
+			data : {
+				score : 0,
+				name : '',
+			},
 		},
 	},
-	poll : 0,
 }
 

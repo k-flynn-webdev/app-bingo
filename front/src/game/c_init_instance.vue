@@ -36,13 +36,13 @@
 				let instance = this.$route.params.instance;
 				let tempURL = '/api/instance/' + instance;
 
-				this.$store.dispatch('instance/set_action', tempURL);
-				this.$store.dispatch('instance/set_instance', { url : instance });
-
 				let action = {
 					url : tempURL,
 					method : 'GET',
 					JSON : true };
+
+				this.$store.dispatch('instance/set_action', action);
+				this.$store.dispatch('instance/set_instance', { url : instance });
 
 				this.attrs.action = action;
 
@@ -86,6 +86,10 @@
 				clearTimeout( instanceGet );
 			},
 
+			game_reset : function(){
+				this.state.init = false;
+				// this.init_success();
+			},
 
 			instance_success : function( input ){
 				let self = this;
@@ -134,6 +138,7 @@
 				this.$root.$off('game.lost', this.instance_stop );
 				this.$root.$off('game.kicked', this.instance_stop );
 				this.$root.$off('game.stop', this.instance_stop );
+				this.$root.$off('game.reset', this.game_reset );
 				this.$root.$off('player.success', this.instance_start );
 			},
 
@@ -145,6 +150,7 @@
 			this.$root.$on('game.lost', this.instance_stop );
 			this.$root.$on('game.kicked', this.instance_stop );
 			this.$root.$on('game.stop', this.instance_stop );
+			this.$root.$on('game.reset', this.game_reset );
 			this.$root.$on('player.success', this.instance_start );
 		},
 		beforeDestroy(){

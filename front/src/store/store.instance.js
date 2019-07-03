@@ -39,7 +39,15 @@ export default {
 	mutations: {
 
 		action : function( state, input ){
-			state.action.url = input;
+			if( input.url !== undefined ){
+				state.action.url = input.url;
+			}			
+			if( input.method !== undefined ){
+				state.action.method = input.method;
+			}
+			if( input.json !== undefined ){
+				state.action.json = input.json;
+			}						
 		},
 		instance : function( state, input ){
 			if( input.url !== undefined ){
@@ -73,7 +81,7 @@ export default {
 		},
 
 		exit : function( context ){
-			basic.url = '';
+			context.commit('action', basic.action );
 			context.commit('instance', basic );
 		},
 
@@ -81,13 +89,19 @@ export default {
 };
 
 let basic = {
+	action : {
+		url : '',
+		method : 'GET',
+		JSON : true,
+	},
 	url : '',
 	data : {
+		players : [],
 		game : {
 			win : 0,
 			display : 0,
 			winner : '',
 		},
-		players : [],
 	},
 };
+

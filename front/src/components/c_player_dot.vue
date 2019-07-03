@@ -1,24 +1,14 @@
 <template>
 		
 	<div 
-		class="hover-trigger-dot player-dot colour-bg-inv" 
-		style="position:relative;"
+		class="hover-trigger player-dot colour-bg-inv"
 		v-bind:class="{ 'is-player' : isPlayer, 'colour-bg-button' : isPlayer }">
 
-		<div 
-			class="hover-dot">
+			<p class="anim-6 hover-message text colour-fill-bg">
+				{{ player.data.name }}
+			</p>
 
-			<div style="position: relative;pointer-events:none;">
-	
-				<p class="anim-6 hover-message text colour-fill-bg">
-					{{ player.data.name }}
-				</p>
-
-			</div>
-
-		</div>
-
-	</div>		
+	</div>
 
 </template>
 
@@ -58,32 +48,6 @@
 		width: 1rem;
 		height: 2.5rem;
 		border-radius: .4rem
-	}
-
-/*	.player-dot.is-player {
-		background-color: yellow;
-	}*/
-
-	.hover-dot {
-		z-index: 10;
-		margin: 0;
-		padding: 0;
-		position: relative;
-	}
-	.hover-message {
-		position: absolute;
-		right: -50%;
-		margin: 0;
-		opacity: 0;
-		padding: 0 0.5rem;
-		border-radius: .5rem;
-		background-color: var(--colour-inv);
-		pointer-events: none;
-		transform: translateX(50%) translateY(0);
-	}
-	.hover-trigger-dot:hover .hover-message {
-		opacity: 1;
-		transform: translateX(50%) translateY(3rem);
 	}
 
 </style>

@@ -29,6 +29,30 @@
 }
 
 
+.hover-trigger {
+	position:relative;
+}
+.hover-message, .hover-message-left {
+	position: absolute;
+	right: -50%;
+	margin: 0;
+	opacity: 0;
+	padding: 0 0.5rem;
+	border-radius: .5rem;
+	background-color: var(--colour-inv);
+	pointer-events: none;
+	transform: translateX(50%) translateY(50%);
+}
+.hover-trigger:hover .hover-message {
+	opacity: 1;
+	transform: translateX( calc(100% + 1rem) ) translateY(50%);
+}
+.hover-trigger:hover .hover-message-left {
+	opacity: 1;
+	transform: translateX( calc(-100% + -1rem) ) translateY(50%);
+}
+
+
 
 .no-click {
 	pointer-events: none;

@@ -26,46 +26,45 @@
 		<br>
 		<br>
 
-		<c-button
-			v-bind:class="{ 'game-ready' : game_ready }"
-			ref="btnReset"
-			v-bind:onClick=reset>
-				Reset
-		</c-button>
+		<div>
+	
+			<c-button
+				v-bind:class="{ 'game-ready' : game_ready }"
+				ref="btnReset"
+				v-bind:onClick=reset>
+					Reset
+			</c-button>
 
-		<br>
+			<c-button-expand
+				style="display:inline;"
+				v-bind:buttonShow=true
+				v-bind:buttonClickClose=true
+				v-bind:buttonClick=onCopy>
+
+				<p class="label" slot="label">
+					Share
+				</p>
+
+				<input 
+					slot="content"
+					ref="shareLinkURL"
+					class="text colour-fill-bg-inv text-input" 
+					type="string"
+					name="share"
+					v-bind:value=share.link>
+
+				<p class="text text-bold" slot="button">
+					copy
+				</p>
+				
+			</c-button-expand>
+
+		</div>
 
 		<span class="text colour-fill-bg-inv">
 			{{ game_state.mode }}
 			{{ game_state.result }}
 		</span>
-
-
-		<c-button-expand
-			v-bind:buttonShow=true
-			v-bind:buttonClickClose=true
-			v-bind:buttonClick=onCopy>
-
-			<p class="label" slot="label">
-				Share
-			</p>
-
-			<input 
-				slot="content"
-				ref="shareLinkURL"
-				class="text colour-fill-bg-inv text-input" 
-				type="string"
-				name="share"
-				v-bind:value=share.link>
-
-			<p class="text text-bold" slot="button">
-				copy
-			</p>
-			
-		</c-button-expand>
-
-		
-		<!-- <c-message ref="msgObj1"></c-message> -->
 
 
 

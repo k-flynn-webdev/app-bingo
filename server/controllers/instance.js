@@ -261,17 +261,17 @@ function boot_all_cron( next ){
 
 	instance_live.all( function( instances_all ){
 
-		result.data.total.instances = instances_all.length;	
-		for( let i = instances_all.length -1; i >= 0; i--){
-			result.data.total.players += instances_all[i].data.players.length;
+		result.data.total.instances = instances_all.data.length;	
+		for( let i = instances_all.data.length -1; i >= 0; i--){
+			result.data.total.players += instances_all.data[i].data.players.length;
 		}
 
-		for( let i = instances_all.length -1; i >= 0; i--){
-			result.data.removed.players += boot_dead_players( instances_all[i] );
+		for( let i = instances_all.data.length -1; i >= 0; i--){
+			result.data.removed.players += boot_dead_players( instances_all.data[i] );
 		}
 
-		for( let i = instances_all.length -1; i >= 0; i--){
-			result.data.removed.instances += boot_dead_instance( instances_all[i] );
+		for( let i = instances_all.data.length -1; i >= 0; i--){
+			result.data.removed.instances += boot_dead_instance( instances_all.data[i] );
 		}
 
 		result.message = 'Cron job instance finished.';

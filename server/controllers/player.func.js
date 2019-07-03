@@ -7,18 +7,28 @@ const player_validate = require('../controllers/player.validate.js');
 
 
 function safe( model, win=false ){
+
 	let temp = { 
-		url : model.url, 
+		url : 'anon', 
 		data : {
-			name : model.data.name, 
-			score : model.data.score, 
-			// words : model.data.words,		
-			// time : model.data.time,		
+			name : 'anon', 
+			score : 0, 
 		},
 	};
 
-	if(win){
-		temp.data.words = model.data.words;
+	if( model.url !== undefined ){
+		temp.url = model.url;
+	}
+	if( model.data !== undefined ){
+		if( model.data.name !== undefined ){
+			temp.data.name = model.data.name;
+		}
+		if( model.data.score !== undefined ){
+			temp.data.score = model.data.score;
+		}
+		if(win && model.data.words !== undefined ){
+			temp.data.words = model.data.words;
+		}		
 	}
 
 	return temp;
@@ -26,17 +36,6 @@ function safe( model, win=false ){
 exports.safe = safe;
 
 
-// function set_words( input, player ){
-
-// 	if( helpers.existsValid( input.words )){
-// 		player.data.words = input.words;
-
-// 		for(let i=0;i<player.data.words.length;i++){
-// 			player.data.words[i] = helpers.escape( player.data.words[i] );
-// 		}
-
-// 	}
-// }
 
 function create( input ){
 

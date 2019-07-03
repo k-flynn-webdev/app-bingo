@@ -36,7 +36,7 @@ function remove( player, instance, next){
 		return next(error);
 	}
 
-	return next( null, true);
+	return next( null, player);
 }
 exports.remove = remove;
 

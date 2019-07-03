@@ -185,11 +185,30 @@
 				this.state.init = false;
 			},
 
+
+			remove : function(){
+				let tempAction = this.$store.getters['instance/get_action'];
+
+				let action = {
+					url : tempAction.url,
+					method : 'DELETE',
+					JSON : true,
+				};
+
+				action.body = { player : this.$store.getters['player/get_player'] };
+
+				let self = this;
+				self.onSubmit( action, self, null, null, function(){}, function(){} );
+			},
+
+
 			exit : function(){
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
 				this.$root.$off('player.rejoin', this.rejoin );
 				this.$root.$off('game.pre.reset', this.game_reset );
+
+				this.remove();
 			},
 		},
 		mounted() {

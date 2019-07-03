@@ -33,7 +33,27 @@ exports.running = running;
 
 
 function all( next ){
-	return next(live);
+
+	let players_live = 0;
+	let instances_live = 0;
+
+	for( let i = 0; i < live.length; i++){
+		players_live += live[i].data.players.length;
+	}
+	for( let i = 0; i < live.length; i++){
+		if( live[i].data.players.length > 0 ){
+			instances_live += 1;		
+		}
+	}
+
+	let result = {
+		players_active : players_live,
+		instances_active : instances_live,
+		instances_all : live.length,
+		data : live,
+	}
+
+	return next( result );
 }
 exports.all = all;
 

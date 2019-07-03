@@ -51,7 +51,6 @@
 			},
 
 			rejoin : function(){
-				// console.log('rejoining player.');
 				this.$root.$emit('player.words.reset');
 				this.check();
 				return;
@@ -59,9 +58,15 @@
 
 			init : function(){
 
-				// console.log('player init');
+				let tempAction = this.$store.getters['instance/get_action'];
 
-				this.attrs.action = this.$store.getters['instance/get_action'];
+				let action = {
+					url : tempAction.url,
+					method : tempAction.method,
+					JSON : tempAction.JSON,
+				};
+
+				this.attrs.action = action;
 
 				this.set_body();
 
@@ -145,7 +150,6 @@
 
 
 			reset : function(){
-				// console.log('resetting player');
 				if( !this.state.init ){
 					this.init();
 				}
@@ -185,14 +189,14 @@
 				this.$root.$off('player.check', this.check );
 				this.$root.$off('player.reset', this.reset );
 				this.$root.$off('player.rejoin', this.rejoin );
-				this.$root.$off('game.reset', this.game_reset );
+				this.$root.$off('game.pre.reset', this.game_reset );
 			},
 		},
 		mounted() {
 			this.$root.$on('player.check', this.check );
 			this.$root.$on('player.reset', this.reset );
 			this.$root.$on('player.rejoin', this.rejoin );
-			this.$root.$on('game.reset', this.game_reset );
+			this.$root.$on('game.pre.reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

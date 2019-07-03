@@ -23,14 +23,21 @@
 					timeouts : 0,
 					init : false,
 				},
-				// words : [],
 			}
 		},	
 
 		methods : {
 			setup : function(){
-				this.attrs.action = this.$store.getters['instance/get_action'];
-				this.words = this.$store.getters['game/get_words'];
+				
+				let tempAction = this.$store.getters['instance/get_action'];
+
+				let action = {
+					url : tempAction.url,
+					method : tempAction.method,
+					JSON : tempAction.JSON,
+				};
+
+				this.attrs.action = action;
 				this.state.init = true;
 
 				this.attrs.action.method = 'PUT';
@@ -95,12 +102,10 @@
 
 						if( input.data.word.add !== undefined ){
 							this.$store.dispatch('game/add_word', input.data.word.add );
-							// this.$emit('trigger', 'Success');
 						}
 						
 						if( input.data.word.remove !== undefined ){
 							this.$store.dispatch('game/remove_word', input.data.word.remove );
-							// this.$emit('trigger', 'Success');
 						}
 
 						if( input.data.data.score !== undefined ){
@@ -131,7 +136,6 @@
 					let self =this;
 					setTimeout( function(){
 						self.$root.$emit('player.hide');
-						// self.$emit('trigger', 'Success');
 					}, 2000 );
 
 				} 
@@ -177,7 +181,7 @@
 			exit : function(){
 				this.$root.$off('player.word', this.update_word );
 				this.$root.$off('player.update', this.update_player );
-				this.$root.$off('game.reset', this.game_reset );
+				this.$root.$off('game.pre.reset', this.game_reset );
 			},
 
 
@@ -188,7 +192,7 @@
 		mounted() {
 			this.$root.$on('player.word', this.update_word );
 			this.$root.$on('player.update', this.update_player );
-			this.$root.$on('game.reset', this.game_reset );
+			this.$root.$on('game.pre.reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

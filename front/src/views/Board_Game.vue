@@ -121,6 +121,7 @@
 				return false;
 			},
 
+
 		},	
 		methods:{
 
@@ -129,7 +130,7 @@
 				this.$root.$on('reset.fail', this.reset_fail );
 
 				this.board = this.$route.params.board;
-				this.share.link = window.location.href;
+				this.game_share_link();
 			},
 
 			messageShow : function( input ){
@@ -159,6 +160,9 @@
 				document.execCommand('copy');
 			},
 
+			game_share_link : function(){
+				this.share.link = window.location.href;
+			},
 
 			exit : function(){
 				this.$root.$off('reset.success', this.reset_success );
@@ -167,8 +171,12 @@
 		},
 		mounted() {
 			this.init();
+			this.$root.$on('game.pre.reset', this.game_share_link );
+
 		},
 		beforeDestroy(){
+			this.$root.$off('game.pre.reset', this.game_share_link );
+
 			this.exit();
 		},		
 		components: {

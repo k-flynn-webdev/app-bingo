@@ -88,7 +88,7 @@
 
 			game_reset : function(){
 				this.state.init = false;
-				// this.init_success();
+				this.init();
 			},
 
 			instance_success : function( input ){
@@ -138,7 +138,8 @@
 				this.$root.$off('game.lost', this.instance_stop );
 				this.$root.$off('game.kicked', this.instance_stop );
 				this.$root.$off('game.stop', this.instance_stop );
-				this.$root.$off('game.reset', this.game_reset );
+				this.$root.$off('game.pre.reset', this.game_reset );
+				this.$root.$off('game.reset', this.init );
 				this.$root.$off('player.success', this.instance_start );
 			},
 
@@ -150,7 +151,8 @@
 			this.$root.$on('game.lost', this.instance_stop );
 			this.$root.$on('game.kicked', this.instance_stop );
 			this.$root.$on('game.stop', this.instance_stop );
-			this.$root.$on('game.reset', this.game_reset );
+			this.$root.$on('game.pre.reset', this.game_reset );
+			this.$root.$on('game.reset', this.init );
 			this.$root.$on('player.success', this.instance_start );
 		},
 		beforeDestroy(){

@@ -163,20 +163,16 @@
 				self.window_hide();
 				setTimeout( function(){
 					// kill all local data?
-					// self.$store.dispatch();
 					self.$store.dispatch('board/exit');
 					self.$store.dispatch('instance/exit');
 					self.$store.dispatch('player/exit');
 					self.$store.dispatch('game/exit');
 
 					self.$router.push( '/instance/' +  input.data.url);
-					
-					self.$root.$emit('game.reset');
 
-					// auto rejoin as current name?
-					// self.$root.$emit('player.rejoin');
-					// self.$root.$emit('player.reset');
-					// self.$root.$emit('player.words.reset');
+					self.$root.$emit('game.pre.reset');
+
+
 				}, 1500);
 			},
 			onError: function( input ){

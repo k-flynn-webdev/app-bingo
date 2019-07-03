@@ -33,8 +33,8 @@ export default {
 			if( input.method !== undefined ){
 				state.action.method = input.method;
 			}
-			if( input.json !== undefined ){
-				state.action.json = input.json;
+			if( input.JSON !== undefined ){
+				state.action.JSON = input.JSON;
 			}						
 		},
 		board : function( state, input ){

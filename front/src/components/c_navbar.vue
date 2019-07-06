@@ -8,13 +8,13 @@
 		<div class="bar colour-bg-inv"></div>
 
 		<div
-			class="toggle hover-scale colour-bg "
+			class="toggle hover-scale colour-bg-inv"
 			tabindex="1" 
 			:class="is_open ? 'cross' : 'bars' " 
 			v-on:click=on_click>
-				<span class="span-1 colour-bg-inv"></span>
-				<span class="span-2 colour-bg-inv"></span>
-				<span class="span-3 colour-bg-inv"></span>
+				<span class="span-1 colour-bg"></span>
+				<span class="span-2 colour-bg"></span>
+				<span class="span-3 colour-bg"></span>
 		</div>
 
 		<div 
@@ -148,6 +148,7 @@
 	#navbar .bar {
 		position: absolute;
 		min-height: 2.4rem;
+		min-height: 1rem;
 		z-index: -1;
 	}
 

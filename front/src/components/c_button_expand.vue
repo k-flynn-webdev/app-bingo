@@ -8,8 +8,8 @@
 			ref="btn"
 			v-bind:onClick=onClickExpand>
 
-				<slot name="label" > 
-				 	Label here 
+				<slot class="label"> 
+				 	Label here
 				</slot>					
 
 		</c-button>
@@ -35,7 +35,7 @@
 										v-if=button
 										v-on:click=onClickConfirm
 										class="button expand-button">
-
+											
 											<slot name="button">
 												Confirm
 											</slot>	

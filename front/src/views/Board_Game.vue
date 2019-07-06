@@ -41,21 +41,19 @@
 				v-bind:buttonClickClose=true
 				v-bind:buttonClick=onCopy>
 
-				<p class="label" slot="label">
 					Share
-				</p>
 
-				<input 
-					slot="content"
-					ref="shareLinkURL"
-					class="text colour-fill-bg-inv text-input" 
-					type="string"
-					name="share"
-					v-bind:value=share.link>
+					<input 
+						slot="content"
+						ref="shareLinkURL"
+						class="text colour-fill-bg-inv text-input" 
+						type="string"
+						name="share"
+						v-bind:value=share.link>
 
-				<p class="text text-bold" slot="button">
-					copy
-				</p>
+					<p class="label" slot="button">
+						Copy
+					</p>
 				
 			</c-button-expand>
 

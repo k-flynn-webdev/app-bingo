@@ -34,6 +34,8 @@
 }
 .hover-message, .hover-message-left {
 	position: absolute;
+	z-index: 10;
+	border: 2px solid var(--colour );
 	right: -50%;
 	margin: 0;
 	opacity: 0;

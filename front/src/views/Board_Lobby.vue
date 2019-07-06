@@ -27,21 +27,19 @@
 			v-bind:buttonClickClose=true
 			v-bind:buttonClick=onJoin>
 
-			<p class="label" slot="label">
 				Join
-			</p>
 
-			<input 
-				slot="content"
-				class="text colour-fill-bg-inv text-input" 
-				type="string" 
-				name="join"
-				placeholder="eg 'bc8yh2'"
-				v-model=join.link>
+				<input 
+					slot="content"
+					class="text colour-fill-bg-inv text-input" 
+					type="string" 
+					name="join"
+					placeholder="eg 'bc8yh2'"
+					v-model=join.link>
 
-			<p class="text text-bold" slot="button">
-				ok
-			</p>
+				<p class="label" slot="button">
+					ok
+				</p>
 			
 		</c-button-expand>
 
@@ -50,9 +48,7 @@
 			v-bind:buttonClickClose=true
 			v-bind:buttonClick=onCopy>
 
-			<p class="label" slot="label">
-				Share
-			</p>
+			Share
 
 			<input 
 				slot="content"
@@ -62,14 +58,14 @@
 				name="share"
 				v-bind:value=share.link>
 
-			<p class="text text-bold" slot="button">
+			<p class="label" slot="button">
 				copy
 			</p>
 			
 		</c-button-expand>
 
 
-		<c-message ref="messageBtn"></c-message>	
+		<c-message ref="messageBtn"></c-message>
 
 	</c-panel>
 

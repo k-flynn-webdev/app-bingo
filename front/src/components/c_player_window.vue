@@ -25,6 +25,7 @@
 
 			<c-button
 				ref="btnOK"
+				style="min-width: unset;"
 				v-bind:onClick=name_update>
 					<p class="colour-fill-bg-inv label">
 						{{ button.label }}
@@ -84,6 +85,10 @@
 		},
 
 		methods:{
+			reset_validate : function(){
+				let base = 'field field-result ';
+				this.state.class = base;
+			},
 
 			validate : function(){
 				let model = this.form.name;
@@ -91,15 +96,16 @@
 
 				let result = Validate.length( model, this.attrs.name.min, this.attrs.name.max );
 
-				let base = 'field field-result ';
+				this.reset_validate();
+
 				if( result === null ){
-					this.state.class = base;
+					return;
 				}
 
 				if( result ){
-					this.state.class = base + 'pass';
+					this.state.class += ' pass';
 				} else {
-					this.state.class = base + 'fail';
+					this.state.class += ' fail';
 				}
 
 				return result;
@@ -154,6 +160,7 @@
 				} else {
 					this.button.label = 'Update';
 					this.state.lock = false;
+					this.reset_validate();
 				}
 
 				this.state.remove = false;
@@ -217,6 +224,16 @@
 	max-width: 25rem;
 	background-color: var( --colour-inv );
 }
+
+.bullshit-menu .panel header, .bullshit-menu .panel .footer {
+	padding-top: unset;
+	margin: unset;
+}
+.bullshit-menu .panel main {
+	min-height: unset;
+}
+
+
 
 .bullshit-menu .panel header{
 	margin: 0;

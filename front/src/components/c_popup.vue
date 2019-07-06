@@ -28,7 +28,7 @@
 					v-if=onShow class="panel-parent"
 					style="position:relative;">
 					
-					<div						
+					<div
 						class="panel center-auto-h"
 						style="position:relative;">
 

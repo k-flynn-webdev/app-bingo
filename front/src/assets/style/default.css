@@ -181,7 +181,7 @@ button, .button {
 
 	border: 1px solid transparent;
 	outline: none;
-	min-width: 4.5rem;
+	min-width: 5.5rem;
 	transition: all .05s, background-color .66s, opacity .66s;
 
 	overflow: hidden;
@@ -246,7 +246,7 @@ button:active, .button:active {
 
 label, .label{
 	flex: 0;
-	min-width: 5.5rem;
+	/*min-width: 5.5rem;*/
 	position: relative;
 }
 

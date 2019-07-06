@@ -144,7 +144,7 @@
 				setTimeout( function(){
 					self.window_game_hide();
 					self.$router.push('/');
-				}, 2000);
+				}, 1500);
 			},
 			button_new : function(){
 				this.time_off();
@@ -198,7 +198,7 @@
 			time_tick : function(){
 				this.state.time -=1;
 				if( this.state.time < 1){
-					this.button_done();
+					this.button_home();
 				} else {
 					this.time_repeat();
 				}

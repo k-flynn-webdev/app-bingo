@@ -1,72 +1,74 @@
 <template>
 
-	<c-panel>
+	<section>
 
-		<c-init-instance v-on:trigger="messageShow"></c-init-instance>
-		<c-init-board v-on:trigger="messageShow"></c-init-board>
-		<c-init-player v-on:trigger="messageShow"></c-init-player>
+		<c-panel>
+
+			<c-init-instance v-on:trigger="messageShow"></c-init-instance>
+			<c-init-board v-on:trigger="messageShow"></c-init-board>
+			<c-init-player v-on:trigger="messageShow"></c-init-player>
+			
+			<c-window-game></c-window-game>
+			<c-window-player></c-window-player>
+
+			<c-update-instance v-on:trigger="messageShow"></c-update-instance>
+
+
+			<div slot="header">
+				{{ board_name }}
+			</div>
+
+			<div slot="options">
+				<c-players class="item"></c-players>
+				<c-player class="item"></c-player>
+			</div>
+
+			<c-game-words></c-game-words>
+
+			<br>
+			<br>
+
+			<div>
 		
-		<c-window-game></c-window-game>
-		<c-window-player></c-window-player>
+				<c-button
+					v-bind:class="{ 'game-ready' : game_ready }"
+					ref="btnReset"
+					v-bind:onClick=reset>
+						Reset
+				</c-button>
 
-		<c-update-instance v-on:trigger="messageShow"></c-update-instance>
+				<c-button-expand
+					style="display:inline;"
+					v-bind:buttonShow=true
+					v-bind:buttonClickClose=true
+					v-bind:buttonClick=onCopy>
 
+						Share
 
-		<div slot="header">
-			{{ board_name }}
-		</div>
+						<input 
+							slot="content"
+							ref="shareLinkURL"
+							class="text colour-fill-bg-inv text-input" 
+							type="string"
+							name="share"
+							v-bind:value=share.link>
 
-		<div slot="options">
-			<c-players class="item"></c-players>
-			<c-player class="item"></c-player>
-		</div>
+						<p class="label" slot="button">
+							Copy
+						</p>
+					
+				</c-button-expand>
 
-		<c-game-words></c-game-words>
+			</div>
 
-		<br>
-		<br>
+			<span class="text colour-fill-bg-inv">
+				{{ game_state.mode }}
+				{{ game_state.result }}
+			</span>
 
-		<div>
-	
-			<c-button
-				v-bind:class="{ 'game-ready' : game_ready }"
-				ref="btnReset"
-				v-bind:onClick=reset>
-					Reset
-			</c-button>
+		</c-panel>
 
-			<c-button-expand
-				style="display:inline;"
-				v-bind:buttonShow=true
-				v-bind:buttonClickClose=true
-				v-bind:buttonClick=onCopy>
-
-					Share
-
-					<input 
-						slot="content"
-						ref="shareLinkURL"
-						class="text colour-fill-bg-inv text-input" 
-						type="string"
-						name="share"
-						v-bind:value=share.link>
-
-					<p class="label" slot="button">
-						Copy
-					</p>
-				
-			</c-button-expand>
-
-		</div>
-
-		<span class="text colour-fill-bg-inv">
-			{{ game_state.mode }}
-			{{ game_state.result }}
-		</span>
-
-
-
-	</c-panel>
+	</section>	
 
 </template>
 

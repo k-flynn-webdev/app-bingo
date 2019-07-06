@@ -242,23 +242,23 @@ let word_hash = function (str){
 }
 
 
-@media only screen and (max-width: 400px) {	
+/*@media only screen and (max-width: 400px) {	*/
 
-}
+/*}*/
 
-@media only screen and (max-width: 320px) {
-	.word-block {
+/*@media only screen and (max-width: 320px) {*/
+/*	.word-block {
 		display: block;
 		min-width: 80%;
 	}
 	.word-content {
 		font-size: 1rem;
-	}
-}
+	}*/
+/*}*/
 
-@media only screen and (min-width: 600px) {
+/*@media only screen and (min-width: 600px) {*/
 
-}
+/*}*/
 
 
 </style>

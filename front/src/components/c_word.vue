@@ -109,23 +109,27 @@
 		height: unset !important;
 		background-color: var(--colour-inv);
 		background-color: hsla(50,50%,75%,1);
+		padding: .35rem .6rem;
 		margin: .33rem .5rem;
 	}
 
 	.word-button p{
 		color: var(--colour);
+		letter-spacing: unset !important;
+		word-spacing: unset !important;
+		text-transform: unset !important;
+		/*line-height: 1rem !important;*/
 	}
 
 @media only screen and (max-width: 320px) {
 	.word-button {
+		width: calc(100% - 1rem);
 	}
 }
 
 
 @media only screen and (max-width: 400px) {
-	.word-button {
-		width: calc(100% - 1rem);
-	}
+
 }
 
 

@@ -3,40 +3,75 @@
 
 	--text-head-opacity: 0.75;
 
-	--header-screen-large: 3.5rem;
+	--header-screen-large: 2.35rem;
 	--header-screen-med: 3.5rem;
 	--header-screen-small: 3.5rem;
 
-	--title-screen-large: 1.66rem;
+	--title-screen-large: 1.47rem;
 	--title-screen-med: 1.53rem;
 	--title-screen-small: 1.4rem;
 
-	--text-screen-large: 1.1rem;
+	--text-screen-large: 1rem;
 	--text-screen-med: 1.1rem;
 	--text-screen-small: 1rem;
 
-	--text-is-small: 0.75;
+	/*--text-is-small: 0.75;*/
 }
 
-text,p,h1,.header,.title,.text{
+
+@import url('https://fonts.googleapis.com/css?family=Bungee|Open+Sans:400,700|Rubik:900&display=swap');
+
+#app {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+}
+
+
+
+
+textarea,text,p,h1,.header,.title,.text,.text-input,.label{
 	margin: 0;
 	padding: 0;
-	font-weight: 300;
-	/*stroke: var( --colour-text-dark );*/
-	/*color: var( --colour-bg-inv );*/
-	/*fill: var( --colour-bg-inv );*/
-	font-family: 'Roboto', sans-serif;	
+	font-weight: 400;
+	font-family: 'Open Sans', sans-serif;
 }
+
+title,.title,.label{
+	font-weight: 700;
+}
+h1,.header{
+	font-weight: 700;
+}
+
+
+.button .label{
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+
+/*h1,.header{
+	margin: 0;
+	padding: 0;
+	font-weight: 100;
+	font-family: 'Rubik', sans-serif;
+	font-family: 'Bungee', cursive;
+}*/
 
 .text-uppercase {
 	text-transform: uppercase;
 }
-.text-blur {
+.text-underline {
+	text-decoration-line: underline;
+}
+/*.text-blur {
 	opacity: 0.4;
 	font-weight: 700;
-}
+}*/
 
-.text-funky { font-family: 'Fugaz One', cursive; }
+/*.text-funky { font-family: 'Fugaz One', cursive; }*/
+/*.text-heavy { font-family: 'Fugaz One', cursive; }*/
 
 .text-input {
 	opacity: 0.85;
@@ -82,25 +117,28 @@ text,p,h1,.header,.title,.text{
 .header {
 	font-size: var( --header-screen-large );
 }
-.header.text-small {
-	font-size: calc( var( --header-screen-large ) * var( --text-is-small ));
-}
+
 .title {
-	line-height: 2.4rem;
+	/*line-height: 2.4rem;*/
 	font-size: var( --title-screen-large );
 }
-.title.text-small{
-	font-size: calc( var( --title-screen-large ) * var( --text-is-small ));
+.button .label {
+	font-size: calc( var( --text-screen-large ) * 1.1);
+	padding: 0;
+	margin: 0;
+	line-height: var( --text-screen-large );
 }
+
 .text {
 	font-size: var( --text-screen-large );
 }
-.text.text-small {
-	font-size: calc( var( --text-screen-large ) * var( --text-is-small ));
-}
+
 .copyright {
 	font-size: 0.7rem;
 }
+
+
+
 
 /*@media only screen and (max-width: 400px) {
 	.header {

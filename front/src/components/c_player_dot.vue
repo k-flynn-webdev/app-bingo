@@ -4,9 +4,11 @@
 		class="hover-trigger player-dot colour-bg-inv"
 		v-bind:class="{ 'is-player' : isPlayer, 'colour-bg-button' : isPlayer }">
 
-			<p class="anim-6 hover-message text colour-fill-bg">
-				{{ player.data.name }}
-			</p>
+			<div class="anim-6 hover-message text">
+				<p class="text colour-fill-bg">
+					{{ player.data.name }}
+				</p>
+			</div>
 
 	</div>
 

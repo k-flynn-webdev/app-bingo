@@ -5,9 +5,11 @@
 		class="hover-trigger"
 		v-bind:class="{ 'hover-force' : state.display }">
 
-			<p class="anim-6 hover-message-left text colour-fill-bg">
-				{{ player_name }}
-			</p>
+			<div class="anim-6 hover-message-left text">
+				<p class="text colour-fill-bg">
+					{{ player_name }}
+				</p>
+			</div>
 
 			<c-button
 				class="is-player"

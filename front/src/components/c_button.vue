@@ -6,7 +6,7 @@
 		v-bind:class=get_state>
 
 		<p 
-			class="text colour-fill-depends label"> 
+			class="colour-fill-depends label"> 
 				<slot> 
 				 	Submit 
 				</slot> 

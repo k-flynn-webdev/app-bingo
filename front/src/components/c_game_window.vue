@@ -17,7 +17,7 @@
 					v-if=state.type.lost||state.type.won
 					ref="btnNew"
 					v-bind:onClick=button_new>
-						<p class="colour-fill-bg-inv">
+						<p class="colour-fill-bg-inv label">
 							New
 						</p>
 				</c-button>
@@ -26,7 +26,7 @@
 					v-if=state.type.kicked
 					ref="btnRejoin"
 					v-bind:onClick=button_rejoin>
-						<p class="colour-fill-bg-inv">
+						<p class="colour-fill-bg-inv label">
 							Rejoin
 						</p>
 				</c-button>	
@@ -34,7 +34,7 @@
 				<c-button
 					ref="btnHome"
 					v-bind:onClick=button_home>
-						<p class="colour-fill-bg-inv">
+						<p class="colour-fill-bg-inv label">
 							Home
 						</p>
 				</c-button>
@@ -261,11 +261,11 @@
 
 <style>
 
-.bullshit-menu .panel{
+/*.bullshit-menu .panel{
 	border-radius: 1rem;
 	max-width: 25rem;
 	background-color: var( --colour-inv );
-}
+}*/
 
 .bullshit-menu .panel header{
 	margin: 0;
@@ -279,10 +279,10 @@
 
 
 .bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
-	background-color: hsla(1,1%,33%,.8);
+	/*background-color: hsla(1,1%,33%,.8);*/
 }
 .bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {
-	background-color: var(--colour-bg-input-focus);
+	/*background-color: var(--colour-bg-input-focus);*/
 }
 
 

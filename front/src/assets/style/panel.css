@@ -1,10 +1,19 @@
 
+.panel-parent{
+	/*margin: .5rem;*/
+	text-align: center;
+	margin: 1rem;
+	/*background-color: green;*/
+}
+
 .panel {
+	/*background-color: yellow;*/
 	/*padding: 1rem 0;*/
 	/*margin-top: 1.5rem !important;*/
 	/*margin-bottom: 2rem !important;*/
 	text-align: center;
 	overflow: hidden;
+	max-width: 30rem;
 }
 
 .panel header{
@@ -30,7 +39,7 @@
 .panel header .title{
 	margin: unset;
 	padding: unset;
-	font-size: 1.5rem;
+	/*font-size: 1.5rem;*/
 }
 
 

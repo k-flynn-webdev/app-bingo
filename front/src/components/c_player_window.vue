@@ -26,7 +26,7 @@
 			<c-button
 				ref="btnOK"
 				v-bind:onClick=name_update>
-					<p class="colour-fill-bg-inv">
+					<p class="colour-fill-bg-inv label">
 						{{ button.label }}
 					</p>
 			</c-button>	
@@ -213,7 +213,7 @@
 <style>
 
 .bullshit-menu .panel{
-	border-radius: 1rem;
+	border-radius: .5rem;
 	max-width: 25rem;
 	background-color: var( --colour-inv );
 }

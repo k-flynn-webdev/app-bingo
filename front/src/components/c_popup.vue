@@ -24,10 +24,13 @@
 				appear
 				name="slide-in">
 
-					<div 	
-						v-if=onShow
+				<div 
+					v-if=onShow class="panel-parent"
+					style="position:relative;">
+					
+					<div						
 						class="panel center-auto-h"
-						style="position:relative;z-index:50;">
+						style="position:relative;">
 
 						<header class="">
 
@@ -58,6 +61,8 @@
 						</div>
 
 					</div>
+
+				</div>
 
 			</transition>
 
@@ -106,6 +111,12 @@
 </script>
 
 <style scoped >
+
+
+.panel-parent{
+	z-index: 10;
+}
+
 
 	.popup-fill {
 		position: fixed;

@@ -1,32 +1,36 @@
 <template>
 
-	<div class="panel center-auto-h">
+	<div class="panel-parent">
 
-		<header class="">
+		<div class="panel center-auto-h">
 
-			<p class="header colour-fill-bg-inv text-funky custom"> 
-				<slot name="header" ></slot>
-			</p>
+			<header class="">
 
-			<div class="options flex-row flex-row-end width-901 center-auto-h">
-				<slot name="options"></slot>
-			</div>
-
-		</header>
-
-		<div class="width-901 center-auto-h">
-
-			<main class="text">	
-				<slot></slot>
-			</main>
-
-			<slot name="no-margin" class="main"></slot>
-
-			<footer class="footer">
-				<p class="text"> 
-					<slot name="footer"></slot>
+				<p class="header colour-fill-bg-inv"> 
+					<slot name="header" ></slot>
 				</p>
-			</footer>
+
+				<div class="options flex-row flex-row-end center-auto-h">
+					<slot name="options"></slot>
+				</div>
+
+			</header>
+
+			<div class="center-auto-h">
+
+				<main class="text">	
+					<slot></slot>
+				</main>
+
+				<slot name="no-margin" class="main"></slot>
+
+				<footer class="footer">
+					<p class="text"> 
+						<slot name="footer"></slot>
+					</p>
+				</footer>
+
+			</div>
 
 		</div>
 

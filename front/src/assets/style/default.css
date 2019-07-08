@@ -15,6 +15,8 @@
 	--row-height-screen-med: 1.75rem;
 	--row-height-screen-large: 1.75rem;
 
+	--border-radius: .5rem;
+
 	--navbar-height: 4rem;
 	--footer-height: 4rem;
 }
@@ -35,29 +37,27 @@
 .hover-message, .hover-message-left {
 	position: absolute;
 	z-index: 10;
-	border: 2px solid var(--colour );
 	right: -50%;
+	top: 50%;
 	margin: 0;
 	opacity: 0;
-	border-radius: .5rem;
+	border-radius: calc( var( --border-radius ) * 0.5);
 	background-color: var(--colour-inv);
 	pointer-events: none;
-	transform: translateX(50%) translateY(50%);
+	transform: translateX(50%) translateY(-50%);
 }
 .hover-message .text, .hover-message-left .text{
 	margin: 0;
-	padding: 0 .5rem;
-	padding-bottom: .2rem;
-	line-height: 1rem;
+	padding: .15rem .66rem;
 }
 
 .hover-trigger:hover .hover-message, .hover-trigger.hover-force .hover-message {
 	opacity: 1;
-	transform: translateX( calc(100% + 1rem) ) translateY(50%);
+	transform: translateX( calc(100% + 1rem) ) translateY(-50%);
 }
 .hover-trigger:hover .hover-message-left, .hover-trigger.hover-force .hover-message-left {
 	opacity: 1;
-	transform: translateX( calc(-100% + -1rem) ) translateY(50%);
+	transform: translateX( calc(-100% + -1rem) ) translateY(-50%);
 }
 
 
@@ -188,20 +188,23 @@ button, .button {
 
 	overflow: hidden;
 	box-sizing: border-box;
-	border-radius: 0.3rem; 
+	border-radius: calc( var( --border-radius ) * 0.5); 
 	padding: 0 0.66rem;
 	position: relative;
 	pointer-events: all;
-
-	box-shadow: 1px 3px 0 var( --colour-button-shadow );
-	-webkit-box-shadow: 1px 3px 0 var( --colour-button-shadow );
-	-moz-box-shadow: 1px 3px 0 var( --colour-button-shadow );
 }
-button:active, .button:active {
+
+
+.button-shadow {
+	box-shadow: 3px 3px 0 var( --colour-shadow );
+	-webkit-box-shadow: 3px 3px 0 var( --colour-shadow );
+	-moz-box-shadow: 3px 3px 0 var( --colour-shadow );
+}
+.button.button-shadow:active {
 	transform: translateX(1px) translateY(3px);
-	box-shadow: 0 1px 0 var( --colour-button-shadow );
-	-webkit-box-shadow: 0 1px 0 var( --colour-button-shadow );
-	-moz-box-shadow: 0 1px 0 var( --colour-button-shadow );	
+	box-shadow: 1px 1px 0 var( --colour-shadow );
+	-webkit-box-shadow: 1px 1px 0 var( --colour-shadow );
+	-moz-box-shadow: 1px 1px 0 var( --colour-shadow );	
 }
 
 

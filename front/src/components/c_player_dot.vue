@@ -1,10 +1,10 @@
 <template>
 		
 	<div 
-		class="hover-trigger player-dot colour-bg-inv"
+		class="hover-trigger player-dot colour-bg-inv button-shadow"
 		v-bind:class="{ 'is-player' : isPlayer, 'colour-bg-button' : isPlayer }">
 
-			<div class="anim-6 hover-message text">
+			<div class="anim-6 hover-message text button-shadow">
 				<p class="text colour-fill-bg">
 					{{ player.data.name }}
 				</p>
@@ -49,7 +49,7 @@
 		margin-right: 0.5rem;
 		width: 1rem;
 		height: 2.5rem;
-		border-radius: .4rem
+		border-radius: var( --border-radius );
 	}
 
 </style>

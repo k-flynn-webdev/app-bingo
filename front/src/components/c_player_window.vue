@@ -38,6 +38,36 @@
 			ref="msgObj">
 		</c-message>
 
+
+		<div 
+			class="game-info">
+
+			<div>
+
+				<p 
+					class="text colour-fill-bg">
+						Current Players ({{ get_players.length }}):
+				</p>
+
+				<div 
+					v-if="get_players.length">
+
+					<p 
+						v-if="!get_joined"
+						class="text colour-fill-bg"
+						v-for="(player, index) in get_players"
+						v-bind:key="player.url">
+							{{ player.data.name }} : {{ player.data.score }}
+					</p>
+
+				</div>				
+
+			</div>
+
+		</div>
+
+		<br>
+
 	</c-popup>
 
 </template>
@@ -82,6 +112,12 @@
 			get_field_class : function(){
 				return this.state.class;
 			},
+			get_joined : function(){
+				return this.$store.getters['game/get_game'].joined;
+			},
+			get_players : function(){
+				return this.$store.getters['instance/get_players'];
+			},		
 		},
 
 		methods:{
@@ -114,6 +150,12 @@
 			name_update : function(){
 
 				let result = this.validate();
+
+				if( result === undefined ){
+					this.reset_validate();
+					this.state.class += ' fail';
+				}
+
 				if( result ){
 
 					let player = this.$store.getters['player/get_player'];
@@ -220,7 +262,7 @@
 <style>
 
 .bullshit-menu .panel{
-	border-radius: .5rem;
+	/*border-radius: .5rem;*/
 	max-width: 25rem;
 	background-color: var( --colour-inv );
 }

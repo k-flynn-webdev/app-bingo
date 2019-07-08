@@ -5,7 +5,7 @@
 		class="hover-trigger"
 		v-bind:class="{ 'hover-force' : state.display }">
 
-			<div class="anim-6 hover-message-left text">
+			<div class="anim-6 hover-message-left text button-shadow">
 				<p class="text colour-fill-bg">
 					{{ player_name }}
 				</p>
@@ -23,7 +23,7 @@
 			</c-button>
 
 			<div class="player-score">
-				<p class="title colour-fill-bg-inv">
+				<p class="title colour-fill-bg-inv text-shadow">
 					{{ player_Score }}
 				</p>	
 			</div>
@@ -92,6 +92,11 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+
+/*		box-shadow: 1px 3px 0 ;
+		-webkit-box-shadow: 1px 3px 0 ;
+		-moz-box-shadow: 1px 3px 0 ;*/
+
 	}
 
 	.is-player, .icon {

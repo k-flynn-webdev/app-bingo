@@ -31,7 +31,7 @@
 
 				<input 
 					slot="content"
-					class="text colour-fill-bg-inv text-input" 
+					class="text colour-fill-bg-inv text-input content-input" 
 					type="string" 
 					name="join"
 					placeholder="eg 'bc8yh2'"
@@ -53,7 +53,7 @@
 			<input 
 				slot="content"
 				ref="shareLinkURL"
-				class="text colour-fill-bg-inv text-input" 
+				class="text colour-fill-bg-inv text-input content-input" 
 				type="string"
 				name="share"
 				v-bind:value=share.link>
@@ -170,6 +170,9 @@
 
 <style>
 
+	.content-input {
+		border-radius: calc( var( --border-radius ) * 0.3 );
+	}
 
 
 

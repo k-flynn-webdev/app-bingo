@@ -31,17 +31,17 @@
 							<transition 
 								name="slide-fade-side">
 
-									<button 
+
+									<c-button
+										class="expand-button"
 										v-if=button
-										v-on:click=onClickConfirm
-										class="button expand-button">
+										v-bind:onClick=onClickConfirm>
 											
 											<slot name="button">
 												Confirm
-											</slot>	
+											</slot>					
 
-
-									</button>
+									</c-button>
 
 							</transition>
 
@@ -125,12 +125,12 @@
 
 <style>
 
-	.button-holder{
+	.button-holder {
 		position: relative;
 	}
 
 	.button-holder-content {
-		border-radius: 0.25rem;
+		border-radius: calc( var( --border-radius ) * 0.5 );
 		position: absolute;
 		z-index: 1;
 		left: 50%;
@@ -138,13 +138,16 @@
 		transform: translateX(-50%);
 		border: solid 1px white;
 		text-align: left;
-		padding: 0.15rem;
+		padding: 0.1rem;
+		padding-bottom: 0.15rem;
+		box-sizing: border-box;
 	}
 
-	.expand-button{
+	.expand-button {
 		position: absolute;
 		top: 0;
 		right: -5px;
+		z-index: 5;
 	}
 
 

@@ -2,11 +2,16 @@
 .panel-parent{
 	/*margin: .5rem;*/
 	text-align: center;
-	margin: 1rem;
+	margin: .66rem;
 	/*background-color: green;*/
 }
 
 .panel {
+	background-color: hsla(50,10%,100%,0.4);
+	background-color: hsla(150,30%,30%,1);
+	background-color: lightgrey;
+	background-color: hsla(35,10%,75%,1);
+	border-radius: var( --border-radius );
 	/*background-color: yellow;*/
 	/*padding: 1rem 0;*/
 	/*margin-top: 1.5rem !important;*/
@@ -28,12 +33,6 @@
 }
 .panel header p{
 	margin: 0 1rem 1.5rem 1rem;
-}
-
-.header-shadow {
-	box-shadow: 0 5px 5px hsl(10,1%,45%);
-	-webkit-box-shadow: 0 5px 5px hsl(10,1%,45%);
-	-moz-box-shadow: 0 5px 5px hsl(10,1%,45%);
 } 
 
 .panel header .title{

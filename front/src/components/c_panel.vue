@@ -6,7 +6,7 @@
 
 			<header class="">
 
-				<p class="header colour-fill-bg-inv"> 
+				<p class="header colour-fill-bg"> 
 					<slot name="header" ></slot>
 				</p>
 

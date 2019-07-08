@@ -1,7 +1,7 @@
 <template>
 
 	<button 
-		class="button fade-in" 
+		class="button button-shadow fade-in" 
 		v-on:click=clicked
 		v-bind:class=get_state>
 

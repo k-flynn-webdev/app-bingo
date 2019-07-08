@@ -65,6 +65,14 @@ h1,.header{
 .text-underline {
 	text-decoration-line: underline;
 }
+
+.text-shadow {
+	text-shadow: 1.5px 1.5px 0 var( --colour-shadow );
+	-webkit-text-shadow: 1.5px 1.5px 0 var( --colour-shadow );
+	-moz-text-shadow: 1.5px 1.5px 0 var( --colour-shadow );
+}
+
+
 /*.text-blur {
 	opacity: 0.4;
 	font-weight: 700;

@@ -188,19 +188,17 @@
 	}
 
 	.button.is-success, .button.is-success-colour {
-		background-color: var( --colour-button-positive );
-
-		box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
-		-webkit-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );
-		-moz-box-shadow: 1px 3px 0 var( --colour-button-positive-shadow );		
+		background-color: var( --colour-button-positive );		
 	}	
 	.button.is-error, .button.is-error-colour {
 		background-color: var( --colour-button-negative );
-
-		box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );
-		-webkit-box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );
-		-moz-box-shadow: 1px 3px 0 var( --colour-button-negative-shadow );	
 	}
+/*	.button-shadow.is-success, .button-shadow.is-success-colour, .button-shadow.is-error, .button-shadow.is-error-colour{
+		box-shadow: 3px 3px 1px var( --colour-shadow );
+		-webkit-box-shadow: 3px 3px 1px var( --colour-shadow );
+		-moz-box-shadow: 3px 3px 1px var( --colour-shadow );	
+	}*/
+
 
 	.anim-container {
 		position: absolute;

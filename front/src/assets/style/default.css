@@ -196,9 +196,9 @@ button, .button {
 
 
 .button-shadow {
-	box-shadow: 3px 3px 0 var( --colour-shadow );
-	-webkit-box-shadow: 3px 3px 0 var( --colour-shadow );
-	-moz-box-shadow: 3px 3px 0 var( --colour-shadow );
+	box-shadow: 2px 2px 2px var( --colour-shadow );
+	-webkit-box-shadow: 2px 2px 2px var( --colour-shadow );
+	-moz-box-shadow: 2px 2px 2px var( --colour-shadow );
 }
 .button.button-shadow:active {
 	transform: translateX(1px) translateY(3px);

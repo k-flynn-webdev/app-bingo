@@ -1,21 +1,20 @@
 
 :root {
 
-	--text-head-opacity: 0.75;
+	--header-screen-large: 1.66em;
+	--title-screen-large: 1.2em;
+	--text-screen-large: 1em;
 
-	--header-screen-large: 2.35rem;
+/*	--text-head-opacity: 0.75;
+
 	--header-screen-med: 3.5rem;
 	--header-screen-small: 3.5rem;
 
-	--title-screen-large: 1.47rem;
 	--title-screen-med: 1.53rem;
 	--title-screen-small: 1.4rem;
 
-	--text-screen-large: 1rem;
 	--text-screen-med: 1.1rem;
-	--text-screen-small: 1rem;
-
-	/*--text-is-small: 0.75;*/
+	--text-screen-small: 1rem;*/
 }
 
 
@@ -31,8 +30,6 @@
 
 
 textarea,text,p,h1,.header,.title,.text,.text-input,.label{
-	margin: 0;
-	padding: 0;
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
 }
@@ -51,13 +48,6 @@ h1,.header{
 }
 
 
-/*h1,.header{
-	margin: 0;
-	padding: 0;
-	font-weight: 100;
-	font-family: 'Rubik', sans-serif;
-	font-family: 'Bungee', cursive;
-}*/
 
 .text-uppercase {
 	text-transform: uppercase;
@@ -73,45 +63,10 @@ h1,.header{
 }
 
 
-/*.text-blur {
-	opacity: 0.4;
-	font-weight: 700;
-}*/
-
-/*.text-funky { font-family: 'Fugaz One', cursive; }*/
-/*.text-heavy { font-family: 'Fugaz One', cursive; }*/
-
 .text-input {
 	opacity: 0.85;
 }
 
-/*.text-dark {
-	stroke: var( --colour-text-dark );
-	fill: var( --colour-text-dark );
-	color: var( --colour-text-dark );
-}
-.text-light {
-	stroke: var( --colour-text-light );
-	fill: var( --colour-text-light );
-	color: var( --colour-text-light );
-}*/
-/*.text-positive {
-	stroke: var( --colour-text-positive );
-	fill: var( --colour-text-positive );
-	color: var( --colour-text-positive );
-}
-.text-negative {
-	stroke: var( --colour-text-negative );
-	fill: var( --colour-text-negative );
-	color: var( --colour-text-negative );
-}*/
-
-/*.text-light a , .text-dark a {
-	color: hsla(200,85%,50%,1);
-}
-.text-light a:visited , .text-dark a:visited {
-	color: hsla(200,85%,50%,1);
-}*/
 
 
 .text-left{ text-align: left; }
@@ -127,79 +82,23 @@ h1,.header{
 }
 
 .title {
-	/*line-height: 2.4rem;*/
 	font-size: var( --title-screen-large );
 }
-.button .label {
+/*.button .label {
 	font-size: calc( var( --text-screen-large ) * 1.1);
 	padding: 0;
 	margin: 0;
 	line-height: var( --text-screen-large );
-}
+}*/
 
 .text {
 	font-size: var( --text-screen-large );
 }
 
 .copyright {
-	font-size: 0.7rem;
+	font-size: 0.7em;
 }
 
-
-
-
-/*@media only screen and (max-width: 400px) {
-	.header {
-		font-size: var( --header-screen-med );
-	}
-	.header.text-small {
-		font-size: calc( var( --header-screen-med ) * var( --text-is-small ));
-	}
-	.title {
-		line-height: 2.1rem;
-		font-size: var( --title-screen-med );
-	}
-	.title.text-small{
-		font-size: calc( var( --title-screen-med ) * var( --text-is-small ));
-	}
-	.text {
-		font-size: var( --text-screen-med );
-	}
-	.text.text-small {
-		font-size: calc( var( --text-screen-med ) * var( --text-is-small ));
-	}
-	.copyright {
-		font-size: 0.7rem;
-	}
-}
-
-@media only screen and (max-width: 320px) {
-	.header {
-		font-size: var( --header-screen-small );
-	}
-	.header.text-small {
-		font-size: calc( var( --header-screen-small ) * var( --text-is-small ));
-	}
-	.title {
-		line-height: 1.8rem;
-		font-size: var( --title-screen-small );
-	}
-	.title.text-small{
-		font-size: calc( var( --title-screen-small ) * var( --text-is-small ));
-	}
-	.text {
-		font-size: var( --text-screen-small );
-	}
-	.text.text-small {
-		font-size: calc( var( --text-screen-small ) * var( --text-is-small ));
-	}
-	.copyright {
-		font-size: 0.7rem;
-	}
-}
-
-
-*/
 
 
 

@@ -1,23 +1,47 @@
 <template>
 	<nav 
 		id="navbar"
-		class="" 
+		class="colour-bg-dark" 
 		v-bind:data-open=is_open
 		v-bind:class="{ 'is-active' : is_open }">
 
-		<div class="bar colour-bg-inv"></div>
 
-		<div
-			class="toggle hover-scale colour-bg-inv"
-			tabindex="1" 
-			:class="is_open ? 'cross' : 'bars' " 
-			v-on:click=on_click>
-				<span class="span-1 colour-bg"></span>
-				<span class="span-2 colour-bg"></span>
-				<span class="span-3 colour-bg"></span>
+		<div class="left">
+
+			<svg class="home-icon colour-fill-pop" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+				<g>
+					<path class="colour-fill-pop" d="M121.923,26.923l-73.077,73.077l73.077,73.077l-21.923,21.923l-95,-95l95,-95c7.308,7.308 14.615,14.615 21.923,21.923Z"/>
+				</g>				
+			</svg>
+					
 		</div>
 
-		<div 
+
+		<div class="middle">
+
+			<div class="header colour-fill-pop">
+				{{ page.title }}
+			</div>
+
+		</div>
+
+
+		<div class="right">
+
+			<div
+				class="burger"
+				tabindex="1" 
+				:class="is_open ? 'cross' : 'bars' " 
+				v-on:click=on_click>
+					<span class="span-1 colour-bg-pop"></span>
+					<span class="span-2 colour-bg-pop"></span>
+					<span class="span-3 colour-bg-pop"></span>
+			</div>
+
+		</div>
+
+
+		<!-- <div 
 			class="content colour-bg-inv" 
 			v-on:click=on_click
 			v-bind:class="{ 'is-admin' : is_admin , 'is-user' : is_user }">
@@ -36,12 +60,12 @@
 				
 			</slot>	
 
-		</div>
+		</div> -->
 
-		<div 
+		<!-- <div 
 			class="shade colour-bg-shade"
 			v-on:click=on_click>
-		</div>
+		</div> -->
 
 	</nav>		
 
@@ -54,6 +78,9 @@
 		data() {
 			return {
 				is_open : false,
+				page : {
+					title : '',
+				},
 			}		
 		},
 		computed: {
@@ -80,16 +107,16 @@
 			on_click : function(){
 				this.is_open = !this.is_open;
 			},
-			// increment : function( event ){
-				// this.$store.commit( 'increment', 2 );
-				// this.$store.commit['user/increment', 2];
-				// this.$store.commit("user/increment", 3);
-			// },
-			// decrement : function( event ){
-				// this.$store.commit( 'decrement', 2 );
-				// this.$store.commit("user/decrement", 3);
-			// },			
-		},	
+			set_title : function( input ){
+				this.page.title = input; 
+			},			
+		},
+		mounted(){
+			this.$root.$on('page.title', this.set_title );
+		},
+		beforeDestroy(){
+			this.$root.$off('page.title', this.set_title );
+		},
 		components: {
 		},
 	}
@@ -131,169 +158,63 @@
 
 <style>
 	
-	#navbar, .bar, .shade {
-		margin: 0;
-		padding: 0;
-		left: 0;
-		top: 0;
-		width: 100%;
-		z-index: 0;
-	}
+:root{
+	--height-nav: 2.66rem;
+}
 
 	#navbar {
 		position: fixed;
 		z-index: 5;
+		top: .5rem;
+		height: var(--height-nav);
+		width: 100%;
 	}
-
-	#navbar .bar {
+	#navbar .left, #navbar .right{
 		position: absolute;
-		min-height: 2.4rem;
-		min-height: 1rem;
-		z-index: -1;
+		top: 0;
 	}
 
-	#navbar .shade {
+	#navbar .left{
+		left: 0;
+		margin-left: .75em;
+	}
+	#navbar .middle{
+		margin: .2em;
+	}
+	#navbar .right{
+		right: 0;
+		margin-right: .75em;
+	}
+
+	#navbar .home-icon {
+		height: var(--height-nav);
+	}
+
+	#navbar .burger{
+		height: var(--height-nav);
+		width: 2em;
 		position: relative;
-		min-height: 100%;
-		/*pointer-events: none;*/
-	}
-
-
-	#navbar .link {
-		box-sizing: border-box;
-		display: block;
-		text-align: center;
-		text-decoration: none;
-		transition: background-color 0.5s;
-		
-		/*border-bottom: 3px solid hsla(177,10%,50%,0.2);*/
-	}
-
-
-	#navbar .link {
-		margin: .15rem 0;
-	}
-
-	
-	#navbar .link:first-of-type {
-		margin-top: 5rem;
-		/*border-top: 3px solid hsla(177,10%,50%,0.2);*/
-	}
-	#navbar .link:last-of-type {
-		margin-bottom: 5rem;
-	}
-
-	#navbar .colour-navbar {
-		/*color: var( --colour-nav );*/
-		/*fill: var( --colour-nav );*/
-	}
-
-
-
-	#navbar .content {
-		display: none;
-		overflow-y: auto;
-		min-height: 50vh;
-		max-height: 90vh;
-	}
-
-	#navbar.is-active {
-		height: 100vh;
-	}
-
-	#navbar.is-active .content, #navbar[data-open] .content {
-		display: flex;
-		flex-direction: column;
-	}	
-
-
-	#navbar.is-active .content, #navbar[data-open] .content {
-		display: flex;
-		flex-direction: column;
-	}
-
-
-
-	#navbar .bar-logo {
-		margin: 0;
-		padding: 0;
-		position: absolute;
-		z-index: 1;
-		left: 0;
-		bottom: -1.3rem; 
-		height: 5rem;
-		transform-origin: bottom left;
-	}
-	#navbar .bar-fill {
-		margin: 0;
-		padding: 0;
-		position: absolute;
-		z-index: -1;
-		left: 0;
-		bottom: -1.3rem; 
-		height: 1.5rem;
-		width: 100%;
-		/*background-color: var( --colour-nav );*/
-		/*border-bottom: solid 4px var( --colour-text-light );*/
-	}	
-	#navbar .bar-fill-right {
-		margin: 0;
-		padding: 0;
-		position: absolute;
-		z-index: -1;
-		left: 2.5rem;
-		bottom: -1.3rem; 
-		height: 1.5rem;
-		width: 100%;
-		/*background-color: var( --colour-nav );*/
-		/*border-bottom: solid 4px var( --colour-text-light );*/
-	}	
-
-	#navbar .content .bar-logo {
-		bottom: -1rem; 
-	}
-	#navbar .content .bar-fill-right {
-		bottom: -1rem; 
-	}
-
-	#navbar .toggle {
-		outline: none;
 		transition: 0.2s;
-		position: fixed;
-		z-index: 10;
-		top: 0.5rem;
-		right: 0.3rem;
-		width: 2.5rem;
-		height: 2.5rem;
-		border-radius: 0.5rem;	
 		box-sizing: border-box;	
-		/*background-color: var( --colour-text-dark );*/
-	}
-	#navbar .toggle:hover {
-		transform: scale(1.1);
-	}
-	#navbar .toggle:focus{
-		/*border: 2.5px solid var( --colour-button-focus );*/
 	}
 
-	#navbar .toggle span {
+	#navbar .burger span {
 		position: absolute;
-		left: 10%;
-		right: 10%;
-		height: .4rem;
+		width: 100%;
+		height: .5em;
 		display: block;
-		/*background-color: var( --colour-text-light );*/
 	}
-	#navbar .toggle .span-1 {
-		top: 15%;	
+	#navbar .burger:hover, #navbar .burger:active {
+		transform: scale(1.1);
+	}	
+	#navbar .burger .span-1 {
+		top: 2px;
 	}
-	#navbar .toggle .span-2 {
-		top: 45%;	
+	#navbar .burger .span-2 {
+		top: 40%;
 	}
-	#navbar .toggle .span-3 {
-		top: 75%;
-		border-bottom-left-radius: 0.5rem;
-		border-bottom-right-radius: 0.5rem;
+	#navbar .burger .span-3 {
+		bottom: 2px;
 	}
 
 	#navbar .bars .span-1 {
@@ -315,6 +236,129 @@
 	#navbar .cross .span-3 {
 		animation: anim_flat_to_cross_2 .2s forwards;
 	}
+
+
+
+
+
+
+
+
+
+/*	#navbar, .shade {
+		margin: 0;
+		padding: 0;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 0;
+	}*/
+
+
+
+/*	#navbar .shade {
+		position: relative;
+		min-height: 100%;
+	}*/
+
+
+/*	#navbar .link {
+		box-sizing: border-box;
+		display: block;
+		text-align: center;
+		text-decoration: none;
+		transition: background-color 0.5s;
+	}
+
+
+	#navbar .link {
+		margin: .15rem 0;
+	}
+
+	
+	#navbar .link:first-of-type {
+		margin-top: 5rem;
+	}
+	#navbar .link:last-of-type {
+		margin-bottom: 5rem;
+	}
+
+	#navbar .colour-navbar {
+	}*/
+
+
+
+/*	#navbar .content {
+		display: none;
+		overflow-y: auto;
+		min-height: 50vh;
+		max-height: 90vh;
+	}
+
+	#navbar.is-active {
+		height: 100vh;
+	}
+
+	#navbar.is-active .content, #navbar[data-open] .content {
+		display: flex;
+		flex-direction: column;
+	}	
+
+
+	#navbar.is-active .content, #navbar[data-open] .content {
+		display: flex;
+		flex-direction: column;
+	}*/
+
+
+
+/*	#navbar .bar-logo {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		bottom: -1.3rem; 
+		height: 5rem;
+		transform-origin: bottom left;
+	}
+	#navbar .bar-fill {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: -1;
+		left: 0;
+		bottom: -1.3rem; 
+		height: 1.5rem;
+		width: 100%;
+	}	
+	#navbar .bar-fill-right {
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: -1;
+		left: 2.5rem;
+		bottom: -1.3rem; 
+		height: 1.5rem;
+		width: 100%;
+	}*/	
+
+/*	#navbar .content .bar-logo {
+		bottom: -1rem; 
+	}
+	#navbar .content .bar-fill-right {
+		bottom: -1rem; 
+	}*/
+
+
+
+/*	#navbar .toggle:focus{
+	}
+
+
+
+
+
 
 
 /* todo use transform translate to animate these for 60fps.. */
@@ -341,7 +385,7 @@
 	100% { transform: rotate(0deg); }
 }
 
-
+/*
 @media only screen and (min-width: 600px) {
 	#navbar .toggle, #navbar .shade , #navbar .bar{
 		display: none;
@@ -376,11 +420,12 @@
 	}		
 	#navbar .content .link:last-of-type {
 		margin-bottom: 0;
-	}	
-	#navbar .bar-fill {
+	}*/
+
+/*	#navbar .bar-fill {
 		bottom: -0.2rem; 
-	}				
-}
+	}*/				
+/*}*/
 
 
 </style>

@@ -124,7 +124,7 @@
 </script>
 
 <style>
-
+/*
 	.button-holder {
 		position: relative;
 	}
@@ -187,7 +187,7 @@
 		transform: translateX(0);	
 	}
 }
-
+*/
 
 
 </style>

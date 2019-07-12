@@ -51,11 +51,9 @@
 
 		</c-navbar>
 
-		<div class="body-nav-spacer"></div>
-
 		<router-view/>
 
-		<div class="body-nav-spacer"></div>
+		<div class="body-spacer"></div>
 
 		<c-footer></c-footer>
 
@@ -66,11 +64,12 @@
 <script>
 
 // adding global style ..
+require('@/assets/style/reset.css');
 require('@/assets/style/default.css');
 require('@/assets/style/colour.css');
 require('@/assets/style/text.css');
-require('@/assets/style/anim.css');
-require('@/assets/style/custom.css');
+// require('@/assets/style/anim.css');
+// require('@/assets/style/custom.css');
 
 import cNavBar from './components/c_navbar.vue';
 import cFooter from './components/c_app_footer.vue';
@@ -79,6 +78,7 @@ import cFooter from './components/c_app_footer.vue';
 export default {
 	name: 'App', 
 	created(){
+		document.title = process.env.VUE_APP_NAME;
 		this.$store.dispatch('user/init', this.$request.get_SecureKeyFile );
 	},
 	computed : {		

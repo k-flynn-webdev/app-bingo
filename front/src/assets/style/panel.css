@@ -1,119 +1,76 @@
 
 .panel-parent{
-	/*margin: .5rem;*/
 	text-align: center;
 	margin: .66rem;
-	/*background-color: green;*/
 }
 
 .panel {
-	background-color: hsla(50,10%,100%,0.4);
-	background-color: hsla(150,30%,30%,1);
-	background-color: lightgrey;
-	background-color: hsla(35,10%,75%,1);
-	border-radius: var( --border-radius );
-	/*background-color: yellow;*/
-	/*padding: 1rem 0;*/
-	/*margin-top: 1.5rem !important;*/
-	/*margin-bottom: 2rem !important;*/
 	text-align: center;
 	overflow: hidden;
-	max-width: 30rem;
 }
 
 .panel header{
-	/*transform: skew( 0deg ,-3deg);*/
 	position: relative;
 	box-sizing: border-box;
-	/*margin-top: .5rem;*/
-	/*padding: 1rem;*/
-	/*padding-top: 2rem;*/
-	/*margin-top: 0;*/
-	margin-bottom: 1rem;
 }
 .panel header p{
-	margin: 0 1rem 1.5rem 1rem;
 } 
 
 .panel header .title{
 	margin: unset;
 	padding: unset;
-	/*font-size: 1.5rem;*/
 }
 
 
 .panel .options{
-	/*width: 100%;*/
 	position: relative;
 }
 .panel .options .item{
-	margin: 0 .5rem;
 }
 
 .panel .options .button{
-	/*padding: 0 .1rem;*/
-	/*margin: 0.2rem .1rem !important;*/
-	/*transform: scale(0.9);*/
 }
 
 .panel main{
 	position: relative;
-	/*margin: .66rem;*/
-	/*margin-top: 2rem;*/
-	/*margin: 0.5rem var( --margin-screen-large );*/
-	min-height: 2rem;
 }
 
 
 .panel main .label{
-	font-weight: 700;
 }
 
 .panel .footer{
 	position: relative;
-	margin: .66rem;
 	width: unset;
-	/*min-height: 0.33rem;*/
-	/*padding-bottom: 0.33rem;*/
-	/*margin: 0 var( --margin-screen-large );*/
 }
 
 
 @media only screen and (max-width: 320px) {
 	.panel header .title{
-		/*padding-top: rem;*/
 	}
 	.panel main{
-		/*margin: 0.5rem var( --margin-screen-small );*/
 	}
 	.panel footer{
-		/*margin: 0 var( --margin-screen-small );*/
 	}
 }
 
 
 @media only screen and (max-width: 400px) {
 	.panel header .title{
-		/*padding-top: 0.5rem;*/
 	}
 	.panel main{
-		/*margin: 0.5rem var( --margin-screen-med );*/
 	}
 	.panel footer{
-		/*margin: 0 var( --margin-screen-med );*/
 	}
 }
 
 
 @media only screen and (min-width: 600px) {
 	.panel header .title{
-		/*padding-top: 0.25rem;*/
 	}
 	.panel main{
-		/*margin: 0.5rem var( --margin-screen-large );*/
 	}
 	.panel footer{
-		/*margin: 0 var( --margin-screen-small );*/
 	}
 }
 

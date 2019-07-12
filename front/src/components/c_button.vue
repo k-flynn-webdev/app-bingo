@@ -1,19 +1,19 @@
 <template>
 
 	<button 
-		class="button button-shadow fade-in" 
+		class="button button-shadow fade-in colour-bg-dark border-round" 
 		v-on:click=clicked
 		v-bind:class=get_state>
 
 		<p 
-			class="colour-fill-depends label"> 
+			class="colour-fill-pop label"> 
 				<slot> 
 				 	Submit 
 				</slot> 
 		</p> 
 
 		<p 
-			class="text colour-fill-depends text-bold message anim-3">
+			class="text colour-fill-pop text-bold message anim-3">
 				{{ obj.message }} 
 		</p>
 
@@ -92,14 +92,6 @@
 					this.obj.state = 'is-error';
 					this.set_strobes(false);
 				}
-				// if( input === '' ){
-				// 	let self = this;
-				// 	self.set_strobes(false);
-				// 	setTimeout( function(){
-				// 		self.obj.state = '';
-				// 		self.message_reset();
-				// 	}, self.time.min );
-				// }
 				if( input === '' || input === 'reset' ){
 					this.init();
 				}
@@ -155,7 +147,7 @@
 </script>
 
 <style>
-
+/*
 	.button p {
 		position: relative;
 		z-index: 1;
@@ -193,12 +185,6 @@
 	.button.is-error, .button.is-error-colour {
 		background-color: var( --colour-button-negative );
 	}
-/*	.button-shadow.is-success, .button-shadow.is-success-colour, .button-shadow.is-error, .button-shadow.is-error-colour{
-		box-shadow: 3px 3px 1px var( --colour-shadow );
-		-webkit-box-shadow: 3px 3px 1px var( --colour-shadow );
-		-moz-box-shadow: 3px 3px 1px var( --colour-shadow );	
-	}*/
-
 
 	.anim-container {
 		position: absolute;
@@ -257,12 +243,14 @@
 		animation-iteration-count: infinite;
 	}
 
-	.colour-fill-depends {
-		color: var( --colour );
-	}
+
 	.is-message .colour-fill-depends, .is-success .colour-fill-depends, .is-error .colour-fill-depends {
 		color: var( --colour-inv );
 	}	
+*/
 
+/*	.colour-fill-depends {
+		color: var( --colour );
+	}*/
 </style>
 

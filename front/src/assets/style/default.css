@@ -1,4 +1,144 @@
 :root{
+
+	--border-radius: .5em;
+
+/*	--margin-screen-small: 0.5rem;
+	--margin-screen-med: 1rem;
+	--margin-screen-large: 1.5rem;
+
+	--padding-screen-small: 0.5rem;
+	--padding-screen-med: 0.8rem;
+	--padding-screen-large: 1.25rem;	
+
+	--btn-height-screen-small: 1.5rem;
+	--btn-height-screen-med: 1.5rem;
+	--btn-height-screen-large: 1.5rem;
+
+	--row-height-screen-small: 1.75rem;
+	--row-height-screen-med: 1.75rem;
+	--row-height-screen-large: 1.75rem;*/
+
+
+
+/*	--navbar-height: 4rem;
+	--footer-height: 4rem;*/
+}
+
+
+#app {
+	padding: 0;
+	display: block;
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+	margin-top: 4em;
+}
+
+body {
+	position: relative;
+	background: linear-gradient( to bottom, var(--colour-dark) , 80%, var(--colour-light) );
+}
+
+.body-spacer{
+	height: 2em;
+	content: "";
+}
+
+.no-click {
+	pointer-events: none;
+}
+.no-wrap {
+	white-space: nowrap;
+	text-overflow: clip;
+}
+
+.width-95{
+	width: 95%;
+	max-width: 27em;
+}
+.width-90{
+	width: 90%;
+	max-width: 25em;
+}
+.width-85{
+	width: 85%;
+	max-width: 23rem;
+}
+
+.fill-all{
+	position: fixed;
+	left: -10rem;
+	right: -10rem;
+	top: -10rem;
+	bottom: -10rem;
+	z-index: 10;
+}
+
+.center-auto-h{
+	margin: 0 auto;
+}
+.center-force-h{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.center-force-v{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.center-force{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);;
+}
+
+
+.border-round{
+	border-radius: var(--border-radius);
+}
+
+
+
+
+button, .button {
+	/*margin: 0.2rem 0.5rem 0.5rem 0.5rem;*/
+
+	/*background-color: var( --colour-button );*/
+	/*height: var( --btn-height-screen-large );*/
+
+	/*border: 1px solid transparent;*/
+
+	padding: .15em 0;
+
+	border: 1px solid lightgrey;
+	outline: none;
+	min-width: 5.5em;
+	transition: all .05s, background-color .66s, opacity .66s;
+
+	overflow: hidden;
+	box-sizing: border-box;
+	/*border-radius: calc( var( --border-radius ) * 0.5); */
+	/*padding: 0 0.66rem;*/
+	position: relative;
+	pointer-events: all;
+}
+
+
+.button-shadow {
+	box-shadow: 2px 2px 2px var( --colour-shadow );
+	-webkit-box-shadow: 2px 2px 2px var( --colour-shadow );
+	-moz-box-shadow: 2px 2px 2px var( --colour-shadow );
+}
+.button.button-shadow:active {
+	transform: translateX(1px) translateY(3px);
+	box-shadow: 1px 1px 0 var( --colour-shadow );
+	-webkit-box-shadow: 1px 1px 0 var( --colour-shadow );
+	-moz-box-shadow: 1px 1px 0 var( --colour-shadow );	
+}
+
+/*:root{
 	--margin-screen-small: 0.5rem;
 	--margin-screen-med: 1rem;
 	--margin-screen-large: 1.5rem;
@@ -61,57 +201,6 @@
 }
 
 
-
-.no-click {
-	pointer-events: none;
-}
-.no-wrap {
-	white-space: nowrap;
-	text-overflow: clip;
-}
-
-.width-95{
-	width: 95%;
-	max-width: 27rem;
-}
-.width-90{
-	width: 90%;
-	max-width: 25rem;
-}
-.width-85{
-	width: 85%;
-	max-width: 23rem;
-}
-
-.fill-all{
-	position: fixed;
-	left: -10rem;
-	right: -10rem;
-	top: -10rem;
-	bottom: -10rem;
-	z-index: 10;
-}
-
-.center-auto-h{
-	margin: 0 auto;
-}
-.center-force-h{
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-.center-force-v{
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-}
-.center-force{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateY(-50%) translateX(-50%);;
-}
-
 #app {
 	padding: 0;
 	display: block;
@@ -132,31 +221,18 @@ html {
 	padding: 0;
 
 	margin: 0;
-	/*min-height: 100vh;*/
 }
 body {
-	/*display: flex;*/
-	/*flex-direction: column;*/
-	/*flex: 1;*/
 	margin: 0;	
 	padding: 0;
-	/*padding-top: var( --navbar-height );*/
-	/*height: 100%;*/
-	/*min-height: calc(100vh - var( --navbar-height ) );*/
-	/*height: 100%;*/
 	min-height: 100vh;
-
-	/*background-color: var( --colour-bg );	*/
 }
 
 body, footer, .footer {
 	position: relative;
 }
 
-.body-nav-spacer{
-	height: 2rem;
-	content: "";
-}
+
 
 footer {
 	position: absolute;
@@ -175,55 +251,12 @@ li{
 	padding: .25rem;
 }
 
-button, .button {
-	margin: 0.2rem 0.5rem 0.5rem 0.5rem;
-
-	background-color: var( --colour-button );
-	height: var( --btn-height-screen-large );
-
-	border: 1px solid transparent;
-	outline: none;
-	min-width: 5.5rem;
-	transition: all .05s, background-color .66s, opacity .66s;
-
-	overflow: hidden;
-	box-sizing: border-box;
-	border-radius: calc( var( --border-radius ) * 0.5); 
-	padding: 0 0.66rem;
-	position: relative;
-	pointer-events: all;
-}
-
-
-.button-shadow {
-	box-shadow: 2px 2px 2px var( --colour-shadow );
-	-webkit-box-shadow: 2px 2px 2px var( --colour-shadow );
-	-moz-box-shadow: 2px 2px 2px var( --colour-shadow );
-}
-.button.button-shadow:active {
-	transform: translateX(1px) translateY(3px);
-	box-shadow: 1px 1px 0 var( --colour-shadow );
-	-webkit-box-shadow: 1px 1px 0 var( --colour-shadow );
-	-moz-box-shadow: 1px 1px 0 var( --colour-shadow );	
-}
 
 
 .border {
-	/*background-color: unset;
-	border: 1px solid white;
-	box-sizing: content-box;*/
 }
 .is-selected .border {
-	/*background-color: unset;
-	border: 1px solid white;
-	box-sizing: content-box;*/
 }
-
-
-/*button:focus, .button:focus {
-	background-color: var( --colour-button-focus );
-}*/
-
 
 
 .field{
@@ -251,7 +284,6 @@ button, .button {
 
 label, .label{
 	flex: 0;
-	/*min-width: 5.5rem;*/
 	position: relative;
 }
 
@@ -261,9 +293,7 @@ label, .label{
 	position: relative;
 	width: 100%;
 	box-sizing: border-box;
-	/*border: unset;*/
 	outline: unset;
-	/*outline-offset: 0;	*/
 	flex: 1;
 	height: var( --row-height-screen-large );
 }
@@ -431,18 +461,6 @@ input:focus, .input:focus , textarea:focus {
 		width: 92%;
 	}
 	
-}
-
-/*
-
-
-.fade-in {
-	animation: anim-fade-in 0.33s ease-in-out 1 backwards;
-}
-
-@keyframes anim-fade-in {
-	0% { opacity: 0; transform: scale(1.2); }
-	100% { opacity: 1; transform: scale(1); }
 }
 
 */

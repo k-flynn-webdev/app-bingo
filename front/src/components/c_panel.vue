@@ -2,11 +2,11 @@
 
 	<div class="panel-parent">
 
-		<div class="panel center-auto-h">
+		<div class="panel center-auto-h colour-bg-pop border-round width-95">
 
 			<header class="">
 
-				<p class="header colour-fill-bg"> 
+				<p class="header"> 
 					<slot name="header" ></slot>
 				</p>
 

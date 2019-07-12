@@ -103,6 +103,7 @@
 			init : function(){
 				this.board = this.$route.params.board;
 				this.share.link = window.location.href;
+				this.$root.$emit('page.title', 'BOARD');
 			},			
 			onSuccess : function( input ){
 				let self = this;

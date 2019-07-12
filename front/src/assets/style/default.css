@@ -116,7 +116,7 @@ button, .button {
 
 	border: 1px solid lightgrey;
 	outline: none;
-	min-width: 5.5em;
+	min-width: 6rem;
 	transition: all .05s, background-color .66s, opacity .66s;
 
 	overflow: hidden;
@@ -144,10 +144,10 @@ button, .button {
 
 .buttons {}
 .buttons > div {
-	margin-bottom: calc( var(--margin ) * 0.5);
+	margin-bottom: calc( var(--margin ) * 0.6);
 }
 .buttons .button-helper{
-	margin-left: calc( var(--margin ) );
+	margin-left: calc( var(--margin ) * 0.6);
 }
 
 

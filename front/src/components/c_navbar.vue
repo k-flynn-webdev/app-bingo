@@ -5,40 +5,45 @@
 		v-bind:data-open=is_open
 		v-bind:class="{ 'is-active' : is_open }">
 
+		<div class="nav-step">
+		
+			<div class="left">
 
-		<div class="left">
-
-			<svg class="home-icon colour-fill-pop" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-				<g>
-					<path class="colour-fill-pop" d="M121.923,26.923l-73.077,73.077l73.077,73.077l-21.923,21.923l-95,-95l95,-95c7.308,7.308 14.615,14.615 21.923,21.923Z"/>
-				</g>				
-			</svg>
-					
-		</div>
+				<svg class="home-icon colour-fill-pop" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+					<g>
+						<path class="colour-fill-pop" d="M121.923,26.923l-73.077,73.077l73.077,73.077l-21.923,21.923l-95,-95l95,-95c7.308,7.308 14.615,14.615 21.923,21.923Z"/>
+					</g>				
+				</svg>
+						
+			</div>
 
 
-		<div class="middle">
+			<div class="middle">
 
-			<div class="header colour-fill-pop">
-				{{ page.title }}
+				<div class="header colour-fill-pop">
+					{{ page.title }}
+				</div>
+
+			</div>
+
+
+			<div class="right">
+
+				<div
+					class="burger"
+					tabindex="1" 
+					:class="is_open ? 'cross' : 'bars' " 
+					v-on:click=on_click>
+						<span class="span-1 colour-bg-pop"></span>
+						<span class="span-2 colour-bg-pop"></span>
+						<span class="span-3 colour-bg-pop"></span>
+				</div>
+
 			</div>
 
 		</div>
 
-
-		<div class="right">
-
-			<div
-				class="burger"
-				tabindex="1" 
-				:class="is_open ? 'cross' : 'bars' " 
-				v-on:click=on_click>
-					<span class="span-1 colour-bg-pop"></span>
-					<span class="span-2 colour-bg-pop"></span>
-					<span class="span-3 colour-bg-pop"></span>
-			</div>
-
-		</div>
+		
 
 
 		<!-- <div 
@@ -159,16 +164,22 @@
 <style>
 	
 :root{
-	--height-nav: 2.66rem;
+	--height-nav: 2.75rem;
 }
 
 	#navbar {
 		position: fixed;
 		z-index: 5;
-		top: .5rem;
+		top: 0;
 		height: var(--height-nav);
 		width: 100%;
 	}
+
+	#navbar .nav-step {
+		position: relative;
+		top: calc( var(--margin) * 0.25);
+	}
+
 	#navbar .left, #navbar .right{
 		position: absolute;
 		top: 0;
@@ -176,24 +187,24 @@
 
 	#navbar .left{
 		left: 0;
-		margin-left: .75em;
+		margin-left: calc( var( --margin) * 0.5);
 	}
-	#navbar .middle{
-		margin: .2em;
-	}
+
 	#navbar .right{
 		right: 0;
-		margin-right: .75em;
+		margin-right: calc( var( --margin) * 0.5);
 	}
 
 	#navbar .home-icon {
-		height: var(--height-nav);
+		height: calc(var(--height-nav) - 1rem);
+		position: relative;
+		top: 0.3rem;
 	}
 
 	#navbar .burger{
-		height: var(--height-nav);
-		width: 1.85em;
+		height: calc(var(--height-nav) - .5rem);
 		position: relative;
+		width: 1.85em;
 		transition: 0.2s;
 		box-sizing: border-box;	
 	}

@@ -19,9 +19,10 @@
 
 			<div 
 				v-if=display
-				class="anim-6 button-holder">
-
-					<div 
+				style="position: relative;" 
+				class="anim-6 test button-holder-row">
+				testing
+					<!-- <div 
 						class="button-holder-content">
 
 							<slot name="content">
@@ -45,7 +46,7 @@
 
 							</transition>
 
-					</div>
+					</div> -->
 
 			</div>
 
@@ -124,29 +125,42 @@
 </script>
 
 <style>
-/*
-	.button-holder {
-		position: relative;
+
+	.test { 
+		background-color: green;
 	}
 
-	.button-holder-content {
-		border-radius: calc( var( --border-radius ) * 0.5 );
+	.button-holder {
+		position: relative;
+		display: inline-block;
+	}
+
+	.button-holder-row {
 		position: absolute;
+		top: 0;
+	}
+
+
+	.button-holder-content {
+		border-radius: var( --border-radius );
+		position: absolute;
+		top: 0;
 		z-index: 1;
-		left: 50%;
-		width: 90%;
-		transform: translateX(-50%);
-		border: solid 1px white;
-		text-align: left;
-		padding: 0.1rem;
-		padding-bottom: 0.15rem;
+		/*left: 50%;*/
+		/*width: 90%;*/
+		/*transform: translateX(-50%);*/
+		/*border: solid 1px white;*/
+		/*text-align: left;*/
+		/*padding: 0.1rem;*/
+		/*padding-bottom: 0.15rem;*/
 		box-sizing: border-box;
 	}
 
 	.expand-button {
 		position: absolute;
 		top: 0;
-		right: -5px;
+		/*left: 10%;*/
+		/*right: -5px;*/
 		z-index: 5;
 		min-width: unset;
 	}
@@ -166,14 +180,14 @@
 .slide-fade-side-enter, .slide-fade-side-leave-to {
 }
 
-@keyframes anim-button-slide-down {
+/*@keyframes anim-button-slide-down {
 	0% { 
 		opacity:0; 
 		transform: translateY(-1.5rem);
 	}
 	100% { 
 		opacity:1; 
-		transform: translateY(0);	
+		transform: translateY(0);
 	}
 }
 
@@ -186,8 +200,8 @@
 		opacity:1; 
 		transform: translateX(0);	
 	}
-}
-*/
+}*/
+
 
 
 </style>

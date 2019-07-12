@@ -1,6 +1,8 @@
 :root{
 
-	--border-radius: .5em;
+	--border-radius: .5rem;
+
+	--margin: 1rem;
 
 /*	--margin-screen-small: 0.5rem;
 	--margin-screen-med: 1rem;
@@ -137,6 +139,19 @@ button, .button {
 	-webkit-box-shadow: 1px 1px 0 var( --colour-shadow );
 	-moz-box-shadow: 1px 1px 0 var( --colour-shadow );	
 }
+
+
+
+.buttons {}
+.buttons > div {
+	margin-bottom: calc( var(--margin ) * 0.5);
+}
+.buttons .button-helper{
+	margin-left: calc( var(--margin ) );
+}
+
+
+
 
 /*:root{
 	--margin-screen-small: 0.5rem;

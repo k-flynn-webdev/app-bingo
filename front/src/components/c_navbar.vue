@@ -192,7 +192,7 @@
 
 	#navbar .burger{
 		height: var(--height-nav);
-		width: 2em;
+		width: 1.85em;
 		position: relative;
 		transition: 0.2s;
 		box-sizing: border-box;	
@@ -201,7 +201,7 @@
 	#navbar .burger span {
 		position: absolute;
 		width: 100%;
-		height: .5em;
+		height: .4em;
 		display: block;
 	}
 	#navbar .burger:hover, #navbar .burger:active {
@@ -211,7 +211,7 @@
 		top: 2px;
 	}
 	#navbar .burger .span-2 {
-		top: 40%;
+		top: 43%;
 	}
 	#navbar .burger .span-3 {
 		bottom: 2px;

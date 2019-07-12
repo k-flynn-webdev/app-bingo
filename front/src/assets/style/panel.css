@@ -1,7 +1,7 @@
 
 .panel-parent{
 	text-align: center;
-	margin: .66rem;
+	/*margin: .001rem;*/
 }
 
 .panel {
@@ -12,6 +12,7 @@
 .panel header{
 	position: relative;
 	box-sizing: border-box;
+	margin: 0 var(--margin);
 }
 .panel header p{
 } 
@@ -33,6 +34,7 @@
 
 .panel main{
 	position: relative;
+	margin: 0 var(--margin);
 }
 
 
@@ -42,6 +44,7 @@
 .panel .footer{
 	position: relative;
 	width: unset;
+	margin: var(--margin);
 }
 
 

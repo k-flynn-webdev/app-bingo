@@ -5,15 +5,16 @@
 		v-bind:data-open=is_open
 		v-bind:class="{ 'is-active' : is_open }">
 
+
 		<div class="nav-step">
 		
 			<div class="left">
 
-				<svg class="home-icon colour-fill-pop" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-					<g>
-						<path class="colour-fill-pop" d="M121.923,26.923l-73.077,73.077l73.077,73.077l-21.923,21.923l-95,-95l95,-95c7.308,7.308 14.615,14.615 21.923,21.923Z"/>
-					</g>				
-				</svg>
+				<div 
+					class="home-icon"
+					v-on:click=on_home>
+						<div class="icon"></div>
+				</div>
 						
 			</div>
 
@@ -43,34 +44,34 @@
 
 		</div>
 
-		
+
+		<div 
+			class="navbar-shade fill-all"
+			v-on:click=on_click>
+		</div>		
 
 
-		<!-- <div 
-			class="content colour-bg-inv" 
+		<div 
+			class="content" 
 			v-on:click=on_click
 			v-bind:class="{ 'is-admin' : is_admin , 'is-user' : is_user }">
 		
-			<slot></slot>
+				<slot></slot>
 
-			<slot v-if=is_active name="active">
-				
-				{{ user }}
+				<slot v-if=is_active name="active">
+					
+					{{ user }}
 
-			</slot>
+				</slot>
 
-			<slot v-else name="none-active">
-				
-				none active
-				
-			</slot>	
+				<slot v-else name="none-active">
+					
+					none active
+					
+				</slot>	
 
-		</div> -->
+		</div>
 
-		<!-- <div 
-			class="shade colour-bg-shade"
-			v-on:click=on_click>
-		</div> -->
 
 	</nav>		
 
@@ -109,6 +110,10 @@
 			},				
 		},
 		methods: {
+			on_home : function(){
+				this.is_open = false;
+				this.$router.push('/');
+			},
 			on_click : function(){
 				this.is_open = !this.is_open;
 			},
@@ -177,7 +182,7 @@
 
 	#navbar .nav-step {
 		position: relative;
-
+		z-index: 15;
 		top: calc( var(--margin) * 0.25);
 	}
 
@@ -197,9 +202,15 @@
 	}
 
 	#navbar .home-icon {
-		height: calc(var(--height-nav) - 1rem);
 		position: relative;
-		top: 0.3rem;
+		margin: .3rem;
+	}
+
+	#navbar .home-icon .icon {
+		height: calc(var(--height-nav) - 1rem);
+		width: calc(var(--height-nav) - 1rem);
+		transform: rotateZ(45deg);
+		border: 4px solid white;
 	}
 
 	#navbar .burger{
@@ -247,10 +258,32 @@
 	}
 	#navbar .cross .span-3 {
 		animation: anim_flat_to_cross_2 .2s forwards;
+	}	
+
+
+	#navbar .navbar-shade, #navbar .content {
+		display: none;
+		background-color: hsla(1,10%,5%,.95);
+		pointer-events: all;
+	}
+	#navbar[data-open] .navbar-shade {
+		display: block;
+	}
+	
+
+	#navbar .content {
+		position: relative;
+		z-index: 20;
+		margin-top: 5rem;
+	}
+	#navbar .content .link {
+		margin: 1rem;
 	}
 
-
-
+	#navbar[data-open] .content {
+		display: flex;
+		flex-direction: column;
+	}	
 
 
 
@@ -311,16 +344,7 @@
 		height: 100vh;
 	}
 
-	#navbar.is-active .content, #navbar[data-open] .content {
-		display: flex;
-		flex-direction: column;
-	}	
-
-
-	#navbar.is-active .content, #navbar[data-open] .content {
-		display: flex;
-		flex-direction: column;
-	}*/
+*/
 
 
 

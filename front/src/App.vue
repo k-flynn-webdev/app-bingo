@@ -4,48 +4,52 @@
 
 		<c-navbar>
 
-			<template>
-				<router-link 
-					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
-					to="/">
-						Home
-				</router-link>
-			</template>
-
 			<router-link 
-				class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+				class="link colour-fill-pop colour-bg-pop border-round" 
 				to="/board/create">
-					Create
+						<p class="colour-fill-dark poster link"> 
+							Create
+						</p>
 			</router-link>
 
 			<template v-slot:active>
 				<router-link 
-					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					class="link colour-fill-pop colour-bg-pop border-round" 
 					to="/logout">
-						Logout
+						<p class="colour-fill-dark poster link"> 
+							Logout
+						</p>
 				</router-link>
 				<router-link 
-					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					class="link colour-fill-pop colour-bg-pop border-round" 
 					to="/account">
-						Account
+						<p class="colour-fill-dark poster link"> 
+							Account
+						</p>
 				</router-link>
 				<router-link 
-					class="link title user colour-on-focus colour-bg colour-fill-bg-inv"
+					class="link colour-fill-pop colour-bg-pop border-round"					
 					to="/admin/request">
-						AdminRequest
+						<p class="colour-fill-dark poster link"> 
+							AdminRequest
+						</p>
 				</router-link>
 				<router-link 
-					class="link title admin colour-on-focus colour-bg colour-fill-bg-inv" 
+					class="link colour-fill-pop colour-bg-pop border-round"	
 					to="/admin">
-						AdminBoard
+						<p class="colour-fill-dark poster link"> 
+							AdminBoard
+						</p>
 				</router-link>
 			</template>
 
 			<template v-slot:none-active>	
 				<router-link 
-					class="link title colour-on-focus colour-bg colour-fill-bg-inv" 
+					class="link colour-fill-pop colour-bg-pop border-round"	
 					to="/login">
-						Login
+						<p class="colour-fill-dark poster link"> 
+							Login
+						</p>
 				</router-link>
 			</template>
 

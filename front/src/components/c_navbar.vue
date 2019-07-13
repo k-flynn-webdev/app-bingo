@@ -169,7 +169,7 @@
 
 	#navbar {
 		position: fixed;
-		z-index: 5;
+		z-index: 50;
 		top: 0;
 		height: var(--height-nav);
 		width: 100%;
@@ -177,6 +177,7 @@
 
 	#navbar .nav-step {
 		position: relative;
+
 		top: calc( var(--margin) * 0.25);
 	}
 

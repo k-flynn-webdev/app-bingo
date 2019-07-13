@@ -4,8 +4,7 @@
 		<div 
 			ref="popup" 
 			class="popup-fill" 
-			v-bind:class=extraClass
-			style="z-index:30;">
+			v-bind:class=extraClass>
 			
 			<transition 
 				appear
@@ -14,55 +13,53 @@
 					<div 
 						v-if=onShow
 						v-on:click=clicked
-						class="fill-all colour-bg-darken">
+						class="fill-all colour-bg-shadow">
 					</div>
 
 			</transition>
 
 
-			<transition 
+			<transition
 				appear
 				name="slide-in">
 
-				<div 
-					v-if=onShow class="panel-parent"
-					style="position:relative;">
-					
-					<div
-						class="panel center-auto-h"
-						style="position:relative;">
+					<div 
+						v-if=onShow 
+						class="panel-parent">
 
-						<header class="">
+						<div class="panel center-auto-h colour-bg-pop border-round width-95 shadow">
 
-							<p class="header colour-fill-bg-inv text-funky custom"> 
-								<slot name="header" ></slot>
-							</p>
+							<header class="">
 
-							<div class="options flex-row flex-row-end header-shadow1">
-								<slot name="options"></slot>
-							</div>
-
-						</header>
-
-						<div class="width-90 center-auto-h">
-
-							<main class="text">	
-								<slot></slot>
-							</main>
-
-							<slot name="no-margin" class="main"></slot>
-
-							<footer class="footer">
-								<p class="text"> 
-									<slot name="footer"></slot>
+								<p class="header"> 
+									<slot name="header" ></slot>
 								</p>
-							</footer>
+
+								<div class="options flex-row flex-row-end center-auto-h">
+									<slot name="options"></slot>
+								</div>
+
+							</header>
+
+							<div class="center-auto-h">
+
+								<main class="text">	
+									<slot></slot>
+								</main>
+
+								<slot name="no-margin" class="main"></slot>
+
+								<footer class="footer">
+									<p class="text"> 
+										<slot name="footer"></slot>
+									</p>
+								</footer>
+
+							</div>
 
 						</div>
 
 					</div>
-
-				</div>
 
 			</transition>
 
@@ -74,11 +71,15 @@
 
 <script>
 
+	import Panel from '../components/c_panel.vue';
+
+	require('@/assets/style/panel.css');
+
+
 	export default {
 		name: 'cPopUp',
 		data(){
 			return {
-				// show : true,
 			}
 		},	
 		props: {
@@ -94,7 +95,6 @@
 				}
 			},
 			exit : function(){
-				// this.onShow = false;
 				this.$refs.parent.appendChild( this.$refs.popup  );
 			},
 		},
@@ -105,6 +105,7 @@
 			this.exit();
 		},
 		components: {
+			'c-panel' : Panel,
 		},
 }
 
@@ -115,16 +116,18 @@
 
 .panel-parent{
 	z-index: 10;
+	position:relative;
 }
 
 
-	.popup-fill {
-		position: fixed;
-		left: 0;
-		top: 2rem;
-		width: 100%;
-		height: 100%;
-	}
+.popup-fill {
+	position: fixed;
+	z-index:30;
+	top: 4rem;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
@@ -145,15 +148,6 @@
 	transform: translateY(1.5rem);
 }
 
-	/*.is-success .panel{
-		background-color: var( --colour-success );
-	}
-	.is-warning .panel{
-		background-color: var( --colour-warning );
-	}	
-	.is-error .panel{
-		background-color: var( --colour-error );
-	}	*/
 
 </style>
 

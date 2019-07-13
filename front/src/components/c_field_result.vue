@@ -18,11 +18,14 @@ export default {
 <style>
 
 .field-result .result{
+	border-radius: 1rem;
 	position: absolute;
-	left: 0;
-	bottom: -6px;
-	width: 100%;
-	height: 5px;
+	left: 50%;
+	text-align: center;
+	bottom: -4px;
+	width: 85%;
+	height: 3px;
+	transform: translateX(-50%);
 	overflow: hidden;
 	opacity: 0;
 	transition: .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
@@ -32,18 +35,29 @@ export default {
 .result .result-fail, .result .result-pass{
 	position: absolute;
 	width: 100%;
-	height: 5px;
+	height: 3px;
 	transform: translateX(-110%);
 	transition: .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
 	z-index: 1;
 }
 
-.result .result-pass{
+/*.result .result-pass{
 	background-color: var( --colour-positive );
 }
 .result .result-fail{
 	background-color: var( --colour-negative );
+}*/
+
+
+.field-result.pass .input{
+	border: 2px solid var( --colour-positive );
 }
+.field-result.fail .input{
+	border: 2px solid var( --colour-negative );
+}
+
+
+
 
 .field-result.pass .result{
 	opacity: 1;

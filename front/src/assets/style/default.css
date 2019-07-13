@@ -114,7 +114,7 @@ button, .button {
 
 	padding: .15em 0;
 
-	border: 1px solid lightgrey;
+	border: none;
 	outline: none;
 	min-width: 6rem;
 	transition: all .05s, background-color .66s, opacity .66s;
@@ -128,12 +128,16 @@ button, .button {
 }
 
 
-.button-shadow {
-	box-shadow: 2px 2px 2px var( --colour-shadow );
-	-webkit-box-shadow: 2px 2px 2px var( --colour-shadow );
-	-moz-box-shadow: 2px 2px 2px var( --colour-shadow );
+.button.button-action{
+	background-color: var(--colour-light)
 }
-.button.button-shadow:active {
+
+.shadow {
+	box-shadow: 1px 2px 3px var( --colour-shadow );
+	-webkit-box-shadow: 1px 2px 3px var( --colour-shadow );
+	-moz-box-shadow: 1px 2px 3px var( --colour-shadow );
+}
+.button.shadow:active {
 	transform: translateX(1px) translateY(3px);
 	box-shadow: 1px 1px 0 var( --colour-shadow );
 	-webkit-box-shadow: 1px 1px 0 var( --colour-shadow );
@@ -142,7 +146,9 @@ button, .button {
 
 
 
-.buttons {}
+.buttons {
+	margin: var(--margin) 0;
+}
 .buttons > div {
 	margin-bottom: calc( var(--margin ) * 0.6);
 }
@@ -150,6 +156,50 @@ button, .button {
 	margin-left: calc( var(--margin ) * 0.6);
 }
 
+
+
+
+
+.field{
+	position: relative;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	margin-bottom: var(--margin);
+}
+
+.field > .label {
+	padding-right: var(--margin);
+	min-width: 1rem;
+	vertical-align: middle;
+}
+.field > .input {
+	transition: .33s;
+	border-top: 2px solid var(--colour-dark);
+	border-left: 2px solid var(--colour-dark);
+	border-right: 2px solid var(--colour-pop);
+	border-bottom: 2px solid var(--colour-pop);
+	flex-grow: 1;
+	box-sizing: border-box;
+	border-radius: calc(var(--border-radius)*1.5);
+	padding-left: var(--margin);
+}
+
+/*.field-column {
+	position: relative;
+	text-align: center;
+	flex-direction: column;
+}*/
+
+/*.field-column .label{*/
+	/*margin: var(--margin);*/
+	/*margin-bottom: 1rem;*/
+/*}*/
+
+label, .label{
+	/*flex: 0;*/
+	position: relative;
+}
 
 
 
@@ -274,33 +324,7 @@ li{
 }
 
 
-.field{
-	position: relative;
-	text-align: left;
-	display: flex;
-	flex-direction: row;
-	margin: 0.75rem 0;
-	align-items: center;
-	border-bottom: 1px solid var( --colour-inv );
-	transition: 0.33s;
-}
 
-.field-column {
-	position: relative;
-	text-align: center;
-	flex-direction: column;
-}
-
-.field-column .label{
-	margin: 0.5rem;
-	margin-bottom: 1rem;
-
-}
-
-label, .label{
-	flex: 0;
-	position: relative;
-}
 
 
 

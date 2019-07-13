@@ -2,9 +2,21 @@
 
 	--colour: hsla(182,36%,46%,1);
 	--colour-dark: hsla(182,36%,10%,1);
-	--colour-light: hsla(182,36%,66%,1);
+	--colour-light: hsla(182,36%,50%,1);
 
 	--colour-pop: hsla(1,1%,96%,1);
+
+
+	--colour-shadow: hsla(1,1%,1%,.5);
+	--colour-shadow-dark: hsla(1,1%,5%,.9);
+
+
+
+
+	--colour-positive: hsla(100,40%,40%,1);
+	--colour-negative: hsla(0,50%,40%,1);
+
+	
 
 	/*--colour-accent: hsl(182,36%,46%);*/
 	/*--colour-accent: hsl(182,36%,46%);*/
@@ -31,13 +43,12 @@
 
 	--colour-shade: hsla(0,10%,10%,1);
 
-	--colour-shadow: hsla(1,1%,1%,.5);
+	
 
 
 
 
-	--colour-positive: hsla(100,40%,40%,1);
-	--colour-negative: hsla(0,50%,40%,1);
+
 
 	--colour-button-highlight: hsla(100,40%,90%,.7);
 
@@ -80,6 +91,14 @@
 	background-color: var(--colour-dark);
 }
 
+
+.colour-fill-shadow {
+	color: var(--colour-shadow-dark);
+	fill: var(--colour-shadow-dark);
+}
+.colour-bg-shadow {
+	background-color: var(--colour-shadow-dark);
+}
 
 
 /*

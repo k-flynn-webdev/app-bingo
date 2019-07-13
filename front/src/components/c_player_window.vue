@@ -6,67 +6,110 @@
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_click>
 			
-		<div 
-			ref="field_name"
-			v-bind:class=state.class
-			class="field field-result">
 
-			<input 
-				class="text colour-fill-bg-inv text-input"
-				type="string"
-				placeholder="Your name"
-				value=form.name
-				v-model=form.name
-				v-on:change=validate
-				required>
+			<div slot="header">
 
-			<c-field-result>
-			</c-field-result>
+				<p class="colour-fill-dark">
+					{{ get_name }}
+				</p>
+				
+			</div>
+
+			<br>
+
+
+			<div 
+				ref="field_name"
+				v-bind:class=get_field_class>
+
+				<p class="label colour-fill-dark">
+					Name
+				</p>
+
+				<input
+					class="input text colour-fill-dark"
+					type="string"
+					placeholder="Your name"
+					value=form.name
+					v-model=form.name
+					v-on:change=validate
+					required>
+
+				<c-field-result>
+				</c-field-result>
+
+			</div>
+
+
+			<br>
+
+			<!-- <div 
+				class="game-info">
+
+				<div>
+
+					<p 
+						class="text colour-fill-bg">
+							Current Players ({{ get_players.length }}):
+					</p>
+
+					<div 
+						v-if="get_players.length">
+
+						<p 
+							v-if="!get_joined"
+							class="text colour-fill-bg"
+							v-for="(player, index) in get_players"
+							v-bind:key="player.url">
+								{{ player.data.name }} : {{ player.data.score }}
+						</p>
+
+					</div>
+
+				</div>
+
+			</div>
+ -->
+
+			<div class="text-left buttons">
+
+				<div>
+					<c-button
+						ref="btnBoard"
+						v-bind:onClick=go_to_Board>
+						Board
+					</c-button>
+
+					<span class="text colour-fill-dark button-helper"> View Board. </span>
+
+				</div>
+
+			</div>
+
+
+			<br>
+			<br>
+
 
 			<c-button
 				ref="btnOK"
-				style="min-width: unset;"
+				class="button-action"
+				style="min-width: 100%;"
 				v-bind:onClick=name_update>
 					<p class="colour-fill-bg-inv label">
 						{{ button.label }}
 					</p>
-			</c-button>	
+			</c-button>
 
-		</div>
 
-		<c-message 
+<!-- 		<c-message 
 			ref="msgObj">
-		</c-message>
+		</c-message> -->
 
 
-		<div 
-			class="game-info">
 
-			<div>
 
-				<p 
-					class="text colour-fill-bg">
-						Current Players ({{ get_players.length }}):
-				</p>
-
-				<div 
-					v-if="get_players.length">
-
-					<p 
-						v-if="!get_joined"
-						class="text colour-fill-bg"
-						v-for="(player, index) in get_players"
-						v-bind:key="player.url">
-							{{ player.data.name }} : {{ player.data.score }}
-					</p>
-
-				</div>				
-
-			</div>
-
-		</div>
-
-		<br>
+		<!-- <br> -->
 
 	</c-popup>
 
@@ -109,6 +152,9 @@
 		},
 
 		computed : {
+			get_name : function(){
+				return this.$store.getters['board/get_board'].data.name || 'Name';
+			},			
 			get_field_class : function(){
 				return this.state.class;
 			},
@@ -121,6 +167,10 @@
 		},
 
 		methods:{
+			go_to_Board : function(){
+				// todo
+			},
+
 			reset_validate : function(){
 				let base = 'field field-result ';
 				this.state.class = base;
@@ -196,13 +246,17 @@
 
 				let game = this.$store.getters['game/get_game'];
 
+				this.reset_validate();
+
 				if( !game.joined ){
 					this.button.label = 'Join';
-					this.state.lock = true;	
+					this.state.lock = true;
+					this.$root.$emit('page.title', 'JOIN');
 				} else {
 					this.button.label = 'Update';
+					this.$root.$emit('page.title', 'UPDATE');
 					this.state.lock = false;
-					this.reset_validate();
+					
 				}
 
 				this.state.remove = false;
@@ -236,6 +290,7 @@
 						self.state.remove = true;
 						self.$root.$off('player.message', this.message );
 						self.$root.$off('player.hide', this.window_hide );
+						self.$root.$emit('page.title', '');
 					},1000);
 				}
 			},
@@ -261,23 +316,23 @@
 
 <style>
 
-.bullshit-menu .panel{
-	/*border-radius: .5rem;*/
+/*.bullshit-menu .panel{
+	border-radius: .5rem;
 	max-width: 25rem;
 	background-color: var( --colour-inv );
-}
+}*/
 
-.bullshit-menu .panel header, .bullshit-menu .panel .footer {
+/*.bullshit-menu .panel header, .bullshit-menu .panel .footer {
 	padding-top: unset;
 	margin: unset;
 }
 .bullshit-menu .panel main {
 	min-height: unset;
-}
+}*/
 
 
 
-.bullshit-menu .panel header{
+/*.bullshit-menu .panel header{
 	margin: 0;
 }
 .bullshit-menu .panel .header{
@@ -285,15 +340,15 @@
 }
 .bullshit-menu .panel p{
 	margin: 0;
-}
+}*/
 
 
-.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
+/*.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
 	background-color: hsla(1,1%,33%,.8);
 }
 .bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {
 	background-color: var(--colour-bg-input-focus);
 }
-
+*/
 
 </style>

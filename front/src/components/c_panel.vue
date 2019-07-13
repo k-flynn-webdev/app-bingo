@@ -2,7 +2,7 @@
 
 	<div class="panel-parent">
 
-		<div class="panel center-auto-h colour-bg-pop border-round width-95">
+		<div class="panel center-auto-h colour-bg-pop border-round width-95 shadow">
 
 			<header class="">
 

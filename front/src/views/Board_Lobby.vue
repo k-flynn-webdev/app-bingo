@@ -65,7 +65,7 @@
 
 		<div slot="footer" class="bottom-right">
 
-			<div class="share colour-bg-dark border-round">
+			<div class="share button shadow colour-bg-dark border-round">
 
 				<svg 
 					class="home-icon colour-fill-pop" 
@@ -115,8 +115,8 @@
 	import Button from '../components/c_button.vue';
 	import ButtonExpand from '../components/c_button_expand.vue';
 	import Panel from '../components/c_panel.vue';
-	import Message from '../components/c_message.vue';
-	import Tag from '../components/c_tag.vue';
+	// import Message from '../components/c_message.vue';
+	// import Tag from '../components/c_tag.vue';
 
 	import { submit } from '../mixins/h_submit.js';
 
@@ -205,8 +205,8 @@
 			'c-button' : Button,
 			'c-button-expand' : ButtonExpand,
 			'c-panel' : Panel,
-			'c-message' : Message,
-			'c-tag' : Tag,
+			// 'c-message' : Message,
+			// 'c-tag' : Tag,
 		},		
 }
 </script>
@@ -219,6 +219,7 @@
 	}
 
 	.share {
+		min-width: unset;
 		width: 2.33rem;
 		height: 2.33rem;
 	}

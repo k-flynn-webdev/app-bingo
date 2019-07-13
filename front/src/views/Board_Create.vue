@@ -314,7 +314,7 @@
 
 <style>
 
-.text-area {
+/*.text-area {
 	transition: .4s;
 	overflow: auto;
 	border-bottom: 1px solid transparent;
@@ -349,7 +349,7 @@
 }
 .phrases .tag:nth-child(n+11){
 	display: none;
-}
+}*/
 
 </style>
 

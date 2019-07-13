@@ -267,7 +267,7 @@
 	background-color: var( --colour-inv );
 }*/
 
-.bullshit-menu .panel header{
+/*.bullshit-menu .panel header{
 	margin: 0;
 }
 .bullshit-menu .panel .header{
@@ -275,15 +275,15 @@
 }
 .bullshit-menu .panel p{
 	margin: 0;
-}
+}*/
 
 
-.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
+/*.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {*/
 	/*background-color: hsla(1,1%,33%,.8);*/
-}
-.bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {
+/*}*/
+/*.bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {*/
 	/*background-color: var(--colour-bg-input-focus);*/
-}
+/*}*/
 
 
 </style>

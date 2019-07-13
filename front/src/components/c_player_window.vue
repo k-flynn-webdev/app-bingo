@@ -222,7 +222,6 @@
 				}
 			},
 			button_success : function(){
-				console.log('button success');
 				this.$refs.btnOK.$emit('state', 'success');
 			},
 			message : function( input ){
@@ -284,6 +283,7 @@
 						self.state.remove = true;
 						self.$root.$off('player.message', this.message );
 						self.$root.$off('player.hide', this.window_hide );
+						self.$root.$off('player.success', this.button_success );
 						self.$root.$emit('page.title', '');
 					},1000);
 				}

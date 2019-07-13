@@ -210,6 +210,47 @@ button, .button {
 	margin-bottom: var(--margin)
 }
 
+
+
+
+.hover-trigger {
+	position:relative;
+}
+.hover-message, .hover-message-left {
+	position: absolute;
+	z-index: 10;
+	right: -50%;
+	top: 50%;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	display: inline-block;
+	border-radius: calc( var( --border-radius ) * 0.5);
+	pointer-events: none;
+	transform: translateX(50%) translateY(-50%);
+}
+.hover-message-left {
+	right: 100%;
+	transform: translateX(1%) translateY(-50%);
+}
+
+.hover-message > p, .hover-message-left > p {
+	margin: 0;
+	padding: .15rem .66rem;
+}
+
+.hover-trigger:hover .hover-message, .hover-trigger.hover-force .hover-message {
+	opacity: 1;
+	transform: translateX( calc(100% + 1rem) ) translateY(-50%);
+}
+.hover-trigger:hover .hover-message-left, .hover-trigger.hover-force .hover-message-left {
+	opacity: 1;
+	transform: translateX( calc(-10% + -1rem) ) translateY(-50%);
+}
+
+
+
+
 /*.field-column {
 	position: relative;
 	text-align: center;
@@ -261,34 +302,6 @@ label, .label{
 }
 
 
-.hover-trigger {
-	position:relative;
-}
-.hover-message, .hover-message-left {
-	position: absolute;
-	z-index: 10;
-	right: -50%;
-	top: 50%;
-	margin: 0;
-	opacity: 0;
-	border-radius: calc( var( --border-radius ) * 0.5);
-	background-color: var(--colour-inv);
-	pointer-events: none;
-	transform: translateX(50%) translateY(-50%);
-}
-.hover-message .text, .hover-message-left .text{
-	margin: 0;
-	padding: .15rem .66rem;
-}
-
-.hover-trigger:hover .hover-message, .hover-trigger.hover-force .hover-message {
-	opacity: 1;
-	transform: translateX( calc(100% + 1rem) ) translateY(-50%);
-}
-.hover-trigger:hover .hover-message-left, .hover-trigger.hover-force .hover-message-left {
-	opacity: 1;
-	transform: translateX( calc(-100% + -1rem) ) translateY(-50%);
-}
 
 
 #app {

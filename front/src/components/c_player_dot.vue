@@ -7,11 +7,11 @@
 				class="diamond" 
 				v-bind:class="{ 'colour-bg-pop' : isPlayer }"></div>
 
-			<!-- <div class="anim-6 hover-message text button-shadow">
-				<p class="text colour-fill-bg">
+			<div class="anim-6 title hover-message colour-bg-pop">
+				<p class="text-bold colour-fill-dark">
 					{{ player.data.name }}
 				</p>
-			</div> -->
+			</div>
 
 	</div>
 

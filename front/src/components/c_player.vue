@@ -5,11 +5,11 @@
 		class="hover-trigger item-right"
 		v-bind:class="{ 'hover-force' : state.display }">
 
-<!-- 			<div class="anim-6 hover-message-left text button-shadow">
-				<p class="text colour-fill-bg">
+			<div class="anim-6 title hover-message-left colour-bg-pop">
+				<p class="text-bold colour-fill-dark">
 					{{ player_name }}
 				</p>
-			</div> -->
+			</div>
 
 			<button 
 				ref="btnPlayer"

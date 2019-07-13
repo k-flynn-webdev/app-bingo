@@ -81,7 +81,10 @@ export default {
 <style scoped >
 	
 	.app-footer{
+		min-height: 3rem;
+		height: 3rem;
 		width: 100%;
+		margin-bottom: .5rem;
 	}
 
 	.footer-content {

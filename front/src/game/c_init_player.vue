@@ -116,11 +116,11 @@
 
 				this.$root.$emit('game.stop');
 				this.$root.$emit('player.message', message);
+				this.$root.$emit('player.success');
 
 				let self =this;
 				setTimeout( function(){
 					self.$root.$emit('player.hide');
-					self.$root.$emit('player.success');
 					self.$store.dispatch('game/set_game', {} );
 				}, 2000 );
 

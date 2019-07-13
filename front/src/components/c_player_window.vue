@@ -221,6 +221,10 @@
 					this.$root.$emit('player.check');
 				}
 			},
+			button_success : function(){
+				console.log('button success');
+				this.$refs.btnOK.$emit('state', 'success');
+			},
 			message : function( input ){
 				this.$refs.msgObj.$emit('message' , input);
 			},
@@ -228,6 +232,7 @@
 			window_show : function(){
 
 				this.$root.$on('player.message', this.message );
+				this.$root.$on('player.success', this.button_success );
 				this.$root.$on('player.hide', this.window_hide );
 				
 				let player = this.$store.getters['player/get_player'];

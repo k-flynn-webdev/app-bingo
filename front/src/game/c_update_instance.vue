@@ -133,6 +133,8 @@
 					};
 
 					this.$root.$emit('player.message', message);
+					this.$root.$emit('player.success');
+					
 					let self =this;
 					setTimeout( function(){
 						self.$root.$emit('player.hide');

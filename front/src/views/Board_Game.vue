@@ -28,11 +28,11 @@
 
 			<c-game-words></c-game-words>
 
-			<div class="options-bar" style="margin-top:2rem;">
+			<div class="options-bar" style="margin-top: 4rem;">
 
 				<c-button
+					style="margin-top:.5rem;"
 					class="border-white"
-					style="transform: translateY(-50%);"
 					v-bind:class="{ 'game-ready' : game_ready }"
 					ref="btnReset"
 					v-bind:onClick=reset>
@@ -40,7 +40,7 @@
 				</c-button>
 
 				<div class="option-right">
-					<c-button-share style="transform: translateY(-50%);"></c-button-share>
+					<c-button-share></c-button-share>
 				</div>
 				
 			</div>

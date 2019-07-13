@@ -2,7 +2,7 @@
 
 	<div 
 		ref="wrds_holder"
-		class="words-holder anim-6"
+		class="words-holder anim-6 br-small"
 		v-bind:class="{ 'words-lock' : !is_ready, 'words-ready' : is_ready, }">
 
 		<div ref="wrds_holder_inner">
@@ -186,11 +186,6 @@ let word_hash = function (str){
 	width: 100%;
 }
 
-.words-lock {
-}
-.words-ready {
-}
-
 .words-lock, .words-lock .button {
 	pointer-events: none !important;
 }	
@@ -213,8 +208,6 @@ let word_hash = function (str){
 	transition-duration: .66s;
 	transform: translateX(1rem);
 }
-
-
 .anim-word-move {
 	transition: transform 1s ease !important;
 }

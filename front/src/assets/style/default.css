@@ -38,7 +38,7 @@
 
 body {
 	position: relative;
-	background: linear-gradient( to bottom, var(--colour-dark) , 80%, var(--colour-light) );
+	background: linear-gradient( to bottom, var(--colour-dark), 75%, var(--colour-light-gradient) );
 }
 
 .body-spacer{
@@ -110,7 +110,7 @@ button, .button {
 	/*background-color: var( --colour-button );*/
 	/*height: var( --btn-height-screen-large );*/
 
-	/*border: 1px solid transparent;*/
+	
 
 	padding: .15em 0;
 
@@ -127,9 +127,16 @@ button, .button {
 	pointer-events: all;
 }
 
+.border-white {
+	border: 1px solid white !important;
+}
+
 
 .button.button-action{
-	background-color: var(--colour-light)
+	background-color: var(--colour-light) !important;
+}
+.button.button-action p{
+	color: var(--colour-pop) !important;
 }
 
 .shadow {
@@ -156,8 +163,15 @@ button, .button {
 	margin-left: calc( var(--margin ) * 0.6);
 }
 
-
-
+.button.icon {
+	min-width: unset;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.button.icon svg {
+	transform-origin: center center;
+}
 
 
 .field{
@@ -183,6 +197,11 @@ button, .button {
 	box-sizing: border-box;
 	border-radius: calc(var(--border-radius)*1.5);
 	padding-left: var(--margin);
+}
+
+
+.br-small {
+	margin-bottom: var(--margin)
 }
 
 /*.field-column {

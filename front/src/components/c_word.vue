@@ -2,8 +2,8 @@
 		
 		<c-button
 			ref="word_btn"
-			class="word-button"
-			v-bind:class="{ 'word-selected' : selected, 'word-waiting' : waiting }"
+			class="word-button colour-bg-pop"
+			v-bind:class="{ 'word-selected button-action' : selected, '' : waiting }"
 			v-bind:onClick=toggle>
 
 				{{ input.word }}
@@ -104,23 +104,34 @@
 
 <style>
 
+	.word-selected {
+		pointer-events: none;
+	}
+
 	.word-button{
 		flex: none !important;
 		height: unset !important;
-		background-color: var(--colour-inv);
-		background-color: hsla(50,50%,75%,1);
-		padding: .35rem .6rem;
-		margin: .33rem .5rem;
+		display: block;
+		width: 100%;
+		margin: .4rem 0;
 	}
 
 	.word-button p{
-		color: var(--colour);
+		margin: 0.2rem 1rem;
+		color: var(--colour-dark);
 		letter-spacing: unset !important;
 		word-spacing: unset !important;
 		text-transform: unset !important;
-		/*line-height: 1rem !important;*/
 	}
 
+
+	.word-button .strobe {
+		background-color: lightgrey !important;
+	}
+
+
+	
+/*
 @media only screen and (max-width: 320px) {
 	.word-button {
 		width: calc(100% - 1rem);
@@ -137,7 +148,7 @@
 	.word-button {	
 	}
 }
-
+*/
 
 
 </style>

@@ -1,6 +1,6 @@
 <template>
 	
-	<div class="players">
+	<div class="players-holder">
 
 		<transition-group name="player-dots">
 
@@ -59,13 +59,11 @@
 
 <style scoped>
 
-	.players {
+	.players-holder {
 		position: absolute;
-		top: 0;
 		left: 0;
-		/*width: 100%;*/
-		/*height: 2rem;*/
-		/*background-color: limegreen;*/
+		top: .8rem;
+
 	}
 	
 
@@ -75,9 +73,10 @@
 <style>
 
 
-	.player-dots {
-		backface-visibility: hidden;
-	}
+.player + .player + .player + .player  + .player + .player + .player {
+	opacity: 0;
+}
+
 	.player-dots-move .person{
 		transform: scale(1.33);
 	}

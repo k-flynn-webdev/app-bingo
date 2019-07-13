@@ -21,10 +21,15 @@
 			class="anim-container"
 			v-bind:class=get_strobes>
 			
-				<span class="strobe delay-5" ></span>
-				<span class="strobe delay-5" ></span>
-				<span class="strobe delay-5" ></span>
+				<span class="strobe colour-bg-pop delay-5" ></span>
+				<span class="strobe colour-bg-pop delay-5" ></span>
+				<span class="strobe colour-bg-pop delay-5" ></span>
 
+		</div>
+
+		<div 
+			class="anim-result anim-3"
+			v-bind:class="{ 'is-active' : get_result }">
 		</div>
 
 	</button>
@@ -42,6 +47,7 @@
 					strobes : false,
 					hasMessage : false,
 					message : '',
+					result : false,
 				},
 				time : {
 					min : 2300,
@@ -66,6 +72,9 @@
 				}
 				return '';
 			},
+			get_result : function(){
+				return this.obj.result;
+			},			
 		},
 		methods : {
 			init : function(){
@@ -87,13 +96,16 @@
 				if( input === 'success' ){
 					this.obj.state = 'is-success';
 					this.set_strobes(false);
+					this.set_result(true);
 				}
 				if( input === 'error' ){
 					this.obj.state = 'is-error';
 					this.set_strobes(false);
+					this.set_result(true);
 				}
 				if( input === '' || input === 'reset' ){
 					this.init();
+					this.set_result(false);
 				}
 
 				if( input === 'message' ){
@@ -115,6 +127,18 @@
 					this.obj.strobes = false;	
 				}
 			},
+
+			set_result : function( input ){
+				this.obj.result = input;
+
+				if( this.obj.result ){
+					let self = this;
+					setTimeout( function(){
+						self.obj.result = false;
+					}, 4*1000);					
+				}
+			},
+
 			message_set : function( input ){
 				this.obj.message = input;
 				this.obj.hasMessage = true;
@@ -147,7 +171,7 @@
 </script>
 
 <style>
-/*
+
 	.button p {
 		position: relative;
 		z-index: 1;
@@ -165,7 +189,7 @@
 	}
 
 	.button.msg-is-active, .button.is-error, .button.is-success, .button.is-waiting{
-		border: 1px solid var( --colour-button-highlight );
+		/*border: 1px solid var( --colour-button-highlight );*/
 		pointer-events: none;
 	}
 
@@ -180,10 +204,10 @@
 	}
 
 	.button.is-success, .button.is-success-colour {
-		background-color: var( --colour-button-positive );		
+		/*background-color: var( --colour-positive );		*/
 	}	
 	.button.is-error, .button.is-error-colour {
-		background-color: var( --colour-button-negative );
+		/*background-color: var( --colour-negative );*/
 	}
 
 	.anim-container {
@@ -208,49 +232,90 @@
 		
 		width: 100%;
 		height: 100%;
-		background-color: var( --colour-button-highlight );
-		background-color: hsla(1,10%,90%,1);
 
 		opacity: 0.1;
 		display: inline;
-		transform: scaleX(.175) skew(-33deg) translateX(-210%);
+		transform: scaleX(.3) skew(-33deg) translateX(-250%);
 	}
 
 	@keyframes is-waiting-anim {
 		0% { 
 			opacity: 0; 
-			transform: scaleX(.3) skew(-33deg) translateX(-210%);
+			transform: scaleX(.3) skew(-33deg) translateX(-250%);
 		}
 		33% { 
-			opacity: 1;
+			opacity: .75;
 		}
 		66% {
-			opacity: 1;
+			opacity: .75;
 		}
 		80% {
 			opacity: .1;
 		}
 		100% { 
 			opacity: 0;
-			transform: scaleX(.3) skew(-33deg) translateX(210%);
+			transform: scaleX(.3) skew(-33deg) translateX(250%);
 		}
 	}
 
-	.button.is-waiting .strobe, .button.is-success .strobe, .button.is-error .strobe{
+	@keyframes is-result-anim {
+		0% { 
+			left: -10%;
+			width: 0;
+		}
+		33% {
+			opacity: 1;
+			left: -10%;
+			width: 120%;
+		}
+		77% {
+			opacity: 1;
+			left: -10%;
+			width: 120%;
+		}
+		100% { 
+			opacity: 0;
+			width: 0;
+			left: 120%;
+		}
+	}
+
+
+	.button.is-waiting .strobe {
 		animation-name: is-waiting-anim;
 		animation-duration: 1.5s;
 		animation-timing-function: ease;
 		animation-iteration-count: infinite;
 	}
 
+	.button .anim-result {
+		transform: skewX(-33deg);
+		position: absolute;
+		opacity: 1;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 0;
+	}
+
+	.button.is-success .anim-result, .button.is-negative .anim-result {
+		animation-name: is-result-anim;
+		animation-duration: 3.5s;
+		animation-timing-function: ease;
+		animation-iteration-count: 1;
+	}
+
+	.button.is-success .anim-result {
+		background-color: var(--colour-button-positive);
+	}
+	.button.is-negative .anim-result {
+		background-color: var(--colour-button-negative);
+	}
 
 	.is-message .colour-fill-depends, .is-success .colour-fill-depends, .is-error .colour-fill-depends {
-		color: var( --colour-inv );
+		/*color: var( --colour-inv );*/
 	}	
-*/
 
-/*	.colour-fill-depends {
-		color: var( --colour );
-	}*/
+
 </style>
 

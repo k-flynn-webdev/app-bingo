@@ -1,14 +1,17 @@
 <template>
 		
 	<div 
-		class="hover-trigger player-dot colour-bg-inv button-shadow"
-		v-bind:class="{ 'is-player' : isPlayer, 'colour-bg-button' : isPlayer }">
+		class="hover-trigger player colour-fill-pop">
 
-			<div class="anim-6 hover-message text button-shadow">
+			<div 
+				class="diamond" 
+				v-bind:class="{ 'colour-bg-pop' : isPlayer }"></div>
+
+			<!-- <div class="anim-6 hover-message text button-shadow">
 				<p class="text colour-fill-bg">
 					{{ player.data.name }}
 				</p>
-			</div>
+			</div> -->
 
 	</div>
 
@@ -44,12 +47,22 @@
 
 <style>
 
-	.player-dot {
+	.player {
 		display: inline-block;
-		margin-right: 0.5rem;
+		margin: 0;
+		padding: 0;		
+		margin-right: var(--margin);
+		backface-visibility: hidden;
+	}
+
+	.diamond {
+		margin: 0;
+		padding: 0;
+		transform: rotateZ(45deg);
 		width: 1rem;
-		height: 2.5rem;
-		border-radius: var( --border-radius );
+		height: 1rem;
+		border: 3px solid var(--colour-pop);
+		box-sizing: border-box;	
 	}
 
 </style>

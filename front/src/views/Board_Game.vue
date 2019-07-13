@@ -2,71 +2,55 @@
 
 	<section>
 
-		<c-panel>
+		<div class="center-auto-h width-90">
 
 			<c-init-instance v-on:trigger="messageShow"></c-init-instance>
 			<c-init-board v-on:trigger="messageShow"></c-init-board>
 			<c-init-player v-on:trigger="messageShow"></c-init-player>
-			
+
+
 			<c-window-game></c-window-game>
 			<c-window-player></c-window-player>
+
 
 			<c-update-instance v-on:trigger="messageShow"></c-update-instance>
 
 
-			<div slot="header">
+			<p class="poster colour-fill-pop br-small">
 				{{ board_name }}
-			</div>
+			</p>
 
-			<div slot="options">
-				<c-players class="item"></c-players>
-				<c-player class="item"></c-player>
+
+			<div class="options-bar br-small">
+				<c-players></c-players>
+				<c-player></c-player>
 			</div>
 
 			<c-game-words></c-game-words>
 
-			<br>
-			<br>
+			<div class="options-bar" style="margin-top:2rem;">
 
-			<div>
-		
 				<c-button
+					class="border-white"
+					style="transform: translateY(-50%);"
 					v-bind:class="{ 'game-ready' : game_ready }"
 					ref="btnReset"
 					v-bind:onClick=reset>
 						Reset
 				</c-button>
 
-				<c-button-expand
-					style="display:inline;"
-					v-bind:buttonShow=true
-					v-bind:buttonClickClose=true
-					v-bind:buttonClick=onCopy>
-
-						Share
-
-						<input 
-							slot="content"
-							ref="shareLinkURL"
-							class="text colour-fill-bg-inv text-input" 
-							type="string"
-							name="share"
-							v-bind:value=share.link>
-
-						<p class="label" slot="button">
-							Copy
-						</p>
-					
-				</c-button-expand>
-
+				<div class="option-right">
+					<c-button-share style="transform: translateY(-50%);"></c-button-share>
+				</div>
+				
 			</div>
 
-			<span class="text colour-fill-bg-inv">
-				{{ game_state.mode }}
-				{{ game_state.result }}
-			</span>
+		</div>
 
-		</c-panel>
+		<span class="text colour-fill-bg-inv">
+			{{ game_state.mode }}
+			{{ game_state.result }}
+		</span>
 
 	</section>	
 
@@ -76,6 +60,7 @@
 
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
+	import ButtonShare from '../components/c_button_share.vue';
 	import Message from '../components/c_message.vue';
 	import ButtonExpand from '../components/c_button_expand.vue';
 
@@ -181,6 +166,7 @@
 		components: {
 			'c-panel' : Panel,
 			'c-button' : Button,
+			'c-button-share' : ButtonShare,
 			'c-message' : Message,
 			'c-button-expand' : ButtonExpand,
 			'c-game-words' : GameWords,
@@ -197,6 +183,19 @@
 </script>
 
 <style>
+
+.options-bar {
+	position: relative;
+	height: 3rem;
+}
+
+.option-right {
+	position: absolute;
+	right: 0;
+	top: 0;
+	
+	/*top: 0;*/
+}
 
 </style>
 

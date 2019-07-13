@@ -68,7 +68,7 @@ require('@/assets/style/reset.css');
 require('@/assets/style/default.css');
 require('@/assets/style/colour.css');
 require('@/assets/style/text.css');
-// require('@/assets/style/anim.css');
+require('@/assets/style/anim.css');
 // require('@/assets/style/custom.css');
 
 import cNavBar from './components/c_navbar.vue';

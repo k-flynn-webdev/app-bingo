@@ -5,7 +5,6 @@
 		v-bind:onShow=state.display 
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_click>
-			
 
 			<div slot="header">
 
@@ -16,7 +15,6 @@
 			</div>
 
 			<br>
-
 
 			<div 
 				ref="field_name"
@@ -39,7 +37,6 @@
 				</c-field-result>
 
 			</div>
-
 
 			<br>
 
@@ -86,10 +83,8 @@
 
 			</div>
 
-
 			<br>
 			<br>
-
 
 			<c-button
 				ref="btnOK"
@@ -101,15 +96,9 @@
 					</p>
 			</c-button>
 
-
-<!-- 		<c-message 
+		<c-message 
 			ref="msgObj">
-		</c-message> -->
-
-
-
-
-		<!-- <br> -->
+		</c-message>
 
 	</c-popup>
 

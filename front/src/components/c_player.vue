@@ -2,30 +2,34 @@
 
 
 	<div 
-		class="hover-trigger"
+		class="hover-trigger item-right"
 		v-bind:class="{ 'hover-force' : state.display }">
 
-			<div class="anim-6 hover-message-left text button-shadow">
+<!-- 			<div class="anim-6 hover-message-left text button-shadow">
 				<p class="text colour-fill-bg">
 					{{ player_name }}
 				</p>
-			</div>
+			</div> -->
 
-			<c-button
-				class="is-player"
+			<button 
 				ref="btnPlayer"
-				v-bind:onClick=clicked>
+				v-on:click=clicked
+				class="button icon shadow colour-bg-pop border-round"
+				style="width:2.6rem;height:2.6rem;overflow:hidden;border:2px solid white;">
 
-					<svg class="icon colour-fill-bg" height="100%" viewBox="0 0 286 301" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;margin:0;padding:0;">
-						<path class="icon-path" d="M0.983,215.25l0,-1.555c0,-34.514 40.305,-63.859 96.27,-74.403c-18.879,-14.012 -31.122,-36.469 -31.122,-61.763c0,-42.426 34.444,-76.87 76.869,-76.87c42.425,0 76.869,34.444 76.869,76.87c0,25.294 -12.243,47.751 -31.122,61.763c55.965,10.544 96.27,39.889 96.27,74.403l0,1.555c-27.006,50.823 -80.498,85.463 -142.017,85.463c-61.519,0 -115.011,-34.64 -142.017,-85.463Z"/>
+					<svg
+						class="colour-fill-dark"
+						height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" 
+						style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+							<path d="M4.436,172.579l62.363,-23.596l-15.606,-20.474l-11.002,-28.915l13.389,-56.973l36.424,-14.683l48.755,11.309l15.538,37.685l-6.367,48.426l-13.447,23.031l56.502,21.922l9.015,29.689l-200,0l4.436,-27.421Z"/>
 					</svg>
 
-			</c-button>
+			</button>
 
 			<div class="player-score">
-				<p class="title colour-fill-bg-inv text-shadow">
+				<p class="poster colour-fill-pop ">
 					{{ player_Score }}
-				</p>	
+				</p>
 			</div>
 
 	</div>
@@ -88,50 +92,19 @@
 
 <style scoped>
 
-	.button.is-player {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-
-/*		box-shadow: 1px 3px 0 ;
-		-webkit-box-shadow: 1px 3px 0 ;
-		-moz-box-shadow: 1px 3px 0 ;*/
-
+	.item-right {
+		position: absolute;
+		right: 0;
 	}
-
-	.is-player, .icon {
-		width: 2.5rem !important;
-		height: 2.5rem !important;
-		margin: 0;
-		padding: 0;
-	}
-
 
 	.player-score {
 		position: absolute;
-		top: .1rem;
-		right: 3.25rem;
-	}
-	.player-score .title {
-		transform: scale(1.4);
-	}
-
-	.icon-path {
-		transform-origin: center top;
-		transform: scale(1.2);
+		top: -0.25rem;
+		left: -2rem;
 	}
 
 </style>
 
 <style>
-
-	.is-player, .is-player .label {
-		min-width: unset !important;
-		min-height: unset !important;
-	}
-
-	.is-player .label {
-		margin: 0;
-	}
 
 </style>

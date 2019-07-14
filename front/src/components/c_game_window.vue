@@ -6,37 +6,37 @@
 		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_game_click>
 
+			<div slot="header">
+
+				<p class="text-bold colour-fill-dark">
+					{{ get_name }}
+				</p>
+				
+			</div>
+
 			<div>
-				<p>
+				<p class="header">
 					{{ state.message }} 
 				</p>
-
-				<br>
 
 				<c-button
 					v-if=state.type.lost||state.type.won
 					ref="btnNew"
 					v-bind:onClick=button_new>
-						<p class="colour-fill-bg-inv label">
-							New
-						</p>
+						New
 				</c-button>
 
 				<c-button
 					v-if=state.type.kicked
 					ref="btnRejoin"
 					v-bind:onClick=button_rejoin>
-						<p class="colour-fill-bg-inv label">
-							Rejoin
-						</p>
+						Rejoin
 				</c-button>	
 
 				<c-button
 					ref="btnHome"
 					v-bind:onClick=button_home>
-						<p class="colour-fill-bg-inv label">
-							Home
-						</p>
+						Home
 				</c-button>
 
 			</div>
@@ -70,6 +70,7 @@
 			return {
 				attrs : {
 					extraClass : 'bullshit-menu',
+					time : 30,
 				},
 				state : {
 					remove : true,
@@ -91,6 +92,9 @@
 			get_field_class : function(){
 				return this.state.class;
 			},
+			get_name : function(){
+				return this.$store.getters['board/get_board'].data.name || 'Name';
+			},				
 		},
 
 		methods:{
@@ -103,7 +107,7 @@
 				this.state.type.won = false;
 				this.state.type.lost = false;
 				this.state.type.kicked = false;
-				this.state.time = 30;
+				this.state.time = this.attrs.time;
 			},
 
 
@@ -265,30 +269,4 @@
 </script>
 
 <style>
-
-/*.bullshit-menu .panel{
-	border-radius: 1rem;
-	max-width: 25rem;
-	background-color: var( --colour-inv );
-}*/
-
-/*.bullshit-menu .panel header{
-	margin: 0;
-}
-.bullshit-menu .panel .header{
-	margin: 0;
-}
-.bullshit-menu .panel p{
-	margin: 0;
-}*/
-
-
-/*.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {*/
-	/*background-color: hsla(1,1%,33%,.8);*/
-/*}*/
-/*.bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {*/
-	/*background-color: var(--colour-bg-input-focus);*/
-/*}*/
-
-
 </style>

@@ -28,7 +28,9 @@
 
 			<c-game-words></c-game-words>
 
-			<div class="options-bar" style="margin-top: 4rem;">
+			<br>
+
+			<div class="options-bar">
 
 				<c-button
 					style="margin-top:.5rem;"
@@ -193,8 +195,6 @@
 	position: absolute;
 	right: 0;
 	top: 0;
-	
-	/*top: 0;*/
 }
 
 </style>

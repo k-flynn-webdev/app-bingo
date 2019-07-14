@@ -59,6 +59,26 @@
 
 			</div>
 
+
+			<div 
+				class="button-row" 
+				v-bind:data-info=state.info
+				v-on:click=button_info>
+
+					<span class="title colour-fill-dark"> Info </span>
+					<div class="button-row-icon anim-3"></div>	
+
+					<div class="row-content anim-3">
+
+						<p class="text text-center colour-fill-bg">
+								Players ():
+						</p>
+
+					</div>
+
+			</div>
+
+
 		</div>
 
 		<div slot="footer">
@@ -94,6 +114,10 @@
 				board : '',
 				instance : '',
 				
+				state : {
+					info : false,
+				},
+				
 				join : {
 					link : ''
 				},
@@ -108,6 +132,11 @@
 			},
 		},
 		methods:{
+
+			button_info : function(){
+				this.state.info = !this.state.info;
+			},
+
 			init : function(){
 				this.board = this.$route.params.board;
 				this.share.link = window.location.href;
@@ -134,6 +163,14 @@
 					
 				let self = this;	
 				let btn = self.$refs.btnPlay;
+
+				// setTimeout( function(){
+				// 	btn.$emit('state', 'success');
+				// }, 1.5*1000);
+
+				// setTimeout( function(){
+				// 	btn.$emit('state', 'reset');
+				// }, 5*1000);
 
 				this.onSubmit( object, self, btn, null, self.onSuccess, self.onError);
 			},

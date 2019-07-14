@@ -8,13 +8,11 @@
 
 			<div slot="header">
 
-				<p class="colour-fill-dark">
+				<p class=" text-bold colour-fill-dark">
 					{{ get_name }}
 				</p>
 				
 			</div>
-
-			<br>
 
 			<div 
 				ref="field_name"
@@ -38,18 +36,15 @@
 
 			</div>
 
-			<br>
-
-
 			<div 
-				class="info-row" 
+				class="button-row" 
 				v-bind:data-info=state.info
 				v-on:click=button_info>
 
 					<span class="title colour-fill-dark"> Info </span>
-					<div class="info-icon anim-3"></div>	
+					<div class="button-row-icon anim-3"></div>	
 
-					<div class="info-content anim-3">
+					<div class="row-content anim-3">
 
 						<p class="text text-center colour-fill-bg">
 								Players ({{ get_players.length }}):
@@ -79,26 +74,16 @@
 
 							</div>
 
-						</div>						
+						</div>
 
 					</div>
 
-
-
-
 			</div>
 
-			<br>
-
-
-
-			<br>
-			<br>
 
 			<c-button
 				ref="btnOK"
 				class="button-action"
-				style="min-width: 100%;"
 				v-bind:onClick=name_update>
 					<p class="colour-fill-bg-inv label">
 						{{ button.label }}
@@ -328,35 +313,4 @@
 </script>
 
 <style>
-
-.info-row {
-	text-align: left;
-	margin: 0 calc(var(--margin) * .25);
-	padding: var(--margin);
-	background-color: hsla(1,1%,50%,.15);
-}
-
-.info-icon {
-	display: inline-block;
-	margin-left: 1rem;
-	width: 1rem;
-	height: 1rem;
-	border-top: 4px solid var(--colour-dark);
-	border-right: 4px solid var(--colour-dark);
-	transform: rotateZ(45deg);
-}
-.info-row[data-info] .info-icon {
-	transform: rotateZ(135deg);
-}
-
-.info-content {
-	opacity: 0;
-	height: 1px;
-}
-.info-row[data-info] .info-content {
-	opacity: 1;
-	height: auto;
-}
-
-
 </style>

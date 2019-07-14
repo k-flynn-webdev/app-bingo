@@ -113,7 +113,7 @@
 		height: unset !important;
 		display: block;
 		width: 100%;
-		margin: .4rem 0;
+		margin: .4rem 0 !important;
 	}
 
 	.word-button p{

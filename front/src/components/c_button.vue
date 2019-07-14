@@ -291,11 +291,12 @@
 	.button .anim-result {
 		transform: skewX(-33deg);
 		position: absolute;
-		opacity: 1;
+		z-index: 0;
 		top: 0;
 		left: 0;
 		height: 100%;
 		width: 0;
+		opacity: 1;
 	}
 
 	.button.is-success .anim-result, .button.is-negative .anim-result {

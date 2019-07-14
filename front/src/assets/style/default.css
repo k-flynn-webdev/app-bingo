@@ -104,6 +104,7 @@ body {
 
 
 .border-round{
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
 	border-radius: var(--border-radius);
 }
 

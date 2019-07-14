@@ -108,14 +108,18 @@
 
 
 			game_won : function(){
-				this.type_reset();
+				if( this.state.display ){
+					return;
+				}				
 				this.state.type.won = true;
 				this.state.message = 'You are the Winner!';
 				this.state.lock = true;
 				this.window_game_show();
 			},
 			game_lost : function(){
-				this.type_reset();
+				if( this.state.display ){
+					return;
+				}
 				this.state.type.lost = true;
 				let winner = this.$store.getters['game/get_winner'];
 				this.state.message = winner.data.name + ' is the Winner!';
@@ -123,7 +127,9 @@
 				this.window_game_show();
 			},
 			game_kicked : function(){
-				this.type_reset();
+				if( this.state.display ){
+					return;
+				}
 				this.state.type.kicked = true;
 				this.state.message = 'You have been removed!';
 				this.state.lock = true;
@@ -227,9 +233,10 @@
 			window_game_hide : function(){
 				this.state.display = false;
 				this.time_off();
-				
+
 				let self = this;
 				setTimeout( function(){
+					self.type_reset();
 					self.state.remove = true;
 					self.$root.$off('player.message', this.message );
 					self.$root.$off('player.hide', this.window_game_hide );

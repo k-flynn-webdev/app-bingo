@@ -71,7 +71,7 @@
 
 <script>
 
-	import Panel from '../components/c_panel.vue';
+	// import Panel from '../components/c_panel.vue';
 
 	require('@/assets/style/panel.css');
 
@@ -105,7 +105,7 @@
 			this.exit();
 		},
 		components: {
-			'c-panel' : Panel,
+			// 'c-panel' : Panel,
 		},
 }
 

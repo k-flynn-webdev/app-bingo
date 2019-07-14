@@ -177,11 +177,9 @@
 					self.$store.dispatch('instance/exit');
 					self.$store.dispatch('player/exit');
 					self.$store.dispatch('game/exit');
-
 					self.$router.push( '/instance/' +  input.data.url);
 
 					self.$root.$emit('game.pre.reset');
-
 
 				}, 1500);
 			},

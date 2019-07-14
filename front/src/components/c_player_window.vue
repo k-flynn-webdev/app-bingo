@@ -277,13 +277,15 @@
 					}
 				} else {
 					this.state.display = false;
-					this.$root.$emit('player.closed');
+					
+					this.$root.$off('player.success', this.button_success );
+					this.$root.$off('player.message', this.message );
+					this.$root.$off('player.hide', this.window_hide );
+
 					let self = this;
 					setTimeout( function(){
-						self.state.remove = true;
-						self.$root.$off('player.message', this.message );
-						self.$root.$off('player.hide', this.window_hide );
-						self.$root.$off('player.success', this.button_success );
+						self.state.remove = true;	
+						self.$root.$emit('player.closed');		
 						self.$root.$emit('page.title', '');
 					},1000);
 				}

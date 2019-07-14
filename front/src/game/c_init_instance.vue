@@ -75,13 +75,11 @@
 
 			instance_start : function(){
 				if( this.state.stop ){
-					// console.log('instance start triggered.');
 					this.state.stop = false;
 					this.instance_get();
 				}
 			},
 			instance_stop : function(){
-				// console.log( 'instance stopping update');
 				this.state.stop = true;
 				clearTimeout( instanceGet );
 			},

@@ -40,48 +40,57 @@
 
 			<br>
 
-			<!-- <div 
-				class="game-info">
 
-				<div>
+			<div 
+				class="info-row" 
+				v-bind:data-info=state.info
+				v-on:click=button_info>
 
-					<p 
-						class="text colour-fill-bg">
-							Current Players ({{ get_players.length }}):
-					</p>
+					<span class="title colour-fill-dark"> Info </span>
+					<div class="info-icon anim-3"></div>	
 
-					<div 
-						v-if="get_players.length">
+					<div class="info-content anim-3">
 
-						<p 
-							v-if="!get_joined"
-							class="text colour-fill-bg"
-							v-for="(player, index) in get_players"
-							v-bind:key="player.url">
-								{{ player.data.name }} : {{ player.data.score }}
+						<p class="text text-center colour-fill-bg">
+								Players ({{ get_players.length }}):
 						</p>
+
+						<div v-if="get_players.length">
+
+							<span
+								class="text colour-fill-bg"
+								v-for="(player, index) in get_players"
+								v-bind:key="player.url">
+									{{ player.data.name }}, 
+							</span>
+
+						</div>
+
+						<div class="text-left buttons">
+
+							<div>
+								<c-button
+									ref="btnBoard"
+									v-bind:onClick=go_to_Board>
+									Board
+								</c-button>
+
+								<span class="text colour-fill-dark button-helper"> View Board. </span>
+
+							</div>
+
+						</div>						
 
 					</div>
 
-				</div>
+
+
 
 			</div>
- -->
 
-			<div class="text-left buttons">
+			<br>
 
-				<div>
-					<c-button
-						ref="btnBoard"
-						v-bind:onClick=go_to_Board>
-						Board
-					</c-button>
 
-					<span class="text colour-fill-dark button-helper"> View Board. </span>
-
-				</div>
-
-			</div>
 
 			<br>
 			<br>
@@ -128,6 +137,7 @@
 				state : {
 					remove : false,
 					display : false,
+					info : false,
 					lock : false,
 					class : '',
 				},	
@@ -156,6 +166,12 @@
 		},
 
 		methods:{
+
+			button_info : function(){
+				this.state.info = !this.state.info;
+			},
+
+
 			go_to_Board : function(){
 				// todo
 			},
@@ -240,6 +256,7 @@
 				let game = this.$store.getters['game/get_game'];
 
 				this.reset_validate();
+				this.state.info = false;
 
 				if( !game.joined ){
 					this.button.label = 'Join';
@@ -312,39 +329,34 @@
 
 <style>
 
-/*.bullshit-menu .panel{
-	border-radius: .5rem;
-	max-width: 25rem;
-	background-color: var( --colour-inv );
-}*/
-
-/*.bullshit-menu .panel header, .bullshit-menu .panel .footer {
-	padding-top: unset;
-	margin: unset;
+.info-row {
+	text-align: left;
+	margin: 0 calc(var(--margin) * .25);
+	padding: var(--margin);
+	background-color: hsla(1,1%,50%,.15);
 }
-.bullshit-menu .panel main {
-	min-height: unset;
-}*/
 
-
-
-/*.bullshit-menu .panel header{
-	margin: 0;
+.info-icon {
+	display: inline-block;
+	margin-left: 1rem;
+	width: 1rem;
+	height: 1rem;
+	border-top: 4px solid var(--colour-dark);
+	border-right: 4px solid var(--colour-dark);
+	transform: rotateZ(45deg);
 }
-.bullshit-menu .panel .header{
-	margin: 0;
+.info-row[data-info] .info-icon {
+	transform: rotateZ(135deg);
 }
-.bullshit-menu .panel p{
-	margin: 0;
-}*/
 
+.info-content {
+	opacity: 0;
+	height: 1px;
+}
+.info-row[data-info] .info-content {
+	opacity: 1;
+	height: auto;
+}
 
-/*.bullshit-menu input, .bullshit-menu .input , .bullshit-menu textarea {
-	background-color: hsla(1,1%,33%,.8);
-}
-.bullshit-menu input:focus, .bullshit-menu .input:focus , .bullshit-menu textarea:focus {
-	background-color: var(--colour-bg-input-focus);
-}
-*/
 
 </style>

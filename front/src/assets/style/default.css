@@ -113,7 +113,7 @@ body {
 
 
 
-button, .button {	
+button, .button {
 	margin: .15rem var(--margin);
 	padding: .15em 0;
 
@@ -128,6 +128,9 @@ button, .button {
 	pointer-events: all;
 }
 
+.buttons button, .buttons .button {	
+	margin-left: 0;
+}
 
 
 
@@ -240,6 +243,8 @@ button, .button {
 	position:relative;
 }
 .hover-message, .hover-message-left {
+	max-width: 65vw;
+	overflow: hidden;
 	position: absolute;
 	z-index: 10;
 	right: -50%;

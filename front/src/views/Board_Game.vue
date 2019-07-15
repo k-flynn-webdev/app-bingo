@@ -4,17 +4,16 @@
 
 		<div class="center-auto-h width-90">
 
-			<c-init-instance v-on:trigger="messageShow"></c-init-instance>
-			<c-init-board v-on:trigger="messageShow"></c-init-board>
-			<c-init-player v-on:trigger="messageShow"></c-init-player>
+			<c-init-instance></c-init-instance>
+			<c-init-board></c-init-board>
+			<c-init-player></c-init-player>
 
 
 			<c-window-game></c-window-game>
 			<c-window-player></c-window-player>
 
 
-			<c-update-instance v-on:trigger="messageShow"></c-update-instance>
-
+			<c-update-instance></c-update-instance>
 
 			<p class="poster colour-fill-pop br-small">
 				{{ board_name }}
@@ -41,9 +40,20 @@
 						Reset
 				</c-button>
 
-				<div class="option-right">
+
+			<c-button-share 
+				class="text-right" 
+				style="position:absolute;right:0;"
+				v-bind:content=share.link>
+			</c-button-share>
+
+			<br>
+			<br>
+
+
+<!-- 				<div class="option-right">
 					<c-button-share></c-button-share>
-				</div>
+				</div> -->
 				
 			</div>
 
@@ -63,7 +73,7 @@
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
 	import ButtonShare from '../components/c_button_share.vue';
-	import Message from '../components/c_message.vue';
+	// import Message from '../components/c_message.vue';
 	import ButtonExpand from '../components/c_button_expand.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
@@ -88,7 +98,7 @@
 				},
 				share : {
 					link : '',
-				},				
+				},
 			}
 		},	
 		computed : {
@@ -119,9 +129,9 @@
 				this.game_share_link();
 			},
 
-			messageShow : function( input ){
-				// this.$refs.msgObj1.$emit('message', { class: 'content colour-fill-bg-inv', message : input } );
-			},
+			// messageShow : function( input ){
+			// 	this.$refs.msgObj1.$emit('message', { class: 'content colour-fill-bg-inv', message : input } );
+			// },
 
 			reset : function(){
 				this.$root.$emit('player.reset');
@@ -169,7 +179,6 @@
 			'c-panel' : Panel,
 			'c-button' : Button,
 			'c-button-share' : ButtonShare,
-			'c-message' : Message,
 			'c-button-expand' : ButtonExpand,
 			'c-game-words' : GameWords,
 			'c-init-board' : InitBoard,

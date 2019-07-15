@@ -14,8 +14,8 @@
 			<button 
 				ref="btnPlayer"
 				v-on:click=clicked
-				class="button icon shadow colour-bg-pop border-round"
-				style="width:2.6rem;height:2.6rem;overflow:hidden;border:2px solid white;">
+				class="button icon shadow colour-bg-pop border-round border-white"
+				style="width:2.6rem;height:2.6rem;overflow:hidden;">
 
 					<svg
 						class="colour-fill-dark"

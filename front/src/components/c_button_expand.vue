@@ -2,7 +2,8 @@
 
 	<div 
 		ref="btnHolder"
-		class="button-holder">
+		class="button-expander"
+		v-bind:data-open=display>
 
 		<c-button
 			ref="btn"
@@ -10,52 +11,31 @@
 
 				<slot class="label"> 
 				 	Label here
-				</slot>					
+				</slot>
 
 		</c-button>
 
-		<transition 
-			name="slide-fade">
+		<div class="content anim-6 field"> 
 
-			<div 
-				v-if=display
-				style="position: relative;" 
-				class="anim-6 test button-holder-row">
-				testing
-					<!-- <div 
-						class="button-holder-content">
+			<slot name="content">
+				Content here
+			</slot>
 
-							<slot name="content">
-								Content here
-							</slot>
+			<div class="button-expand-submit anim-3">
+				<c-button
+					class="label"
+					ref="btn"
+					style="min-width: unset; margin: 0;padding: 0 1rem;"
+					v-bind:onClick=onClickConfirm>
 
-							<transition 
-								name="slide-fade-side">
+						<slot class="label" name="button">
+							Submit
+						</slot>
 
-
-									<c-button
-										class="expand-button"
-										v-if=button
-										v-bind:onClick=onClickConfirm>
-											
-											<slot name="button">
-												Confirm
-											</slot>					
-
-									</c-button>
-
-							</transition>
-
-					</div> -->
-
+				</c-button>				
 			</div>
 
-		</transition>
-
-		<div 
-			class="anim-3"
-			v-bind:style=" display ? 'height: 2.3rem;' : 'height: .01rem;' ">
-		</div>
+		 </div>
 		
 	</div>
 
@@ -70,7 +50,6 @@
 		data(){
 			return {
 				display : false,
-				button : false,
 			}
 		},	
 		props: {
@@ -81,19 +60,6 @@
 		methods : {
 			onClickExpand : function(){
 				this.display = !this.display;
-
-				this.button = false;
-
-				if( this.display ){
-
-					if( this.buttonShow ){
-
-						let self = this;
-						setTimeout( function(){
-							self.button = true;
-						}, 1000);
-					}
-				}
 			},
 
 			onClickConfirm : function(){
@@ -126,81 +92,61 @@
 
 <style>
 
-	.test { 
-		background-color: green;
-	}
-
-	.button-holder {
-		position: relative;
+	.button-expander {
 		display: inline-block;
+		height: auto;
+	}
+	.button-expander[data-open] {
+		height: 5rem;
 	}
 
-	.button-holder-row {
+	.button-expander .content {
+		margin-top: 0;
+		padding: 0; 
 		position: absolute;
-		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		opacity: 0;
+		overflow: hidden;
+		transform: translateY(-1rem);
+	}
+	.button-expander[data-open] .content {
+		animation: anim-button-expand-slide-down .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
+
+		opacity: 1;
+		transform: translateY(0);
+		height: 3rem;
 	}
 
-
-	.button-holder-content {
-		border-radius: var( --border-radius );
-		position: absolute;
-		top: 0;
-		z-index: 1;
-		/*left: 50%;*/
-		/*width: 90%;*/
-		/*transform: translateX(-50%);*/
-		/*border: solid 1px white;*/
-		/*text-align: left;*/
-		/*padding: 0.1rem;*/
-		/*padding-bottom: 0.15rem;*/
-		box-sizing: border-box;
+	.button-expander .button-expand-submit {
+		transform: translateX(2rem);
+		opacity: 0;
+		transition-delay: 0;
+	}
+	.button-expander[data-open] .button-expand-submit {
+		transition-delay: 1s;
+		opacity: 1;
+		transform: translateX(0);
 	}
 
-	.expand-button {
-		position: absolute;
-		top: 0;
-		/*left: 10%;*/
-		/*right: -5px;*/
-		z-index: 5;
-		min-width: unset;
-	}
-
-
-.slide-fade-enter-active {
-	animation: anim-button-slide-down .4s cubic-bezier(0.35, 0.025, 0.3, 1.1);
-}
-.slide-fade-leave-active {}
-.slide-fade-enter, .slide-fade-leave-to {
-}
-
-.slide-fade-side-enter-active {
-	animation: anim-button-slide-in .4s ease;
-}
-.slide-fade-side-leave-active {}
-.slide-fade-side-enter, .slide-fade-side-leave-to {
-}
-
-/*@keyframes anim-button-slide-down {
+@keyframes anim-button-expand-slide-down {
 	0% { 
 		opacity:0; 
-		transform: translateY(-1.5rem);
+		transform: translateY(-1rem);
 	}
+	30% { 
+		opacity:0.1; 
+	}	
+	66% {
+		/*transform: translateY(.5rem);*/
+	}	
 	100% { 
 		opacity:1; 
 		transform: translateY(0);
 	}
 }
 
-@keyframes anim-button-slide-in {
-	0% { 
-		opacity:0; 
-		transform: translateX(1rem);
-	}
-	100% { 
-		opacity:1; 
-		transform: translateX(0);	
-	}
-}*/
 
 
 

@@ -42,16 +42,16 @@
 						Join
 
 						<input 
-							slot="content"
-							class="text colour-fill-bg-inv text-input content-input" 
+							slot="content"	
+							class="input text colour-fill-dark"
 							type="string" 
 							name="join"
 							placeholder="eg 'bc8yh2'"
 							v-model=join.link>
 
-						<p class="label" slot="button">
+						<template slot="button">
 							ok
-						</p>
+						</template>
 					
 				</c-button-expand>
 
@@ -95,11 +95,14 @@
 
 		<div slot="footer">
 
-			<div class="text-right">
+			<c-button-share 
+				class="text-right" 
+				style="position:absolute;right:0;"
+				v-bind:content=share.link>
+			</c-button-share>
 
-				<c-button-share></c-button-share>
-
-			</div>
+			<br>
+			<br>
 
 		</div>
 
@@ -245,10 +248,7 @@
 			},					
 
 
-			onCopy : function(){
-				let copyText = this.$refs.shareLinkURL.select();
-				document.execCommand('copy');
-			},
+
 		},
 		mounted(){
 			this.init();
@@ -265,22 +265,6 @@
 </script>
 
 <style>
-
-	/*.bottom-right {*/
-		
-		/*left: calc(100% - 2.33rem);*/
-	/*}*/
-
-/*	.share {
-		min-width: unset;
-		width: 2.33rem;
-		height: 2.33rem;
-	}*/
-/*	.share svg {
-		margin: 10%;
-		width: 80%;
-		height: 80%;
-	}*/
 
 
 

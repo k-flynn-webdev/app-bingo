@@ -188,6 +188,11 @@
 
 			remove : function(){
 				let tempAction = this.$store.getters['instance/get_action'];
+				let hasJoined = this.$store.getters['game/get_game'].joined;
+
+				if( !hasJoined ){
+					return;
+				}
 
 				let action = {
 					url : tempAction.url,

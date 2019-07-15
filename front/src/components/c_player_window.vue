@@ -61,20 +61,20 @@
 
 						</div>
 
-						<div class="text-left buttons">
+						<br>
 
-							<div>
-								<c-button
-									ref="btnBoard"
-									v-bind:onClick=go_to_Board>
-									Board
-								</c-button>
+						<div>
+							<c-button
+								style="margin-left:0;"
+								ref="btnBoard"
+								v-bind:onClick=go_to_Board>
+								Board
+							</c-button>
 
-								<span class="text colour-fill-dark button-helper"> View Board. </span>
-
-							</div>
+							<span class="text colour-fill-dark button-helper"> View Board. </span>
 
 						</div>
+
 
 					</div>
 
@@ -158,7 +158,9 @@
 
 
 			go_to_Board : function(){
-				// todo
+				let board = this.$store.getters['board/get_board'].url;
+				console.log( board );
+				this.$router.push('/' + 'board/' + board );
 			},
 
 			reset_validate : function(){

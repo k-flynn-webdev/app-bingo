@@ -32,7 +32,6 @@
 			<div class="options-bar">
 
 				<c-button
-					style="margin-top:.5rem;"
 					class="border-white"
 					v-bind:class="{ 'game-ready' : game_ready }"
 					ref="btnReset"
@@ -40,20 +39,14 @@
 						Reset
 				</c-button>
 
+				<c-button-share 
+					class="text-right" 
+					style="position:absolute;right:0;top:-.25rem;"
+					v-bind:content=share.link>
+				</c-button-share>
 
-			<c-button-share 
-				class="text-right" 
-				style="position:absolute;right:0;"
-				v-bind:content=share.link>
-			</c-button-share>
-
-			<br>
-			<br>
-
-
-<!-- 				<div class="option-right">
-					<c-button-share></c-button-share>
-				</div> -->
+				<br>
+				<br>
 				
 			</div>
 
@@ -129,10 +122,6 @@
 				this.game_share_link();
 			},
 
-			// messageShow : function( input ){
-			// 	this.$refs.msgObj1.$emit('message', { class: 'content colour-fill-bg-inv', message : input } );
-			// },
-
 			reset : function(){
 				this.$root.$emit('player.reset');
 				this.$root.$emit('player.words.reset');
@@ -149,11 +138,6 @@
 				if( this.$refs.btnReset !== undefined ){
 					this.$refs.btnReset.$emit( 'state', 'message', 'Error');
 				}
-			},
-
-			onCopy : function(){
-				let copyText = this.$refs.shareLinkURL.select();
-				document.execCommand('copy');
 			},
 
 			game_share_link : function(){
@@ -200,11 +184,6 @@
 	height: 3rem;
 }
 
-.option-right {
-	position: absolute;
-	right: 0;
-	top: 0;
-}
 
 </style>
 

@@ -5,20 +5,18 @@
 		v-bind:class="{ 'hover-trigger hover-force' : state.display }">
 
 			<div
-				class="anim-6 title hover-message-left colour-bg-pop">
+				class="anim-6 title hover-message-left">
 
-
-
-						<span 
+						<div 
+							style="padding: .5rem 1rem;"
 							v-bind:data-copied=state.copied
-							class="text-bold colour-fill-dark copy anim-3">
-								(copied)
-						</span>
-
+							class="text-bold colour-bg-notice colour-fill-dark border-round border-dark copy anim-10">
+								( copied )
+						</div>
 
 					<input 
-						style="" 
-						class="text colour-fill-dark" 
+						style="padding: .5rem 1rem;"
+						class="text colour-fill-dark colour-bg-notice" 
 						ref="txtCopy" 
 						type="string" 
 						name="" 
@@ -103,9 +101,13 @@
 
 .copy {
 	opacity: 0;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%) translateY(50%);
 }
 .copy[data-copied] {
 	opacity: 1;
+	transform: translateX(-50%) translateY(-110%);
 }
 
 </style>

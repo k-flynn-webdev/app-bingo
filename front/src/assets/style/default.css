@@ -110,7 +110,9 @@ body {
 .border-white {
 	border: 1px solid white !important;
 }
-
+.border-dark {
+	border: 1px solid grey !important;
+}
 
 
 button, .button {
@@ -180,7 +182,7 @@ button, .button {
 	text-align: left;
 	margin: var(--margin);
 	padding: calc(var(--margin) * .5) var(--margin);
-	background-color: hsla(1,1%,50%,.15);
+	background-color: var(--colour-notice)
 }
 
 .button-row-icon {
@@ -244,7 +246,7 @@ button, .button {
 }
 .hover-message, .hover-message-left {
 	max-width: 65vw;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	position: absolute;
 	z-index: 10;
 	right: -50%;

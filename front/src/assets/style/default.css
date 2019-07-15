@@ -142,6 +142,7 @@ button, .button {
 	background-color: var(--colour-light) !important;
 }
 .button.button-action p{
+	margin: 0.2rem 1rem;
 	color: var(--colour-pop) !important;
 }
 
@@ -181,20 +182,21 @@ button, .button {
 .button-row {
 	text-align: left;
 	margin: var(--margin);
-	padding: calc(var(--margin) * .5) var(--margin);
+	padding: calc(var(--margin) * .25) var(--margin);
 	background-color: var(--colour-notice)
 }
 
 .button-row-icon {
 	display: inline-block;
-	margin-left: 1rem;
-	width: 1rem;
-	height: 1rem;
+	margin-left: 0;
+	width: .75rem;
+	height: .75rem;
 	border-top: 4px solid var(--colour-dark);
 	border-right: 4px solid var(--colour-dark);
 	transform: rotateZ(45deg);
 }
 .button-row[data-info] .button-row-icon {
+	margin-left: 0.5rem;
 	transform: rotateZ(135deg);
 }
 

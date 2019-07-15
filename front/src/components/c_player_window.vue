@@ -41,7 +41,7 @@
 				v-bind:data-info=state.info
 				v-on:click=button_info>
 
-					<span class="title colour-fill-dark"> Info </span>
+					<span class="label colour-fill-dark"> Info </span>
 					<div class="button-row-icon anim-3"></div>	
 
 					<div class="row-content anim-3">

@@ -8,15 +8,15 @@
 				class="anim-6 title hover-message-left">
 
 						<div 
-							style="padding: .5rem 1rem;"
+							style="padding: .5rem 1rem;z-index:1;"
 							v-bind:data-copied=state.copied
-							class="text-bold colour-bg-notice colour-fill-dark border-round border-dark copy anim-10">
+							class="text-bold colour-bg-dark colour-fill-pop border-round border-dark copy anim-10">
 								( copied )
 						</div>
 
 					<input 
 						style="padding: .5rem 1rem;"
-						class="text colour-fill-dark colour-bg-notice" 
+						class="text colour-fill-dark border-round colour-bg-notice" 
 						ref="txtCopy" 
 						type="string" 
 						name="" 
@@ -82,7 +82,7 @@
 				}
 			},
 			onCopy : function(){
-				let copyText = this.$refs.txtCopy.select();
+				this.$refs.txtCopy.select();
 				document.execCommand('copy');
 			},			
 		},
@@ -102,12 +102,12 @@
 .copy {
 	opacity: 0;
 	position: absolute;
-	left: 50%;
-	transform: translateX(-50%) translateY(50%);
+	right: 0;
+	transform: translateX(1.5rem);
 }
 .copy[data-copied] {
 	opacity: 1;
-	transform: translateX(-50%) translateY(-110%);
+	transform: translateX(-1.5rem);
 }
 
 </style>

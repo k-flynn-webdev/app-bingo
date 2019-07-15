@@ -70,9 +70,21 @@
 
 					<div class="row-content anim-3">
 
-						<p class="text text-center colour-fill-bg">
-								Players ():
+						<p class="text text-bold text-center br-small">
+							Words or Phrases:
 						</p>
+
+						<ul>
+							
+							<li class="text text-center colour-fill-bg"
+								v-for="(word, index) in get_words" 
+								v-bind:key="index">
+
+									{{ word }}.
+
+							</li>
+
+						</ul>
 
 					</div>
 
@@ -113,8 +125,15 @@
 			return {
 				board : '',
 				instance : '',
-				
+				attrs : {
+					server : {
+						max_timeouts : 5,
+						timing : 1000,
+					},
+					action : Object,
+				},		
 				state : {
+					timeouts : 0,
 					info : false,
 				},
 				
@@ -124,12 +143,16 @@
 				share : {
 					link : '',
 				},
+
 			}
 		},
 		computed : {
 			get_name : function(){
 				return this.$store.getters['board/get_board'].data.name || 'Name';
 			},
+			get_words : function(){
+				return this.$store.getters['board/get_board'].data.words || 'Words';
+			},			
 		},
 		methods:{
 
@@ -141,7 +164,33 @@
 				this.board = this.$route.params.board;
 				this.share.link = window.location.href;
 				this.$root.$emit('page.title', 'BOARD');
-			},			
+
+				let tempURL = '/api/board/' + this.board;
+
+				let action = {
+					url : tempURL,
+					method : 'GET',
+					JSON : false };
+
+				this.attrs.action = action;
+
+				let self = this;
+				self.onSubmit( self.attrs.action, self, null, null, self.board_success, self.board_error);
+			},
+
+			board_success : function( input ){
+				this.$store.dispatch('board/set_board', input.data );
+			},
+			board_error : function( input ){
+				if( this.state.timeouts < this.attrs.server.max_timeouts ){
+					let self = this;
+					setTimeout( function(){
+						self.state.timeouts +=1
+						self.onSubmit( self.attrs.action, self, null, null, self.board_success, self.board_error);
+					}, self.attrs.server.timing );
+				}
+			},
+
 			onSuccess : function( input ){
 				let self = this;
 				setTimeout( function(){

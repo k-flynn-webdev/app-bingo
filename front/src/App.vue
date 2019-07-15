@@ -5,49 +5,49 @@
 		<c-navbar>
 
 			<router-link 
-				class="link colour-fill-pop colour-bg-pop border-round" 
+				class="link colour-bg-pop border-round delay-2" 
 				to="/board/create">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							Create
 						</p>
 			</router-link>
 
 			<template v-slot:active>
 				<router-link 
-					class="link colour-fill-pop colour-bg-pop border-round" 
+					class="link colour-bg-pop border-round delay-2" 
 					to="/logout">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							Logout
 						</p>
 				</router-link>
 				<router-link 
-					class="link colour-fill-pop colour-bg-pop border-round" 
+					class="link colour-bg-pop border-round delay-2" 
 					to="/account">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							Account
 						</p>
 				</router-link>
 				<router-link 
-					class="link colour-fill-pop colour-bg-pop border-round"					
+					class="link colour-bg-pop border-round delay-2"					
 					to="/admin/request">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							AdminRequest
 						</p>
 				</router-link>
 				<router-link 
-					class="link colour-fill-pop colour-bg-pop border-round"	
+					class="link colour-bg-pop border-round delay-2"	
 					to="/admin">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							AdminBoard
 						</p>
 				</router-link>
 			</template>
 
-			<template v-slot:none-active>	
+			<template v-slot:none-active>
 				<router-link 
-					class="link colour-fill-pop colour-bg-pop border-round"	
+					class="link colour-bg-pop border-round delay-2"	
 					to="/login">
-						<p class="colour-fill-dark poster link"> 
+						<p class="colour-fill-dark header link-text"> 
 							Login
 						</p>
 				</router-link>

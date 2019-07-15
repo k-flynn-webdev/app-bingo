@@ -277,7 +277,8 @@
 		margin-top: 5rem;
 	}
 	#navbar .content .link {
-		margin: 1rem;
+		margin: calc(var(--margin)*0.4) var(--margin);
+		text-decoration: none;
 	}
 
 	#navbar[data-open] .content {
@@ -286,7 +287,53 @@
 	}	
 
 
+	#navbar .link {
+		opacity: 0;
+		transform: translateY(-1rem);
+		animation-duration: .3s;
+		animation-fill-mode: forwards;
+	}
 
+	#navbar[data-open] .link {
+		animation-name: anim-nav-link-in;
+	}
+
+	#navbar .link-text {
+		opacity: 0;
+		transform: translateX(-4rem);
+		animation-duration: .66s;
+		animation-fill-mode: forwards;
+		animation-delay: inherit;
+	}
+
+	#navbar[data-open] .link-text {
+		animation-name: anim-nav-link-text-in;
+	}
+
+	@keyframes anim-nav-link-in {
+		0% { 
+			opacity: 0;
+			transform: translateY(-1rem); 
+		}
+		50% {
+			background-color: var(--colour-light)
+		}
+		100% { 
+			opacity: 1;
+			transform: translateY(0); 
+		}
+	}
+
+	@keyframes anim-nav-link-text-in {
+		0% { 
+			opacity: 0;
+			transform: translateX(-4rem); 
+		}
+		100% { 
+			opacity: 1;
+			transform: translateX(0); 
+		}
+	}
 
 
 

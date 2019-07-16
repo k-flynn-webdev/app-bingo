@@ -73,9 +73,9 @@
 <style>
 
 
-.player + .player + .player + .player  + .player + .player + .player {
-	opacity: 0;
-}
+	.player + .player + .player + .player  + .player + .player + .player {
+		opacity: 0;
+	}
 
 	.player-dots-move .person{
 		transform: scale(1.33);
@@ -100,11 +100,11 @@
 	}
 	@keyframes anim-person-enter {
 		0% { 
-			transform: scale(0.75) translateX(2rem);
+			transform: scale(0.75) translateY(-2rem);
 			opacity: 0;
 		}
 		100% { 
-			transform: scale(1) translateX(0); 
+			transform: scale(1) translateY(0); 
 			opacity: 1;
 		}
 	}

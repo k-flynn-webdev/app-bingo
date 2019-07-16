@@ -61,14 +61,14 @@
 				this.onSubmit( this.attrs.action, this, null, null, this.latest_success, this.latest_error);
 			},
 			latest_success : function( input ){
-				console.log( input );
+				// console.log( input );
 				this.stats = input.data;
 			},
 			latest_error : function( input ){
 				if( this.state.timeouts < this.attrs.max_timeouts ){
 					let self = this;
 					counter = setTimeout( function(){
-						console.log( 'retrying connection.' );
+						// console.log( 'retrying connection.' );
 						self.state.timeouts +=1
 						self.latest_submit();
 					}, self.attrs.timing);	

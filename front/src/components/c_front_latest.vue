@@ -3,17 +3,17 @@
 	<div class="colour-fill-bg-inv">
 		<p class="title">Latest Boards</p>
 
-		<a 
-			class="" 
+
+		<router-link 
 			v-for="(item, index) in boards"
 			:key=item.url
-			v-bind:href=get_url(item)>
+			v-bind:to=get_url(item)>
 
-			<p class="text link"> 
-				{{ item.data.name }} : {{ item.data.stats.plays }}
-			</p>
+				<p class="text link"> 
+					{{ item.data.name }} : {{ item.data.stats.plays }}
+				</p>
 
-		</a>
+		</router-link>
 
 		<br>
 
@@ -67,14 +67,14 @@
 				this.onSubmit( this.attrs.action, this, null, null, this.latest_success, this.latest_error);
 			},
 			latest_success : function( input ){
-				console.log( input );
+				// console.log( input );
 				this.boards = input.data;
 			},
 			latest_error : function( input ){
 				if( this.state.timeouts < this.attrs.max_timeouts ){
 					let self = this;
 					counter = setTimeout( function(){
-						console.log( 'retrying connection.' );
+						// console.log( 'retrying connection.' );
 						self.state.timeouts +=1
 						self.latest_submit();
 					}, self.attrs.timing);	

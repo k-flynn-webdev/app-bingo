@@ -112,12 +112,11 @@
 		name: 'cPlayerWindow',
 		data(){
 			return {
-				attrs : {			
+				attrs : {
 					name : {
 						min : 3,
 						max : 33,
 					},
-					extraClass : 'bullshit-menu',
 				},
 				state : {
 					remove : false,

@@ -69,7 +69,7 @@
 					let self = this;
 
 					setTimeout( function(){
-						self.onCopy();
+						self.onCopy( self.$refs.txtCopy );
 					}, .75*1000);
 
 					setTimeout( function(){
@@ -81,10 +81,43 @@
 					}, 2.5*1000);
 				}
 			},
-			onCopy : function(){
-				this.$refs.txtCopy.select();
+			onCopy : function( el ){
+
+				// has to be done this way on IOS as it's security ...
+				
+				// resolve the element
+				el = (typeof el === 'string') ? document.querySelector(el) : el;
+
+				// handle iOS as a special case
+				if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+
+					// save current contentEditable/readOnly status
+					var editable = el.contentEditable;
+					var readOnly = el.readOnly;
+
+					// convert to editable with readonly to stop iOS keyboard opening
+					el.contentEditable = true;
+					el.readOnly = true;
+
+					// create a selectable range
+					var range = document.createRange();
+					range.selectNodeContents(el);
+
+					// select the range
+					var selection = window.getSelection();
+					selection.removeAllRanges();
+					selection.addRange(range);
+					el.setSelectionRange(0, 999999);
+
+					// restore contentEditable/readOnly to original state
+					el.contentEditable = editable;
+					el.readOnly = readOnly;
+				} else {
+					el.select();
+				}
+				// execute copy command
 				document.execCommand('copy');
-			},			
+			},		
 		},
 		mounted(){	
 			this.reset();

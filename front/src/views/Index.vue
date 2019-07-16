@@ -59,6 +59,9 @@ import Panel from '../components/c_panel.vue';
 
 export default {
 	name: 'home',
+	mounted(){
+		this.$root.$emit('page.title', '' );
+	},	
 	components: {
 		'c-panel' : Panel,
 		'c-front-latest' : Latest,

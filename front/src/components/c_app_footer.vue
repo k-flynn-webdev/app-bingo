@@ -12,12 +12,12 @@
 				<div 
 					class="footer-content">
 
-					<p class="colour-fill-bg-inv text ">Made with 
+					<p class="colour-fill-pop text">Made with 
 
 						<span>
 
 							<svg 
-								class="icon" 
+								class="colour-fill-light icon" 
 								viewBox="0 0 907 828" 
 								version="1.1" 
 								xmlns="http://www.w3.org/2000/svg" 
@@ -33,7 +33,7 @@
 						</span>
 						by 
 
-						<a class="colour-fill-accent" target="_blank" href="https://github.com/k-flynn-webdev"> k-flynn-webdev </a>
+						<a class="colour-fill-pop" target="_blank" href="https://github.com/k-flynn-webdev"> k-flynn-webdev </a>
 
 					</p>
 
@@ -41,7 +41,7 @@
 
 			</div>
 
-			<p class="colour-fill-bg-inv text app-version">
+			<p class="colour-fill-light text app-version">
 				v: {{ version }}
 			</p>		
 

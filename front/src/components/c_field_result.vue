@@ -17,6 +17,10 @@ export default {
 
 <style>
 
+.field-result {
+	margin: calc(var(--margin) *0.5) 0;
+}
+
 .field-result .result{
 	border-radius: 1rem;
 	position: absolute;

@@ -60,8 +60,10 @@
 .button-row {
 	text-align: left;
 	margin: var(--margin);
-	padding: calc(var(--margin) * .25) var(--margin);
+	padding: .5rem;
 	background-color: var(--colour-notice)
+}
+.button-row[data-open] {
 }
 
 .button-row-icon {

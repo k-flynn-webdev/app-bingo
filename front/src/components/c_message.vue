@@ -2,7 +2,7 @@
 
 	<div class="message text-center">
 		<p v-bind:class=get_class> 
-				{{ get_message }} 
+			{{ get_message }} 
 		</p>
 	</div>
 

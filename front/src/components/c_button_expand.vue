@@ -112,7 +112,7 @@
 		transform: translateY(-1rem);
 	}
 	.button-expander[data-open] .content {
-		animation: anim-button-expand-slide-down .33s cubic-bezier(0.35, 0.025, 0.3, 1.1);
+		animation: anim-button-expand-slide-down .33s cubic-bezier(0.35, 0.025, 0.3, 1.1) forwards;
 
 		opacity: 1;
 		transform: translateY(0);

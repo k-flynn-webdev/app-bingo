@@ -116,7 +116,7 @@ body {
 
 
 button, .button {
-	margin: .15rem var(--margin);
+	margin: .15rem 0;
 	padding: .15em 0;
 
 	border: none;
@@ -161,12 +161,14 @@ button, .button {
 
 
 .buttons {
-	margin: var(--margin) 0;
+	margin: calc(var(--margin)*0.5) 0;
 }
 .buttons > div {
 	/*margin-bottom: calc( var(--margin ) * 0.6);*/
 }
-.buttons .button-helper{}
+.buttons .button-helper{
+	margin: 0 calc(var(--margin)*0.5);
+}
 
 .button.icon {
 	min-width: unset;
@@ -187,7 +189,7 @@ button, .button {
 	text-align: left;
 	display: flex;
 	align-items: center;
-	margin: var(--margin) 0;
+	margin: calc(var(--margin) *0.5) 0;
 }
 
 .field > .label {
@@ -208,14 +210,56 @@ button, .button {
 }
 
 
+/* todo this later */
+.field-result > .field-tip-above, .field-result > .field-tip-below {
+	text-align: center;
+	opacity: 1;
+	transition: .5s;
+	transition-timing-function: ease;
+	height: 1rem;
+}
+.field-result > .field-tip-above {}
+.field-result > .field-tip-below {
+	height: .3rem;
+	transform: translateY(-.75rem);
+}
+
+.field-tip-above .text, .field-tip-below .text {
+	width: fit-content;
+	margin: 0 auto;
+	padding: .2rem .6rem;
+	border-radius: var(--margin);
+	background-color: var(--colour-notice);
+}
+
+.field-result.pass > .field-tip-above {
+	/*margin-bottom: 1rem;*/
+	opacity: 0;
+	height: 1px;
+}
+.field-result.pass > .field-tip-below {
+	/*margin-bottom: -1rem;*/
+	opacity: 0;
+	height: 1px;
+}
+/* todo this later */
+
+
 .br-small {
-	margin-bottom: var(--margin)
+	margin: 0;
+	padding: 0;
+	height: calc(var(--margin)*0.5);
 }
 
 .br-split {
 	opacity: 0.33;
-	margin: calc(var(--margin)*0.5) 0;
+	margin: 0;
+	padding: 0;
+	height: var(--margin);
+	margin-top: calc(var(--margin)*0.5);
+	margin-bottom: calc(var(--margin)*0.5);
 	border-bottom: 1px solid var(--colour-dark);
+	transform: translateY(-50%);
 }
 
 

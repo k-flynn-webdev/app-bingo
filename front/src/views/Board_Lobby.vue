@@ -32,7 +32,7 @@
 			</div>
 
 
-			<div ref="field_join" class=field-result>
+<!-- 			<div ref="field_join" class=field-result>
 
 				<c-button-expand	
 					ref="btnJoin"
@@ -64,33 +64,33 @@
 				<c-field-result>
 				</c-field-result>
 
-			</div>
-
+			</div> -->
 
 			<c-message ref="msgObj">
 			</c-message>
 
-
-			<c-button-row>
-
-				<template slot="label"> Info </template>
-
-				<p class="text text-bold text-center br-small">
-					Words or Phrases:
-				</p>
-
-				<ul>
-					<li class="text text-center colour-fill-bg"
-						v-for="(word, index) in get_words" 
-						v-bind:key="index">
-
-							{{ word }}.
-					</li>
-				</ul>
-
-			</c-button-row>
-
 		</div>
+
+		<c-button-row>
+
+			<template slot="label"> Info </template>
+
+			<p class="text text-bold text-center">
+				Words or Phrases:
+			</p>
+
+			<div class="br-small"></div>
+
+			<ul>
+				<li class="text text-center colour-fill-bg"
+					v-for="(word, index) in get_words" 
+					v-bind:key="index">
+
+						{{ word }}.
+				</li>
+			</ul>
+
+		</c-button-row>
 
 
 		<div slot="footer">

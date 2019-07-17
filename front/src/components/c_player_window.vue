@@ -14,6 +14,7 @@
 				
 			</div>
 
+
 			<div ref="field_name" class="field-result">
 
 				<div 
@@ -38,17 +39,19 @@
 				</div>
 
 			</div>
-
+			
 
 			<c-button-row>
 
 				<template slot="label"> Info </template>
 
-				<p class="text text-bold text-center br-small">
+				<p class="text text-bold text-center">
 						Players ({{ get_players.length }}):
 				</p>
 
 				<div v-if="get_players.length">
+
+					<div class="br-small"></div>
 
 					<span
 						class="text colour-fill-bg"
@@ -61,7 +64,8 @@
 
 				<div class="br-split"></div>
 
-				<div>
+				<div class="buttons">
+					
 					<c-button
 						style="margin-left:0;"
 						ref="btnBoard"

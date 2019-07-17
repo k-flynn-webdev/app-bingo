@@ -240,7 +240,11 @@ button, .button {
 	margin-bottom: var(--margin)
 }
 
-
+.br-split {
+	opacity: 0.33;
+	margin: calc(var(--margin)*0.5) 0;
+	border-bottom: 1px solid var(--colour-dark);
+}
 
 
 .hover-trigger {

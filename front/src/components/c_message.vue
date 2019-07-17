@@ -1,6 +1,6 @@
 <template>
 
-	<div class="message">
+	<div class="message text-center">
 		<p v-bind:class=get_class> 
 				{{ get_message }} 
 		</p>
@@ -40,6 +40,10 @@
 			},
 		},
 		methods : {
+			init : function(){
+				this.obj.class = 'hide';
+				this.$on('message', this.message_set );	
+			},
 			message_set : function( input ){
 				this.obj.class = input.class;
 				this.obj.message = input.message;
@@ -48,7 +52,7 @@
 			message_reset : function(){
 				let self =this;
 				classObj = setTimeout( function(){
-					self.obj.class = '';
+					self.obj.class = 'hide';
 				}, ((self.duration_sec - 1) * 1000) );
 				msgObj = setTimeout( function(){
 					self.obj.message = '';
@@ -56,7 +60,7 @@
 			},
 		},
 		mounted(){	
-			this.$on('message', this.message_set );	
+			this.init();
 		},
 		beforeDestroy(){
 			clearTimeout(classObj);
@@ -70,21 +74,19 @@
 </script>
 
 <style scoped >
-	
-	.message {
-/*		background-color: grey;
-*/	}
+
 	.message p {
 		transition: all 0.33s, height 0.8s;
+		opacity: 1;
+		/*margin-top: 0.75rem;*/
+		/*margin-bottom: 0.75rem;*/
+		height: 1rem;
+	}
+	.message p.hide {
 		opacity: 0;
 		height: 1px;
 	}
-	.message p.error, .message p.success ,.message p.content ,.message p.text{
-		opacity: 1;
-		margin-top: 0.75rem;
-		margin-bottom: 0.75rem;
-		height: 1rem;
-	}
+
 
 </style>
 

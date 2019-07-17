@@ -39,49 +39,42 @@
 
 			</div>
 
-			<div 
-				class="button-row" 
-				v-bind:data-info=state.info
-				v-on:click=button_info>
 
-					<span class="label colour-fill-dark"> Info </span>
-					<div class="button-row-icon anim-3"></div>	
+			<c-button-row>
 
-					<div class="row-content anim-3">
+				<template slot="label"> Info </template>
 
-						<p class="text text-center colour-fill-bg">
-								Players ({{ get_players.length }}):
-						</p>
+				<p class="text text-bold text-center br-small">
+						Players ({{ get_players.length }}):
+				</p>
 
-						<div v-if="get_players.length">
+				<div v-if="get_players.length">
 
-							<span
-								class="text colour-fill-bg"
-								v-for="(player, index) in get_players"
-								v-bind:key="player.url">
-									{{ player.data.name }}, 
-							</span>
+					<span
+						class="text colour-fill-bg"
+						v-for="(player, index) in get_players"
+						v-bind:key="player.url">
+							{{ player.data.name }}, 
+					</span>
 
-						</div>
+				</div>
 
-						<div class="br-split"></div>
+				<div class="br-split"></div>
 
-						<div>
-							<c-button
-								style="margin-left:0;"
-								ref="btnBoard"
-								v-bind:onClick=go_to_Board>
-								Board
-							</c-button>
+				<div>
+					<c-button
+						style="margin-left:0;"
+						ref="btnBoard"
+						v-bind:onClick=go_to_Board>
+						Board
+					</c-button>
 
-							<span class="text colour-fill-dark button-helper"> View Board. </span>
+					<span class="text colour-fill-dark button-helper"> View Board. </span>
 
-						</div>
+				</div>
 
+			</c-button-row>
 
-					</div>
-
-			</div>
 
 
 			<c-button
@@ -104,6 +97,7 @@
 <script>
 
 	import Button from '../components/c_button.vue';
+	import ButtonRow from '../components/c_button_row.vue';
 	import PopUp from '../components/c_popup.vue';
 	import Message from '../components/c_message.vue';
 
@@ -124,7 +118,6 @@
 				state : {
 					remove : false,
 					display : false,
-					info : false,
 					lock : false,
 				},	
 				button : {
@@ -146,11 +139,6 @@
 		},
 
 		methods:{
-
-			button_info : function(){
-				this.state.info = !this.state.info;
-			},
-
 
 			go_to_Board : function(){
 				let board = this.$store.getters['board/get_board'].url;
@@ -224,8 +212,6 @@
 
 				Validate.reset( this.$refs.field_name );
 				
-				this.state.info = false;
-
 				if( !game.joined ){
 					this.button.label = 'Join';
 					this.state.lock = true;
@@ -288,6 +274,7 @@
 		},		
 		components: {
 			'c-button' : Button,
+			'c-button-row' : ButtonRow,
 			'c-popup' : PopUp,
 			'c-message' : Message,
 			'c-field-result' : FieldResult,

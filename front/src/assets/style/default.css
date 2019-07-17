@@ -179,35 +179,7 @@ button, .button {
 }
 
 
-.button-row {
-	text-align: left;
-	margin: var(--margin);
-	padding: calc(var(--margin) * .25) var(--margin);
-	background-color: var(--colour-notice)
-}
 
-.button-row-icon {
-	display: inline-block;
-	margin-left: 0;
-	width: .75rem;
-	height: .75rem;
-	border-top: 4px solid var(--colour-dark);
-	border-right: 4px solid var(--colour-dark);
-	transform: rotateZ(45deg);
-}
-.button-row[data-info] .button-row-icon {
-	margin-left: 0.5rem;
-	transform: rotateZ(135deg);
-}
-
-.row-content {
-	opacity: 0;
-	height: 1px;
-}
-.button-row[data-info] .row-content {
-	opacity: 1;
-	height: auto;
-}
 
 
 .field{

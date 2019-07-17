@@ -70,41 +70,27 @@
 			<c-message ref="msgObj">
 			</c-message>
 
-			
-			<div 
-				class="button-row" 
-				v-bind:data-info=state.info
-				v-on:click=button_info>
 
-					<span class="title colour-fill-dark"> Info </span>
-					<div class="button-row-icon anim-3"></div>	
+			<c-button-row>
 
-					<div class="row-content anim-3">
+				<template slot="label"> Info </template>
 
-						<p class="text text-bold text-center br-small">
-							Words or Phrases:
-						</p>
+				<p class="text text-bold text-center br-small">
+					Words or Phrases:
+				</p>
 
-						<ul>
-							
-							<li class="text text-center colour-fill-bg"
-								v-for="(word, index) in get_words" 
-								v-bind:key="index">
+				<ul>
+					<li class="text text-center colour-fill-bg"
+						v-for="(word, index) in get_words" 
+						v-bind:key="index">
 
-									{{ word }}.
+							{{ word }}.
+					</li>
+				</ul>
 
-							</li>
-
-						</ul>
-
-					</div>
-
-			</div>
+			</c-button-row>
 
 		</div>
-
-
-
 
 
 		<div slot="footer">
@@ -129,6 +115,7 @@
 	import Button from '../components/c_button.vue';
 	import ButtonShare from '../components/c_button_share.vue';
 	import ButtonExpand from '../components/c_button_expand.vue';
+	import ButtonRow from '../components/c_button_row.vue';
 	import Panel from '../components/c_panel.vue';
 	
 	// import Tag from '../components/c_tag.vue';
@@ -144,8 +131,6 @@
 		mixins: [ submit ],
 		data(){
 			return {
-				board : '',
-				instance : '',
 				attrs : {
 					server : {
 						max_timeouts : 5,
@@ -155,7 +140,6 @@
 				},		
 				state : {
 					timeouts : 0,
-					info : false,
 				},
 				
 				join : {
@@ -176,10 +160,6 @@
 			},			
 		},
 		methods:{
-
-			button_info : function(){
-				this.state.info = !this.state.info;
-			},
 
 			init : function(){
 				this.board = this.$route.params.board;
@@ -220,6 +200,7 @@
 			},
 			onError: function( input ){
 				let self = this;
+				this.$refs.msgObj.$emit( input.message );
 				// TODO retry?
 				// setTimeout( function(){
 				// }, 2000);
@@ -233,14 +214,6 @@
 					
 				let self = this;	
 				let btn = self.$refs.btnPlay;
-
-				// setTimeout( function(){
-				// 	btn.$emit('state', 'success');
-				// }, 1.5*1000);
-
-				// setTimeout( function(){
-				// 	btn.$emit('state', 'reset');
-				// }, 5*1000);
 
 				this.onSubmit( object, self, btn, null, self.onSuccess, self.onError);
 			},
@@ -294,10 +267,10 @@
 			'c-button' : Button,
 			'c-button-share' : ButtonShare,
 			'c-button-expand' : ButtonExpand,
+			'c-button-row' : ButtonRow,
 			'c-panel' : Panel,
 			'c-field-result' : FieldResult,
 			'c-message' : Message,
-			// 'c-tag' : Tag,
 		},		
 }
 </script>

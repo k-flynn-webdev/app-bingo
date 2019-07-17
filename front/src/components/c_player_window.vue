@@ -14,25 +14,28 @@
 				
 			</div>
 
-			<div 
-				ref="field_name"
-				v-bind:class=get_field_class>
+			<div ref="field_name" class="field-result">
 
-				<p class="label colour-fill-dark">
-					Name
-				</p>
+				<div 
+					class="field">
 
-				<input
-					class="input text colour-fill-dark"
-					type="string"
-					placeholder="Your name"
-					value=form.name
-					v-model=form.name
-					v-on:change=validate
-					required>
+					<p class="label colour-fill-dark">
+						Name
+					</p>
 
-				<c-field-result>
-				</c-field-result>
+					<input
+						class="input text colour-fill-dark"
+						type="string"
+						placeholder="Your name"
+						value=form.name
+						v-model=form.name
+						v-on:change=validate
+						required>
+
+					<c-field-result>
+					</c-field-result>
+
+				</div>
 
 			</div>
 
@@ -61,7 +64,7 @@
 
 						</div>
 
-						<br>
+						<div class="br-split"></div>
 
 						<div>
 							<c-button
@@ -84,13 +87,13 @@
 			<c-button
 				ref="btnOK"
 				class="button-action"
-				v-bind:onClick=name_update>
+				v-bind:onClick=name_updated>
 					<p class="colour-fill-bg-inv label">
 						{{ button.label }}
 					</p>
 			</c-button>
 
-		<c-message 
+		<c-message slot="footer"
 			ref="msgObj">
 		</c-message>
 
@@ -123,7 +126,6 @@
 					display : false,
 					info : false,
 					lock : false,
-					class : '',
 				},	
 				button : {
 					label : '',
@@ -137,16 +139,10 @@
 		computed : {
 			get_name : function(){
 				return this.$store.getters['board/get_board'].data.name || 'Name';
-			},			
-			get_field_class : function(){
-				return this.state.class;
-			},
-			get_joined : function(){
-				return this.$store.getters['game/get_game'].joined;
 			},
 			get_players : function(){
 				return this.$store.getters['instance/get_players'];
-			},		
+			},
 		},
 
 		methods:{
@@ -158,74 +154,59 @@
 
 			go_to_Board : function(){
 				let board = this.$store.getters['board/get_board'].url;
-				console.log( board );
 				this.$router.push('/' + 'board/' + board );
 			},
 
-			reset_validate : function(){
-				let base = 'field field-result ';
-				this.state.class = base;
-			},
+
 
 			validate : function(){
-				let model = this.form.name;
-				let elementClass = this.$refs.field_name;
-
-				let result = Validate.length( model, this.attrs.name.min, this.attrs.name.max );
-
-				this.reset_validate();
-
-				if( result === null ){
-					return;
-				}
-
-				if( result ){
-					this.state.class += ' pass';
-				} else {
-					this.state.class += ' fail';
-				}
+				let result = Validate.length( this.$refs.field_name, this.form.name, this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
 
 				return result;
 			},
 
-			name_update : function(){
+			name_updated : function(){
 
 				let result = this.validate();
 
-				if( result === undefined ){
-					this.reset_validate();
-					this.state.class += ' fail';
+				// force a feedback	
+				if( result === null ){
+					Validate.length( this.$refs.field_name, 'x', this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
+					return;
 				}
 
-				if( result ){
+				if( !result ){
+					return;
+				}
 
-					let player = this.$store.getters['player/get_player'];
-					let game = this.$store.getters['game/get_game'];
+				let player = this.$store.getters['player/get_player'];
+				let game = this.$store.getters['game/get_game'];
+				let hasChanged = player.data.name !== this.form.name;
 
-					let hasChanged = player.data.name !== this.form.name;
+				if( !hasChanged && game.joined ){
+					this.window_hide();
+					return;
+				}
 
-					if( !hasChanged && game.joined ){
-						this.window_hide();
-						return;
-					}
-
-					// updating 
-					if( hasChanged && game.joined ){
-						this.$root.$emit('player.update', this.form.name );
-						this.$refs.btnOK.$emit('state', 'waiting');
-						return;
-					}
-
-					// clean join ..
-					player.data.name = this.form.name;
-					this.$store.dispatch('player/set_player', player );
+				// updating 
+				if( hasChanged && game.joined ){
+					this.$root.$emit('player.update', this.form.name );
 					this.$refs.btnOK.$emit('state', 'waiting');
-					this.$root.$emit('player.check');
+					return;
 				}
+
+				// clean join ..
+				player.data.name = this.form.name;
+				this.$store.dispatch('player/set_player', player );
+				this.$refs.btnOK.$emit('state', 'waiting');
+				this.$root.$emit('player.check');
+
 			},
+
 			button_success : function(){
 				this.$refs.btnOK.$emit('state', 'success');
 			},
+
 			message : function( input ){
 				this.$refs.msgObj.$emit('message' , input);
 			},
@@ -241,7 +222,8 @@
 
 				let game = this.$store.getters['game/get_game'];
 
-				this.reset_validate();
+				Validate.reset( this.$refs.field_name );
+				
 				this.state.info = false;
 
 				if( !game.joined ){
@@ -290,7 +272,7 @@
 						self.state.remove = true;	
 						self.$root.$emit('player.closed');		
 						self.$root.$emit('page.title', '');
-					},1000);
+					}, 1*1000);
 				}
 			},
 

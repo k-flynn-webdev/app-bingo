@@ -31,12 +31,13 @@
 
 			</div>
 
-			<div>
 
-				<c-button-expand
+			<div ref="field_join" class=field-result>
+
+				<c-button-expand	
 					ref="btnJoin"
 					v-bind:buttonShow=true
-					v-bind:buttonClickClose=true
+					v-bind:buttonClickClose=false
 					v-bind:buttonClick=onJoin>
 
 						Join
@@ -47,19 +48,29 @@
 							type="string" 
 							name="join"
 							placeholder="eg 'bc8yh2'"
-							v-model=join.link>
+							v-model=join.link
+							v-on:change=validate>
 
 						<template slot="button">
 							ok
 						</template>
-					
+
 				</c-button-expand>
 
-				<span class="text colour-fill-dark button-helper"> Join a friends game. </span>
+				<span class="text colour-fill-dark button-helper">
+					Join a friends game. 
+				</span>
+
+				<c-field-result>
+				</c-field-result>
 
 			</div>
 
 
+			<c-message ref="msgObj">
+			</c-message>
+
+			
 			<div 
 				class="button-row" 
 				v-bind:data-info=state.info
@@ -90,8 +101,11 @@
 
 			</div>
 
-
 		</div>
+
+
+
+
 
 		<div slot="footer">
 
@@ -116,8 +130,12 @@
 	import ButtonShare from '../components/c_button_share.vue';
 	import ButtonExpand from '../components/c_button_expand.vue';
 	import Panel from '../components/c_panel.vue';
-	// import Message from '../components/c_message.vue';
+	
 	// import Tag from '../components/c_tag.vue';
+
+	import Validate from '../helpers/h_validate_input.js';
+	import Message from '../components/c_message.vue';
+	import FieldResult from '../components/c_field_result.vue';
 
 	import { submit } from '../mixins/h_submit.js';
 
@@ -239,12 +257,31 @@
 			},	
 
 
+			validate : function(){
+				let result = Validate.length( this.$refs.field_join, this.join.link, this.$refs.msgObj, 6, 6 );
+				return result;
+			},
+
 			onJoin : function( event ){
+
+				let result = this.validate();
+
+				// force a feedback	
+				if( result === null ){
+					Validate.length( this.$refs.field_join, 'x', this.$refs.msgObj, 6, 6 );
+					return;
+				}
+
+				if( !result ){
+					return;
+				}
+
+				// possibly valid?
 				let self = this;
 				self.$refs.btnJoin.$emit('state','waiting');
 				setTimeout( function(){
 					self.$router.push( '/instance/' +  self.join.link);
-				},1000);
+				}, 1*1000);
 			},					
 
 
@@ -258,7 +295,8 @@
 			'c-button-share' : ButtonShare,
 			'c-button-expand' : ButtonExpand,
 			'c-panel' : Panel,
-			// 'c-message' : Message,
+			'c-field-result' : FieldResult,
+			'c-message' : Message,
 			// 'c-tag' : Tag,
 		},		
 }

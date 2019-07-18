@@ -223,16 +223,12 @@
 </style>
 
 <style>
-	
-:root{
-	--height-nav: 2.75rem;
-}
 
 	#navbar {
 		position: fixed;
 		z-index: 50;
 		top: 0;
-		height: var(--height-nav);
+		height: var(--nav-height);
 		width: 100%;
 	}
 
@@ -290,14 +286,14 @@
 	}
 
 	#navbar .home-icon .icon {
-		height: calc(var(--height-nav) - 1rem);
-		width: calc(var(--height-nav) - 1rem);
+		height: calc(var(--nav-height) - 1rem);
+		width: calc(var(--nav-height) - 1rem);
 		transform: rotateZ(45deg);
 		border: 4px solid white;
 	}
 
 	#navbar .burger{
-		height: calc(var(--height-nav) - .5rem);
+		height: calc(var(--nav-height) - .5rem);
 		position: relative;
 		width: 1.85em;
 		transition: 0.2s;

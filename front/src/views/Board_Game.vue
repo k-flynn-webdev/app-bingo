@@ -2,7 +2,8 @@
 
 	<section>
 
-		<div class="center-auto-h width-90">
+		<div class="center-auto-h width-95 border-round"
+		style="border: 1px solid hsla(1,1%,99%,0.1);">
 
 			<c-init-instance></c-init-instance>
 			<c-init-board></c-init-board>
@@ -15,12 +16,12 @@
 
 			<c-update-instance></c-update-instance>
 
-			<p class="poster colour-fill-pop br-small">
+			<p class="poster colour-fill-pop bingo-header">
 				{{ board_name }}
 			</p>
 
 
-			<div class="options-bar br-small">
+			<div class="options-bar">
 				<c-players></c-players>
 				<c-player></c-player>
 			</div>
@@ -44,9 +45,6 @@
 					style="position:absolute;right:0;top:-.25rem;"
 					v-bind:content=share.link>
 				</c-button-share>
-
-				<br>
-				<br>
 				
 			</div>
 
@@ -66,7 +64,7 @@
 	import Panel from '../components/c_panel.vue';
 	import Button from '../components/c_button.vue';
 	import ButtonShare from '../components/c_button_share.vue';
-	// import Message from '../components/c_message.vue';
+
 	import ButtonExpand from '../components/c_button_expand.vue';
 
 	import InitBoard from '../game/c_init_board.vue';
@@ -179,9 +177,15 @@
 
 <style>
 
+.bingo-header {
+	margin: 0.5rem 0;
+}
+
 .options-bar {
 	position: relative;
+	margin: var(--margin);
 	height: 3rem;
+	margin: .5rem;
 }
 
 

@@ -6,6 +6,8 @@
 .panel {
 	text-align: center;
 	overflow: hidden;
+	margin-top: var(--margin);
+	margin-bottom: var(--margin);
 }
 
 .panel header{

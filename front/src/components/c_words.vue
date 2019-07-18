@@ -2,12 +2,12 @@
 
 	<div 
 		ref="wrds_holder"
-		class="words-holder anim-6 br-small"
+		class="words-holder anim-6"
 		v-bind:class="{ 'words-lock' : !is_ready, 'words-ready' : is_ready, }">
 
 		<div ref="wrds_holder_inner">
 			
-			<transition-group name="anim-word" tag="div">
+			<transition-group name="anim-word" tag="">
 
 				<c-word
 					v-for="(word, index) in words_list" 

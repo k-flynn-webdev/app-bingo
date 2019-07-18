@@ -1,9 +1,9 @@
 <template>
 	
 	<c-panel>
-		<template slot="header">
+<!-- 		<template slot="header">
 			Bullshit Bingo
-		</template>
+		</template> -->
 
 		<c-front-latest></c-front-latest>
 		

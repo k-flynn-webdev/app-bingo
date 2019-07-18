@@ -4,6 +4,8 @@
 
 	--margin: 1rem;
 
+	--nav-height: 2.75rem;
+
 /*	--margin-screen-small: 0.5rem;
 	--margin-screen-med: 1rem;
 	--margin-screen-large: 1.5rem;
@@ -31,25 +33,24 @@
 	padding: 0;
 	display: block;
 	width: 100%;
-	min-height: calc(100% - 4rem);
+	min-height: calc(100% - var(--nav-height));
 	position: relative;
 }
 html {
-	padding-top: 4rem;
+	padding-top: var(--nav-height);
 	background: linear-gradient( to bottom, var(--colour-dark), 75%, var(--colour-light-gradient) );	
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
 body {
-	
 	margin: 0;
 	position: relative;
 	width: 100%;
 }
 
-.body-spacer{
-	height: 2em;
-	content: "";
+section {
+	margin-top: var(--margin);
+	margin-bottom: var(--margin);
 }
 
 .no-click {
@@ -181,7 +182,9 @@ button, .button {
 }
 
 
-
+.is-visible {
+	opacity: 1 !important;
+}
 
 
 .field{

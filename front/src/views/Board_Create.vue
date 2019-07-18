@@ -16,7 +16,7 @@
 				<input
 					class="input text colour-fill-dark"
 					type="string"
-					placeholder="Your name"
+					placeholder="Choose a board name"
 					value=form.name
 					v-model=form.name
 					v-on:change=validate_name
@@ -29,27 +29,54 @@
 
 		</div>
 
+		<div ref="field_words" class="field-result">
 
-		<div class="text-right">
-			<button class="button shadow fade-in colour-bg-dark border-round next">
-				<p class="label colour-fill-pop"> 
-					Next
+			<div 
+				v-bind:class="{ 'is-visible' : state.word_phrase.display }"
+				class="field reveal anim-6">
+
+				<p class="label colour-fill-dark">
+					Words or Phrases
 				</p>
-			</button>			
+
+				<input
+					class="input text colour-fill-dark"
+					type="string"
+					placeholder="Choose a phrase or word"
+					value=form.words
+					v-model=form.words
+					v-on:change=validate_words
+					required>
+
+				<c-field-result>
+				</c-field-result>
+
+			</div>
+
 		</div>
 
 
 
-
-
-
-
-
-		<br>
-
 		<c-message 
 			ref="msgObj">
 		</c-message>
+
+
+
+		<div 
+			slot="footer"
+			class="text-right button-next">
+
+				<button 
+					v-on:click=name_next
+					class="button shadow fade-in colour-bg-dark border-round">
+					<p class="label colour-fill-pop"> 
+						Next
+					</p>
+				</button>
+
+		</div>
+
 
 
 
@@ -169,7 +196,7 @@
 			return {
 				form : {
 					name : '',
-					words : '',
+					word_phrase : '',
 				},
 				attrs : {
 					// words_or_prases : {
@@ -181,7 +208,12 @@
 					name : {
 						min : 5,
 						max: 30,
+					},					
+					word_phrase : {
+						min : 5,
+						max: 80,
 					},
+
 
 					server : {
 						max_timeouts : 5,
@@ -193,17 +225,22 @@
 				state : {
 					init : false,
 					timeouts : 0,
+
+					word_phrase : {
+						display : false,
+					},
+
 					// class : '',
 				},
 
-				input : {
-					name : {
-						value : '',
-					},
-					words : {
-						value : ''
-					},
-				},
+				// input : {
+				// 	name : {
+				// 		value : '',
+				// 	},
+				// 	words : {
+				// 		value : '',
+				// 	},
+				// },
 
 			}
 		},
@@ -243,18 +280,46 @@
 
 
 
-			// reset_validate : function(){
-			// 	let base = 'field field-result ';
-			// 	this.state.class = base;
-			// },
-
 			validate_name : function(){
 				let result = Validate.length( this.$refs.field_name, this.form.name, this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
 
+				if( result === null || !result ){
+					this.state.word_phrase.display = false;
+				}
 				return result;
+			},
+			name_next : function(){
+				let result = this.validate_name();
+
+				if( result === null ){
+					Validate.length( this.$refs.field_name, 'x', this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
+					this.state.word_phrase.display = false;
+					return;
+				}
+
+				if( !result ){
+					this.state.word_phrase.display = false;
+					return
+				}		
+
+				if( result ){
+					this.state.word_phrase.display = true;
+				}		
 			},
 
 
+
+			validate_words : function(){
+				let result = Validate.length( this.$refs.field_words, this.form.words, this.$refs.msgObj, this.attrs.word_phrase.min, this.attrs.word_phrase.max );
+
+				return result;
+			},
+			word_next : function(){
+				let result = this.validate_name();
+				if( result ){
+					console.log('test');
+				}			
+			},
 
 			// words_add : function(){
 			// 	this.input.words.value += ',\n';
@@ -391,6 +456,9 @@
 
 <style>
 
+.reveal {
+	opacity: 0;
+}
 
 
 </style>

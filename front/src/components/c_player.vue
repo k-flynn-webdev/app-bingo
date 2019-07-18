@@ -2,7 +2,7 @@
 
 
 	<div 
-		class="hover-trigger item-right"
+		class="hover-trigger player-holder"
 		v-bind:class="{ 'hover-force' : state.display }">
 
 			<div class="anim-6 title hover-message-left colour-bg-pop">
@@ -15,7 +15,7 @@
 				ref="btnPlayer"
 				v-on:click=clicked
 				class="button icon shadow colour-bg-pop border-round border-white"
-				style="width:2.6rem;height:2.6rem;overflow:hidden;">
+				style="width:2.8rem;height:2.6rem;overflow:hidden;">
 
 					<svg
 						class="colour-fill-dark"
@@ -92,15 +92,15 @@
 
 <style scoped>
 
-	.item-right {
+	.player-holder {
 		position: absolute;
 		right: 0;
 	}
 
 	.player-score {
 		position: absolute;
-		top: -0.25rem;
-		left: -2rem;
+		top: -.3rem;
+		left: -1.66rem;
 	}
 
 </style>

@@ -57,8 +57,6 @@
 
 		<router-view/>
 
-		<div class="body-spacer"></div>
-
 		<c-footer></c-footer>
 
 	</div>

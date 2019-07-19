@@ -135,7 +135,9 @@ button, .button {
 	margin-left: 0;
 }
 
-
+.button > .label {
+	padding: 0 calc(var(--margin)*0.5);
+}
 
 .button.button-action{
 	margin: 0;
@@ -196,8 +198,6 @@ button, .button {
 }
 
 .field > .label {
-	padding-right: var(--margin);
-	min-width: 1rem;
 	vertical-align: middle;
 }
 .field > .input {
@@ -210,6 +210,13 @@ button, .button {
 	box-sizing: border-box;
 	border-radius: calc(var(--border-radius)*1.5);
 	padding-left: var(--margin);
+}
+
+.field > .label + .input, .field > .button + .input {
+	margin-left: var(--margin) !important;
+}
+.field > .input + .label, .field > .input + .button {
+	margin-left: var(--margin) !important;
 }
 
 

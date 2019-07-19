@@ -60,7 +60,10 @@ import Panel from '../components/c_panel.vue';
 export default {
 	name: 'home',
 	mounted(){
-		this.$root.$emit('page.title', '' );
+		let self = this;
+		setTimeout( function(){
+			self.$root.$emit('page.title', '');	
+		}, .1*1000);
 	},	
 	components: {
 		'c-panel' : Panel,

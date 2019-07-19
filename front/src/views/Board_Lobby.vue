@@ -164,7 +164,6 @@
 			init : function(){
 				this.board = this.$route.params.board;
 				this.share.link = window.location.href;
-				this.$root.$emit('page.title', 'BOARD');
 
 				let tempURL = '/api/board/' + this.board;
 
@@ -176,6 +175,11 @@
 				this.attrs.action = action;
 
 				let self = this;
+				setTimeout( function(){
+					self.$root.$emit('page.title', 'LOBBY');	
+				}, .5*1000);
+
+
 				self.onSubmit( self.attrs.action, self, null, null, self.board_success, self.board_error);
 			},
 

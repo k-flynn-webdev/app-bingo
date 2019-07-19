@@ -2,36 +2,156 @@
 
 	<c-panel>
 
-		<div class="br-small"></div>
+		<div class="sections anim-3"
+			v-bind:data-open=state.sections[0]
+			v-bind:class="{ 'is-active' : state.sections[0] }">
 
-		<div ref="field_name" class="field-result">
+			<c-field-input 
+				ref="field_name"
+				v-model=form.name 
+				v-on:change=validate_name>
 
-			<div 
-				class="field">
+				<p class="label" slot="pre"> Name </p>
 
-				<p class="label colour-fill-dark">
-					Name
-				</p>
-
-				<input
-					class="input text colour-fill-dark"
-					type="string"
-					placeholder="Choose a board name"
-					value=form.name
-					v-model=form.name
-					v-on:change=validate_name
-					required>
-
-				<c-field-result>
-				</c-field-result>
-
-			</div>
+			</c-field-input>
 
 		</div>
 
-		<div ref="field_words" class="field-result">
+
+		<div class="sections anim-3"
+			v-bind:data-open=state.sections[1]
+			v-bind:class="{ 'is-active' : state.sections[1] }">
+
+
+			<p class="label colour-fill-dark">
+				Words and Phrases
+
+				<span 
+					class="label colour-fill-dark"
+					v-if=!state.complete> {{ word_count }} </span>
+
+			</p>
+
+			
+
+			<c-field-input 
+				v-for="(word, index) in form.words" 
+				v-bind:key="index"
+				v-bind:ref="'word_'+index"
+				v-model=form.words[index] 
+				v-on:change=validate_word(index)>
+
+
+					<button
+						v-if=state.buttons[index] 
+						slot="post" 
+						class="button shadow fade-in colour-bg-dark border-round" 
+						v-on:click=add_word(index)
+						style="min-width:unset;">
+							<p class="label colour-fill-pop">Add</p>
+					</button>
+
+					<button 
+						v-if=!state.buttons[index]
+						slot="post" 
+						class="button shadow fade-in colour-bg-dark border-round" 
+						v-on:click=remove_word(index)
+						style="min-width:unset;">
+							<p class="label colour-fill-pop">X</p>
+					</button>
+
+
+			</c-field-input>
+
+
+
+			
 
 			<div 
+				v-if=state.complete
+				class="text-right button-add">
+				<button 
+					v-on:click=submit
+					class="button shadow fade-in colour-bg-dark border-round">
+						<p class="label colour-fill-pop"> 
+							Ready
+						</p>
+				</button>
+			</div>
+
+
+
+		</div>
+
+
+		
+
+
+
+<!-- 		<div 
+			class="text-right button-next">
+
+				<button 
+					v-on:click=name_next
+					class="button shadow fade-in colour-bg-dark border-round">
+					<p class="label colour-fill-pop"> 
+						Next
+					</p>
+				</button>
+
+		</div> -->
+
+
+
+
+<!-- 
+
+		<div class="sections anim-3"
+			v-bind:data-open=state.sections[1]
+			v-bind:class="{ 'is-active' : state.sections[1] }">
+		
+
+
+
+			<div ref="field_words" class="field-result">
+
+				<div 
+					class="field">
+
+					<input
+						class="input text colour-fill-dark"
+						type="string"
+						placeholder="Choose a phrase or word"
+						required>
+
+					<c-field-result>
+					</c-field-result>
+
+				</div>
+
+			</div>
+
+
+
+
+
+			<div class="text-right button-add">
+				<button 
+					v-on:click=word_add
+					class="button shadow fade-in colour-bg-dark border-round">
+						<p class="label colour-fill-pop"> 
+							Add
+						</p>
+				</button>
+			</div>
+
+
+
+		</div> -->
+
+		<!-- <div ref="field_words" class="field-result"> -->
+
+			<!-- <div 
 				v-bind:class="{ 'is-visible' : state.word_phrase.display }"
 				class="field reveal anim-6">
 
@@ -51,9 +171,9 @@
 				<c-field-result>
 				</c-field-result>
 
-			</div>
+			</div> -->
 
-		</div>
+		<!-- </div> -->
 
 
 
@@ -63,7 +183,7 @@
 
 
 
-		<div 
+<!-- 		<div 
 			slot="footer"
 			class="text-right button-next">
 
@@ -75,7 +195,7 @@
 					</p>
 				</button>
 
-		</div>
+		</div> -->
 
 
 
@@ -182,11 +302,11 @@
 	import Panel from '../components/c_panel.vue';
 	import Message from '../components/c_message.vue';
 
+	import FieldInput from '../components/c_field.create.input.vue';
 
 	import { submit } from '../mixins/h_submit.js';
 
 	import Validate from '../helpers/h_validate_input.js';
-	import FieldResult from '../components/c_field_result.vue';
 
 
 	export default {
@@ -196,24 +316,31 @@
 			return {
 				form : {
 					name : '',
-					word_phrase : '',
+					words : [{ 	
+						id : '',
+						value : '',
+						state : {
+							add : false, 
+							x : false, 
+							ready : false	
+						}}],
 				},
 				attrs : {
-					// words_or_prases : {
-					// 	min : 6,
-					// },
-					// word_or_phrase : {
-					// 	min : 3,
-					// },
+
 					name : {
 						min : 5,
 						max: 30,
-					},					
-					word_phrase : {
+					},	
+
+					word : {
 						min : 5,
 						max: 80,
 					},
 
+					words : {
+						min : 8,
+						max: 40,
+					},
 
 					server : {
 						max_timeouts : 5,
@@ -226,40 +353,44 @@
 					init : false,
 					timeouts : 0,
 
-					word_phrase : {
-						display : false,
-					},
-
-					// class : '',
+					sections : [ false, false, ],
+					complete : false,
 				},
-
-				// input : {
-				// 	name : {
-				// 		value : '',
-				// 	},
-				// 	words : {
-				// 		value : '',
-				// 	},
-				// },
-
 			}
 		},
+
 		computed : {
-			// get_field_class : function(){
-			// 	return this.state.class;
-			// },
+			word_count : function(){
+				let min = this.attrs.words.min;
+				let current = 0;
 
+				for( let i = 0; i < this.state.buttons.length; i++){
+					if( !this.state.buttons[i] ){
+						current +=1;
+					}
+				}
+				
+				if( current >= min ){
+					this.state.complete = true;
+				} else {
+					this.state.complete = false;
+				}
 
-			name_pattern : function(){
-				let pattern = '.{' + this.attrs.name.min + ',' + this.attrs.name.max + '}';
-				return pattern;
+				return '(' + current + '/' + min + ')';
 			},
-			name_title : function(){
-				let title = "name must be between " + this.attrs.name.min + " and " + this.attrs.name.max + " characters long."
-				return title;
-			},			
+			// name_pattern : function(){
+			// 	let pattern = '.{' + this.attrs.name.min + ',' + this.attrs.name.max + '}';
+			// 	return pattern;
+			// },
+			// name_title : function(){
+			// 	let title = "name must be between " + this.attrs.name.min + " and " + this.attrs.name.max + " characters long."
+			// 	return title;
+			// },			
 		},
+
 		methods:{
+
+
 
 			init : function( urls ){
 				if( !this.state.init ){
@@ -275,7 +406,22 @@
 					this.attrs.action = object;
 					this.state.init = true;
 				}
-				this.$root.$emit('page.title', 'CREATE');
+
+				this.section_display( 0 , true );
+
+				let self = this;
+				setTimeout( function(){
+					self.$root.$emit('page.title', 'CREATE');	
+				}, .5*1000);			
+			},
+
+
+
+			section_display : function( index, val ){
+				let self = this;
+				setTimeout( function(){
+					self.$set( self.state.sections, index, val );
+				}, 1*1000);
 			},
 
 
@@ -284,42 +430,100 @@
 				let result = Validate.length( this.$refs.field_name, this.form.name, this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
 
 				if( result === null || !result ){
-					this.state.word_phrase.display = false;
+					this.section_display( 1 , false );
+				} else {
+					this.section_display( 1 , true );
 				}
 				return result;
 			},
-			name_next : function(){
-				let result = this.validate_name();
+
+			validate_word : function( index ){
+				let refWord = 'word_' + index;
+
+				let result = Validate.length( this.$refs[refWord][0] , this.form.words[index], this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
+
+				if( result === null || !result ){
+					// this.section_display( 1 , false );
+				}
+				return result;
+			},
+
+			check_word_count : function(){
+				for( let i =0;i < this.form.words.length;i++){
+
+				}
+			},
+
+
+			add_word : function( index ){
+
+				// todo need a unique id per row to be generated not based on contents?
+
+				let refWord = 'word_' + index;
+				let result = this.validate_word( index );
 
 				if( result === null ){
-					Validate.length( this.$refs.field_name, 'x', this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
-					this.state.word_phrase.display = false;
-					return;
+					Validate.length( this.$refs[refWord][0] , 'x', this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
+					return
 				}
 
-				if( !result ){
-					this.state.word_phrase.display = false;
-					return
-				}		
-
 				if( result ){
-					this.state.word_phrase.display = true;
-				}		
+					this.form.words.push('');
+					this.$set( this.state.buttons, index, false );
+					this.state.buttons.push( true );
+					Validate.reset( this.$refs[refWord][0] );
+				}
 			},
 
-
-
-			validate_words : function(){
-				let result = Validate.length( this.$refs.field_words, this.form.words, this.$refs.msgObj, this.attrs.word_phrase.min, this.attrs.word_phrase.max );
-
-				return result;
+			remove_word : function( index ){
+				this.form.words.splice( index, 1);
+				this.state.buttons.splice( index, 1);
+				for( let i =0; i < this.state.buttons.length; i++){
+					this.$set( this.state.buttons, i, false );
+				}
+				this.$set( this.state.buttons, this.state.buttons.length - 1, true );
 			},
-			word_next : function(){
-				let result = this.validate_name();
-				if( result ){
-					console.log('test');
-				}			
+
+			submit : function(){
+
 			},
+
+			// name_next : function(){
+			// 	// todo should be next section and programmaticly find?
+			// 	let result = this.validate_name();
+
+			// 	if( result === null ){
+			// 		Validate.length( this.$refs.field_name, 'x', this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
+			// 		return;
+			// 	}	
+
+			// 	if( result ){
+			// 		this.section_display( 1 , true );
+			// 	}		
+			// },
+
+			// word_add : function(){
+			// 	// todo adds a new  form element of phrase ..
+			// },
+
+
+
+
+
+
+			// validate_words : function(){
+			// 	let result = Validate.length( this.$refs.field_words, this.form.words, this.$refs.msgObj, this.attrs.word_phrase.min, this.attrs.word_phrase.max );
+
+			// 	return result;
+			// },
+			// word_next : function(){
+			// 	let result = this.validate_name();
+			// 	if( result ){
+			// 		console.log('test');
+			// 	}			
+			// },
+
+
 
 			// words_add : function(){
 			// 	this.input.words.value += ',\n';
@@ -399,7 +603,7 @@
 			// },
 
 
-			onCreate : function( event ){
+			// onCreate : function( event ){
 
 				// if( this.attrs.action.url === undefined ){
 				// 	return;
@@ -416,15 +620,15 @@
 
 				// let self = this;	
 				// self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-			},
-			onSuccess : function( input ){
+			// },
+			// onSuccess : function( input ){
 				// let self = this;
 				// self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
 				// setTimeout( function(){
 				// 	self.$router.push( '/board/' +  input.data.url);
 				// }, 3000 );
-			},
-			onError : function( input ){
+			// },
+			// onError : function( input ){
 				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
 
 				// 	this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
@@ -439,7 +643,7 @@
 				// 		self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
 				// 	}, self.attrs.server.timing );
 				// }
-			},
+			// },
 
 		},
 		mounted(){
@@ -449,15 +653,21 @@
 			'c-button' : Button,
 			'c-panel' : Panel,
 			'c-message' : Message,
-			'c-field-result' : FieldResult,
+			// 'c-field-result' : FieldResult,
+			'c-field-input' : FieldInput,
 		},		
 }
 </script>
 
 <style>
 
-.reveal {
+.sections {
 	opacity: 0;
+	margin: var(--margin) 0;
+}
+
+.sections.is-active {
+	opacity: 1;
 }
 
 

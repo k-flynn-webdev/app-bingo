@@ -219,11 +219,20 @@
 				if( !game.joined ){
 					this.button.label = 'Join';
 					this.state.lock = true;
-					this.$root.$emit('page.title', 'JOIN');
+					
+					let self = this;
+					setTimeout( function(){
+						self.$root.$emit('page.title', 'JOIN');	
+					}, .5*1000);
+
 				} else {
 					this.button.label = 'Update';
-					this.$root.$emit('page.title', 'UPDATE');
 					this.state.lock = false;
+
+					let self = this;
+					setTimeout( function(){
+						self.$root.$emit('page.title', 'UPDATE');	
+					}, .5*1000);
 					
 				}
 
@@ -257,11 +266,15 @@
 					this.$root.$off('player.message', this.message );
 					this.$root.$off('player.hide', this.window_hide );
 
+
 					let self = this;
+					setTimeout( function(){
+						self.$root.$emit('page.title', '');	
+					}, .5*1000);
+
 					setTimeout( function(){
 						self.state.remove = true;	
 						self.$root.$emit('player.closed');		
-						self.$root.$emit('page.title', '');
 					}, 1*1000);
 				}
 			},

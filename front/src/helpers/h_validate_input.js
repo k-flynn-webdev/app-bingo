@@ -36,9 +36,16 @@ let class_success = 'pass';
 
 
 let set_class = function( field_parent, classes ){
-	if( field_parent !== undefined &&
-		field_parent.className !== undefined ){
-			field_parent.className = classes;
+	if( field_parent !== undefined ){
+		
+		if( field_parent.className !== undefined ){
+				field_parent.className = classes;
+		}
+		
+		if( field_parent.$el !== undefined ){
+				field_parent.$el.className = classes;
+		}
+		
 	}
 }
 

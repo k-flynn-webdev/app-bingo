@@ -8,7 +8,7 @@ var instance = mongoose.Schema({
 	data : {
 		board : { type: mongoose.Schema.Types.ObjectId, required: true },
 		players : { type: Array, required: true, default: [] },
-		words : { type: Array, required: true, default: [] },
+		lines : { type: Array, required: true, default: [] },
 		date : {
 			created : { type: Date, required: true, default : Date.now() },
 		},

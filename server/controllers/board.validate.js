@@ -51,13 +51,13 @@ function name( req, res, next){
 exports.name = name;
 
 
-function words( req, res, next){
+function lines( req, res, next){
 	if( helpers.existsValid( req.body.lines )){
 		req.body.lines = helpers.escape( req.body.lines );
 	}
 	next();
 }
-exports.words = words;
+exports.lines = lines;
 
 
 function board( req, res, next){

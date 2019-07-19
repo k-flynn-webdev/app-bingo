@@ -83,10 +83,10 @@
 
 			<ul>
 				<li class="text text-center colour-fill-bg"
-					v-for="(word, index) in get_words" 
+					v-for="(line, index) in get_lines" 
 					v-bind:key="index">
 
-						{{ word }}.
+						{{ line }}.
 				</li>
 			</ul>
 
@@ -155,8 +155,8 @@
 			get_name : function(){
 				return this.$store.getters['board/get_board'].data.name || 'Name';
 			},
-			get_words : function(){
-				return this.$store.getters['board/get_board'].data.words || 'Words';
+			get_lines : function(){
+				return this.$store.getters['board/get_board'].data.lines || 'Lines';
 			},			
 		},
 		methods:{

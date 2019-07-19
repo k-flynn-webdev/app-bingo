@@ -44,20 +44,20 @@
 				this.attrs.action.JSON = true;
 			},
 
-			update_word : function( input, request ){
+			update_line : function( input, request ){
 				if( !this.state.init ){
 					this.setup();
 				}
 
-				this.$store.dispatch('game/submit_word', input );
+				this.$store.dispatch('game/submit_line', input );
 
 				if( !input.selected ){
-					request.player.word = {
-						add : input.word,
+					request.player.line = {
+						add : input.line,
 					}
 				} else {
-					request.player.word = {
-						remove : input.word,
+					request.player.line = {
+						remove : input.line,
 					}
 				}
 
@@ -98,14 +98,14 @@
 
 				validate_game.game( input, this );
 
-				if( input.data.word !== undefined){
+				if( input.data.line !== undefined){
 
-						if( input.data.word.add !== undefined ){
-							this.$store.dispatch('game/add_word', input.data.word.add );
+						if( input.data.line.add !== undefined ){
+							this.$store.dispatch('game/add_line', input.data.line.add );
 						}
 						
-						if( input.data.word.remove !== undefined ){
-							this.$store.dispatch('game/remove_word', input.data.word.remove );
+						if( input.data.line.remove !== undefined ){
+							this.$store.dispatch('game/remove_line', input.data.line.remove );
 						}
 
 						if( input.data.data.score !== undefined ){
@@ -143,7 +143,7 @@
 				} 
 
 
-				// todo if user already has word?
+				// todo if user already has line?
 				// todo if game is won?	401
 				// todo if game is lost?	
 				// todo if game is over?	
@@ -181,7 +181,7 @@
 			},
 
 			exit : function(){
-				this.$root.$off('player.word', this.update_word );
+				this.$root.$off('player.line', this.update_line );
 				this.$root.$off('player.update', this.update_player );
 				this.$root.$off('game.pre.reset', this.game_reset );
 			},
@@ -192,7 +192,7 @@
 
 		},
 		mounted() {
-			this.$root.$on('player.word', this.update_word );
+			this.$root.$on('player.line', this.update_line );
 			this.$root.$on('player.update', this.update_player );
 			this.$root.$on('game.pre.reset', this.game_reset );
 		},

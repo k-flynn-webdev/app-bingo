@@ -12,7 +12,7 @@ var board = mongoose.Schema({
 		date : {
 			created : { type: Date, required: true, default : new Date() },
 		},
-		words : { type: Array, required: true },
+		lines : { type: Array, required: true },
 		// game : {
 			// display : { type: Number, required: true, default : 0, },
 			// win : { type: Number, required: true, default : 0, },

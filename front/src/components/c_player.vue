@@ -27,7 +27,7 @@
 			</button>
 
 			<div class="player-score">
-				<p class="poster colour-fill-pop ">
+				<p class="poster colour-fill-pop text-right">
 					{{ player_Score }}
 				</p>
 			</div>
@@ -100,7 +100,7 @@
 	.player-score {
 		position: absolute;
 		top: -.3rem;
-		left: -1.66rem;
+		right: calc(100% + .5rem);
 	}
 
 </style>

@@ -51,7 +51,7 @@
 			},
 
 			rejoin : function(){
-				this.$root.$emit('player.words.reset');
+				this.$root.$emit('player.lines.reset');
 				this.check();
 				return;
 			},
@@ -157,7 +157,7 @@
 				let bodyObject = {
 					player : {
 						url : this.$store.getters['player/get_url'],
-						word : {
+						line : {
 							reset : true,
 						},
 					},

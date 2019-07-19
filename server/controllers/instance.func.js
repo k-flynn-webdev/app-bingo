@@ -34,7 +34,7 @@ function safe( model, all=false ){
 					url :  model.data.game.winner.url,
 					data : {
 						name : model.data.game.winner.data.name,
-						words : model.data.game.winner.data.words,
+						lines : model.data.game.winner.data.lines,
 						score : model.data.game.winner.data.score,
 					}, 
 				},
@@ -48,20 +48,20 @@ exports.safe = safe;
 
 
 
-function get_var_win( word_count ){
-	let temp_var = Math.floor( word_count * config.game.win );
+function get_var_win( line_count ){
+	let temp_var = Math.floor( line_count * config.game.win );
 	if( temp_var < config.game.min ){
-		temp_var = word_count;
+		temp_var = line_count;
 	}
 	if( temp_var > config.game.max ){
 		temp_var = config.game.max;
 	}
 	return temp_var;
 }
-function get_var_display( word_count ){
-	let temp_var = Math.floor( word_count * config.game.display );
+function get_var_display( line_count ){
+	let temp_var = Math.floor( line_count * config.game.display );
 	if( temp_var < config.game.min ){
-		temp_var = word_count;
+		temp_var = line_count;
 	}
 	if( temp_var > config.game.max ){
 		temp_var = config.game.max;
@@ -80,14 +80,14 @@ function create( input_board, input_url=false, next ){
 			return next( error );
 		}
 
-		let win_var = get_var_win( result.words.length,  );
-		let display_var = get_var_display( result.words.length );
+		let win_var = get_var_win( result.lines.length,  );
+		let display_var = get_var_display( result.lines.length );
 
 		let newInstance = new m_instance({
 			url : !input_url ? helpers.randomID(6) : input_url,
 			data : {
 				board : input_board,
-				words : result.words,
+				lines : result.lines,
 				players : [],
 				game : {
 					win : win_var,
@@ -113,7 +113,7 @@ function instance_won( instance, player ){
 	instance.data.game.winner.url = player.url;
 	instance.data.game.winner.data.name = player.data.name;
 	instance.data.game.winner.data.score = player.data.score;
-	instance.data.game.winner.data.words = player.data.words;
+	instance.data.game.winner.data.lines = player.data.lines;
 
 	board_func.board_is_won( instance.data.board );
 	

@@ -45,7 +45,7 @@
 			board_success : function( input ){
 				this.$store.dispatch('board/set_board', input.data );
 				this.$store.dispatch('game/set_game', { board : true } );
-				this.$root.$emit('player.words.reset');
+				this.$root.$emit('player.lines.reset');
 				this.$root.$emit('player.check');
 			},
 			board_error : function( input ){

@@ -71,16 +71,16 @@ function player( req, res, next){
 		}
 	}	
 
-	if( helpers.existsValid( req.body.player.words )){
-		req.body.player.words = helpers.escape( req.body.player.words );
+	if( helpers.existsValid( req.body.player.lines )){
+		req.body.player.lines = helpers.escape( req.body.player.lines );
 	}	
 	
-	if( helpers.existsValid( req.body.player.word )){
-		if( helpers.existsValid( req.body.player.word.add )){
-			req.body.player.word.add = helpers.escape( req.body.player.word.add );
+	if( helpers.existsValid( req.body.player.line )){
+		if( helpers.existsValid( req.body.player.line.add )){
+			req.body.player.line.add = helpers.escape( req.body.player.line.add );
 		} 
-		if( helpers.existsValid( req.body.player.word.remove )){
-			req.body.player.word.remove = helpers.escape( req.body.player.word.remove );
+		if( helpers.existsValid( req.body.player.line.remove )){
+			req.body.player.line.remove = helpers.escape( req.body.player.line.remove );
 		}
 	}
 

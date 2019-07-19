@@ -26,7 +26,7 @@
 				<c-player></c-player>
 			</div>
 
-			<c-game-words></c-game-words>
+			<c-game-lines></c-game-lines>
 
 			<br>
 
@@ -77,7 +77,7 @@
 
 	import UpdateInstance from '../game/c_update_instance.vue';
 	
-	import GameWords from '../components/c_words.vue';
+	import GameLines from '../components/c_lines.vue';
 	import GameWindow from '../components/c_game_window.vue';
 
 
@@ -122,7 +122,7 @@
 
 			reset : function(){
 				this.$root.$emit('player.reset');
-				this.$root.$emit('player.words.reset');
+				this.$root.$emit('player.lines.reset');
 				if( this.$refs.btnReset !== undefined ){
 					this.$refs.btnReset.$emit('state', 'waiting');
 				}
@@ -162,7 +162,7 @@
 			'c-button' : Button,
 			'c-button-share' : ButtonShare,
 			'c-button-expand' : ButtonExpand,
-			'c-game-words' : GameWords,
+			'c-game-lines' : GameLines,
 			'c-init-board' : InitBoard,
 			'c-init-instance' : InitInstance,
 			'c-init-player' : InitPlayer,

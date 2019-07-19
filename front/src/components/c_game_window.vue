@@ -26,6 +26,8 @@
 						New
 				</c-button>
 
+				<div style="width: var(--margin);display:inline-block;"></div>
+
 				<c-button
 					v-if=state.type.kicked
 					ref="btnRejoin"
@@ -194,6 +196,8 @@
 				// }, 2000);
 			},
 
+
+			// TODO this should be a external helper?
 			time_start : function(){
 				this.time_repeat();
 			},

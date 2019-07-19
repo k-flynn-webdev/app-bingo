@@ -12,7 +12,7 @@ function safe( model, all=false ){
 		url : model.url, 
 		data : {
 			name : model.data.name, 
-			words : model.data.words,	
+			lines : model.data.lines,	
 			// game : {
 				// win : model.data.game.win,
 				// display : model.data.game.display,
@@ -40,20 +40,20 @@ function save( model, next ){
 exports.save = save;
 
 
-function split_word_string( input ){
+function split_line_string( input ){
 
-	// let words_array = input.split(/[,\n\r]+/);
-	let words_array = input.split('§');
-	let words = [];
+	// let lines_array = input.split(/[,\n\r]+/);
+	let lines_array = input.split('§');
+	let lines = [];
 
-	for( let count=0;count<words_array.length;count++){
-		if( words_array[count].length >= 2){
-			let wordClean = helpers.escape( words_array[count] );
-			words.push( wordClean.trim() );
+	for( let count=0;count<lines_array.length;count++){
+		if( lines_array[count].length >= 2){
+			let line_clean = helpers.escape( lines_array[count] );
+			lines.push( line_clean.trim() );
 		}
 	}
 
-	return words;
+	return lines;
 }
 
 
@@ -62,7 +62,7 @@ function create( input ){
 	let newBoard = new m_board({
 		data : {
 			name : input.name,
-			words : split_word_string(input.lines),			
+			lines : split_line_string(input.lines),			
 		},
 	});
 	newBoard.url = newBoard._id;
@@ -169,9 +169,7 @@ function board_meta( input, next ){
 		}
 
 		let object = { 
-				words : result.data.words,
-				// display : result.data.game.display, 
-				// win : result.data.game.win,
+				lines : result.data.lines,
 			};
 
 		return next(null, object);		

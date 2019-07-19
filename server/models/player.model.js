@@ -10,7 +10,7 @@ var player = mongoose.Schema({
 		joined : { type: Date, required: true, default : Date.now() },
 		name : { type: String, required: true },
 		score : { type: Number, required: false, default : 0 },
-		words : { type: Array, required: false  },
+		lines : { type: Array, required: false  },
 	}
 })
 

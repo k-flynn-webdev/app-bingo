@@ -2,20 +2,20 @@
 
 	<div 
 		ref="wrds_holder"
-		class="words-holder anim-6"
-		v-bind:class="{ 'words-lock' : !is_ready, 'words-ready' : is_ready, }">
+		class="lines-holder anim-6"
+		v-bind:class="{ 'lines-lock' : !is_ready, 'lines-ready' : is_ready, }">
 
 		<div ref="wrds_holder_inner">
 			
-			<transition-group name="anim-word" tag="">
+			<transition-group name="anim-line" tag="">
 
-				<c-word
-					v-for="(word, index) in words_list" 
-					v-bind:key="word.id"
+				<c-line
+					v-for="(line, index) in lines_list" 
+					v-bind:key="line.id"
 					v-bind:style=get_style_task(index)
-					v-bind:input=word>
+					v-bind:input=line>
 
-				</c-word>
+				</c-line>
 
 			</transition-group>
 
@@ -57,7 +57,7 @@ let array_randomize = function( input ){
 	return new_array;
 }
 
-let word_hash = function (str){
+let line_hash = function (str){
 	let hash = 0;
 	if (str.length == 0) return hash;
 	for (let i = 0; i < str.length; i++) {
@@ -69,10 +69,10 @@ let word_hash = function (str){
 }
 
 
-	import Word from '../components/c_word.vue';
+	import Line from '../components/c_line.vue';
 
 	export default {
-		name: 'cWords',
+		name: 'cLines',
 		data(){
 			return {
 				timing : {
@@ -83,8 +83,8 @@ let word_hash = function (str){
 			}
 		},
 		computed : {
-			words_list : function(){
-				return this.$store.getters['game/get_words'];
+			lines_list : function(){
+				return this.$store.getters['game/get_lines'];
 			},
 			is_ready : function(){
 				let gameMode = this.$store.getters['game/get_game'];
@@ -98,37 +98,37 @@ let word_hash = function (str){
 		methods : {
 			setup : function(){
 
-				let words = []
+				let lines = []
 				let display = this.$store.getters['instance/get_instance'].data.game.display;
 
-				let tempWords = array_randomize( this.$store.getters['board/get_words'] );
+				let temp_lines = array_randomize( this.$store.getters['board/get_lines'] );
 
 				for( let i = 0; i < display; i++){
-					let newWord = {
-						word : tempWords[i],
+					let new_line = {
+						line : temp_lines[i],
 						waiting : false,
 						selected : false,
-						id : word_hash( tempWords[i] ),
+						id : line_hash( temp_lines[i] ),
 					};
-					words.push( newWord );	
+					lines.push( new_line );	
 				}
 
 				// now sort into smallest > largest
-				words.sort( function(a,b){
-					return b.word.length - a.word.length;	
+				lines.sort( function(a,b){
+					return b.line.length - a.line.length;	
 				});
 
 				let self = this;
 				function delayStart( index, items ){
 					setTimeout( function(){
-						let tempArray = [];
+						let temp_array = [];
 						for( let a = 0; a < index; a++){
-							tempArray.push( items[a] );
+							temp_array.push( items[a] );
 						}
-						self.$store.dispatch('game/set_words', tempArray );
+						self.$store.dispatch('game/set_lines', temp_array );
 
-						// array of words finished .. set game ready!
-						if( tempArray.length === display){
+						// array of lines finished .. set game ready!
+						if( temp_array.length === display){
 							self.$store.dispatch('game/set_game', {} );
 						}
 
@@ -142,35 +142,35 @@ let word_hash = function (str){
 					tDelay = 0;
 					this.rendered = true;
 				} else {
-					this.$store.dispatch('game/set_words', [] );
+					this.$store.dispatch('game/set_lines', [] );
 				}
 
 				setTimeout( function(){
-					for( let a = 0; a <= words.length; a++){	
-						delayStart(a, words);
+					for( let a = 0; a <= lines.length; a++){	
+						delayStart(a, lines);
 					}
 				}, tDelay * 1000);
 
 			},
 
 			get_style_task : function( index ){
-				let inv = this.words_list.length - index;
+				let inv = this.lines_list.length - index;
 				return { '--i' : index + 1, '--inv-i' : inv - 1 };
 			},
 
 			exit : function(){
-				this.$store.dispatch('game/set_words', [] );
-				this.$root.$off('player.words.reset', this.setup );
+				this.$store.dispatch('game/set_lines', [] );
+				this.$root.$off('player.lines.reset', this.setup );
 			},
 		},
 		mounted(){
-			this.$root.$on('player.words.reset', this.setup );
+			this.$root.$on('player.lines.reset', this.setup );
 		},
 		beforeDestroy(){
 			this.exit();
 		},
 		components: {
-			'c-word' : Word,
+			'c-line' : Line,
 		},
 }
 
@@ -178,7 +178,7 @@ let word_hash = function (str){
 
 <style>
 
-.words-holder {
+.lines-holder {
 	display: block;
 	flex: none;
 	position: relative;
@@ -186,29 +186,29 @@ let word_hash = function (str){
 	width: 100%;
 }
 
-.words-lock, .words-lock .button {
+.lines-lock, .lines-lock .button {
 	pointer-events: none !important;
 }	
 
-.anim-word-enter {
+.anim-line-enter {
 	opacity: 0;
 	transform: translateY(-1rem);
 }
-.anim-word-enter .label {
+.anim-line-enter .label {
 	opacity: 0;
 	transform: translateX(-2rem);
 }
 
-.anim-word-leave, .anim-word-leave-to {
+.anim-line-leave, .anim-line-leave-to {
 	animation: remove-task 1s ease calc( .1s * var(--inv-i) );
 }
-.anim-word-leave-to .label {
+.anim-line-leave-to .label {
 	opacity: 0;
 	transition-delay: calc( .1s * var(--inv-i));
 	transition-duration: .66s;
 	transform: translateX(1rem);
 }
-.anim-word-move {
+.anim-line-move {
 	transition: transform 1s ease !important;
 }
 

@@ -11,7 +11,7 @@ module.exports = function( App ) {
 	App.post('/api/board/create', 
 		board_check.create,
 		board_check.name,
-		board_check.words,
+		board_check.lines,
 		function(request, response){
 
 			board.create( request.body, function(error, result){

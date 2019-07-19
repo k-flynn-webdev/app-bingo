@@ -1,14 +1,14 @@
 <template>
 		
-		<c-button
-			ref="word_btn"
-			class="word-button colour-bg-pop"
-			v-bind:class="{ 'word-selected button-action' : selected, '' : waiting }"
-			v-bind:onClick=toggle>
+	<c-button
+		ref="btn_line"
+		class="line-button colour-bg-pop"
+		v-bind:class="{ 'line-selected button-action' : selected, '' : waiting }"
+		v-bind:onClick=toggle>
 
-				{{ input.word }}
+			{{ input.line }}
 
-		</c-button>
+	</c-button>
 
 </template>
 
@@ -17,7 +17,7 @@
 	import Button from '../components/c_button.vue';
 
 	export default {
-		name: 'cWord',
+		name: 'cLine',
 		data(){
 			return {
 				state : {
@@ -32,7 +32,7 @@
 			waiting : function(){
 				if( this.input.waiting ){
 					if( this.state.init ){
-						this.$refs.word_btn.$emit('state', 'waiting');
+						this.$refs.btn_line.$emit('state', 'waiting');
 					}
 					return true;
 				} else {
@@ -42,7 +42,7 @@
 			selected : function(){
 				if( this.input.selected ){
 					if( this.state.init ){
-						this.$refs.word_btn.$emit('state', 'success');
+						this.$refs.btn_line.$emit('state', 'success');
 					}
 					return true;
 				} else {
@@ -55,8 +55,8 @@
 				let self = this;
 				setTimeout( function(){
 					self.state.init = true;
-					if( self.$refs.word_btn !== undefined ){
-						self.$refs.word_btn.$emit('state', 'reset');	
+					if( self.$refs.btn_line !== undefined ){
+						self.$refs.btn_line.$emit('state', 'reset');	
 					}
 				}, 1);
 			},
@@ -66,31 +66,31 @@
 				let toSend = {
 					player : {
 						url : '',
-						word : {},
+						line : {},
 					},
 				};
 
 				if( !this.input.selected ){
-					toSend.player.word = {
-						add : this.input.word,
+					toSend.player.line = {
+						add : this.input.line,
 					}
 				} else {
-					toSend.player.word = {
-						remove : this.input.word,
+					toSend.player.line = {
+						remove : this.input.line,
 					}
 				}
 
-				this.$root.$emit('player.word', this.input, toSend );
+				this.$root.$emit('player.line', this.input, toSend );
 
 			},
 
 			exit : function(){
-				this.$root.$off('player.words.reset', this.reset );
+				this.$root.$off('player.lines.reset', this.reset );
 			}
 		},
 		mounted(){
 			this.reset();
-			this.$root.$on('player.words.reset', this.reset );
+			this.$root.$on('player.lines.reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();
@@ -104,11 +104,11 @@
 
 <style>
 
-	.word-selected {
+	.line-selected {
 		pointer-events: none;
 	}
 
-	.word-button{
+	.line-button {
 		flex: none !important;
 		height: unset !important;
 		display: block;
@@ -116,7 +116,7 @@
 		margin: .4rem 0 !important;
 	}
 
-	.word-button p{
+	.line-button p {
 		margin: 0.2rem 1rem;
 		color: var(--colour-dark);
 		letter-spacing: unset !important;
@@ -125,7 +125,7 @@
 	}
 
 
-	.word-button .strobe {
+	.line-button .strobe {
 		background-color: lightgrey !important;
 	}
 

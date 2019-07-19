@@ -92,7 +92,7 @@ function update( playerInput, instance, next){
 		return next( error );
 	}
 
-	player_func.update( playerInput, instance.data.players[index[0]], instance.data.words, next );
+	player_func.update( playerInput, instance.data.players[index[0]], instance.data.lines, next );
 }
 exports.update = update;
 

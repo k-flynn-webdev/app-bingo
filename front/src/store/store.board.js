@@ -10,7 +10,7 @@ export default {
 		url : '',
 		data : {
 			name : '',
-			words : [],
+			lines : [],
 		}
 	},
 	getters: {
@@ -20,8 +20,8 @@ export default {
 		get_board : function( state ){
 			return state;
 		},
-		get_words : function( state ){
-			return state.data.words;
+		get_lines : function( state ){
+			return state.data.lines;
 		},
 	},
 	mutations: {
@@ -47,8 +47,8 @@ export default {
 				if( input.data.name !== undefined ){
 					state.data.name = input.data.name;
 				}
-				if( input.data.words !== undefined ){
-					state.data.words = input.data.words;
+				if( input.data.lines !== undefined ){
+					state.data.lines = input.data.lines;
 				}
 				
 			}
@@ -81,6 +81,6 @@ let basic = {
 	url : '',
 	data : {
 		name : '',
-		words : [],
+		lines : [],
 	}
 }

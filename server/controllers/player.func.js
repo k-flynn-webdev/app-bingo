@@ -26,8 +26,8 @@ function safe( model, win=false ){
 		if( model.data.score !== undefined ){
 			temp.data.score = model.data.score;
 		}
-		if(win && model.data.words !== undefined ){
-			temp.data.words = model.data.words;
+		if(win && model.data.lines !== undefined ){
+			temp.data.lines = model.data.lines;
 		}		
 	}
 
@@ -53,22 +53,26 @@ function create( input ){
 exports.create = create;
 
 
-function update( input, player, instance_words, next ){
+function update( input, player, instance_lines, next ){
 
 	if( helpers.existsValid( input.name ) && helpers.existsValid( input.name.update ) ){
 		name_update(input.name.update, player, next);
 	}
 
-	if( helpers.existsValid( input.word ) && helpers.existsValid( input.word.add ) ){
-		word_add(input.word.add, player, instance_words, next);
-	}
+	if( helpers.existsValid( input.line )){
 
-	if( helpers.existsValid( input.word ) && helpers.existsValid( input.word.remove ) ){
-		word_remove(input.word.remove, player, next);
-	}
+		if( helpers.existsValid( input.line.add ) ){
+			line_add(input.line.add, player, instance_lines, next);
+		}
 
-	if( helpers.existsValid( input.word ) && helpers.existsValid( input.word.reset ) ){
-		word_reset(player, next);
+		if( helpers.existsValid( input.line.remove ) ){
+			line_remove(input.line.remove, player, next);
+		}
+
+		if( helpers.existsValid( input.line.reset ) ){
+			line_reset(player, next);
+		}		
+
 	}
 
 }
@@ -94,59 +98,59 @@ function name_update( input, player, next ){
 }
 
 
-function word_exists( word, instance_words){
+function line_exists( line, instance_lines){
 
-	for(let i=0;i<instance_words.length;i++){
-		if( instance_words[i] == word ){
+	for(let i=0;i<instance_lines.length;i++){
+		if( instance_lines[i] == line ){
 			return true;
 		}
 	}
 	return false;
 }
 
-function word_add( input, player, instance_words, next ){
-	let newWord = helpers.escape(input);
+function line_add( input, player, instance_lines, next ){
+	let new_line = helpers.escape( input );
 
 	if( input.length <= 3){
 		let error = {
 			status : status.client.input_error,
-			message : 'Player word to add is too short.'
+			message : 'Player line to add is too short.'
 		}
-		return next(error);
+		return next( error );
 	}
 
-	if( !word_exists(newWord, instance_words)){
+	if( !line_exists( new_line, instance_lines )){
 		let error = {
 			status : status.client.input_error,
-			message : 'Player word to add does not exist.'
+			message : 'Player line to add does not exist.'
 		}
-		return next(error);		
+		return next( error );
 	}
 
-	for(let i=0;i<player.data.words.length;i++){
-		if( player.data.words[i] == newWord ){
+	for(let i=0;i<player.data.lines.length;i++){
+		if( player.data.lines[i] == new_line ){
 			let error = {
 				status : status.client.forbidden,
-				message : 'Player already has this word.'
+				message : 'Player already has this line.'
 			}
 			return next(error);
 		}
 	}
 
-	player.data.words.push(newWord);
-	player.data.score = player.data.words.length;
+	player.data.lines.push(new_line);
+	player.data.score = player.data.lines.length;
 	player.data.time = Date.now();
 
 	return next(null, player);
 }
 
-function word_remove( input, player, next ){
-	let newWord = helpers.escape(input);
+function line_remove( input, player, next ){
+	let new_line = helpers.escape(input);
 
-	for(let i=player.data.words.length -1;i>=0;i--){
-		if( player.data.words[i] == newWord ){
-			player.data.words.splice(i,1);
-			player.data.score = player.data.words.length;
+	for(let i=player.data.lines.length -1;i>=0;i--){
+		if( player.data.lines[i] == new_line ){
+			player.data.lines.splice(i,1);
+			player.data.score = player.data.lines.length;
 			player.data.time = Date.now();
 
 			return next(null, player);
@@ -155,15 +159,15 @@ function word_remove( input, player, next ){
 
 	let error = {
 		status : status.client.input_error,
-		message : 'Player does not have this word.'
+		message : 'Player does not have this line.'
 	}
 	return next(error);
 }
 
-function word_reset( player, next ){
+function line_reset( player, next ){
 
 	player.data.name = player.data.name;
-	player.data.words = [];
+	player.data.lines = [];
 	player.data.score = 0;
 	player.data.time = Date.now();
 
@@ -172,7 +176,7 @@ function word_reset( player, next ){
 
 
 // function remove( player, players){
-
+	
 	// let findBy= null;
 	// let results = [];
 	

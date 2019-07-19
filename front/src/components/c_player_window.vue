@@ -80,15 +80,13 @@
 			</c-button-row>
 
 
-
 			<c-button
 				ref="btnOK"
 				class="button-action"
 				v-bind:onClick=name_updated>
-					<p class="colour-fill-bg-inv label">
-						{{ button.label }}
-					</p>
+					{{ button.label }}
 			</c-button>
+			
 
 		<c-message slot="footer"
 			ref="msgObj">

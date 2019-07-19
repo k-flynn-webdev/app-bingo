@@ -32,19 +32,18 @@
 
 			</p>
 
-			
 
 			<c-field-input 
 				v-for="(word, index) in form.words" 
-				v-bind:key="index"
+				v-bind:key="word.id"
 				v-bind:ref="'word_'+index"
-				v-model=form.words[index] 
+				v-model=form.words[index].value 
 				v-on:change=validate_word(index)>
 
 
 					<button
-						v-if=state.buttons[index] 
-						slot="post" 
+						v-if=form.words[index].state.add
+						slot="post"
 						class="button shadow fade-in colour-bg-dark border-round" 
 						v-on:click=add_word(index)
 						style="min-width:unset;">
@@ -52,7 +51,7 @@
 					</button>
 
 					<button 
-						v-if=!state.buttons[index]
+						v-if=form.words[index].state.remove
 						slot="post" 
 						class="button shadow fade-in colour-bg-dark border-round" 
 						v-on:click=remove_word(index)
@@ -65,231 +64,37 @@
 
 
 
+
+
+
+
+	</div>
+
+
+	<c-message 
+		ref="msgObj">
+	</c-message>
+
+
+	<div class="sections anim-3"
+		v-bind:data-open=sections_end
+		v-bind:class="{ 'is-active' : sections_end }">
 			
-
-			<div 
-				v-if=state.complete
-				class="text-right button-add">
-				<button 
-					v-on:click=submit
-					class="button shadow fade-in colour-bg-dark border-round">
-						<p class="label colour-fill-pop"> 
-							Ready
-						</p>
-				</button>
-			</div>
-
-
-
-		</div>
-
-
-		
-
-
-
-<!-- 		<div 
-			class="text-right button-next">
-
-				<button 
-					v-on:click=name_next
-					class="button shadow fade-in colour-bg-dark border-round">
-					<p class="label colour-fill-pop"> 
-						Next
-					</p>
-				</button>
-
-		</div> -->
-
-
-
-
-<!-- 
-
-		<div class="sections anim-3"
-			v-bind:data-open=state.sections[1]
-			v-bind:class="{ 'is-active' : state.sections[1] }">
-		
-
-
-
-			<div ref="field_words" class="field-result">
-
-				<div 
-					class="field">
-
-					<input
-						class="input text colour-fill-dark"
-						type="string"
-						placeholder="Choose a phrase or word"
-						required>
-
-					<c-field-result>
-					</c-field-result>
-
-				</div>
-
-			</div>
-
-
-
-
-
-			<div class="text-right button-add">
-				<button 
-					v-on:click=word_add
-					class="button shadow fade-in colour-bg-dark border-round">
-						<p class="label colour-fill-pop"> 
-							Add
-						</p>
-				</button>
-			</div>
-
-
-
-		</div> -->
-
-		<!-- <div ref="field_words" class="field-result"> -->
-
-			<!-- <div 
-				v-bind:class="{ 'is-visible' : state.word_phrase.display }"
-				class="field reveal anim-6">
-
-				<p class="label colour-fill-dark">
-					Words or Phrases
-				</p>
-
-				<input
-					class="input text colour-fill-dark"
-					type="string"
-					placeholder="Choose a phrase or word"
-					value=form.words
-					v-model=form.words
-					v-on:change=validate_words
-					required>
-
-				<c-field-result>
-				</c-field-result>
-
-			</div> -->
-
-		<!-- </div> -->
-
-
-
-		<c-message 
-			ref="msgObj">
-		</c-message>
-
-
-
-<!-- 		<div 
-			slot="footer"
-			class="text-right button-next">
-
-				<button 
-					v-on:click=name_next
-					class="button shadow fade-in colour-bg-dark border-round">
-					<p class="label colour-fill-pop"> 
-						Next
-					</p>
-				</button>
-
-		</div> -->
-
-
-
-
-<!-- 		<c-button
-			slot="footer"
-			ref="btnOK"
-			class="button-action">
-				<p class="colour-fill-bg-inv label">
-					Submit
-				</p>
-		</c-button> -->
-
-
-<!-- 		<form 
-			class="form" 
-			action="/ignore" 
-			@submit.prevent="onCreate">
-
-			<div 
-				ref="name"
-				class="field field-result">
-				
-				<p class="text label colour-fill-bg-inv"> Name: </p>
-				<input 
-					class="text colour-fill-bg-inv text-input"
-					
-					type="string"
-					placeholder="Board Name here" 
-					v-model=input.name.value
-					v-on:change=validate_name
-					v-bind:pattern=name_pattern
-					v-bind:title=name_title
-					required>
-
-				<c-field-result>
-				</c-field-result>
-
-			</div>
-
-			<div class="field-column ">
-				
-				<span class="label">
-
-					<p class="text label colour-fill-bg-inv" style="display:inline-block;">
-						Phrases or Words
-					</p>
-
-					<div 
-						class="input-add colour-bg-inv add-btn anim-3"
-						v-on:click=words_add>
-						<div class="pin">
-							<span class="colour-bg"></span>
-							<span class="colour-bg"></span>
-						</div>
-					</div>
-
-				</span>
-
-				<div 
-					class="field field-result"
-					ref="wordsParent">
-
-						<textarea 
-							class="text colour-fill-bg-inv text-input"
-							style="height: 10rem;border-bottom: 1px solid var( --colour-inv );margin-top:-.5rem;overflow:scroll; "
-							ref="words"
-							type="string"
-							placeholder="Add 6 or more words or phrases. Seperate with , new line or +" 
-							v-model=input.words.value
-							v-on:change=validate_words
-							required>
-
-						</textarea>
-
-						<c-field-result>
-						</c-field-result>
-
-				</div>
-
-			</div>
-
 			<br>
 
+			<c-button
+				ref="btnOK"
+				class="button-action"
+				v-bind:onClick=submit>
+					Submit
+			</c-button>
+			
+	</div>		
 
 
-			<div class="br-small"></div>
 
- 			<c-button 
- 				ref="btnSubmit">
- 				Create
- 			</c-button>
 
-	 	</form>		 -->
+
 
 
 	</c-panel>
@@ -307,6 +112,7 @@
 	import { submit } from '../mixins/h_submit.js';
 
 	import Validate from '../helpers/h_validate_input.js';
+	import Random from '../helpers/h_random_id.js';
 
 
 	export default {
@@ -316,14 +122,7 @@
 			return {
 				form : {
 					name : '',
-					words : [{ 	
-						id : '',
-						value : '',
-						state : {
-							add : false, 
-							x : false, 
-							ready : false	
-						}}],
+					words : [],
 				},
 				attrs : {
 
@@ -352,45 +151,29 @@
 				state : {
 					init : false,
 					timeouts : 0,
-
-					sections : [ false, false, ],
-					complete : false,
+					sections : [ false, false, false ],
+					words : 0,
 				},
 			}
 		},
 
 		computed : {
 			word_count : function(){
-				let min = this.attrs.words.min;
-				let current = 0;
+				return '(' + this.state.words + '/' + this.attrs.words.min + ')';
+			},
 
-				for( let i = 0; i < this.state.buttons.length; i++){
-					if( !this.state.buttons[i] ){
-						current +=1;
+			sections_end : function(){
+				let result = true;
+				for( let i = 0; i < this.state.sections.length; i++ ){
+					if( !this.state.sections[i] ){
+						result = false;
 					}
 				}
-				
-				if( current >= min ){
-					this.state.complete = true;
-				} else {
-					this.state.complete = false;
-				}
-
-				return '(' + current + '/' + min + ')';
-			},
-			// name_pattern : function(){
-			// 	let pattern = '.{' + this.attrs.name.min + ',' + this.attrs.name.max + '}';
-			// 	return pattern;
-			// },
-			// name_title : function(){
-			// 	let title = "name must be between " + this.attrs.name.min + " and " + this.attrs.name.max + " characters long."
-			// 	return title;
-			// },			
+				return result;
+			},		
 		},
 
 		methods:{
-
-
 
 			init : function( urls ){
 				if( !this.state.init ){
@@ -407,7 +190,9 @@
 					this.state.init = true;
 				}
 
+				this.create_word();
 				this.section_display( 0 , true );
+				
 
 				let self = this;
 				setTimeout( function(){
@@ -440,25 +225,43 @@
 			validate_word : function( index ){
 				let refWord = 'word_' + index;
 
-				let result = Validate.length( this.$refs[refWord][0] , this.form.words[index], this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
+				let result = Validate.length( this.$refs[refWord][0] , this.form.words[index].value, this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
 
 				if( result === null || !result ){
-					// this.section_display( 1 , false );
+					this.form.words[index].state.ready = false;
+				} 
+
+				if( result ){
+					this.form.words[index].state.ready = true;
 				}
+
+				this.check_word_count();
+
 				return result;
 			},
 
 			check_word_count : function(){
+				this.state.words = 0;
 				for( let i =0;i < this.form.words.length;i++){
+					if( this.form.words[i].state.ready ){
+						this.state.words +=1;
+					}
+				}
 
+				if( this.state.words >= this.attrs.words.min ){
+					this.section_display( 2 , true );
+				} else {
+					this.section_display( 2 , false );
 				}
 			},
 
 
+			create_word : function(){
+				let wordObj = { id : Random.id(3), value : '', state : { add : true, remove : false, ready : false } };
+				this.form.words.push( wordObj );
+			},
+
 			add_word : function( index ){
-
-				// todo need a unique id per row to be generated not based on contents?
-
 				let refWord = 'word_' + index;
 				let result = this.validate_word( index );
 
@@ -468,43 +271,25 @@
 				}
 
 				if( result ){
-					this.form.words.push('');
-					this.$set( this.state.buttons, index, false );
-					this.state.buttons.push( true );
+					this.create_word();
+					this.form.words[index].state.add = false;
+					this.form.words[index].state.remove = true;
+					this.form.words[index].state.ready = true;
 					Validate.reset( this.$refs[refWord][0] );
 				}
+
+				this.check_word_count();
 			},
 
 			remove_word : function( index ){
 				this.form.words.splice( index, 1);
-				this.state.buttons.splice( index, 1);
-				for( let i =0; i < this.state.buttons.length; i++){
-					this.$set( this.state.buttons, i, false );
-				}
-				this.$set( this.state.buttons, this.state.buttons.length - 1, true );
+
+				this.check_word_count();
 			},
 
 			submit : function(){
 
 			},
-
-			// name_next : function(){
-			// 	// todo should be next section and programmaticly find?
-			// 	let result = this.validate_name();
-
-			// 	if( result === null ){
-			// 		Validate.length( this.$refs.field_name, 'x', this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
-			// 		return;
-			// 	}	
-
-			// 	if( result ){
-			// 		this.section_display( 1 , true );
-			// 	}		
-			// },
-
-			// word_add : function(){
-			// 	// todo adds a new  form element of phrase ..
-			// },
 
 
 
@@ -653,7 +438,6 @@
 			'c-button' : Button,
 			'c-panel' : Panel,
 			'c-message' : Message,
-			// 'c-field-result' : FieldResult,
 			'c-field-input' : FieldInput,
 		},		
 }
@@ -663,11 +447,13 @@
 
 .sections {
 	opacity: 0;
+	height: 1px;
 	margin: var(--margin) 0;
 }
 
 .sections.is-active {
 	opacity: 1;
+	height: auto;
 }
 
 

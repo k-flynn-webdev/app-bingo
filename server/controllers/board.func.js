@@ -42,7 +42,8 @@ exports.save = save;
 
 function split_word_string( input ){
 
-	let words_array = input.split(/[,\n\r]+/);
+	// let words_array = input.split(/[,\n\r]+/);
+	let words_array = input.split('§');
 	let words = [];
 
 	for( let count=0;count<words_array.length;count++){
@@ -61,7 +62,7 @@ function create( input ){
 	let newBoard = new m_board({
 		data : {
 			name : input.name,
-			words : split_word_string(input.words),			
+			words : split_word_string(input.lines),			
 		},
 	});
 	newBoard.url = newBoard._id;
@@ -114,6 +115,7 @@ exports.get = get;
 
 
 function update( input, next ){
+	// TODO 
 	// // use player_validate
 	// let newPlayer = new m_player({
 	// 	url : helpers.randomID(5);
@@ -126,6 +128,7 @@ exports.update = update;
 
 
 function remove( input, next ){
+	// TODO 
 
 	// let findby = null;
 

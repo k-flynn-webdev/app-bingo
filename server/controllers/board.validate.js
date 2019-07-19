@@ -5,7 +5,7 @@ const helpers = require('./helpers.js');
 
 let messages = [
 'board name missing.',
-'board words missing.',
+'board lines missing.',
 'board url missing or malformed.',
 'board search malformed.',
 ]
@@ -21,7 +21,7 @@ function create( req, res, next){
 		});
 	}
 
-	if( !helpers.existsValid( req.body.words )){
+	if( !helpers.existsValid( req.body.lines )){
 		return res.status( status.client.input_error).json({
 			status : status.client.input_error,
 			message : messages[1],
@@ -52,8 +52,8 @@ exports.name = name;
 
 
 function words( req, res, next){
-	if( helpers.existsValid( req.body.words )){
-		req.body.words = helpers.escape( req.body.words );
+	if( helpers.existsValid( req.body.lines )){
+		req.body.lines = helpers.escape( req.body.lines );
 	}
 	next();
 }
@@ -76,6 +76,7 @@ exports.board = board;
 
 
 // function search( req, res, next){
+	// todo 
 // 	if( helpers.existsValid( req.params.search )){
 // 		req.params.search = helpers.escape( req.params.search );
 // 	} else {

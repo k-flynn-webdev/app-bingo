@@ -61,6 +61,8 @@ exports.get = get;
 
 function update( id, input, next ){
 	
+
+	// TODO 
 	// get( id, function( error, result){
 
 	// 	if( error ){
@@ -83,6 +85,8 @@ exports.update = update;
 
 
 function remove( input, next ){
+	
+	// TODO 
 	
 	// m_board.findByIdAndRemove({ _id : input.id }, function(error, boardFound){
 

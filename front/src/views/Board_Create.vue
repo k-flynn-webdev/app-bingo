@@ -28,44 +28,39 @@
 
 				<span 
 					class="label colour-fill-dark"
-					v-if=!state.complete> {{ word_count }} </span>
+					v-if=!state.complete> {{ line_count }} </span>
 
 			</p>
 
 
 			<c-field-input 
-				v-for="(word, index) in form.words" 
-				v-bind:key="word.id"
-				v-bind:ref="'word_'+index"
-				v-model=form.words[index].value 
-				v-on:change=validate_word(index)>
+				v-for="(line, index) in form.lines" 
+				v-bind:key="line.id"
+				v-bind:ref="'line_'+index"
+				v-model=form.lines[index].value 
+				v-on:change=validate_line(index)>
 
 
 					<button
-						v-if=form.words[index].state.add
+						v-if=form.lines[index].state.add
 						slot="post"
 						class="button shadow fade-in colour-bg-dark border-round" 
-						v-on:click=add_word(index)
+						v-on:click=add_line(index)
 						style="min-width:unset;">
 							<p class="label colour-fill-pop">Add</p>
 					</button>
 
 					<button 
-						v-if=form.words[index].state.remove
+						v-if=form.lines[index].state.remove
 						slot="post" 
 						class="button shadow fade-in colour-bg-dark border-round" 
-						v-on:click=remove_word(index)
+						v-on:click=remove_line(index)
 						style="min-width:unset;">
 							<p class="label colour-fill-pop">X</p>
 					</button>
 
 
 			</c-field-input>
-
-
-
-
-
 
 
 	</div>
@@ -80,21 +75,16 @@
 		v-bind:data-open=sections_end
 		v-bind:class="{ 'is-active' : sections_end }">
 			
-			<br>
+			<div class="br-smaall"></div>
 
 			<c-button
-				ref="btnOK"
+				ref="btnSubmit"
 				class="button-action"
 				v-bind:onClick=submit>
 					Submit
 			</c-button>
 			
-	</div>		
-
-
-
-
-
+	</div>
 
 
 	</c-panel>
@@ -122,7 +112,7 @@
 			return {
 				form : {
 					name : '',
-					words : [],
+					lines : [],
 				},
 				attrs : {
 
@@ -131,14 +121,14 @@
 						max: 30,
 					},	
 
-					word : {
+					line : {
 						min : 5,
 						max: 80,
 					},
 
-					words : {
+					lines : {
 						min : 8,
-						max: 40,
+						max: 50,
 					},
 
 					server : {
@@ -152,14 +142,14 @@
 					init : false,
 					timeouts : 0,
 					sections : [ false, false, false ],
-					words : 0,
+					lines : 0,
 				},
 			}
 		},
 
 		computed : {
-			word_count : function(){
-				return '(' + this.state.words + '/' + this.attrs.words.min + ')';
+			line_count : function(){
+				return '(' + this.state.lines + '/' + this.attrs.lines.min + ')';
 			},
 
 			sections_end : function(){
@@ -183,14 +173,14 @@
 						JSON : true,
 						body : {
 							name : '',
-							words : '',
+							lines : '',
 						},
 					};
 					this.attrs.action = object;
 					this.state.init = true;
 				}
 
-				this.create_word();
+				this.create_line();
 				this.section_display( 0 , true );
 				
 
@@ -222,33 +212,33 @@
 				return result;
 			},
 
-			validate_word : function( index ){
-				let refWord = 'word_' + index;
+			validate_line : function( index ){
+				let ref_line = 'line_' + index;
 
-				let result = Validate.length( this.$refs[refWord][0] , this.form.words[index].value, this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
+				let result = Validate.length( this.$refs[ref_line][0] , this.form.lines[index].value, this.$refs.msgObj, this.attrs.line.min, this.attrs.line.max );
 
 				if( result === null || !result ){
-					this.form.words[index].state.ready = false;
+					this.form.lines[index].state.ready = false;
 				} 
 
 				if( result ){
-					this.form.words[index].state.ready = true;
+					this.form.lines[index].state.ready = true;
 				}
 
-				this.check_word_count();
+				this.check_line_count();
 
 				return result;
 			},
 
-			check_word_count : function(){
-				this.state.words = 0;
-				for( let i =0;i < this.form.words.length;i++){
-					if( this.form.words[i].state.ready ){
-						this.state.words +=1;
+			check_line_count : function(){
+				this.state.lines = 0;
+				for( let i =0;i < this.form.lines.length;i++){
+					if( this.form.lines[i].state.ready ){
+						this.state.lines +=1;
 					}
 				}
 
-				if( this.state.words >= this.attrs.words.min ){
+				if( this.state.lines >= this.attrs.lines.min ){
 					this.section_display( 2 , true );
 				} else {
 					this.section_display( 2 , false );
@@ -256,179 +246,81 @@
 			},
 
 
-			create_word : function(){
-				let wordObj = { id : Random.id(3), value : '', state : { add : true, remove : false, ready : false } };
-				this.form.words.push( wordObj );
+			create_line : function(){
+				let lineObj = { id : Random.id(3), value : '', state : { add : true, remove : false, ready : false } };
+				this.form.lines.push( lineObj );
 			},
 
-			add_word : function( index ){
-				let refWord = 'word_' + index;
-				let result = this.validate_word( index );
+			add_line : function( index ){
+				let ref_line = 'line_' + index;
+				let result = this.validate_line( index );
 
 				if( result === null ){
-					Validate.length( this.$refs[refWord][0] , 'x', this.$refs.msgObj, this.attrs.word.min, this.attrs.word.max );
+					Validate.length( this.$refs[ref_line][0] , 'x', this.$refs.msgObj, this.attrs.line.min, this.attrs.line.max );
 					return
 				}
 
 				if( result ){
-					this.create_word();
-					this.form.words[index].state.add = false;
-					this.form.words[index].state.remove = true;
-					this.form.words[index].state.ready = true;
-					Validate.reset( this.$refs[refWord][0] );
+					this.create_line();
+					this.form.lines[index].state.add = false;
+					this.form.lines[index].state.remove = true;
+					this.form.lines[index].state.ready = true;
+					Validate.reset( this.$refs[ref_line][0] );
 				}
 
-				this.check_word_count();
+				this.check_line_count();
 			},
 
-			remove_word : function( index ){
-				this.form.words.splice( index, 1);
+			remove_line : function( index ){
+				this.form.lines.splice( index, 1);
 
-				this.check_word_count();
+				this.check_line_count();
 			},
 
 			submit : function(){
 
+				this.attrs.action.body.name = this.form.name;
+
+				let lineString = '';
+				for( let i = 0; i < this.form.lines.length;i++){
+					let lineClean = this.form.lines[i].value;
+					//TODO client side escaping..
+					lineString += lineClean + '§';
+				}
+				this.attrs.action.body.lines = lineString;
+
+				let self = this;	
+				self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgObj, self.onSuccess, self.onError);
+
 			},
 
+			onSuccess : function( input ){
+				let self = this;
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+				setTimeout( function(){
+					self.$router.push( '/board/' +  input.data.url);
+				}, 2.3*1000 );
+			},
+			onError : function( input ){
+				if( this.state.timeouts < this.attrs.server.max_timeouts ){
 
 
+					// TODO error checking here ..
 
 
+					this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
 
-			// validate_words : function(){
-			// 	let result = Validate.length( this.$refs.field_words, this.form.words, this.$refs.msgObj, this.attrs.word_phrase.min, this.attrs.word_phrase.max );
+					if( input.status !== 408 ){
+						return;
+					}
 
-			// 	return result;
-			// },
-			// word_next : function(){
-			// 	let result = this.validate_name();
-			// 	if( result ){
-			// 		console.log('test');
-			// 	}			
-			// },
-
-
-
-			// words_add : function(){
-			// 	this.input.words.value += ',\n';
-			// 	this.$refs.words.focus();
-			// },
-
-			// validate_name : function(){
-			// 	let model = this.input.name.value;
-			// 	let elementClass = this.$refs.name;
-
-			// 	let result = Validate.length( model, this.attrs.name.min, this.attrs.name.max );
-
-			// 	this.validate_result( result, elementClass );
-			// 	return result;
-			// },
-
-			// validate_words : function(){
-			// 	let model = this.input.words.value;
-			// 	let elementClass = this.$refs.wordsParent;
-			// 	let temp = this.input.words.value.split(/[,\n\r]+/);
-
-			// 	let wordsClean = [];
-			// 	for( let b = 0; b < temp.length; b++){
-			// 		let word = temp[b].trim();
-			// 		if( word.length > 0 ){
-			// 			wordsClean.push( word );
-			// 		}
-			// 	}
-
-			// 	// has min amount of words/prhases?
-			// 	if( wordsClean.length < this.attrs.words_or_prases.min ){
-			// 		this.validate_result( false, elementClass );
-			// 		return false;
-			// 	}
-
-			// 	//smallest word/phrase is big enough?
-			// 	let min = 100;
-			// 	// find smallest ..
-			// 	for(let i = 0; i < wordsClean.length; i++){
-			// 		if( wordsClean[i].length < min){
-			// 			min = wordsClean[i].length;
-			// 		}
-			// 	}
-			// 	if( min < this.attrs.word_or_phrase.min ){
-			// 		this.validate_result( false, elementClass );
-			// 		return false;
-			// 	}
-
-			// 	this.validate_result( true, elementClass );
-			// 	return true;
-			// },
-
-
-			// validate_result : function( test, element ){
-			// 	if( test === null ){
-			// 		this.set_element_default( element );
-			// 		return;
-			// 	}
-			// 	if( !test ){
-			// 		this.set_element_fail( element );
-			// 		return;
-			// 	}
-			// 	if( test ){
-			// 		this.set_element_pass( element );
-			// 		return;
-			// 	}
-			// },
-
-			// set_element_default : function( element ){
-			// 	return element.className = 'field field-result';
-			// },
-			// set_element_pass : function( element ){
-			// 	return element.className = 'field field-result pass';
-			// },
-			// set_element_fail : function( element ){
-			// 	return element.className = 'field field-result fail';
-			// },
-
-
-			// onCreate : function( event ){
-
-				// if( this.attrs.action.url === undefined ){
-				// 	return;
-				// }
-				// if( !this.validate_name() ){
-				// 	return;
-				// }
-				// if( !this.validate_words() ){
-				// 	return;
-				// }
-
-				// this.attrs.action.body.name = this.input.name.value;
-				// this.attrs.action.body.words = this.input.words.value;
-
-				// let self = this;	
-				// self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-			// },
-			// onSuccess : function( input ){
-				// let self = this;
-				// self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
-				// setTimeout( function(){
-				// 	self.$router.push( '/board/' +  input.data.url);
-				// }, 3000 );
-			// },
-			// onError : function( input ){
-				// if( this.state.timeouts < this.attrs.server.max_timeouts ){
-
-				// 	this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
-
-				// 	if( input.status !== 408 ){
-				// 		return;
-				// 	}
-
-				// 	let self = this;
-				// 	setTimeout( function(){
-				// 		self.state.timeouts +=1
-				// 		self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-				// 	}, self.attrs.server.timing );
-				// }
-			// },
+					let self = this;
+					setTimeout( function(){
+						self.state.timeouts +=1
+						self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgObj, self.onSuccess, self.onError);
+					}, self.attrs.server.timing );
+				}
+			},
 
 		},
 		mounted(){
@@ -449,13 +341,20 @@
 	opacity: 0;
 	height: 1px;
 	margin: var(--margin) 0;
+	pointer-events: none;
+}
+.sections .button, .sections button {
+	pointer-events: none;
 }
 
 .sections.is-active {
+	pointer-events: all;
 	opacity: 1;
 	height: auto;
 }
-
+.sections.is-active .button, .sections.is-active button {
+	pointer-events: all;
+}
 
 </style>
 

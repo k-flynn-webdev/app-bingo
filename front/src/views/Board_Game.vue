@@ -2,8 +2,7 @@
 
 	<section>
 
-		<div class="center-auto-h width-95 border-round"
-		style="border: 1px solid hsla(1,1%,99%,0.1);">
+		<div class="center-auto-h width-95">
 
 			<c-init-instance></c-init-instance>
 			<c-init-board></c-init-board>

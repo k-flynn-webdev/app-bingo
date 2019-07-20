@@ -12,38 +12,33 @@
 				<div 
 					class="footer-content">
 
-					<p class="colour-fill-pop text">Made with 
+					<span class="colour-fill-pop text"> Made with </span>
 
-						<span>
+					<svg 
+						class="colour-fill-pop icon" 
+						viewBox="0 0 907 828" 
+						version="1.1" 
+						xmlns="http://www.w3.org/2000/svg" 
+						xmlns:xlink="http://www.w3.org/1999/xlink" 
+						xml:space="preserve" 
+						xmlns:serif="http://www.serif.com/">
 
-							<svg 
-								class="colour-fill-light icon" 
-								viewBox="0 0 907 828" 
-								version="1.1" 
-								xmlns="http://www.w3.org/2000/svg" 
-								xmlns:xlink="http://www.w3.org/1999/xlink" 
-								xml:space="preserve" 
-								xmlns:serif="http://www.serif.com/">
+						<path class="" d="M730.084,312.85c4.226,113.133 -40.828,236.381 -79.883,320.702c-29.137,63.033 -92.165,103.467 -161.607,103.675c-58.148,0.184 -129.832,0.398 -188.066,0.573c-68.886,0.206 -131.752,-39.215 -161.569,-101.314c-43.597,-90.793 -96.522,-224.663 -88.059,-325.713"/>
+						<path class="" d="M710,410.13l137.329,0c0,0 27.947,188.444 -226.001,233.406"/>
 
-								<path class="" d="M730.084,312.85c4.226,113.133 -40.828,236.381 -79.883,320.702c-29.137,63.033 -92.165,103.467 -161.607,103.675c-58.148,0.184 -129.832,0.398 -188.066,0.573c-68.886,0.206 -131.752,-39.215 -161.569,-101.314c-43.597,-90.793 -96.522,-224.663 -88.059,-325.713"/>
-								<path class="" d="M710,410.13l137.329,0c0,0 27.947,188.444 -226.001,233.406"/>
+					</svg>
 
-							</svg>
+					<span class="colour-fill-pop text"> by </span>
 
-						</span>
-						by 
-
-						<a class="colour-fill-pop" target="_blank" href="https://github.com/k-flynn-webdev"> k-flynn-webdev </a>
-
-					</p>
+					<a class="colour-fill-pop text text-link" target="_blank" href="https://github.com/k-flynn-webdev"> k-flynn-webdev </a>
 
 				</div>
 
 			</div>
 
-			<p class="colour-fill-light text app-version">
+			<p class="colour-fill-pop text app-version">
 				v: {{ version }}
-			</p>		
+			</p>
 
 		</footer>
 
@@ -88,7 +83,6 @@ export default {
 	}
 
 	.footer-content {
-		width: 18rem;
 		display: inline-block;
 		animation: anim-appear 1s ease;
 	}
@@ -103,11 +97,9 @@ export default {
 	}
 
 	.app-version {
-		margin-top: .66rem;
-		font-size: .8rem;
+		margin: .5rem;
 		display: block;
 		text-align: right;
-		transform: translateX(-.5rem)  translateY(-.5rem);
 	}
 
 	.icon {
@@ -118,8 +110,6 @@ export default {
 @media only screen and (min-width: 600px) {
 
 	.app-version {
-		margin-top: 0;
-		font-size: .6rem;
 	}
 
 }

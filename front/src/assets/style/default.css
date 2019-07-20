@@ -116,6 +116,10 @@ section {
 }
 
 
+a:visited, .text-link:visited {
+	color: var(--colour-pop);
+}
+
 button, .button {
 	margin: .15rem 0;
 	padding: .15em 0;

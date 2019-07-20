@@ -13,7 +13,7 @@
 					<div 
 						v-if=onShow
 						v-on:click=clicked
-						class="fill-all colour-bg-shadow">
+						class="fill-all colour-bg-shade">
 					</div>
 
 			</transition>

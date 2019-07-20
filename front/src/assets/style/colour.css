@@ -11,7 +11,7 @@
 
 
 	--colour-shadow: hsla(1,1%,1%,.5);
-	--colour-shadow-dark: hsla(1,1%,5%,.9);
+	--colour-shade: hsla(1,1%,3%,.9);
 
 	--colour-notice: hsla(1,1%,80%,.9);
 
@@ -104,12 +104,12 @@
 	background-color: var(--colour-notice);
 }
 
-.colour-fill-shadow {
-	color: var(--colour-shadow-dark);
-	fill: var(--colour-shadow-dark);
+.colour-fill-shade {
+	color: var(--colour-shade);
+	fill: var(--colour-shade);
 }
-.colour-bg-shadow {
-	background-color: var(--colour-shadow-dark);
+.colour-bg-shade {
+	background-color: var(--colour-shade);
 }
 
 

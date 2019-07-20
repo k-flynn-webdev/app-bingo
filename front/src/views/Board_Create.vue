@@ -2,13 +2,14 @@
 
 	<c-panel>
 
-		<div class="sections anim-3"
+		<div class="sections anim-6"
 			v-bind:data-open=state.sections[0]
 			v-bind:class="{ 'is-active' : state.sections[0] }">
 
 			<c-field-input 
 				ref="field_name"
-				v-model=form.name 
+				v-bind:placeholder=attrs.name.placeholder
+				v-model=form.name
 				v-on:change=validate_name>
 
 				<p class="label" slot="pre"> Name </p>
@@ -18,7 +19,7 @@
 		</div>
 
 
-		<div class="sections anim-3"
+		<div class="sections anim-6"
 			v-bind:data-open=state.sections[1]
 			v-bind:class="{ 'is-active' : state.sections[1] }">
 
@@ -37,6 +38,7 @@
 				v-for="(line, index) in form.lines" 
 				v-bind:key="line.id"
 				v-bind:ref="'line_'+index"
+				v-bind:placeholder=attrs.line.placeholder
 				v-model=form.lines[index].value 
 				v-on:change=validate_line(index)>
 
@@ -71,7 +73,7 @@
 	</c-message>
 
 
-	<div class="sections anim-3"
+	<div class="sections anim-6"
 		v-bind:data-open=sections_end
 		v-bind:class="{ 'is-active' : sections_end }">
 			
@@ -119,11 +121,13 @@
 					name : {
 						min : 5,
 						max: 30,
+						placeholder : 'Choose a name ..',
 					},	
 
 					line : {
 						min : 5,
 						max: 80,
+						placeholder : 'Choose a word or phrase ..',
 					},
 
 					lines : {

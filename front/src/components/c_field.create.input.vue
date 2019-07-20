@@ -10,7 +10,7 @@
 				ref="input"
 				class="input text colour-fill-dark"
 				type="string"
-				placeholder=placeholder
+				v-bind:placeholder=placeholder
 				v-bind:value=value
 				v-on:input=input
 				v-on:change=change>
@@ -34,6 +34,7 @@ export default {
 	name: 'cFieldName',
 	props : {
 		value : String,
+		placeholder : String,
 	},
 	methods : {
 		input : function(){

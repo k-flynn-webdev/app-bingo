@@ -31,9 +31,10 @@
 
 #app {
 	padding: 0;
+	margin: 0;
 	display: block;
 	width: 100%;
-	min-height: calc(100% - var(--nav-height));
+	min-height: calc(100% - var(--nav-height) - 1rem);
 	position: relative;
 }
 html {
@@ -46,6 +47,7 @@ body {
 	margin: 0;
 	position: relative;
 	width: 100%;
+	height: calc(100% - var(--nav-height));
 }
 
 section {
@@ -116,9 +118,7 @@ section {
 }
 
 
-a:visited, .text-link:visited {
-	color: var(--colour-pop);
-}
+
 
 button, .button {
 	margin: .15rem 0;

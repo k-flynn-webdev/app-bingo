@@ -75,6 +75,10 @@ export default {
 
 <style scoped >
 	
+	a:visited, .text-link:visited {
+		color: var(--colour-pop);
+	}
+
 	.app-footer{
 		min-height: 3rem;
 		height: 3rem;

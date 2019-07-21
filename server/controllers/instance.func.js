@@ -115,7 +115,9 @@ function instance_won( instance, player ){
 	instance.data.game.winner.data.score = player.data.score;
 	instance.data.game.winner.data.lines = player.data.lines;
 
-	board_func.board_is_won( instance.data.board );
+	let board_obj = { url : instance.data.board };
+
+	board_func.board_is_won( board_obj );
 	
 }
 exports.instance_won = instance_won;

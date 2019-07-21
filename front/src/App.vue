@@ -41,6 +41,20 @@
 							AdminBoard
 						</p>
 				</router-link>
+
+				<router-link 
+					class="link title colour-on-focus" 
+					to="/cron/instance/">
+						Cron Clean
+				</router-link>
+
+				<router-link 
+					class="link title colour-on-focus" 
+					to="/meta/instance/all">
+						Games
+				</router-link>
+
+
 			</template>
 
 			<template v-slot:none-active>

@@ -5,6 +5,24 @@
 
 		<div class="admin flex-only-on-large">
 
+
+			<div>
+				<router-link 
+					class="link title colour-on-focus" 
+					to="/meta/instance/all">
+						Games
+				</router-link>
+			</div>
+
+			<div>
+				<router-link 
+					class="link title colour-on-focus" 
+					to="/cron/instance/">
+						Cron Clean
+				</router-link>
+			</div>
+
+			
 			<c-admin-edit></c-admin-edit>
 
 			<c-admin-users-graph></c-admin-users-graph>

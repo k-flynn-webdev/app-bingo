@@ -12,9 +12,9 @@
 					Label
 				</slot>
 
-			</span>
+				<div class="button-row-icon anim-3"></div>
 
-			<div class="button-row-icon anim-3"></div>	
+			</span>
 
 			<div class="row-content anim-3">
 
@@ -24,9 +24,8 @@
 
 			</div>
 
-		</div>
-
 	</div>
+
 
 </template>
 
@@ -63,8 +62,6 @@
 	padding: .5rem;
 	background-color: var(--colour-notice)
 }
-.button-row[data-open] {
-}
 
 .button-row-icon {
 	display: inline-block;
@@ -83,10 +80,12 @@
 .row-content {
 	opacity: 0;
 	height: 1px;
+	pointer-events: none;
 }
 .button-row[data-open] .row-content {
 	opacity: 1;
 	height: auto;
+	pointer-events: all;
 }
 
 </style>

@@ -29,14 +29,7 @@
 }
 
 
-#app {
-	padding: 0;
-	margin: 0;
-	display: block;
-	width: 100%;
-	min-height: calc(100% - var(--nav-height) - 1rem);
-	position: relative;
-}
+
 html {
 	padding-top: var(--nav-height);
 	background: linear-gradient( to bottom, var(--colour-dark), 75%, var(--colour-light-gradient) );	
@@ -47,7 +40,16 @@ body {
 	margin: 0;
 	position: relative;
 	width: 100%;
-	height: calc(100% - var(--nav-height));
+	height: calc(100% - var(--nav-height) - .2rem );
+}
+
+#app {
+	padding: 0;
+	margin: 0;
+	display: block;
+	width: 100%;
+	min-height: calc(100% - var(--nav-height) - .2rem );
+	position: relative;
 }
 
 section {

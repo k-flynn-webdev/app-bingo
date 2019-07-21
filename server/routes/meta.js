@@ -6,6 +6,8 @@ const instances = require('../controllers/instance.live.js');
 
 module.exports = function( App ) {
 
+
+	// leave as api for future apps?
 	App.get('/meta/board/latest',
 		function(request, response){
 
@@ -28,6 +30,7 @@ module.exports = function( App ) {
 			});
 	});
 
+	// leave as api for future apps?
 	App.get('/meta/board/popular',
 		function(request, response){
 
@@ -50,27 +53,6 @@ module.exports = function( App ) {
 			});
 	});
 
-	App.get('/meta/board/wins_plays',
-		function(request, response){
-
-			meta.wins_plays( function(error, result){
-
-				if( error ){
-					logger.add( error.message );
-					return response.status(error.status).json({ 
-						status : error.status,
-						message : error.message, 
-					});	
-				}
-
-				return response.status(status.success.ok).json({
-					status : status.success.ok,
-					message : 'Win and plays so far.',
-					data : result,
-				});
-
-			});
-	});
 
 
 
@@ -92,10 +74,10 @@ module.exports = function( App ) {
 
 
 
-	App.get('/meta/instance/players',
+	App.get('/meta/server/stats',
 		function(request, response){
 
-			meta.instance_players( function(error, result){
+			meta.server_stats( function(error, result){
 
 				if( error ){
 					logger.add( error.message );
@@ -107,34 +89,13 @@ module.exports = function( App ) {
 
 				return response.status(status.success.ok).json({
 					status : status.success.ok,
-					message : 'Players currently.',
+					message : 'Stats so far.',
 					data : result,
 				});
 
 			});
 	});
 
-	App.get('/meta/instance/games',
-		function(request, response){
-
-			meta.instance_games( function(error, result){
-
-				if( error ){
-					logger.add( error.message );
-					return response.status(error.status).json({ 
-						status : error.status,
-						message : error.message, 
-					});	
-				}
-
-				return response.status(status.success.ok).json({
-					status : status.success.ok,
-					message : 'Games playing.',
-					data : result,
-				});
-
-			});
-	});
 }
 
 

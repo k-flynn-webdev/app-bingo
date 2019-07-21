@@ -18,7 +18,7 @@ exports.players = players;
 function games(){
 	let games = [];
 	for(let i =0;i<live.length;i++){
-		if( live[i].data.game.winner === "" ){
+		if( !live[i].data.game.winner.win ){
 			games.push( live[i].url );	
 		}
 	}

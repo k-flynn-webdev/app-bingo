@@ -1,18 +1,14 @@
 <template>
 
 	<div class="colour-fill-bg-inv">
-		<p class="title">Latest Boards</p>
-
+		<p class="title">Latest</p>
 
 		<router-link 
 			v-for="(item, index) in boards"
 			:key=item.url
+			v-bind:title=get_title(item)
 			v-bind:to=get_url(item)>
-
-				<p class="text link"> 
-					{{ item.data.name }} : {{ item.data.stats.plays }}
-				</p>
-
+				{{ item.name }}
 		</router-link>
 
 		<br>
@@ -41,13 +37,16 @@
 					init : 0,
 					timeouts : 0,
 				},
-				boards : [],	
+				boards : [],
 			}
 		},	
 		methods : {
 			get_url : function( input ){
 				return '/board/' + input.url;
-			},			
+			},
+			get_title : function( input ){
+				return input.plays + ' plays';
+			},				
 			init : function(){
 
 				let search = {};

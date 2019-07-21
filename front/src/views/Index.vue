@@ -1,46 +1,61 @@
 <template>
 	
-	<c-panel>
+	<section>
 
+		<c-panel>
 
-		<c-front-latest></c-front-latest>
-		
-		<c-front-popular></c-front-popular>
+			<h1 
+				slot="header" 
+				class="colour-fill-dark"> 
+					Welcome to <wbr> BS-Bingo 
+			</h1>
 
-		<c-front-wins-plays></c-front-wins-plays>
-		<c-front-players></c-front-players>
-		<c-front-games></c-front-games>
+			<p class="text text-left"> BS-Bingo is a fun party game designed to be played during large events, that funny tv show or those boring office meetings. Enjoy. </p>
 
+			<c-button-row>
 
-		<div class="admin-only">
-			<br>
-			<span class="text colour-fill-bg-inv">Admin Links:</span>
-			<br>
+				<template slot="label"> How to play? </template>
 
-			<div>
-				<router-link 
-					class="link title colour-on-focus" 
-					to="/meta/instance/all">
-						Games
-				</router-link>
-			</div>
+				<p class="text text-left">
+					When you hear a word or phrase that's in your board, select it. Once you have more than 6 you could be a winner depending on who else is playing!
+				</p>
+
+			</c-button-row>
 
 			<div>
-				<router-link 
-					class="link title colour-on-focus" 
-					to="/cron/instance/">
-						Cron Clean
-				</router-link>
+				<p class="text"> Try for free, 
+
+					<router-link class="link-text colour-fill-dark" to="/board/create">
+						Create
+					</router-link>
+
+					 a board to play with friends today!
+
+				</p>
 			</div>
 
-		</div>
+		</c-panel>
 
 
-		<template slot="footer">
-		</template>
+		<c-panel>
 
-	</c-panel>
-	
+<!-- 			<h1 
+				slot="header" 
+				class="colour-fill-dark"> 
+					Boards 
+			</h1> -->
+
+			<c-front-latest></c-front-latest>
+			
+			<c-front-popular></c-front-popular>
+
+			<c-front-server-stats></c-front-server-stats>
+
+
+		</c-panel>
+
+	</section>
+
 </template>
 
 <script>
@@ -48,9 +63,10 @@
 
 import Latest from '../components/c_front_latest.vue';
 import Popular from '../components/c_front_popular.vue';
-import WinsPlays from '../components/c_front_wins_plays.vue';
-import Players from '../components/c_front_players.vue';
-import Games from '../components/c_front_games.vue';
+import ServerStats from '../components/c_front_server_stats.vue';
+
+import ButtonRow from '../components/c_button_row.vue';
+
 
 import Panel from '../components/c_panel.vue';
 
@@ -65,11 +81,10 @@ export default {
 	},	
 	components: {
 		'c-panel' : Panel,
+		'c-button-row' : ButtonRow,
 		'c-front-latest' : Latest,
 		'c-front-popular' : Popular,
-		'c-front-players' : Players,
-		'c-front-games' : Games,
-		'c-front-wins-plays' : WinsPlays,
+		'c-front-server-stats' : ServerStats,
 	}
 }
 </script>

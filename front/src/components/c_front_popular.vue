@@ -1,17 +1,14 @@
 <template>
 
 	<div class="colour-fill-bg-inv">
-		<p class="title">Popular Boards</p>
+		<p class="title">Popular</p>
 
 		<router-link 
 			v-for="(item, index) in boards"
 			:key=item.url
+			v-bind:title=get_title(item)
 			v-bind:to=get_url(item)>
-
-				<p class="text link"> 
-					{{ item.data.name }} : {{ item.data.stats.plays }}
-				</p>
-
+				{{ item.name }}
 		</router-link>
 
 		<br>
@@ -46,6 +43,9 @@
 		methods : {
 			get_url : function( input ){
 				return '/board/' + input.url;
+			},
+			get_title : function( input ){
+				return input.plays + ' plays';
 			},
 			init : function(){
 

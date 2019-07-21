@@ -30,13 +30,17 @@
 
 					<span class="colour-fill-pop text"> by </span>
 
-					<a class="colour-fill-pop text text-link" target="_blank" href="https://github.com/k-flynn-webdev"> k-flynn-webdev </a>
+					<span class="text colour-fill-pop">
+						<a class="text-link" target="_blank" href="https://github.com/k-flynn-webdev">
+							k-flynn-webdev 
+						</a>						
+					</span>
 
 			</div>
 
-			<p class="footer-version colour-fill-pop text">
+			<small class="footer-version colour-fill-pop">
 				v: {{ version }}
-			</p>
+			</small>
 
 		</footer>
 
@@ -73,9 +77,7 @@ export default {
 
 <style scoped >
 	
-	a:visited, .text-link:visited {
-		color: var(--colour-pop);
-	}
+
 
 	.app-footer{
 		margin: 0 calc(var(--margin)*.5);

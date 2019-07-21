@@ -1,8 +1,8 @@
 
 :root {
 
-	--poster-screen-large: 2.2em;
-	--header-screen-large: 1.66em;
+	--poster-screen-large: 2em;
+	--header-screen-large: 1.6em;
 	--title-screen-large: 1.2em;
 	--text-screen-large: 1em;
 
@@ -30,7 +30,7 @@
 
 
 
-textarea,text,p,h1,.header,.title,.text,.text-input,.label{
+textarea,text,p,h1,.header,.title,.text,.text-input,.label,small{
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
 }
@@ -99,8 +99,8 @@ h1,.header,.poster{
 	font-size: var( --text-screen-large );
 }
 
-.copyright {
-	font-size: 0.7em;
+small, .copyright, .small {
+	font-size: .8rem;
 }
 
 

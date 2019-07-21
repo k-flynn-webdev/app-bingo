@@ -57,6 +57,14 @@ section {
 	margin-bottom: var(--margin);
 }
 
+a, .text-link, a:visited, .text-link:visited {
+	color: inherit;
+	text-decoration: underline;
+	font-weight: 900;
+	font-family: inherit;
+}
+
+
 .no-click {
 	pointer-events: none;
 }
@@ -199,6 +207,7 @@ button, .button {
 	position: relative;
 	text-align: left;
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	margin: calc(var(--margin) *0.5) 0;
 }
@@ -212,7 +221,7 @@ button, .button {
 	border-left: 2px solid var(--colour-dark);
 	border-right: 2px solid var(--colour-pop);
 	border-bottom: 2px solid var(--colour-pop);
-	flex-grow: 1;
+	flex: 1 1;
 	box-sizing: border-box;
 	border-radius: calc(var(--border-radius)*1.5);
 	padding-left: var(--margin);

@@ -8,9 +8,7 @@
 			class="link-text colour-fill-dark instance"
 			v-bind:key=item.url
 			v-bind:title=get_title(item)
-			v-bind:to=get_url(item)>
-				{{ item.name }}
-		</router-link>
+			v-bind:to=get_url(item)>{{ item.name }}</router-link>
 
 		<br>
 

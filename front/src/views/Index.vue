@@ -23,15 +23,13 @@
 			</c-button-row>
 
 			<div>
-				<p class="text"> Try for free, 
 
-					<router-link class="link-text colour-fill-dark" to="/board/create">
-						Create
-					</router-link>
+				<router-link class="link-text colour-fill-dark" to="/board/create">Create</router-link>
 
-					 a board to play with friends today!
+				<span class="text">
+					 a board to play with friends!
+				</span>
 
-				</p>
 			</div>
 
 		</c-panel>

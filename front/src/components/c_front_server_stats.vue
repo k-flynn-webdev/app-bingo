@@ -9,9 +9,7 @@
 		<router-link 
 			v-for="(game, index) in stats.games"
 			v-bind:to="game_url(game)"
-			class="link-text colour-fill-dark instance"> 
-				{{ game }}
-		</router-link>
+			class="link-text colour-fill-dark instance">{{ game }}</router-link>
 
 		<hr>
 

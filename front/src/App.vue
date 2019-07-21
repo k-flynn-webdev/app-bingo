@@ -58,13 +58,13 @@
 			</template>
 
 			<template v-slot:none-active>
-				<router-link 
+<!-- 				<router-link 
 					class="link colour-bg-pop border-round delay-2"	
 					to="/login">
 						<p class="colour-fill-dark header link-text"> 
 							Login
 						</p>
-				</router-link>
+				</router-link> -->
 			</template>
 
 		</c-navbar>

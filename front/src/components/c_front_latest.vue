@@ -1,11 +1,13 @@
 <template>
 
-	<div class="colour-fill-bg-inv">
+	<div class="colour-fill-bg-inv text-left">
+
 		<p class="title">Latest</p>
 
 		<router-link 
 			v-for="(item, index) in boards"
-			:key=item.url
+			class="link-text colour-fill-dark instance"
+			v-bind:key=item.url
 			v-bind:title=get_title(item)
 			v-bind:to=get_url(item)>
 				{{ item.name }}
@@ -92,9 +94,11 @@
 }
 </script>
 
-<style>
+<style scoped>
 
-
+.link-text {
+	font-weight: 100;
+}
 
 </style>
 

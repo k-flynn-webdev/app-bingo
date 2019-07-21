@@ -287,6 +287,10 @@ button, .button {
 	transform: translateY(-50%);
 }
 
+.div-split {
+	width:.4rem;
+	display:inline-block;
+}
 
 .hover-trigger {
 	position:relative;

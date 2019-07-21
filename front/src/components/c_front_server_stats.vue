@@ -2,7 +2,9 @@
 
 	<div class="text">
 
-		<p class="title"> Games </p>
+		<br>
+
+		<p v-if=stats.games.length class="title"> Games </p>
 
 		<router-link 
 			v-for="(game, index) in stats.games"
@@ -15,15 +17,15 @@
 
 		<span class="small">Players {{ stats.players }},</span>
 
-		<div style="width:.4rem;display:inline-block;"></div>
+		<div class="div-split"></div>
 
 		<span class="small">games {{ stats.games.length }},</span>
 
-		<div style="width:.4rem;display:inline-block;"></div>
+		<div class="div-split"></div>
 
 		<span class="small">played {{ stats.games_played }},</span>
 		
-		<div style="width:.4rem;display:inline-block;"></div>
+		<div class="div-split"></div>
 
 		<span class="small">won {{ stats.games_won }}.</span>
 
@@ -93,9 +95,13 @@
 </script>
 
 <style scoped>
-	
+
 .instance {
 	margin: .33rem;
+}
+
+.link-text {
+	font-weight: 100;
 }
 	
 

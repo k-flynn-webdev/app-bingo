@@ -39,18 +39,15 @@
 
 		<c-panel>
 
-<!-- 			<h1 
-				slot="header" 
-				class="colour-fill-dark"> 
-					Boards 
-			</h1> -->
+			<div style="width:100%;">
+				
+				<c-front-latest style="width:50%;display:inline-block;"></c-front-latest>
+				
+				<c-front-popular style="width:50%;display:inline-block;"></c-front-popular>
 
-			<c-front-latest></c-front-latest>
-			
-			<c-front-popular></c-front-popular>
+			</div>
 
 			<c-front-server-stats></c-front-server-stats>
-
 
 		</c-panel>
 

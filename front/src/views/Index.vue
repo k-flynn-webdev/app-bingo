@@ -14,13 +14,37 @@
 
 			<c-button-row>
 
-				<template slot="label"> How to play? </template>
+				<template slot="label"> How to play </template>
 
 				<p class="text text-left">
 					When you hear a word or phrase that's in your board, select it. Once you have more than 6 you could be a winner depending on who else is playing!
 				</p>
 
 			</c-button-row>
+
+
+			<c-button-row>
+
+				<template slot="label"> What do you need </template>
+
+				<p class="text text-left">
+					Creating a board takes no time at all.
+					All you need is a catchy name and at least 8 common words or phrases.
+
+					<br>
+					<br>
+
+					To make it more fun it's reccomended to have far more as everyone who plays gets a random selection each time.
+
+					<br>
+					<br>
+
+					Once you've created a board, you'll be sent to it's lobby from there you can play and share it with friends.
+
+				</p>
+
+			</c-button-row>
+
 
 			<div>
 

@@ -80,17 +80,17 @@
 					}
 				}
 
-				this.$root.$emit('player.line', this.input, toSend );
+				this.$root.$emit('player-line', this.input, toSend );
 
 			},
 
 			exit : function(){
-				this.$root.$off('player.lines.reset', this.reset );
+				this.$root.$off('player-lines-reset', this.reset );
 			}
 		},
 		mounted(){
 			this.reset();
-			this.$root.$on('player.lines.reset', this.reset );
+			this.$root.$on('player-lines-reset', this.reset );
 		},
 		beforeDestroy(){
 			this.exit();

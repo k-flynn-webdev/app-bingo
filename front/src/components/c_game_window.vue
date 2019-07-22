@@ -19,14 +19,13 @@
 					{{ state.message }} 
 				</p>
 
-				<c-button
+<!-- 				<c-button
+		// TODO fix this later?
 					v-if=state.type.lost||state.type.won
 					ref="btnNew"
 					v-bind:onClick=button_new>
 						New
-				</c-button>
-
-				<div style="width: var(--margin);display:inline-block;"></div>
+				</c-button> -->
 
 				<c-button
 					v-if=state.type.kicked
@@ -34,6 +33,10 @@
 					v-bind:onClick=button_rejoin>
 						Rejoin
 				</c-button>	
+
+				<div 
+					v-if=state.type.kicked
+					class="div-split"></div>
 
 				<c-button
 					ref="btnHome"
@@ -146,7 +149,7 @@
 			button_rejoin : function(){
 				this.time_off();
 				this.$refs.btnRejoin.$emit('state', 'waiting');
-				this.$root.$emit('player.rejoin');
+				this.$root.$emit('player-rejoin');
 			},
 			button_home : function(){
 				this.time_off();
@@ -169,7 +172,7 @@
 					method : 'GET',
 					body : '' };
 
-				this.$root.$emit( 'player.remove' );	
+				this.$root.$emit( 'player-remove' );	
 
 				let self = this;
 				this.onSubmit( object, self, this.$refs.btnNew, null, self.onSuccess, self.onError);
@@ -185,7 +188,7 @@
 					self.$store.dispatch('game/exit');
 					self.$router.push( '/instance/' +  input.data.url);
 
-					self.$root.$emit('game.pre.reset');
+					self.$root.$emit('game-pre-reset');
 
 				}, 1500);
 			},
@@ -224,8 +227,8 @@
 				this.state.remove = false;
 				this.state.display = true;
 
-				this.$root.$on('player.message', this.message );
-				this.$root.$on('player.hide', this.window_game_hide );
+				this.$root.$on('player-message', this.message );
+				this.$root.$on('player-hide', this.window_game_hide );
 
 				this.time_start();
 			},
@@ -244,22 +247,22 @@
 				setTimeout( function(){
 					self.type_reset();
 					self.state.remove = true;
-					self.$root.$off('player.message', this.message );
-					self.$root.$off('player.hide', this.window_game_hide );
+					self.$root.$off('player-message', this.message );
+					self.$root.$off('player-hide', this.window_game_hide );
 				},1000);
 			},
 
 			exit : function(){
-				this.$root.$off('game.won', this.game_won );
-				this.$root.$off('game.lost', this.game_lost );
-				this.$root.$off('game.kicked', this.game_kicked );
+				this.$root.$off('game-won', this.game_won );
+				this.$root.$off('game-lost', this.game_lost );
+				this.$root.$off('game-kicked', this.game_kicked );
 				this.time_off();
 			},
 		},
 		mounted(){
-			this.$root.$on('game.won', this.game_won );
-			this.$root.$on('game.lost', this.game_lost );
-			this.$root.$on('game.kicked', this.game_kicked );
+			this.$root.$on('game-won', this.game_won );
+			this.$root.$on('game-lost', this.game_lost );
+			this.$root.$on('game-kicked', this.game_kicked );
 		},		
 		beforeDestroy(){
 			this.exit();

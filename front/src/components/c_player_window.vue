@@ -180,7 +180,7 @@
 
 				// updating 
 				if( hasChanged && game.joined ){
-					this.$root.$emit('player.update', this.form.name );
+					this.$root.$emit('player-update', this.form.name );
 					this.$refs.btnOK.$emit('state', 'waiting');
 					return;
 				}
@@ -189,7 +189,7 @@
 				player.data.name = this.form.name;
 				this.$store.dispatch('player/set_player', player );
 				this.$refs.btnOK.$emit('state', 'waiting');
-				this.$root.$emit('player.check');
+				this.$root.$emit('player-check');
 
 			},
 
@@ -203,9 +203,9 @@
 
 			window_show : function(){
 
-				this.$root.$on('player.message', this.message );
-				this.$root.$on('player.success', this.button_success );
-				this.$root.$on('player.hide', this.window_hide );
+				this.$root.$on('player-message', this.message );
+				this.$root.$on('player-success', this.button_success );
+				this.$root.$on('player-hide', this.window_hide );
 				
 				let player = this.$store.getters['player/get_player'];
 				this.form.name = player.data.name;
@@ -220,7 +220,7 @@
 					
 					let self = this;
 					setTimeout( function(){
-						self.$root.$emit('page.title', 'JOIN');	
+						self.$root.$emit('page-title', 'JOIN');	
 					}, .5*1000);
 
 				} else {
@@ -229,7 +229,7 @@
 
 					let self = this;
 					setTimeout( function(){
-						self.$root.$emit('page.title', 'UPDATE');	
+						self.$root.$emit('page-title', 'UPDATE');	
 					}, .5*1000);
 					
 				}
@@ -260,29 +260,29 @@
 				} else {
 					this.state.display = false;
 					
-					this.$root.$off('player.success', this.button_success );
-					this.$root.$off('player.message', this.message );
-					this.$root.$off('player.hide', this.window_hide );
+					this.$root.$off('player-success', this.button_success );
+					this.$root.$off('player-message', this.message );
+					this.$root.$off('player-hide', this.window_hide );
 
 
 					let self = this;
 					setTimeout( function(){
-						self.$root.$emit('page.title', '');	
+						self.$root.$emit('page-title', '');	
 					}, .5*1000);
 
 					setTimeout( function(){
 						self.state.remove = true;	
-						self.$root.$emit('player.closed');		
+						self.$root.$emit('player-closed');		
 					}, 1*1000);
 				}
 			},
 
 			exit : function(){
-				this.$root.$off('player.show', this.window_show );	
+				this.$root.$off('player-show', this.window_show );	
 			},
 		},
 		mounted(){
-			this.$root.$on('player.show', this.window_show );
+			this.$root.$on('player-show', this.window_show );
 		},		
 		beforeDestroy(){
 			this.exit();

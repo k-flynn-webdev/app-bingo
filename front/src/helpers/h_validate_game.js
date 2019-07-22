@@ -7,12 +7,12 @@ function game_tick( self ){
 function game_won( self, winner ){
 	// console.log( ' game: won' );
 	self.$store.dispatch('game/set_game', { result : 'won' , winner : winner } );
-	self.$root.$emit('game.won');
+	self.$root.$emit('game-won');
 }
 function game_lost( self, winner ){
 	// console.log( ' game: lost' );
 	self.$store.dispatch('game/set_game', { result : 'lost' , winner : winner } );	
-	self.$root.$emit('game.lost');
+	self.$root.$emit('game-lost');
 }
 function game_kicked( self, response ){
 	// console.log( ' game: kicked' );
@@ -26,7 +26,7 @@ function game_afk( self ){
 function kick( self ){
 	self.$store.dispatch('game/set_game', { joined : false } );
 	self.$store.dispatch('player/exit');
-	self.$root.$emit('game.kicked');	
+	self.$root.$emit('game-kicked');	
 }
 
 

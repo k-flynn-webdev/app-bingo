@@ -12,7 +12,7 @@
 				<c-button
 					ref="btnPlay"
 					v-bind:onClick=onPlay>
-					Play
+					Start
 				</c-button>
 				
 				<span class="text colour-fill-dark button-helper"> Start a game. </span>
@@ -176,7 +176,7 @@
 
 				let self = this;
 				setTimeout( function(){
-					self.$root.$emit('page.title', 'LOBBY');	
+					self.$root.$emit('page-title', 'LOBBY');	
 				}, .5*1000);
 
 

@@ -190,7 +190,7 @@
 
 				let self = this;
 				setTimeout( function(){
-					self.$root.$emit('page.title', 'CREATE');	
+					self.$root.$emit('page-title', 'CREATE');	
 				}, .5*1000);			
 			},
 

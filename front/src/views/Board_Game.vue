@@ -112,16 +112,16 @@
 		methods:{
 
 			init : function(){
-				this.$root.$on('reset.success', this.reset_success );
-				this.$root.$on('reset.fail', this.reset_fail );
+				this.$root.$on('reset-success', this.reset_success );
+				this.$root.$on('reset-fail', this.reset_fail );
 
 				this.board = this.$route.params.board;
 				this.game_share_link();
 			},
 
 			reset : function(){
-				this.$root.$emit('player.reset');
-				this.$root.$emit('player.lines.reset');
+				this.$root.$emit('player-reset');
+				this.$root.$emit('player-lines-reset');
 				if( this.$refs.btnReset !== undefined ){
 					this.$refs.btnReset.$emit('state', 'waiting');
 				}
@@ -142,17 +142,17 @@
 			},
 
 			exit : function(){
-				this.$root.$off('reset.success', this.reset_success );
-				this.$root.$off('reset.fail', this.reset_fail );				
+				this.$root.$off('reset-success', this.reset_success );
+				this.$root.$off('reset-fail', this.reset_fail );				
 			},
 		},
 		mounted() {
 			this.init();
-			this.$root.$on('game.pre.reset', this.game_share_link );
+			this.$root.$on('game-pre-reset', this.game_share_link );
 
 		},
 		beforeDestroy(){
-			this.$root.$off('game.pre.reset', this.game_share_link );
+			this.$root.$off('game-pre-reset', this.game_share_link );
 
 			this.exit();
 		},		

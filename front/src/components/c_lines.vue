@@ -160,11 +160,11 @@ let line_hash = function (str){
 
 			exit : function(){
 				this.$store.dispatch('game/set_lines', [] );
-				this.$root.$off('player.lines.reset', this.setup );
+				this.$root.$off('player-lines-reset', this.setup );
 			},
 		},
 		mounted(){
-			this.$root.$on('player.lines.reset', this.setup );
+			this.$root.$on('player-lines-reset', this.setup );
 		},
 		beforeDestroy(){
 			this.exit();

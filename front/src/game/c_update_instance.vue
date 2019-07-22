@@ -132,12 +132,12 @@
 						message : input.message,
 					};
 
-					this.$root.$emit('player.message', message);
-					this.$root.$emit('player.success');
+					this.$root.$emit('player-message', message);
+					this.$root.$emit('player-success');
 					
 					let self =this;
 					setTimeout( function(){
-						self.$root.$emit('player.hide');
+						self.$root.$emit('player-hide');
 					}, 2000 );
 
 				} 
@@ -158,7 +158,7 @@
 					message : input.message,
 				};
 
-				this.$root.$emit('player.message', message);
+				this.$root.$emit('player-message', message);
 				// // game won / lost
 				// if( input.status === 401 && 
 				// 	input.win !== undefined){
@@ -167,7 +167,7 @@
 
 				// 	this.$store.dispatch('game/set_game', { mode : winType } );
 
-				// 	// this.$root.$emit('game.won');
+				// 	// this.$root.$emit('game-won');
 				// 	// todo
 				// 	console.log('game has been ' + winType + ', trigger exit message.');
 				// 	console.log(input);
@@ -181,9 +181,9 @@
 			},
 
 			exit : function(){
-				this.$root.$off('player.line', this.update_line );
-				this.$root.$off('player.update', this.update_player );
-				this.$root.$off('game.pre.reset', this.game_reset );
+				this.$root.$off('player-line', this.update_line );
+				this.$root.$off('player-update', this.update_player );
+				this.$root.$off('game-pre-reset', this.game_reset );
 			},
 
 
@@ -192,9 +192,9 @@
 
 		},
 		mounted() {
-			this.$root.$on('player.line', this.update_line );
-			this.$root.$on('player.update', this.update_player );
-			this.$root.$on('game.pre.reset', this.game_reset );
+			this.$root.$on('player-line', this.update_line );
+			this.$root.$on('player-update', this.update_player );
+			this.$root.$on('game-pre-reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

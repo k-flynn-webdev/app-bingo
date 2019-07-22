@@ -45,8 +45,8 @@
 			board_success : function( input ){
 				this.$store.dispatch('board/set_board', input.data );
 				this.$store.dispatch('game/set_game', { board : true } );
-				this.$root.$emit('player.lines.reset');
-				this.$root.$emit('player.check');
+				this.$root.$emit('player-lines-reset');
+				this.$root.$emit('player-check');
 			},
 			board_error : function( input ){
 				if( this.state.timeouts < this.attrs.server.max_timeouts ){
@@ -60,13 +60,13 @@
 			},
 
 			exit : function(){
-				this.$root.$off('board.init', this.init );
+				this.$root.$off('board-init', this.init );
 				this.$store.dispatch('board/exit');
 			},
 
 		},
 		mounted() {
-			this.$root.$on('board.init', this.init );
+			this.$root.$on('board-init', this.init );
 		},
 		beforeDestroy(){
 			this.exit();

@@ -178,10 +178,10 @@
 		},
 		mounted(){
 			this.set_title('');
-			this.$root.$on('page.title', this.set_title );
+			this.$root.$on('page-title', this.set_title );
 		},
 		beforeDestroy(){
-			this.$root.$off('page.title', this.set_title );
+			this.$root.$off('page-title', this.set_title );
 		},
 		components: {
 		},

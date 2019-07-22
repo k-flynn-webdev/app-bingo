@@ -95,7 +95,7 @@ export default {
 	mounted(){
 		let self = this;
 		setTimeout( function(){
-			self.$root.$emit('page.title', '');	
+			self.$root.$emit('page-title', '');	
 		}, .1*1000);
 	},	
 	components: {

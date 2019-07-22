@@ -80,11 +80,11 @@
 		},
 		mounted(){
 			this.get_users_month();
-			this.$root.$on('userChanged', this.event_get_users_month );
+			this.$root.$on('user-changed', this.event_get_users_month );
 		},		
 		methods:{
 			onClick : function( item ){
-				this.$root.$emit('userAdminSelect', item );
+				this.$root.$emit('user-admin-select', item );
 			},
 			event_get_users_month : function(){
 				let self = this;
@@ -102,7 +102,7 @@
 						return;
 					}
 					self.data = result.data;
-					self.$root.$emit('adminMonthData', result.data );
+					self.$root.$emit('admin-month-data', result.data );
 				});
 			},			
 		},

@@ -148,7 +148,7 @@
 			}
 		},
 		mounted(){
-			this.$root.$on('userAdminSelect', this.show_user );	
+			this.$root.$on('user-admin-select', this.show_user );	
 		},		
 		computed : {
 			name : function(){
@@ -234,7 +234,7 @@
 
 					self.$refs.messageBtn.$emit('message', { class : 'success text-positive', message : result.message });
 					self.progress_update.success = true;				
-					self.$root.$emit('userChanged');					
+					self.$root.$emit('user-changed');					
 
 					setTimeout( function(){
 						self.hide_edit();	
@@ -264,7 +264,7 @@
 
 					self.$refs.messageBtnDel.$emit('message', { class : 'success text-positive', message : result.message });
 					self.progress_delete.success = true;
-					self.$root.$emit('userChanged');	
+					self.$root.$emit('user-changed');	
 
 					setTimeout( function(){
 						self.hide_delete();	

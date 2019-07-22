@@ -63,7 +63,7 @@
 
 		methods:{
 			clicked : function(){
-				this.$root.$emit('player.show');
+				this.$root.$emit('player-show');
 			},
 
 			trigger : function(){
@@ -75,11 +75,11 @@
 			},
 
 			exit : function(){
-				this.$root.$off('player.closed', this.trigger );
+				this.$root.$off('player-closed', this.trigger );
 			},
 		},
 		mounted(){
-			this.$root.$on('player.closed', this.trigger );
+			this.$root.$on('player-closed', this.trigger );
 		},
 		beforeDestroy(){
 			this.exit();

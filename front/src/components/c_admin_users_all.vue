@@ -71,11 +71,11 @@
 		},
 		mounted(){
 			this.get_users_all();
-			this.$root.$on('userChanged', this.event_get_users_all );		
+			this.$root.$on('user-changed', this.event_get_users_all );		
 		},		
 		methods:{
 			onClick : function( item ){
-				this.$root.$emit('userAdminSelect', item );
+				this.$root.$emit('user-admin-select', item );
 			},
 			event_get_users_all : function(){
 				let self = this;

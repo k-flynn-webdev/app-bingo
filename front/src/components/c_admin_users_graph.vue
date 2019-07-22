@@ -54,7 +54,7 @@
 		created(){
 		},	
 		mounted(){
-			this.$root.$on('adminMonthData', this.draw_graph );
+			this.$root.$on('admin-month-data', this.draw_graph );
 			this.default_graph_setup();
 		},		
 		computed : {

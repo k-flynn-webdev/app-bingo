@@ -36,7 +36,7 @@
 				}
 
 				if( this.$store.getters['player/get_name'] === '' ){
-					this.$root.$emit('player.show');
+					this.$root.$emit('player-show');
 					// todo display player join window ...
 					return;
 				}
@@ -51,7 +51,7 @@
 			},
 
 			rejoin : function(){
-				this.$root.$emit('player.lines.reset');
+				this.$root.$emit('player-lines-reset');
 				this.check();
 				return;
 			},
@@ -114,13 +114,13 @@
 					message : input.message,
 				};
 
-				this.$root.$emit('game.stop');
-				this.$root.$emit('player.message', message);
-				this.$root.$emit('player.success');
+				this.$root.$emit('game-stop');
+				this.$root.$emit('player-message', message);
+				this.$root.$emit('player-success');
 
 				let self =this;
 				setTimeout( function(){
-					self.$root.$emit('player.hide');
+					self.$root.$emit('player-hide');
 					self.$store.dispatch('game/set_game', {} );
 				}, 2000 );
 
@@ -131,7 +131,7 @@
 				// todo 
 				this.$store.dispatch('game/set_game', { joined : false } );
 
-				this.$root.$emit('player.message' , input.message );
+				this.$root.$emit('player-message' , input.message );
 
 				validate_game.game( input, this );
 
@@ -140,10 +140,10 @@
 					message : input.message,
 				};
 
-				this.$root.$emit('player.message', message);
+				this.$root.$emit('player-message', message);
 				let self =this;
 				setTimeout( function(){
-					self.$root.$emit('player.hide');
+					self.$root.$emit('player-hide');
 				}, 3500 );
 
 			},
@@ -170,14 +170,14 @@
 				self.onSubmit( self.attrs.action, self, null, null, self.reset_success, self.reset_error);				
 			},
 			reset_success : function( input ){
-				this.$root.$emit('reset.success');
+				this.$root.$emit('reset-success');
 				this.join_success( input );
 			},
 			reset_error : function( input ){
 
 				validate_game.game( input, this );
 
-				this.$root.$emit('reset.fail');
+				this.$root.$emit('reset-fail');
 				console.log( 'error on reset' );
 				console.log( input );
 			},
@@ -208,21 +208,21 @@
 
 
 			exit : function(){
-				this.$root.$off('player.check', this.check );
-				this.$root.$off('player.reset', this.reset );
-				this.$root.$off('player.rejoin', this.rejoin );
-				this.$root.$off('player.remove', this.remove );
-				this.$root.$off('game.pre.reset', this.game_reset );
+				this.$root.$off('player-check', this.check );
+				this.$root.$off('player-reset', this.reset );
+				this.$root.$off('player-rejoin', this.rejoin );
+				this.$root.$off('player-remove', this.remove );
+				this.$root.$off('game-pre-reset', this.game_reset );
 
 				this.remove();
 			},
 		},
 		mounted() {
-			this.$root.$on('player.check', this.check );
-			this.$root.$on('player.reset', this.reset );
-			this.$root.$on('player.rejoin', this.rejoin );
-			this.$root.$on('player.remove', this.remove );
-			this.$root.$on('game.pre.reset', this.game_reset );
+			this.$root.$on('player-check', this.check );
+			this.$root.$on('player-reset', this.reset );
+			this.$root.$on('player-rejoin', this.rejoin );
+			this.$root.$on('player-remove', this.remove );
+			this.$root.$on('game-pre-reset', this.game_reset );
 		},
 		beforeDestroy(){
 			this.exit();

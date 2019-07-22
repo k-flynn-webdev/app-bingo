@@ -6,11 +6,15 @@
 
 		<p v-if=stats.games.length class="title"> Games </p>
 
-		<router-link 
-			v-for="game in stats.games"
-			v-bind:key=game
-			v-bind:to="game_url(game)"
-			class="text-link colour-fill-dark">{{ game }}</router-link>
+		<div>
+
+			<router-link 
+				v-for="game in stats.games"
+				v-bind:key=game
+				v-bind:to="game_url(game)"
+				class="text-link colour-fill-dark">{{ game }}</router-link>
+
+		</div>
 
 		<hr>
 
@@ -29,7 +33,7 @@
 		<span class="small">won {{ stats.games_won }}.</span>
 
 
-	</div>		
+	</div>
 
 </template>
 
@@ -92,7 +96,6 @@
 </script>
 
 <style scoped>
-
 
 .link-text {
 	font-weight: 100;

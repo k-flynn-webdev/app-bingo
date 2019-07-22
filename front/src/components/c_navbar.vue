@@ -61,8 +61,11 @@
 
 
 		<div 
-			class="navbar-shade fill-all"
+			class="navbar-shade fill-all colour-bg-shade"
 			v-on:click=on_click>
+
+
+
 		</div>		
 
 
@@ -85,7 +88,15 @@
 					
 				</slot>	
 
+
+				<small class="nav-version colour-fill-pop text-bold">
+					v: {{ version }}
+				</small>					
+
+
+
 		</div>
+
 
 
 	</nav>		
@@ -113,6 +124,9 @@
 			}		
 		},
 		computed: {
+			version : function(){
+				return process.env.VUE_APP_VERSION || '0.0.0';
+			},
 			is_active : function(){
 				return this.$store.getters['user/get_active'];
 			},
@@ -219,6 +233,7 @@
 			display: inline !important;
 		}				
 	}	
+
 
 </style>
 
@@ -342,7 +357,6 @@
 
 	#navbar .navbar-shade, #navbar .content {
 		display: none;
-		background-color: hsla(1,10%,5%,.95);
 		pointer-events: all;
 	}
 	#navbar[data-open] .navbar-shade {
@@ -353,7 +367,8 @@
 	#navbar .content {
 		position: relative;
 		z-index: 20;
-		margin-top: 5rem;
+		height: 100vh;
+		padding-top: 5rem;
 	}
 	#navbar .content .link {
 		margin: calc(var(--margin)*0.4) var(--margin);
@@ -377,7 +392,7 @@
 		animation-name: anim-nav-link-in;
 	}
 
-	#navbar .link-text {
+	#navbar .text-link {
 		opacity: 0;
 		transform: translateX(-4rem);
 		animation-duration: .66s;
@@ -385,7 +400,7 @@
 		animation-delay: inherit;
 	}
 
-	#navbar[data-open] .link-text {
+	#navbar[data-open] .text-link {
 		animation-name: anim-nav-link-text-in;
 	}
 
@@ -440,6 +455,16 @@
 	50% { top:45%; transform: rotate(0deg); }
 	100% { transform: rotate(0deg); }
 }
+
+
+
+.nav-version {
+	position: absolute;
+	bottom: calc(var(--margin)*.5);
+	right: calc(var(--margin)*.5);
+}
+
+
 
 /*
 @media only screen and (min-width: 600px) {

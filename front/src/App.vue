@@ -7,7 +7,7 @@
 			<router-link 
 				class="link colour-bg-pop border-round delay-2" 
 				to="/board/create">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							Create
 						</p>
 			</router-link>
@@ -16,28 +16,28 @@
 				<router-link 
 					class="link colour-bg-pop border-round delay-2" 
 					to="/logout">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							Logout
 						</p>
 				</router-link>
 				<router-link 
 					class="link colour-bg-pop border-round delay-2" 
 					to="/account">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							Account
 						</p>
 				</router-link>
 				<router-link 
 					class="link colour-bg-pop border-round delay-2"					
 					to="/admin/request">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							AdminRequest
 						</p>
 				</router-link>
 				<router-link 
 					class="link colour-bg-pop border-round delay-2"	
 					to="/admin">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							AdminBoard
 						</p>
 				</router-link>
@@ -61,7 +61,7 @@
 <!-- 				<router-link 
 					class="link colour-bg-pop border-round delay-2"	
 					to="/login">
-						<p class="colour-fill-dark header link-text"> 
+						<p class="colour-fill-dark header text-link"> 
 							Login
 						</p>
 				</router-link> -->

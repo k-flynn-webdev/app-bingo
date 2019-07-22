@@ -1,6 +1,6 @@
 <template>
 
-	<div class="colour-fill-bg-inv text-left">
+	<div class="colour-fill-bg-inv text-left chart">
 
 		<p class="title">Latest</p>
 

@@ -1,6 +1,6 @@
 <template>
 
-	<div class="colour-fill-bg-inv text-right">
+	<div class="colour-fill-bg-inv text-right chart">
 		<p class="title">Popular</p>
 
 		<router-link 

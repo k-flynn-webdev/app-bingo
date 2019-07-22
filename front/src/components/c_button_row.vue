@@ -2,11 +2,11 @@
 
 	<div 
 		ref="btnRow"
-		class="button-row" 
+		class="button-row border-round" 
 		v-bind:data-open=state.open
 		v-on:click=clicked>
 
-			<span class="title colour-fill-dark"> 
+			<span class="title colour-fill-dark no-click"> 
 
 				<slot name="label">
 					Label
@@ -62,11 +62,16 @@
 	padding: .5rem;
 	background-color: var(--colour-notice);
 	overflow: hidden;
+	position: relative;
 }
 
 .button-row-icon {
 	display: inline-block;
-	margin-left: 0;
+	position: absolute;
+	top: var(--margin);
+	right: var(--margin);
+	z-index: 1;
+
 	width: .75rem;
 	height: .75rem;
 	border-top: 4px solid var(--colour-dark);
@@ -87,13 +92,13 @@
 	opacity: 1;
 	height: auto;
 	pointer-events: all;
-	animation: anim-row-content-in 1s ease forwards;
+	animation: anim-row-content-in 1s cubic-bezier(0.18, 0.03, 0, 1) forwards;
 }
 
 	@keyframes anim-row-content-in {
 		0% { 
 			opacity: 0;
-			transform: translateY(2rem); 
+			transform: translateY(.7rem); 
 		}
 		100% { 
 			opacity: 1;

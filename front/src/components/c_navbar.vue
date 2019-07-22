@@ -88,6 +88,10 @@
 					
 				</slot>	
 
+				<div class="nav-problem">
+					<!-- // todo send to internal email? -->
+					<small class="colour-fill-pop text-bold"> Found a problem? </small>
+				</div>
 
 				<small class="nav-version colour-fill-pop text-bold">
 					v: {{ version }}
@@ -458,12 +462,16 @@
 
 
 
+.nav-problem {
+	position: absolute;
+	bottom: calc(var(--margin)*.5);
+	left: calc(var(--margin)*.5);
+}
 .nav-version {
 	position: absolute;
 	bottom: calc(var(--margin)*.5);
 	right: calc(var(--margin)*.5);
 }
-
 
 
 /*

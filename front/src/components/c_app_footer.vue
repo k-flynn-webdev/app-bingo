@@ -31,9 +31,9 @@
 					<span class="colour-fill-pop text"> by </span>
 
 					<span class="text colour-fill-pop">
-						<a class="text-link" target="_blank" href="https://github.com/k-flynn-webdev">
+						<a class="text-link" rel="noreferrer" target="_blank" href="https://github.com/k-flynn-webdev">
 							k-flynn-webdev 
-						</a>						
+						</a>					
 					</span>
 
 			</div>

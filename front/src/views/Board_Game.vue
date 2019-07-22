@@ -4,6 +4,7 @@
 
 		<div class="center-auto-h width-95">
 
+			<!-- // TODO future: thse should be pushed into some kind of api in the store .. -->
 			<c-init-instance></c-init-instance>
 			<c-init-board></c-init-board>
 			<c-init-player></c-init-player>
@@ -12,7 +13,7 @@
 			<c-window-game></c-window-game>
 			<c-window-player></c-window-player>
 
-
+			<!-- // TODO future: this should be pushed into some kind of api in the store .. -->
 			<c-update-instance></c-update-instance>
 
 			<p class="poster colour-fill-pop bingo-header">
@@ -48,11 +49,6 @@
 			</div>
 
 		</div>
-
-		<span class="text colour-fill-bg-inv">
-			{{ game_state.mode }}
-			{{ game_state.result }}
-		</span>
 
 	</section>	
 

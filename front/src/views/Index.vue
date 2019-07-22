@@ -45,16 +45,20 @@
 
 			</c-button-row>
 
+			<div class="br-small"></div>
 
-			<div>
+			<div class="text-left buttons">
 
-				<router-link class="text-link colour-fill-dark" to="/board/create">Create</router-link>
+				<c-button
+					v-bind:onClick=button_create>
+					Create
+				</c-button>
 
-				<span class="text">
-					 a board to play with friends!
+				<span class="text colour-fill-dark button-helper">
+					 and play with friends!
 				</span>
 
-			</div>
+			</div>	
 
 		</c-panel>
 
@@ -69,7 +73,7 @@
 
 			</div>
 
-			<c-front-server-stats></c-front-server-stats>
+			<c-front-server-stats slot="footer"></c-front-server-stats>
 
 		</c-panel>
 
@@ -83,6 +87,8 @@
 import Latest from '../components/c_front_latest.vue';
 import Popular from '../components/c_front_popular.vue';
 import ServerStats from '../components/c_front_server_stats.vue';
+
+import Button from '../components/c_button.vue';
 
 import ButtonRow from '../components/c_button_row.vue';
 
@@ -98,8 +104,14 @@ export default {
 			self.$root.$emit('page-title', '');	
 		}, .1*1000);
 	},	
+	methods : {
+		button_create : function(){
+			this.$router.push('/board/create/');
+		},
+	},
 	components: {
 		'c-panel' : Panel,
+		'c-button' : Button,
 		'c-button-row' : ButtonRow,
 		'c-front-latest' : Latest,
 		'c-front-popular' : Popular,

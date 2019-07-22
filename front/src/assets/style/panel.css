@@ -6,7 +6,7 @@
 .panel {
 	text-align: center;
 	overflow: hidden;
-	padding: calc( var(--margin) * 0.5) 0;
+	padding-top: calc( var(--margin) * 0.5);
 	margin-top: var(--margin);
 	margin-bottom: var(--margin);
 }

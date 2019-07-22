@@ -202,10 +202,12 @@ button, .button {
 	margin: calc(var(--margin)*0.5) 0;
 }
 .buttons > div {
-	/*margin-bottom: calc( var(--margin ) * 0.6);*/
+	margin-bottom: .3rem;
 }
-.buttons .button-helper{
+.buttons .button-helper {
 	margin: 0 calc(var(--margin)*0.5);
+	position: relative;
+	top: -2px;
 }
 
 .button.icon {

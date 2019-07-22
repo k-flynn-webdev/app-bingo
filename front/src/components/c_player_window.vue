@@ -3,7 +3,6 @@
 	<c-popup
 		v-if=!state.remove
 		v-bind:onShow=state.display 
-		v-bind:extraClass=attrs.extraClass
 		v-bind:onClick=window_click>
 
 			<div slot="header">
@@ -118,7 +117,7 @@
 					},
 				},
 				state : {
-					remove : false,
+					remove : true,
 					display : false,
 					lock : false,
 				},	

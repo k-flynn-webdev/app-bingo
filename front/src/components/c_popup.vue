@@ -3,8 +3,7 @@
 
 		<div 
 			ref="popup" 
-			class="popup-fill" 
-			v-bind:class=extraClass>
+			class="popup-fill">
 			
 			<transition 
 				appear
@@ -83,7 +82,6 @@
 			}
 		},	
 		props: {
-			extraClass : String,
 			onClick : Function,
 			onShow : Boolean,
 			onRemove : Boolean,

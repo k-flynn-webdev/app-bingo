@@ -154,6 +154,7 @@
 				if( this.onClick !== undefined ){
 					this.onClick();
 				}
+				// this.$emit('click');
 			},
 	
 		},

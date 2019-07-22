@@ -131,7 +131,10 @@
 
 
 			exit : function(){
-				clearTimeout( instanceGet );
+				this.instance_stop();
+				this.$store.dispatch('instance/exit');
+				this.$store.dispatch('game/exit');
+
 				this.$root.$off('game-won', this.instance_stop );
 				this.$root.$off('game-lost', this.instance_stop );
 				this.$root.$off('game-kicked', this.instance_stop );

@@ -215,6 +215,8 @@
 				this.$root.$off('game-pre-reset', this.game_reset );
 
 				this.remove();
+
+				this.$store.dispatch('player/exit');
 			},
 		},
 		mounted() {

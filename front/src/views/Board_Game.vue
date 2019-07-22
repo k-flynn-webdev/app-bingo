@@ -139,17 +139,13 @@
 
 			exit : function(){
 				this.$root.$off('reset-success', this.reset_success );
-				this.$root.$off('reset-fail', this.reset_fail );				
+				this.$root.$off('reset-fail', this.reset_fail );
 			},
 		},
 		mounted() {
 			this.init();
-			this.$root.$on('game-pre-reset', this.game_share_link );
-
 		},
 		beforeDestroy(){
-			this.$root.$off('game-pre-reset', this.game_share_link );
-
 			this.exit();
 		},		
 		components: {

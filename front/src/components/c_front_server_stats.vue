@@ -7,9 +7,10 @@
 		<p v-if=stats.games.length class="title"> Games </p>
 
 		<router-link 
-			v-for="(game, index) in stats.games"
+			v-for="game in stats.games"
+			v-bind:key=game
 			v-bind:to="game_url(game)"
-			class="link-text colour-fill-dark instance">{{ game }}</router-link>
+			class="text-link colour-fill-dark">{{ game }}</router-link>
 
 		<hr>
 
@@ -35,8 +36,6 @@
 <script>
 
 	import { submit } from '../mixins/h_submit.js';
-
-	let counter = null;
 
 	export default {
 		name: 'cFrontServerStats',
@@ -82,7 +81,7 @@
 			success : function( input ){
 				this.stats = input.data;
 			},
-			error : function( input ){
+			error : function(){
 				// todo this properly?
 			},
 		},
@@ -94,9 +93,6 @@
 
 <style scoped>
 
-.instance {
-	margin: .33rem;
-}
 
 .link-text {
 	font-weight: 100;

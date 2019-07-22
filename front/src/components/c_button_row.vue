@@ -60,7 +60,8 @@
 	text-align: left;
 	margin: var(--margin);
 	padding: .5rem;
-	background-color: var(--colour-notice)
+	background-color: var(--colour-notice);
+	overflow: hidden;
 }
 
 .button-row-icon {
@@ -86,7 +87,20 @@
 	opacity: 1;
 	height: auto;
 	pointer-events: all;
+	animation: anim-row-content-in 1s ease forwards;
 }
+
+	@keyframes anim-row-content-in {
+		0% { 
+			opacity: 0;
+			transform: translateY(2rem); 
+		}
+		100% { 
+			opacity: 1;
+			transform: translateX(0); 
+		}
+	}
+
 
 </style>
 

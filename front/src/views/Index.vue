@@ -48,7 +48,7 @@
 
 			<div>
 
-				<router-link class="link-text colour-fill-dark" to="/board/create">Create</router-link>
+				<router-link class="text-link colour-fill-dark" to="/board/create">Create</router-link>
 
 				<span class="text">
 					 a board to play with friends!

@@ -57,12 +57,26 @@ section {
 	margin-bottom: var(--margin);
 }
 
-a, .text-link, a:visited, .text-link:visited {
-	color: inherit;
-	text-decoration: underline;
-	font-weight: 900;
-	font-family: inherit;
+/* all links */
+a, a:visited {
+	margin: .3rem;
 }
+a:nth-of-type(1), a:nth-of-type(1):visited {
+	margin: 0;
+	border: none;
+	margin-right: .3rem;
+}
+a:nth-last-of-type(1), a:nth-last-of-type(1):visited {
+	margin: 0;
+	border: none;
+	margin-left: .3rem;
+}
+
+/* sole link */
+a:first-of-type:last-of-type {
+	margin: 0;
+}
+
 
 
 .no-click {
@@ -291,6 +305,13 @@ button, .button {
 	width:.4rem;
 	display:inline-block;
 }
+
+
+.margin-min {
+	margin: .3rem;
+}
+
+
 
 .hover-trigger {
 	position:relative;

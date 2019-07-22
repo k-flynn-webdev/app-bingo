@@ -5,12 +5,10 @@
 
 		<router-link 
 			v-for="(item, index) in boards"
-			class="link-text colour-fill-dark instance"
+			class="text-link colour-fill-dark"
 			v-bind:key=item.url
 			v-bind:title=get_title(item)
 			v-bind:to=get_url(item)>{{ item.name }}</router-link>
-
-		<br>
 
 	</div>
 

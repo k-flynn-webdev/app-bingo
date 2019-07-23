@@ -300,14 +300,13 @@ button, .button {
 }
 
 .br-split {
-	opacity: 0.33;
+	opacity: 0.4;
 	margin: 0;
 	padding: 0;
-	height: var(--margin);
-	margin-top: calc(var(--margin)*0.5);
-	margin-bottom: calc(var(--margin)*0.5);
+	height: 1px;
+	margin-top: var(--margin);
+	margin-bottom: var(--margin);
 	border-bottom: 1px solid var(--colour-dark);
-	transform: translateY(-50%);
 }
 
 .div-split {

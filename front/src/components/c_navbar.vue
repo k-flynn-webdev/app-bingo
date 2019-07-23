@@ -43,7 +43,7 @@
 			</div>
 
 
-			<div class="right">
+			<div class="right hd-hide1">
 
 				<div
 					class="burger"
@@ -61,11 +61,8 @@
 
 
 		<div 
-			class="navbar-shade fill-all colour-bg-shade"
+			class="navbar-shade fill-all colour-bg-shade hd-hide"
 			v-on:click=on_click>
-
-
-
 		</div>		
 
 
@@ -88,16 +85,14 @@
 					
 				</slot>	
 
-				<div class="nav-problem">
+				<div class="nav-problem hd-hide">
 					<!-- // todo send to internal email? -->
 					<small class="colour-fill-pop text-bold"> Found a problem? </small>
 				</div>
 
-				<small class="nav-version colour-fill-pop text-bold">
+				<small class="nav-version colour-fill-pop text-bold hd-hide">
 					v: {{ version }}
 				</small>					
-
-
 
 		</div>
 
@@ -382,14 +377,19 @@
 	#navbar[data-open] .content {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		width: 100%;
 	}	
 
 
 	#navbar .link {
+		width: 90%;
+		min-width: 20rem;
 		opacity: 0;
 		transform: translateY(-1rem);
 		animation-duration: .3s;
 		animation-fill-mode: forwards;
+		text-transform: uppercase;
 	}
 
 	#navbar[data-open] .link {
@@ -474,9 +474,72 @@
 }
 
 
-/*
+
 @media only screen and (min-width: 600px) {
-	#navbar .toggle, #navbar .shade , #navbar .bar{
+
+	html {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	#navbar {
+		position: relative;
+		top: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	#navbar .hd-hide {
+		display: none !important;
+	}
+
+	#navbar .content {
+		position: absolute;
+		top: var(--nav-height);
+		margin: 0 !important;
+		padding: 0 !important;
+		align-items: flex-end !important;
+	}
+
+	#navbar .link {
+		margin: .5rem !important;
+		padding: 0 1rem !important;		
+		width: unset !important;
+		height: unset !important;
+		min-width: unset !important;
+	}
+
+	#navbar .link .text-link {
+		font-size: var(--title-screen-large);
+	}
+
+
+	/*
+	#navbar .content, #navbar[data-open] .content {
+		position: absolute;
+		top: 0 !important;
+		left: 50% !important;	
+		width: 50% !important;
+		height: var(--nav-height) !important;
+
+		margin: 0;
+		padding: 0;
+		flex-direction: row;
+		background-color: yellow;
+	}*/
+
+	/*#navbar .link {*/
+		/*opacity: 1 !important;*/
+		/*flex: unset;*/
+		/*width: fit-content;*/
+		/*min-width: 4rem;*/
+		/*min-height: 4rem;*/
+		/*max-width: unset;*/
+		/*margin: 0;*/
+		/*padding: 0;*/
+		/*background-color: yellow;*/
+	/*}*/
+/*	#navbar .toggle, #navbar .shade , #navbar .bar{
 		display: none;
 	}
 	#navbar .content {
@@ -488,33 +551,9 @@
 	#navbar.is-active .content {
 		display: flex;
 		flex-direction: row;
-	}
-
-	#navbar .content .link {
-		display: inline;
-		margin: 0 .5rem;
-		margin-top: .22rem;
-		padding: 0 1rem;
-		border-top-left-radius: .35rem;
-		border-top-right-radius: .35rem;
-		border: none;
-		font-size: var( --text-screen-large );
-	}
-
-	#navbar .content .link:nth-child(1) {
-		margin-left: 0;
-	}	
-	#navbar .content .link:nth-child(2) {
-		margin-left: auto;
-	}		
-	#navbar .content .link:last-of-type {
-		margin-bottom: 0;
 	}*/
+}
 
-/*	#navbar .bar-fill {
-		bottom: -0.2rem; 
-	}*/				
-/*}*/
 
 
 </style>

@@ -1,95 +1,99 @@
 <template>
 
-	<c-panel>
+	<section>
 
-		<div class="sections anim-6"
-			v-bind:data-open=state.sections[0]
-			v-bind:class="{ 'is-active' : state.sections[0] }">
+		<c-panel>
 
-			<c-field-input 
-				ref="field_name"
-				v-bind:placeholder=attrs.name.placeholder
-				v-model=form.name
-				v-on:change=validate_name>
+			<div class="sections anim-6"
+				v-bind:data-open=state.sections[0]
+				v-bind:class="{ 'is-active' : state.sections[0] }">
 
-				<p class="label" slot="pre"> Name </p>
+				<c-field-input 
+					ref="field_name"
+					v-bind:placeholder=attrs.name.placeholder
+					v-model=form.name
+					v-on:change=validate_name>
 
-			</c-field-input>
+					<p class="label" slot="pre"> Name </p>
+
+				</c-field-input>
+
+			</div>
+
+
+			<div class="sections anim-6"
+				v-bind:data-open=state.sections[1]
+				v-bind:class="{ 'is-active' : state.sections[1] }">
+
+
+				<p class="label colour-fill-dark">
+					Words and Phrases
+
+					<span 
+						class="label colour-fill-dark"
+						v-if=!state.complete> {{ line_count }} </span>
+
+				</p>
+
+
+				<c-field-input 
+					v-for="(line, index) in form.lines" 
+					v-bind:key="line.id"
+					v-bind:ref="'line_'+index"
+					v-bind:placeholder=attrs.line.placeholder
+					v-model=form.lines[index].value 
+					v-on:change=validate_line(index)>
+
+
+						<button
+							v-if=form.lines[index].state.add
+							slot="post"
+							class="button shadow fade-in colour-bg-dark border-round" 
+							v-on:click=add_line(index)
+							style="min-width:unset;">
+								<p class="label colour-fill-pop">Add</p>
+						</button>
+
+						<button 
+							v-if=form.lines[index].state.remove
+							slot="post" 
+							class="button shadow fade-in colour-bg-dark border-round" 
+							v-on:click=remove_line(index)
+							style="min-width:unset;">
+								<p class="label colour-fill-pop">X</p>
+						</button>
+
+
+				</c-field-input>
+
 
 		</div>
 
 
+		<c-message 
+			ref="msgObj">
+		</c-message>
+
+
 		<div class="sections anim-6"
-			v-bind:data-open=state.sections[1]
-			v-bind:class="{ 'is-active' : state.sections[1] }">
+			v-bind:data-open=sections_end
+			v-bind:class="{ 'is-active' : sections_end }">
+				
+				<div class="br-smaall"></div>
+
+				<c-button
+					ref="btnSubmit"
+					class="button-action"
+					v-bind:onClick=submit>
+						Submit
+				</c-button>
+				
+		</div>
 
 
-			<p class="label colour-fill-dark">
-				Words and Phrases
+		</c-panel>
 
-				<span 
-					class="label colour-fill-dark"
-					v-if=!state.complete> {{ line_count }} </span>
-
-			</p>
-
-
-			<c-field-input 
-				v-for="(line, index) in form.lines" 
-				v-bind:key="line.id"
-				v-bind:ref="'line_'+index"
-				v-bind:placeholder=attrs.line.placeholder
-				v-model=form.lines[index].value 
-				v-on:change=validate_line(index)>
-
-
-					<button
-						v-if=form.lines[index].state.add
-						slot="post"
-						class="button shadow fade-in colour-bg-dark border-round" 
-						v-on:click=add_line(index)
-						style="min-width:unset;">
-							<p class="label colour-fill-pop">Add</p>
-					</button>
-
-					<button 
-						v-if=form.lines[index].state.remove
-						slot="post" 
-						class="button shadow fade-in colour-bg-dark border-round" 
-						v-on:click=remove_line(index)
-						style="min-width:unset;">
-							<p class="label colour-fill-pop">X</p>
-					</button>
-
-
-			</c-field-input>
-
-
-	</div>
-
-
-	<c-message 
-		ref="msgObj">
-	</c-message>
-
-
-	<div class="sections anim-6"
-		v-bind:data-open=sections_end
-		v-bind:class="{ 'is-active' : sections_end }">
-			
-			<div class="br-smaall"></div>
-
-			<c-button
-				ref="btnSubmit"
-				class="button-action"
-				v-bind:onClick=submit>
-					Submit
-			</c-button>
-			
-	</div>
-
-
-	</c-panel>
+	</section>	
 
 </template>
 

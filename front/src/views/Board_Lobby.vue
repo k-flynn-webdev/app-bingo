@@ -1,112 +1,115 @@
 <template>
 
-	<c-panel>
+	<section>
+		<c-panel>
 
-		<div slot="header">
-			{{ get_name }}
-		</div>
+			<div slot="header">
+				{{ get_name }}
+			</div>
 
-		<div class="text-left buttons">
-			
-			<div>
-				<c-button
-					ref="btnPlay"
-					v-bind:onClick=onPlay>
-					Start
-				</c-button>
+			<div class="text-left buttons">
 				
-				<span class="text colour-fill-dark button-helper"> Start a game. </span>
+				<div>
+					<c-button
+						ref="btnPlay"
+						v-bind:onClick=onPlay>
+						Start
+					</c-button>
+					
+					<span class="text colour-fill-dark button-helper"> Start a game. </span>
+
+				</div>
+
+
+				<div>
+					<c-button
+						ref="btnRandom"
+						v-bind:onClick=onRandom>
+						Random
+					</c-button>
+
+					<span class="text colour-fill-dark button-helper"> Join a random game. </span>
+
+				</div>
+
+
+	<!-- 			<div ref="field_join" class=field-result>
+
+					<c-button-expand	
+						ref="btnJoin"
+						v-bind:buttonShow=true
+						v-bind:buttonClickClose=false
+						v-bind:buttonClick=onJoin>
+
+							Join
+
+							<input 
+								slot="content"	
+								class="input text colour-fill-dark"
+								type="string" 
+								name="join"
+								placeholder="eg 'bc8yh2'"
+								v-model=join.link
+								v-on:change=validate>
+
+							<template slot="button">
+								ok
+							</template>
+
+					</c-button-expand>
+
+					<span class="text colour-fill-dark button-helper">
+						Join a friends game. 
+					</span>
+
+					<c-field-result>
+					</c-field-result>
+
+				</div> -->
+
+				<c-message ref="msgObj">
+				</c-message>
 
 			</div>
 
+			<c-button-row>
 
-			<div>
-				<c-button
-					ref="btnRandom"
-					v-bind:onClick=onRandom>
-					Random
-				</c-button>
+				<template slot="label"> Info </template>
 
-				<span class="text colour-fill-dark button-helper"> Join a random game. </span>
+				<p class="text text-bold text-center">
+					Words or Phrases:
+				</p>
+
+				<div class="br-small"></div>
+
+				<ul>
+					<li class="text text-center colour-fill-bg"
+						v-for="(line, index) in get_lines" 
+						v-bind:key="index">
+
+							{{ line }}.
+					</li>
+				</ul>
+
+			</c-button-row>
+
+
+			<div slot="footer">
+
+				<c-button-share 
+					class="text-right" 
+					style="position:absolute;right:0;"
+					v-bind:content=share.link>
+				</c-button-share>
+
+				<br>
+				<br>
 
 			</div>
 
+		</c-panel>
 
-<!-- 			<div ref="field_join" class=field-result>
-
-				<c-button-expand	
-					ref="btnJoin"
-					v-bind:buttonShow=true
-					v-bind:buttonClickClose=false
-					v-bind:buttonClick=onJoin>
-
-						Join
-
-						<input 
-							slot="content"	
-							class="input text colour-fill-dark"
-							type="string" 
-							name="join"
-							placeholder="eg 'bc8yh2'"
-							v-model=join.link
-							v-on:change=validate>
-
-						<template slot="button">
-							ok
-						</template>
-
-				</c-button-expand>
-
-				<span class="text colour-fill-dark button-helper">
-					Join a friends game. 
-				</span>
-
-				<c-field-result>
-				</c-field-result>
-
-			</div> -->
-
-			<c-message ref="msgObj">
-			</c-message>
-
-		</div>
-
-		<c-button-row>
-
-			<template slot="label"> Info </template>
-
-			<p class="text text-bold text-center">
-				Words or Phrases:
-			</p>
-
-			<div class="br-small"></div>
-
-			<ul>
-				<li class="text text-center colour-fill-bg"
-					v-for="(line, index) in get_lines" 
-					v-bind:key="index">
-
-						{{ line }}.
-				</li>
-			</ul>
-
-		</c-button-row>
-
-
-		<div slot="footer">
-
-			<c-button-share 
-				class="text-right" 
-				style="position:absolute;right:0;"
-				v-bind:content=share.link>
-			</c-button-share>
-
-			<br>
-			<br>
-
-		</div>
-
-	</c-panel>
+	</section>	
 
 </template>
 

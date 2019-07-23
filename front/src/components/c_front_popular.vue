@@ -1,7 +1,7 @@
 <template>
 
 	<div class="colour-fill-bg-inv text-right chart">
-		<p class="title">Popular</p>
+		<p class="title">Popular Boards</p>
 
 		<router-link 
 			v-for="(item, index) in boards"

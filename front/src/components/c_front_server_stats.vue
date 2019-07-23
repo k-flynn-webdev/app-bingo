@@ -4,7 +4,7 @@
 
 		<br>
 
-		<p v-if=stats.games.length class="title"> Games </p>
+		<p v-if=stats.games.length class="title"> Games in progress </p>
 
 		<div>
 
@@ -16,7 +16,7 @@
 
 		</div>
 
-		<hr>
+		<div class="br-split"></div>
 
 		<span class="small">Players {{ stats.players }},</span>
 
@@ -31,7 +31,6 @@
 		<div class="div-split"></div>
 
 		<span class="small">won {{ stats.games_won }}.</span>
-
 
 	</div>
 

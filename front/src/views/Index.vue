@@ -10,11 +10,15 @@
 					Welcome to <wbr> BS-Bingo 
 			</h1>
 
+			<br>
+
 			<p class="text text-left"> BS-Bingo is a fun party game designed to be played during large events, that funny tv show or those boring office meetings. Enjoy. </p>
+
+			<br>
 
 			<c-button-row>
 
-				<template slot="label"> How to play </template>
+				<template slot="label"> How to play? </template>
 
 				<p class="text text-left">
 					When you hear a word or phrase that's in your board, select it. Once you have more than 6 you could be a winner depending on who else is playing!
@@ -25,7 +29,7 @@
 
 			<c-button-row>
 
-				<template slot="label"> What do you need </template>
+				<template slot="label"> What do you need? </template>
 
 				<p class="text text-left">
 					Creating a board takes no time at all.
@@ -45,9 +49,9 @@
 
 			</c-button-row>
 
-			<div class="br-small"></div>
+			<br>
 
-			<div class="text-left buttons">
+			<div class="text-center buttons">
 
 				<c-button
 					v-bind:onClick=button_create>

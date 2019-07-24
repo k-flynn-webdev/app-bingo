@@ -64,13 +64,18 @@
 
 			</div>	
 
+			<br>
+
 		</c-panel>
 
 
 		<c-panel>
 
+			<p slot="header" class="title"> Boards </p>
+
+
 			<div style="width:100%;">
-				
+
 				<c-front-latest style="width:50%;display:inline-block;"></c-front-latest>
 				
 				<c-front-popular style="width:50%;display:inline-block;"></c-front-popular>

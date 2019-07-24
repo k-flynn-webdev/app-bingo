@@ -2,7 +2,7 @@
 
 	<div class="colour-fill-bg-inv text-left chart">
 
-		<p class="title">Latest Boards</p>
+		<p class="title">Latest</p>
 
 		<router-link 
 			v-for="(item, index) in boards"

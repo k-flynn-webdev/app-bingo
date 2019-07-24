@@ -2,7 +2,7 @@
 
 	<div class="text">
 
-		<br>
+		<div class="br-split"></div>
 
 		<p v-if=stats.games.length class="title"> Games in progress </p>
 

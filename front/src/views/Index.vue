@@ -59,10 +59,10 @@
 				</c-button>
 
 				<span class="text colour-fill-dark button-helper">
-					 and play with friends!
+					and play with friends!
 				</span>
 
-			</div>	
+			</div>
 
 			<br>
 
@@ -71,8 +71,7 @@
 
 		<c-panel>
 
-			<p slot="header" class="title"> Boards </p>
-
+			<h1 slot="header"> Boards </h1>
 
 			<div style="width:100%;">
 

@@ -1,0 +1,1 @@
+.sections{opacity:0;height:1px;margin:var(--margin) 0}.sections,.sections .button,.sections button{pointer-events:none}.sections.is-active{pointer-events:all;opacity:1;height:auto}.sections.is-active .button,.sections.is-active button{pointer-events:all}

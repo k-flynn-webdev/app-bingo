@@ -3,7 +3,7 @@
 	<c-button
 		ref="btn_line"
 		class="line-button colour-bg-pop"
-		v-bind:class="{ 'line-selected button-action' : selected, '' : waiting, 'is-half-line' : !input.is_large }"
+		v-bind:class="{ 'line-selected button-action' : selected, '' : waiting, 'is-full-line' : input.is_large, 'is-half-line' : !input.is_large }"
 		v-bind:onClick=toggle>
 
 			{{ input.line }}
@@ -108,7 +108,7 @@
 		pointer-events: none;
 	}
 
-	.line-button {
+	.is-full-line.line-button {
 		flex: none;
 		height: unset;
 		display: block;

@@ -96,15 +96,15 @@ a:first-of-type:last-of-type {
 
 .width-95{
 	width: 95%;
-	max-width: 27em;
+	max-width: 23em;
 }
 .width-90{
 	width: 90%;
-	max-width: 25em;
+	max-width: 20em;
 }
 .width-85{
 	width: 85%;
-	max-width: 23rem;
+	max-width: 18.5rem;
 }
 
 .fill-all{

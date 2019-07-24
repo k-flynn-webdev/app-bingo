@@ -74,13 +74,13 @@
 
 	width: .75rem;
 	height: .75rem;
-	border-top: 4px solid var(--colour-dark);
 	border-right: 4px solid var(--colour-dark);
+	border-bottom: 4px solid var(--colour-dark);
 	transform: rotateZ(45deg);
 }
 .button-row[data-open] .button-row-icon {
 	margin-left: 0.5rem;
-	transform: rotateZ(135deg);
+	transform: rotateZ(225deg);
 }
 
 .row-content {

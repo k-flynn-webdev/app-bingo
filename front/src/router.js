@@ -3,16 +3,7 @@ import Router from 'vue-router'
 import Store from './store/store';
 
 import Index from './views/Index.vue'
-import Register from './views/Register.vue'
 import Login from './views/Login.vue'
-import Logout from './views/Logout.vue'
-import Account from './views/Account.vue'
-import Admin from './views/Admin.vue'
-import AdminRequest from './views/AdminRequest.vue'
-
-import BoardCreate from './views/Board_Create.vue'
-import BoardLobby from './views/Board_Lobby.vue'
-import BoardGame from './views/Board_Game.vue'
 
 
 Vue.use(Router)
@@ -55,8 +46,8 @@ export default new Router({
     {
       path: '/register',
       name: 'register',
-      component: Register,
-    },    
+      component: () => import('./views/Register.vue'),
+    },
     {
       path: '/login',
       name: 'login',
@@ -65,7 +56,7 @@ export default new Router({
     {
       path: '/logout',
       name: 'logout',
-      component: Logout,
+      component: () => import('./views/Logout.vue'),
       meta : {
         type : 'user',
       },
@@ -74,7 +65,7 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      component: Account,
+      component: () => import('./views/Account.vue'),    
       beforeEnter: secureRoute,
       meta : {
         type : 'user',
@@ -84,7 +75,7 @@ export default new Router({
     {
       path: '/admin/request',
       name: 'adminrequest',
-      component: AdminRequest,
+      component: () => import('./views/AdminRequest.vue'),      
       meta : {
         type : 'user',
       },
@@ -93,7 +84,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'admin',
-      component: Admin,
+      component: () => import('./views/Admin.vue'),
       meta : {
         type : 'admin',
       },    
@@ -102,27 +93,17 @@ export default new Router({
     {
       path: '/board/create',
       name: 'board create',
-      component: BoardCreate, 
+      component: () => import('./views/Board_Create.vue')
     },
     {
       path: '/board/:board',
       name: 'board lobby',
-      component: BoardLobby,  
+      component: () => import('./views/Board_Lobby.vue')
     },  
     {
       path: '/instance/:instance',
       name: 'board game',
-      component: BoardGame,  
-    },      
-    // {
-    //  path: '/board/:board',
-    //  name: 'board view new',
-    //  component: BoardStart,  
-    // },   
-    // {
-    //  path: '/board/:board/:instance',
-    //  name: 'board view',
-    //  component: BoardJoin, 
-    // },       
+      component: () => import('./views/Board_Game.vue')      
+    },   
   ]
 });

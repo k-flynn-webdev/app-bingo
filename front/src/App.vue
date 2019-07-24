@@ -87,9 +87,9 @@ require('@/assets/style/text.css');
 require('@/assets/style/anim.css');
 // require('@/assets/style/custom.css');
 
-import cNavBar from './components/c_navbar.vue';
-import cFooter from './components/c_app_footer.vue';
 
+const cNavBar = () => import('./components/c_navbar.vue');
+const cFooter = () => import('./components/c_app_footer.vue');
 
 export default {
 	name: 'App', 

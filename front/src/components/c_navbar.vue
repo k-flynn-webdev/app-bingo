@@ -379,12 +379,12 @@
 		flex-direction: column;
 		align-items: center;
 		width: 100%;
-	}	
+	}
 
 
 	#navbar .link {
 		width: 90%;
-		min-width: 20rem;
+		min-width: 18rem;
 		opacity: 0;
 		transform: translateY(-1rem);
 		animation-duration: .3s;

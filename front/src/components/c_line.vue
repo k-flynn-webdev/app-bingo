@@ -3,7 +3,7 @@
 	<c-button
 		ref="btn_line"
 		class="line-button colour-bg-pop"
-		v-bind:class="{ 'line-selected button-action' : selected, '' : waiting }"
+		v-bind:class="{ 'line-selected button-action' : selected, '' : waiting, 'is-half-line' : !input.is_large }"
 		v-bind:onClick=toggle>
 
 			{{ input.line }}
@@ -109,11 +109,33 @@
 	}
 
 	.line-button {
-		flex: none !important;
-		height: unset !important;
+		flex: none;
+		height: unset;
 		display: block;
 		width: 100%;
-		margin: .4rem 0 !important;
+		margin: .4rem 0;
+	}
+
+	.line-button.is-last-full-line {
+		margin-bottom: 0.2rem !important;
+	}
+
+
+	.line-button.is-half-line {
+		width: calc(50% - .25rem);
+		margin: .2rem .05rem;
+		padding: 0;
+		display: inline-block;
+	}
+
+
+
+	.is-even .line-button.is-half-line:nth-of-type(2n) {
+		margin-left: .3rem !important;
+	}
+
+	.is-odd .line-button.is-half-line:nth-of-type(2n) {
+		margin-right: .3rem !important;
 	}
 
 	.line-button p {

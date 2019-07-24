@@ -5,16 +5,19 @@
 		class="lines-holder anim-6"
 		v-bind:class="{ 'lines-lock' : !is_ready, 'lines-ready' : is_ready, }">
 
-		<div ref="wrds_holder_inner">
+		<div 
+			ref="wrds_holder_inner"
+			v-bind:class=is_even
+			class="text-left">
 			
 			<transition-group name="anim-line" tag="">
 
 				<c-line
 					v-for="(line, index) in lines_list" 
 					v-bind:key="line.id"
+					v-bind:class="{ 'is-last-full-line' : is_last_full_line(index) }"
 					v-bind:style=get_style_task(index)
 					v-bind:input=line>
-
 				</c-line>
 
 			</transition-group>
@@ -79,6 +82,9 @@ let line_hash = function (str){
 					delay_render : 1.66,
 					delay_each_item : 250,
 				},
+				lines : {
+					small : 0,
+				},
 				rendered : false,
 			}
 		},
@@ -94,22 +100,39 @@ let line_hash = function (str){
 					return false;
 				}
 			},
+			is_even : function(){
+				if( this.lines.small % 2 === 0){
+					return 'is-even';
+				} 
+				return 'is-odd';
+			},
 		},
 		methods : {
 			setup : function(){
 
 				let lines = []
+				this.lines.small = 0;
+
 				let display = this.$store.getters['instance/get_instance'].data.game.display;
 
 				let temp_lines = array_randomize( this.$store.getters['board/get_lines'] );
 
 				for( let i = 0; i < display; i++){
+
+					let line_is_small = temp_lines[i].length > 40;
+
 					let new_line = {
 						line : temp_lines[i],
 						waiting : false,
 						selected : false,
 						id : line_hash( temp_lines[i] ),
+						is_large : line_is_small,
 					};
+
+					if( line_is_small ){
+						this.lines.small +=1;
+					}
+
 					lines.push( new_line );	
 				}
 
@@ -122,9 +145,11 @@ let line_hash = function (str){
 				function delayStart( index, items ){
 					setTimeout( function(){
 						let temp_array = [];
+
 						for( let a = 0; a < index; a++){
 							temp_array.push( items[a] );
 						}
+						
 						self.$store.dispatch('game/set_lines', temp_array );
 
 						// array of lines finished .. set game ready!
@@ -151,6 +176,21 @@ let line_hash = function (str){
 					}
 				}, tDelay * 1000);
 
+			},
+
+			is_last_full_line : function( index ){
+				if( !this.lines_list[index].is_large ){
+					return false;
+				}
+
+				if( index === this.lines_list.length - 1 ){
+					return true;
+				}
+
+				if( index < this.lines_list.length && 
+					!this.lines_list[index + 1].is_large ){
+						return true;
+				}				
 			},
 
 			get_style_task : function( index ){

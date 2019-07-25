@@ -240,14 +240,14 @@ button, .button {
 }
 .field > .input {
 	transition: .33s;
-	border-top: 2px solid var(--colour-dark);
-	border-left: 2px solid var(--colour-dark);
-	border-right: 2px solid var(--colour-pop);
-	border-bottom: 2px solid var(--colour-pop);
+	border-top: 2px solid var(--colour-notice-dark);
+	border-left: 2px solid var(--colour-notice-dark);
+	border-right: 2px solid var(--colour-notice);
+	border-bottom: 2px solid var(--colour-notice);
 	flex: 1 1;
 	box-sizing: border-box;
-	border-radius: calc(var(--border-radius)*1.5);
-	padding-left: var(--margin);
+	border-radius: calc(var(--border-radius)*1);
+	padding: 0 var(--margin);
 }
 
 .field > .label + .input, .field > .button + .input {
@@ -306,7 +306,7 @@ button, .button {
 	height: 1px;
 	margin-top: var(--margin);
 	margin-bottom: var(--margin);
-	border-bottom: 1px solid var(--colour-dark);
+	border-bottom: 1px solid var(--colour-notice-dark);
 }
 
 .div-split {

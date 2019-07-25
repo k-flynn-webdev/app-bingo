@@ -11,9 +11,12 @@
 
 
 	--colour-shadow: hsla(1,1%,1%,.5);
+
 	--colour-shade: hsla(1,1%,3%,.9);
 
+
 	--colour-notice: hsla(1,1%,80%,.9);
+	--colour-notice-dark: hsla(1,1%,50%,.9);
 
 
 	--colour-positive: hsla(100,40%,40%,1);

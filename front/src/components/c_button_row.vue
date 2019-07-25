@@ -16,7 +16,7 @@
 
 			</span>
 
-			<div class="row-content anim-3">
+			<div class="row-content anim-6">
 
 				<slot>
 					Content
@@ -76,35 +76,25 @@
 	height: .75rem;
 	border-right: 4px solid var(--colour-dark);
 	border-bottom: 4px solid var(--colour-dark);
-	transform: rotateZ(45deg);
+	transform: rotateZ(45deg) scaleY(1);
 }
 .button-row[data-open] .button-row-icon {
 	margin-left: 0.5rem;
-	transform: rotateZ(225deg);
+	transform: scaleY(-1);
 }
 
-.row-content {
-	opacity: 0;
+.button-row .row-content {
 	height: 1px;
+	opacity: 0;
 	pointer-events: none;
+	transform: translateY(1rem);
+	transition-timing-function: cubic-bezier(0.18, 0.03, 0, 1);
 }
 .button-row[data-open] .row-content {
 	opacity: 1;
 	height: auto;
-	pointer-events: all;
-	animation: anim-row-content-in 1s cubic-bezier(0.18, 0.03, 0, 1) forwards;
+	transform: translateY(0);
 }
-
-	@keyframes anim-row-content-in {
-		0% { 
-			opacity: 0;
-			transform: translateY(.7rem); 
-		}
-		100% { 
-			opacity: 1;
-			transform: translateX(0); 
-		}
-	}
 
 
 </style>

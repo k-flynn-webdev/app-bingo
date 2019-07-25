@@ -135,7 +135,7 @@
 					let self = this;
 					setTimeout( function(){
 						self.obj.result = false;
-					}, 4*1000);					
+					}, 1.5*1000);					
 				}
 			},
 
@@ -264,12 +264,12 @@
 			left: -10%;
 			width: 0;
 		}
-		33% {
+		30% {
 			opacity: 1;
 			left: -10%;
 			width: 120%;
 		}
-		77% {
+		70% {
 			opacity: 1;
 			left: -10%;
 			width: 120%;
@@ -302,7 +302,7 @@
 
 	.button.is-success .anim-result, .button.is-negative .anim-result {
 		animation-name: is-result-anim;
-		animation-duration: 3.5s;
+		animation-duration: 2s;
 		animation-timing-function: ease;
 		animation-iteration-count: 1;
 	}

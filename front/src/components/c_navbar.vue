@@ -267,6 +267,7 @@
 	}
 
 	#navbar .middle .navbar-title {
+		text-transform: uppercase;
 		transform: translateY(-3rem);
 	}
 	#navbar .middle .navbar-title.is-active {
@@ -370,7 +371,7 @@
 		padding-top: 5rem;
 	}
 	#navbar .content .link {
-		margin: calc(var(--margin)*0.4) var(--margin);
+		margin: var(--margin);
 		text-decoration: none;
 	}
 

@@ -76,8 +76,29 @@ export default {
 .field-result.fail .result-fail {
 	transform: translateX(0);
 }
+
 .field-result.fail {
-	animation: anim-error 1 .6s ease-out;
+	animation-name: anim-error;
+	animation-duration: .6s;	
+	animation-timing-function: ease-out;
+	animation-iteration-count: 1;
+	animation-delay: 0;
+}
+
+.field-result:nth-child(1){
+	animation-delay: 0.1s;
+}
+.field-result:nth-child(2){
+	animation-delay: 0.2s;
+}
+.field-result:nth-child(3){
+	animation-delay: 0.3s;
+}
+.field-result:nth-child(4){
+	animation-delay: 0.4s;
+}
+.field-result:nth-child(5){
+	animation-delay: 0.5s;
 }
 
 @keyframes anim-error {

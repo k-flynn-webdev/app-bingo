@@ -131,57 +131,37 @@ let validate_email = function( field_parent, field_input, field_message, min=att
 	let length_result = validate_length( field_parent, field_input, field_message, min, max );
 
 	if( length_result ){
-			
-		has_at = field_input.indexOf('@');
-		has_stop = field_input.indexOf('.');
 
-		if( has_at > 0 && 
-			has_at < field_input.length ){
-				set_message( field_message, { class : 'error', message : 'not an email address.' } );
-				set_fail( field_parent );
-				return false;
+		let has_at = field_input.indexOf('@');
+		let has_stop = field_input.indexOf('.');
+
+		let has_at_result = false;
+		let has_stop_result = false;
+
+		if( has_at > 1 && 
+			has_at < field_input.length - 2 ){
+				has_at_result = true;
 		}
 
 		if( has_stop > 0 && 
-			has_stop < field_input.length ){
-				set_message( field_message, { class : 'error', message : 'not an email address.' } );
-				set_fail( field_parent );
-				return false;
+			has_stop < field_input.length - 1 ){
+				has_stop_result = true;
 		}
 
-		set_success( field_parent );
-		return true;
+		if( has_at_result && has_stop_result ){
+			set_success( field_parent );
+			return true;
+		} else {
+			set_message( field_message, { class : 'error', message : 'Not an email address.' } );
+			set_fail( field_parent );
+			return false;
+		}
 
 	} else {
-		return length_result;
+		return false;
 	}
 }
 
-
-
-// let validate_length = function( input, min=attrs.default_min, max=attrs.default_max ){
-// 	if( input.length === 0 ){
-// 		return null;
-// 	}
-// 	if( input.length < min || input.length > max ){
-// 		return false;
-// 	}
-// 	return true;
-// }
-
-
-// let validate_email = function( input ){
-// 	if( input.length === 0 ){
-// 		return null;
-// 	}
-// 	if( input.indexOf('@') < 0 ){
-// 		return false;
-// 	}
-// 	if( input.indexOf('.') < 0 || input.endsWith('.') ){
-// 		return false;
-// 	}
-// 	return true;
-// }
 
 
 export default {

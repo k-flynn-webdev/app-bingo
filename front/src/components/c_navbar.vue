@@ -371,7 +371,7 @@
 		padding-top: 5rem;
 	}
 	#navbar .content .link {
-		margin: var(--margin);
+		margin: calc(var(--margin)*0.5) var(--margin);
 		text-decoration: none;
 	}
 
@@ -397,12 +397,13 @@
 		animation-name: anim-nav-link-in;
 	}
 
-	#navbar .text-link {
+	#navbar .link .text-link {
 		opacity: 0;
 		transform: translateX(-4rem);
 		animation-duration: .66s;
 		animation-fill-mode: forwards;
 		animation-delay: inherit;
+		margin: calc(var(--margin)*0.5);
 	}
 
 	#navbar[data-open] .text-link {

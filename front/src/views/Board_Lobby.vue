@@ -80,7 +80,7 @@
 					Words or Phrases:
 				</p>
 
-				<div class="br-small"></div>
+				<div class="hr-small"></div>
 
 				<ul>
 					<li class="text text-center colour-fill-bg"
@@ -94,16 +94,13 @@
 			</c-button-row>
 
 
-			<div slot="footer">
+			<div slot="footer" style="padding-bottom:2rem;">
 
-				<c-button-share 
+				<c-button-share
 					class="text-right" 
 					style="position:absolute;right:0;"
 					v-bind:content=share.link>
 				</c-button-share>
-
-				<br>
-				<br>
 
 			</div>
 

@@ -7,9 +7,9 @@
 
 			<div slot="header">
 
-				<p class=" text-bold colour-fill-dark">
+				<h1 class="text-bold colour-fill-dark">
 					{{ get_name }}
-				</p>
+				</h1>
 				
 			</div>
 
@@ -48,9 +48,9 @@
 						Players ({{ get_players.length }}):
 				</p>
 
-				<div v-if="get_players.length">
+				<div class="br-small"></div>
 
-					<div class="br-small"></div>
+				<div v-if="get_players.length">
 
 					<span
 						class="text colour-fill-bg"
@@ -61,12 +61,11 @@
 
 				</div>
 
-				<div class="br-split"></div>
+				<hr>
 
 				<div class="buttons">
 					
 					<c-button
-						style="margin-left:0;"
 						ref="btnBoard"
 						v-bind:onClick=go_to_Board>
 						Board
@@ -78,18 +77,19 @@
 
 			</c-button-row>
 
-
-			<c-button
-				ref="btnOK"
-				class="button-action"
-				v-bind:onClick=name_updated>
-					{{ button.label }}
-			</c-button>
-			
-
-		<c-message slot="footer"
+		<c-message 
 			ref="msgObj">
 		</c-message>
+
+
+		<c-button
+			slot="footer"
+			ref="btnOK"
+			class="button-action"
+			v-bind:onClick=name_updated>
+				{{ button.label }}
+		</c-button>
+
 
 	</c-popup>
 

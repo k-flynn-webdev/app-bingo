@@ -10,11 +10,9 @@
 					Welcome to <wbr> BS-Bingo 
 			</h1>
 
-			<br>
-
 			<p class="text text-left"> BS-Bingo is a fun party game designed to be played during large events, that funny tv show or those boring office meetings. Enjoy. </p>
 
-			<br>
+			<hr>
 
 			<c-button-row>
 
@@ -35,21 +33,17 @@
 					Creating a board takes no time at all.
 					All you need is a catchy name and at least 8 common words or phrases.
 
-					<br>
-					<br>
+					<div class="hr-small"></div>
 
 					To make it more fun it's reccomended to have far more as everyone who plays gets a random selection each time.
 
-					<br>
-					<br>
+					<div class="hr-small"></div>
 
 					Once you've created a board, you'll be sent to it's lobby from there you can play and share it with friends.
 
 				</p>
 
 			</c-button-row>
-
-			<br>
 
 			<div class="text-center buttons">
 
@@ -64,7 +58,6 @@
 
 			</div>
 
-			<br>
 
 		</c-panel>
 

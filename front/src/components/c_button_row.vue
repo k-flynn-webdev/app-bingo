@@ -58,7 +58,7 @@
 
 .button-row {
 	text-align: left;
-	margin: var(--margin);
+	margin: calc(var(--margin)*1.5) var(--margin);
 	padding: .5rem;
 	background-color: var(--colour-notice);
 	overflow: hidden;

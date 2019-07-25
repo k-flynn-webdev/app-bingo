@@ -2,33 +2,37 @@
 
 	<div class="text">
 
-		<div class="br-split"></div>
+		<div v-if=stats.games.length>
 
-		<p v-if=stats.games.length class="title"> Games in progress </p>
+			<hr>
 
-		<div>
+			<p class="title"> Games in progress </p>
 
-			<router-link 
-				v-for="game in stats.games"
-				v-bind:key=game
-				v-bind:to="game_url(game)"
-				class="text-link colour-fill-dark">{{ game }}</router-link>
+			<template>
+
+				<router-link 
+					v-for="game in stats.games"
+					v-bind:key=game
+					v-bind:to="game_url(game)"
+					class="text-link colour-fill-dark">{{ game }}</router-link>
+
+			</template>
 
 		</div>
 
-		<div class="br-split"></div>
+		<hr>
 
 		<span class="small">Players {{ stats.players }},</span>
 
-		<div class="div-split"></div>
+			<div class="div-box"></div>
 
 		<span class="small">games {{ stats.games.length }},</span>
 
-		<div class="div-split"></div>
+			<div class="div-box"></div>
 
 		<span class="small">played {{ stats.games_played }},</span>
-		
-		<div class="div-split"></div>
+
+			<div class="div-box"></div>
 
 		<span class="small">won {{ stats.games_won }}.</span>
 

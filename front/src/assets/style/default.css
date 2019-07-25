@@ -293,26 +293,23 @@ button, .button {
 /* todo this later */
 
 
-.br-small {
+.hr-small {
 	margin: 0;
 	padding: 0;
 	height: calc(var(--margin)*0.5);
 }
 
-.br-split {
-	opacity: 0.4;
-	margin: 0;
-	padding: 0;
-	height: 1px;
-	margin-top: var(--margin);
-	margin-bottom: var(--margin);
-	border-bottom: 1px solid var(--colour-notice-dark);
+.div-box {
+	display:inline-block;
+	height: 0.5rem;
+	width: 0.5rem;
 }
 
-.div-split {
+
+/*.div-split {
 	width:.4rem;
 	display:inline-block;
-}
+}*/
 
 
 .margin-min {

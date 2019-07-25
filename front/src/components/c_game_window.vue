@@ -8,9 +8,9 @@
 
 			<div slot="header">
 
-				<p class="text-bold colour-fill-dark">
+				<h1 class="text-bold colour-fill-dark">
 					{{ get_name }}
-				</p>
+				</h1>
 				
 			</div>
 
@@ -34,15 +34,9 @@
 						Rejoin
 				</c-button>	
 
-				<div 
+				<!-- <div 
 					v-if=state.type.kicked
-					class="div-split"></div>
-
-				<c-button
-					ref="btnHome"
-					v-bind:onClick=button_home>
-						Home
-				</c-button>
+					class="div-split"></div> -->
 
 			</div>
 
@@ -53,6 +47,16 @@
 		<c-message 
 			ref="msgObj">
 		</c-message>
+
+
+		<c-button
+			slot="footer"
+			ref="btnHome"
+			class="button-action"
+			v-bind:onClick=button_home>
+				Home
+		</c-button>
+
 
 	</c-popup>
 

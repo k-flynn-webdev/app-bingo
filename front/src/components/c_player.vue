@@ -5,10 +5,12 @@
 		class="hover-trigger player-holder"
 		v-bind:class="{ 'hover-force' : state.display }">
 
-			<div class="anim-6 title hover-message-left colour-bg-pop">
-				<p class="text-bold colour-fill-dark">
-					{{ player_name }}
-				</p>
+			<div 
+				class="anim-6 title hover-message-left colour-bg-pop" 
+				style="top:45%;">
+					<p class="text-bold colour-fill-dark">
+						{{ player_name }}
+					</p>
 			</div>
 
 			<button 
@@ -99,7 +101,7 @@
 
 	.player-score {
 		position: absolute;
-		top: -.3rem;
+		top: -.1rem;
 		right: calc(100% + .5rem);
 	}
 

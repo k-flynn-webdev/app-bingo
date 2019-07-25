@@ -1,4 +1,5 @@
 
+var app_name = process.env.VUE_APP_NAME || 'tokenStringKube';
 
 function token_decode(t) {
 	if(t === false || t === 'false'){
@@ -9,23 +10,22 @@ function token_decode(t) {
 	let splitTemp = [];
 	splitTemp = t.split('.');
 	token.raw = t;
-	// token.header = JSON.parse( window.atob(splitTemp[0]) );
 	token.payload = JSON.parse( window.atob(splitTemp[1]) );
 	return (token.payload);
 }
 
 function token_get() {
-	let item = window.localStorage.getItem('tokenStringKube');
+	let item = window.localStorage.getItem(app_name);
 	if( item === null ){
 		return '';
 	}
 	return item;
 }
 function token_set(value) {
-	window.localStorage.setItem('tokenStringKube', value);
+	window.localStorage.setItem(app_name, value);
 }
 function token_delete() {
-	window.localStorage.removeItem('tokenStringKube');
+	window.localStorage.removeItem(app_name);
 }
 
 

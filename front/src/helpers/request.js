@@ -1,3 +1,4 @@
+var app_name = process.env.VUE_APP_NAME || 'tokenStringKube';
 
 function getURL( url, method, isJson=false, body, next) {
 	var xhr = new XMLHttpRequest();
@@ -63,7 +64,7 @@ function get_SecureKey(){
 }
 
 function get_SecureKeyFile() {
-	let item = window.localStorage.getItem('tokenStringKube');
+	let item = window.localStorage.getItem(app_name);
 	set_SecureKey( item );
 }
 

@@ -1,103 +1,113 @@
 <template>
 
-	<c-panel>
+	<section>
 
-		<div ref="field_name" class="field-result">
+		<c-panel>
 
-			<div 
-				class="field">
+			<div ref="field_name" class="field-result">
 
-				<p class="label colour-fill-dark label-account">
-					Name
-				</p>
+				<div 
+					class="field">
 
-				<input
-					class="input text colour-fill-dark"
-					type="string"
-					placeholder="Your name"
-					value=form.name
-					v-model=form.name
-					v-on:change=validate_name(form.name)
-					required>
+					<p class="label colour-fill-dark label-account">
+						Name
+					</p>
 
-				<c-field-result>
-				</c-field-result>
+					<input
+						class="input text colour-fill-dark"
+						type="string"
+						placeholder="Your name"
+						value=form.name
+						v-model=form.name
+						v-on:change=validate_name(form.name)
+						required>
 
-			</div>
+					<c-field-result>
+					</c-field-result>
 
-		</div>
-
-
-		<div ref="field_email" class="field-result">
-
-			<div 
-				class="field">
-
-				<p class="label colour-fill-dark label-account">
-					Email
-				</p>
-
-				<input
-					class="input text colour-fill-dark"
-					type="email"
-					placeholder="Your email"
-					value=form.email
-					v-model=form.email
-					v-on:change=validate_email(form.email)
-					required>
-
-				<c-field-result>
-				</c-field-result>
+				</div>
 
 			</div>
 
-		</div>
 
+			<div ref="field_email" class="field-result">
 
-		<div ref="field_password" class="field-result">
+				<div 
+					class="field">
 
-			<div 
-				class="field">
+					<p class="label colour-fill-dark label-account">
+						Email
+					</p>
 
-				<p class="label colour-fill-dark label-account">
-					Password
-				</p>
+					<input
+						class="input text colour-fill-dark"
+						type="email"
+						placeholder="Your email"
+						value=form.email
+						v-model=form.email
+						v-on:change=validate_email(form.email)
+						required>
 
-				<input
-					class="input text colour-fill-dark"
-					type="password"
-					placeholder="Your password"
-					value=form.password
-					v-model=form.password
-					v-on:change=validate_password(form.password)
-					required>
+					<c-field-result>
+					</c-field-result>
 
-				<c-field-result>
-				</c-field-result>
+				</div>
 
 			</div>
 
+
+			<div ref="field_password" class="field-result">
+
+				<div 
+					class="field">
+
+					<p class="label colour-fill-dark label-account">
+						Password
+					</p>
+
+					<input
+						class="input text colour-fill-dark"
+						type="password"
+						placeholder="Your password"
+						value=form.password
+						v-model=form.password
+						v-on:change=validate_password(form.password)
+						required>
+
+					<c-field-result>
+					</c-field-result>
+
+				</div>
+
+			</div>
+
+			<c-message
+				ref="msgObj">
+			</c-message>
+
+			<c-button
+				ref="btnOK"
+				slot="footer"
+				class="button-action"
+				v-bind:onClick=validate_form>
+					Submit
+			</c-button>
+
+		</c-panel>
+
+
+
+		<div class="center-auto-h width-95">
+			<div class="text-center">
+				<p class="text colour-fill-pop">
+					By having an account you can edit your boards.
+				</p>
+			</div>
 		</div>
 
 
-		<c-message
-			ref="msgObj">
-		</c-message>
 
-
-		<br>
-
-
-		<c-button
-			ref="btnOK"
-			slot="footer"
-			class="button-action"
-			v-bind:onClick=validate_form>
-				Submit
-		</c-button>
-		
-
-	</c-panel>
+	</section>
 
 </template>
 
@@ -110,6 +120,7 @@
 	import Message from '../components/c_message.vue';
 
 	import Validate from '../helpers/h_validate_input.js';
+
 	import FieldResult from '../components/c_field_result.vue';
 
 	import { submit } from '../mixins/h_submit.js';
@@ -117,7 +128,7 @@
 
 	export default {
 		name: 'Register',
-		mixins: [ submit ],		
+		mixins: [ submit ],
 		data(){
 			return {
 				attrs : {
@@ -152,7 +163,12 @@
 				let action = {
 					url : '/api/account/create',
 					method : 'POST',
-					JSON : false };
+					JSON : true,
+					body : {
+						name : '',
+						email : '',
+						password : '',
+					} };
 
 				this.attrs.action = action;
 
@@ -197,10 +213,11 @@
 				}
 
 				if( name && email && password ){
-					console.log('great');
 
+					this.attrs.action.body = this.form;
+
+					let self = this;
 					self.onSubmit( self.attrs.action, self, null, null, self.register_success, self.register_error );
-
 
 				} else {
 					this.$refs.msgObj.$emit('message' , { class : 'fail', message : 'Missing details.' });
@@ -209,74 +226,20 @@
 			},
 
 			register_success : function( input ){
+				this.$refs.btnOK.$emit( 'state', 'message', 'GREAT' );
+				this.$refs.msgObj.$emit('message', { class : 'success', message : input.message });
 
+				this.$store.dispatch('user/login_success', input.token);
+
+				let self = this;
+				setTimeout( function(){
+					self.$router.push( '/');
+				}, 1.5*1000 );
 			},
 			register_error : function( input ){
-
+				this.$refs.btnOK.$emit( 'state', 'message', 'ERROR' );
+				this.$refs.msgObj.$emit('message', { class : 'error', message : input.message });
 			},
-
-
-			// init : function(){
-			// 	if( !this.state.init ){
-			// 		let object = {
-			// 			url : ('/api/account/create' ),
-			// 			method : 'POST',
-			// 			JSON : true,
-			// 			body : {
-			// 				name : '',
-			// 				email : '',
-			// 				password : '',
-			// 			},
-			// 		};
-			// 		this.attrs.action = object;
-			// 		this.state.init = true;
-			// 	}
-			// },
-
-
-			// onLogin : function( event ){
-
-			// 	if( !Validate.email( this.form.email.value ) || 
-			// 		!Validate.length( this.form.password.value, this.attrs.validate.password, 100 ) ||
-			// 		!Validate.length( this.form.name.value, this.attrs.validate.name, this.attrs.validate.max )){
-			// 		return;
-			// 	}
-
-			// 	this.attrs.action.body.name = this.form.name.value;
-			// 	this.attrs.action.body.email = this.form.email.value;
-			// 	this.attrs.action.body.password = this.form.password.value;
-
-			// 	let self = this;	
-			// 	this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-
-			// },
-			// onSuccess : function( input ){
-			// 	let self = this;
-			// 	self.$refs.btnSubmit.$emit( 'state' , 'message', 'Hello!' );
-			// 	self.$store.dispatch('user/login_success', input.token);
-			// 	setTimeout( function(){
-			// 		self.$router.push( '/');
-			// 	}, 2000 );
-			// },
-			// onError : function( input ){
-
-			// 	if( this.state.timeouts < this.attrs.server.max_timeouts ){
-
-			// 		this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
-
-			// 		if( input.status !== 408 ){
-			// 			return;
-			// 		}
-
-			// 		// let self = this;
-			// 		// setTimeout( function(){
-			// 		// 	self.state.timeouts +=1
-			// 		// 	self.onSubmit(self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-			// 		// }, self.attrs.server.timing );
-			// 	}
-			// },
-
-
 
 		},
 		mounted(){

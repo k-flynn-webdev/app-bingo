@@ -5,6 +5,14 @@
 		v-on:click=clicked
 		v-bind:class=get_state>
 
+
+		<div 
+			class="anim-container message anim-3">
+			<p class="text text-center colour-fill-pop text-bold"> {{ obj.message }} </p>
+				
+		</div>
+
+
 		<p 
 			class="colour-fill-pop label"> 
 				<slot> 
@@ -12,10 +20,7 @@
 				</slot> 
 		</p> 
 
-		<p 
-			class="text colour-fill-pop text-bold message anim-3">
-				{{ obj.message }} 
-		</p>
+
 
 		<div 
 			class="anim-container"
@@ -28,7 +33,7 @@
 		</div>
 
 		<div 
-			class="anim-result anim-3"
+			class="anim-container anim-result anim-3"
 			v-bind:class="{ 'is-active' : get_result }">
 		</div>
 
@@ -101,7 +106,7 @@
 				if( input === 'error' ){
 					this.obj.state = 'is-error';
 					this.set_strobes(false);
-					this.set_result(true);
+					this.set_result(false);
 				}
 				if( input === '' || input === 'reset' ){
 					this.init();
@@ -180,17 +185,11 @@
 	}
 
 	.button .message {
-		position: absolute;
+		background-color: hsla(1,1%,10%,.4);
 		top: -1.9rem;
-		opacity: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		transition: 0.5s;
 	}
 
 	.button.msg-is-active, .button.is-error, .button.is-success, .button.is-waiting{
-		/*border: 1px solid var( --colour-button-highlight );*/
 		pointer-events: none;
 	}
 
@@ -291,11 +290,6 @@
 
 	.button .anim-result {
 		transform: skewX(-33deg);
-		position: absolute;
-		z-index: 0;
-		top: 0;
-		left: 0;
-		height: 100%;
 		width: 0;
 		opacity: 1;
 	}

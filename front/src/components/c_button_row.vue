@@ -59,7 +59,7 @@
 .button-row {
 	text-align: left;
 	margin: calc(var(--margin)*1.5) var(--margin);
-	padding: .5rem;
+	padding: .5rem var(--margin);
 	background-color: var(--colour-notice);
 	overflow: hidden;
 	position: relative;
@@ -84,16 +84,17 @@
 }
 
 .button-row .row-content {
+	margin: 0 var(--margin);
 	height: 1px;
 	opacity: 0;
 	pointer-events: none;
-	transform: translateY(1rem);
+	transform: translateY(1.5rem);
 	transition-timing-function: cubic-bezier(0.18, 0.03, 0, 1);
 }
 .button-row[data-open] .row-content {
 	opacity: 1;
 	height: auto;
-	transform: translateY(0);
+	transform: translateY(.1rem);
 }
 
 

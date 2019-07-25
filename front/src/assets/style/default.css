@@ -258,6 +258,12 @@ button, .button {
 }
 
 
+input, .input {
+	height: 2.2rem;
+	min-width: 50%;
+}
+
+
 /* todo this later */
 .field-result > .field-tip-above, .field-result > .field-tip-below {
 	text-align: center;
@@ -306,10 +312,7 @@ button, .button {
 }
 
 
-/*.div-split {
-	width:.4rem;
-	display:inline-block;
-}*/
+
 
 
 .margin-min {
@@ -323,7 +326,6 @@ button, .button {
 }
 .hover-message, .hover-message-left {
 	max-width: 65vw;
-	/*overflow: hidden;*/
 	position: absolute;
 	z-index: 10;
 	right: -50%;

@@ -28,6 +28,10 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 
 
+var EventEmitter = require('events').EventEmitter; 
+var myEmitter = new EventEmitter;
+
+
 const app = express();
 
 // // for CORS 

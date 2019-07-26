@@ -20,6 +20,9 @@ let logger = require( '../log/log.js' );
 module.exports = function( App ) {
 
 
+
+
+	
 	// Player join 
 	App.post('/api/instance/:instance', 
 		instance_check.instance,
@@ -130,8 +133,10 @@ module.exports = function( App ) {
 
 					let updateResult = request.body.player; // bounce back confirm ..
 					Object.assign(updateResult, player_func.safe( result_player ));
+					
 					if( gameWon ){
 						updateResult.data.game = clean_instance.data.game;
+						App.emit("board-won", { url : result_instance.data.board } );
 					}
 
 					return response.status(status.success.accepted).json({

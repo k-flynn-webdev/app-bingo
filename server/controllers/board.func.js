@@ -67,6 +67,10 @@ function create( input ){
 	});
 	newBoard.url = newBoard._id;
 
+	if( helpers.existsValid( input.user ) ){
+		newBoard.data.owner = input.user.id;	
+	}
+
 	return newBoard;
 }
 exports.create = create;

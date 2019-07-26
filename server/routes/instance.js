@@ -29,6 +29,8 @@ module.exports = function( App ) {
 					});
 				}
 
+				App.emit("board-play", { url : result.data.board } );
+
 				return response.status(status.success.created).json({
 					status : status.success.created,
 					message : 'New board instance created.',
@@ -52,6 +54,8 @@ module.exports = function( App ) {
 						message : error.message, 
 					});	
 				}
+
+				App.emit("board-play", { url : result.data.board } );
 
 				return response.status(status.success.ok).json({
 					status : status.success.ok,

@@ -15,10 +15,17 @@ let messages = [
 	'no fields to update.' ];
 
 
+// Events
+function add_events( App ){
+	App.on("board-play", board_func.board_is_played );
+}
+exports.add_events = add_events;
+
 
 function create( input, next){
 
 	let newBoard = board_func.create( input );
+
 	board_func.save( newBoard, function(error, result){
 
 		if( error ){

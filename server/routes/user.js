@@ -15,7 +15,20 @@ let messages = [
 	'user deleted, goodbye.' ];
 
 
+// Events
+function add_events( App ){
+	App.on("board-create", user_func.board_add );
+}
+exports.add_events = add_events;
+
+
+
 module.exports = function( App ) {
+
+
+	// register events
+	user.add_events( App );
+
 
 	App.post('/api/account/create', 
 		check_user.create, 

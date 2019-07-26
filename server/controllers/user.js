@@ -4,6 +4,8 @@ const config = require('../config/config.js');
 const status = require('../config/status_response.js');
 const helpers = require('./helpers.js');
 const user_func = require('../controllers/user.func.js');
+const user_extra = require('../controllers/user.extra.js');
+
 
 let messages = [
 	'email already in use.',
@@ -12,6 +14,11 @@ let messages = [
 	'no fields to update.' ];
 
 
+// Events
+function add_events( App ){
+	App.on("board-create", user_extra.board_add );
+}
+exports.add_events = add_events;
 
 
 function create( input, next){

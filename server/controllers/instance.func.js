@@ -96,8 +96,6 @@ function create( input_board, input_url=false, next ){
 			},
 		});
 
-		board_func.board_is_played( board_obj );
-
 		return next(null, newInstance);
 
 	});
@@ -114,10 +112,6 @@ function instance_won( instance, player ){
 	instance.data.game.winner.data.name = player.data.name;
 	instance.data.game.winner.data.score = player.data.score;
 	instance.data.game.winner.data.lines = player.data.lines;
-
-	let board_obj = { url : instance.data.board };
-
-	board_func.board_is_won( board_obj );
 	
 }
 exports.instance_won = instance_won;

@@ -6,7 +6,13 @@ const board_check = require('../controllers/board.validate.js');
 let logger = require( '../log/log.js' );
 
 
+
 module.exports = function( App ) {
+
+
+	// register events
+	board.add_events( App );
+
 
 	App.post('/api/board/create', 
 		board_check.create,
@@ -23,6 +29,8 @@ module.exports = function( App ) {
 						message : error.message, 
 					});	
 				}
+
+				App.emit("board-create", request.body, result.url );
 
 				return response.status(status.success.created).json({
 					status : status.success.created,

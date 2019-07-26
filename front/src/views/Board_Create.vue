@@ -168,7 +168,15 @@
 					}
 				}
 				return result;
-			},		
+			},
+
+			is_active : function(){
+				return this.$store.getters['user/get_active'];
+			},
+			user : function(){
+				return this.$store.getters['user/get_user'];
+			},
+
 		},
 
 		methods:{
@@ -297,6 +305,14 @@
 				}
 				this.attrs.action.body.lines = lineString;
 
+
+				// is a user?
+				if( this.$store.getters['user/get_active'] ){
+					this.attrs.action.body.user = this.$store.getters['user/get_user'];
+				}
+
+				// todo : before sending make a copy locally to repopulate all fields if page breaks/reloads?
+
 				let self = this;	
 				self.onSubmit( self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgObj, self.onSuccess, self.onError);
 
@@ -304,7 +320,7 @@
 
 			onSuccess : function( input ){
 				let self = this;
-				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Enjoy!' );
+				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Great!' );
 				setTimeout( function(){
 					self.$router.push( '/board/' +  input.data.url);
 				}, 2.3*1000 );

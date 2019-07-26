@@ -18,7 +18,8 @@ var user = mongoose.Schema({
 		played : { type: Date, required: true, default : new Date() },
 		plays : { type: Number, required: true, default : 0, },
 		wins : { type: Number, required: true, default : 0, },
-	}
+	},
+	boards : [{ type: mongoose.Schema.Types.ObjectId }],
 })
 
 module.exports = mongoose.model('User', user);

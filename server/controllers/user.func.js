@@ -42,9 +42,11 @@ function get_id( input ){
 	// if( helpers.existsValid( input._id )){
 	// 	return helpers.escape( input._id );
 	// }
-	// if( helpers.existsValid( input.id )){
-	// 	return helpers.escape( input.id );
-	// }
+	if( helpers.existsValid( input.user )){
+		if( helpers.existsValid( input.user.id )){
+			return helpers.escape( input.user.id );
+		}
+	}
 	if( helpers.existsValid( input.token )){
 		if( helpers.existsValid( input.token.id )){
 			return helpers.escape( input.token.id );

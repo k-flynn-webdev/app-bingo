@@ -1,63 +1,107 @@
 <template>
 
-	<c-panel>
-		<template slot="header">
-			Account Login
-		</template>
+	<section>
 
-		<form 
-			class="form" 
-			action="/api/account/login" 
-			method ="POST" 
-			@submit.prevent="onLogin">
+		<c-panel>
 
-				<c-account-input 
-					v-bind:input=form>
-				</c-account-input>
-				
-				<c-message 
-					ref="msgSubmit"
-					class="colour-fill-bg-inv">		
-				</c-message>
+			<div ref="field_email" class="field-result">
 
-				<br>
+				<div 
+					class="field">
 
-				<c-button 
-					ref="btnSubmit">
-					Login
-				</c-button>
+					<p class="label colour-fill-dark label-account">
+						Email
+					</p>
 
-		</form>
+					<input
+						class="input text colour-fill-dark"
+						type="email"
+						placeholder="Your email"
+						value=form.email
+						v-model=form.email
+						v-on:change=validate_email(form.email)
+						required>
 
-		<template slot="footer">
+					<c-field-result>
+					</c-field-result>
 
-			<p class="colour-fill-bg-inv">
+				</div>
+
+			</div>
+
+
+			<div ref="field_password" class="field-result">
+
+				<div 
+					class="field">
+
+					<p class="label colour-fill-dark label-account">
+						Password
+					</p>
+
+					<input
+						class="input text colour-fill-dark"
+						type="password"
+						placeholder="Your password"
+						value=form.password
+						v-model=form.password
+						v-on:change=validate_password(form.password)
+						required>
+
+					<c-field-result>
+					</c-field-result>
+
+				</div>
+
+			</div>
+
+			<c-message
+				ref="msgObj">
+			</c-message>
+
+			<br>
+
+			<p class="colour-fill-dark text">
 				Dont have an account, why not 
 
 				<router-link 
-					class="colour-fill-accent"
+					class="colour-fill-dark text-bold text-link"
 					to="/register">
 						register?
 				</router-link>
 
 			</p>
 
-		</template>
 
-	</c-panel>
+			<c-button
+				ref="btnOK"
+				slot="footer"
+				class="button-action"
+				v-bind:onClick=validate_form>
+					Login
+			</c-button>
+
+		</c-panel>
+
+
+	</section>
 
 </template>
 
 <script>
 
-	import AccountInput from '../components/c_account_input.vue';
-	import Button from '../components/c_button.vue';
 	import Panel from '../components/c_panel.vue';
+	import Button from '../components/c_button.vue';
+	import ButtonRow from '../components/c_button_row.vue';
+	import PopUp from '../components/c_popup.vue';
 	import Message from '../components/c_message.vue';
+
+	import Validate from '../helpers/h_validate_input.js';
+
+	import FieldResult from '../components/c_field_result.vue';
 
 	import { submit } from '../mixins/h_submit.js';
 
-	import Validate from '../helpers/h_validate_input.js';
 
 	export default {
 		name: 'Login',
@@ -65,11 +109,11 @@
 		data(){
 			return {
 				attrs : {
-					validate : {
-						max : 30,
-						name : 3,
-						password : 7,
+					name : {
+						min : 6,
+						max : 40,
 					},
+
 					server : {
 						max_timeouts : 5,
 						timing : 1500,
@@ -82,96 +126,107 @@
 				},
 
 				form : {
-					name : { 
-						show : false, 
-						isRequired : false, 
-						value : '',
-					},
-					email : { 
-						show : true, 
-						isRequired : true, 
-						value : '',
-					},
-					password : { 
-						show : true, 
-						isRequired : true, 
-						value : '',
-					},
-					validate : false,
-				},
+					email : '',
+					password : '',
+				},			
 			}
 		},
 	
 		methods:{
 
 			init : function(){
-				if( !this.state.init ){
-					let object = {
-						url : ('/api/account/login' ),
-						method : 'POST',
-						JSON : true,
-						body : {
-							email : '',
-							password : '',
-						},
-					};
-					this.attrs.action = object;
-					this.state.init = true;
-				}
-			},
 
+				let action = {
+					url : '/api/account/login',
+					method : 'POST',
+					JSON : true,
+					body : {
+						email : '',
+						password : '',
+					} };
 
-			onLogin : function( event ){
+				this.attrs.action = action;
 
-				if( !Validate.email( this.form.email.value ) || 
-					!Validate.length( this.form.password.value, this.attrs.validate.password, 100 )){
-					return;
-				}
-
-				this.attrs.action.body.email = this.form.email.value;
-				this.attrs.action.body.password = this.form.password.value;
-
-				let self = this;	
-				this.onSubmit( this.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-
-			},
-			onSuccess : function( input ){
 				let self = this;
-				self.$refs.btnSubmit.$emit( 'state' , 'message', 'Hello!' );
-				self.$store.dispatch('user/login_success', input.token);
+
 				setTimeout( function(){
-					self.$router.push( '/');
-				}, 2000 );
+					self.$root.$emit('page-title', 'login');	
+				}, .5*1000);
+
 			},
-			onError : function( input ){
 
-				if( this.state.timeouts < this.attrs.server.max_timeouts ){
 
-					this.$refs.btnSubmit.$emit( 'state' , 'message', 'Error!' );
+			validate_email : function( input ){
+				let result = Validate.email( this.$refs.field_email, input, this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
+				return result;
+			},
+			validate_password : function( input ){
+				let result = Validate.length( this.$refs.field_password, input, this.$refs.msgObj, this.attrs.name.min, this.attrs.name.max );
+				return result;
+			},
 
-					if( input.status !== 408 ){
-						return;
-					}
+
+			validate_form : function(){
+
+				let email = this.validate_email( this.form.email ) || false;
+				let password = this.validate_password( this.form.password ) || false;
+
+				if( !email ){
+					this.validate_email('x');
+				}
+				if( !password ){
+					this.validate_password('x');
+				}
+
+				if( email && password ){
+
+					this.attrs.action.body = this.form;
 
 					let self = this;
-					setTimeout( function(){
-						self.state.timeouts +=1
-						self.onSubmit(self.attrs.action, self, self.$refs.btnSubmit, self.$refs.msgSubmit, self.onSuccess, self.onError);
-					}, self.attrs.server.timing );
+					self.onSubmit( self.attrs.action, self, null, null, self.login_success, self.login_error );
+
+				} else {
+					this.$refs.msgObj.$emit('message' , { class : 'fail', message : 'Missing details.' });
 				}
+
 			},
 
+			login_success : function( input ){
+				this.$refs.btnOK.$emit( 'state', 'message', 'GREAT' );
+				this.$refs.msgObj.$emit('message', { class : 'success', message : input.message });
+
+				this.$store.dispatch('user/login_success', input.token);
+
+				let self = this;
+				setTimeout( function(){
+					self.$router.push( '/');
+				}, 1.5*1000 );
+			},
+			login_error : function( input ){
+				this.$refs.btnOK.$emit( 'state', 'message', 'ERROR' );
+				this.$refs.msgObj.$emit('message', { class : 'error', message : input.message });
+			},
 
 		},
 		mounted(){
 			this.init();
 		},
 		components: {
-			'c-account-input' : AccountInput, 
 			'c-button' : Button,
 			'c-message' : Message,
 			'c-panel' : Panel,
+			'c-field-result' : FieldResult,
 		},		
 }
 </script>
+
+
+<style scoped>
+	
+	.label-account {
+		min-width: 5rem !important;
+	}
+
+</style>
+
 

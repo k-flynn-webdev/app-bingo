@@ -258,7 +258,7 @@ button, .button {
 }
 
 
-input, .input {
+.field input, .field .input {
 	height: 2.2rem;
 	min-width: 50%;
 }

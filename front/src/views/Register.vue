@@ -85,6 +85,19 @@
 				ref="msgObj">
 			</c-message>
 
+			<br>
+
+			<p class="text colour-fill-dark">
+				Have an account already,  
+
+				<router-link 
+					class="colour-fill-dark text-bold text-link"
+					to="/login">
+						login.
+				</router-link>
+
+			</p>
+
 			<c-button
 				ref="btnOK"
 				slot="footer"
@@ -246,7 +259,6 @@
 			this.init();
 		},
 		components: {
-			// 'c-account-input' : AccountInput, 
 			'c-button' : Button,
 			'c-message' : Message,
 			'c-panel' : Panel,

@@ -11,13 +11,11 @@ let app = require('../app.js');
 let mongoose = require("mongoose");
 let m_user = require('../models/user.model.js');
 let m_token = require('../models/token.model.js');
-// let m_transaction = require('../models/transaction.model.js');
 
 chai.use(chaiHttp);
 
 
-let tokens = [];
-let tokenDenied = [];
+
 const user_credentials_Login = {
 	name : 'testUser', 
 	email : 'testEmail@Email.com', 
@@ -25,7 +23,10 @@ const user_credentials_Login = {
 }
 
 
+
 describe('Users', () => {
+
+	
 
 	// before(function (done) {
 	// 	setTimeout(function(){
@@ -43,72 +44,29 @@ describe('Users', () => {
 // CREATION SECTION //
 
 	it('It should CREATE a user and return a token + id as a response.', (done) => {
+
 		chai.request(app)
 		.post('/api/account/create')
 		.type('form')
 		.send(user_credentials_Login)
 		.end((err, res) => {
 			res.should.have.status(201);
+
+			chai.expect(res.body.token).to.be.an('string');	
 			res.body.token.length.should.be.above(50);
-			tokens.push( res.body.token );
+
+			chai.expect(res.body.data.id).to.be.an('string');
+			res.body.data.id.length.should.equal(24);
+			
+			chai.expect(res.body.data.name).to.be.an('string');
+			chai.expect(res.body.data.email).to.be.an('string');
+			chai.expect(res.body.data.role).to.be.an('string');
+
+			res.body.message.should.equal('success new user created.');
 			done();
-		});			
-	});
+		});
+	})
 
-
-	// create more temp accounts for tokens
-	chai.request(app)
-	.post('/api/account/create')
-	.type('form')
-	.send({	
-		name : 'testing123',
-		email : 'newEmails@sdsad.com',
-		password : 'asdasdasdwdaw23',
-	})
-	.end((err, res) => {
-		res.should.have.status(201);
-		res.body.token.length.should.be.above(50);
-		tokens.push( res.body.token );
-	});			
-	chai.request(app)
-	.post('/api/account/create')
-	.type('form')
-	.send({	
-		name : 'testin213g123',
-		email : 'newEm1231ails@sdsad.com',
-		password : 'asdasd123asdwdaw23',
-	})
-	.end((err, res) => {
-		res.should.have.status(201);
-		res.body.token.length.should.be.above(50);
-		tokens.push( res.body.token );
-	});
-	chai.request(app)
-	.post('/api/account/create')
-	.type('form')
-	.send({	
-		name : 'testin213g123',
-		email : 'newEm1231ails@sdsad.com',
-		password : 'asdasd123asdwdaw23',
-	})
-	.end((err, res) => {
-		res.should.have.status(201);
-		res.body.token.length.should.be.above(50);
-		tokens.push( res.body.token );
-	});
-	chai.request(app)
-	.post('/api/account/create')
-	.type('form')
-	.send({	
-		name : 'testin213g123',
-		email : 'newEm1231ails@sdsad.com',
-		password : 'asdasd123asdwdaw23',
-	})
-	.end((err, res) => {
-		res.should.have.status(201);
-		res.body.token.length.should.be.above(50);
-		tokens.push( res.body.token );
-	});
 
 
 	it('It should not CREATE a user with same details.', (done) => {
@@ -118,8 +76,9 @@ describe('Users', () => {
 		.send(user_credentials_Login)
 		.end((err, res) => {
 			res.should.have.status(422);
+			res.body.message.should.equal('email already in use.');
 			done();
-		});			
+		});
 	});
 
 	it('It should not CREATE a user and with no (input).', (done) => {
@@ -129,11 +88,12 @@ describe('Users', () => {
 		.send({})
 		.end((err, res) => {
 			res.should.have.status(422);
+			res.body.message.should.equal('name missing.');
 			done();
 		});			
 	});	
 
-// NAME //
+// // NAME //
 
 	it('It should not CREATE a user with sanitized long (name)', (done) => {
 		chai.request(app)
@@ -148,7 +108,7 @@ describe('Users', () => {
 			res.body.message.should.eql('Name should be between 2 - 60 characters long.');
 			res.should.have.status(422);
 			done();
-		});			
+		});
 	});
 
 	it('It should not CREATE a user with no(name)', (done) => {
@@ -160,9 +120,10 @@ describe('Users', () => {
 				password : 'sfsjuy' + user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('name missing.');
 			res.should.have.status(422);
 			done();
-		});			
+		});
 	});	
 
 	it('It should not CREATE a user with small(name)', (done) => {
@@ -175,6 +136,7 @@ describe('Users', () => {
 				password : 'sfsjaduy' + user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.eql('Name should be between 2 - 60 characters long.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -190,6 +152,7 @@ describe('Users', () => {
 				password : 'pr2e2_' + user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.eql('Name should be between 2 - 60 characters long.');			
 			res.should.have.status(422);
 			done();
 		});			
@@ -197,7 +160,19 @@ describe('Users', () => {
 
 
 
-//  // EMAIL //
+// //  // EMAIL //
+
+	it('It should not CREATE a user with used(email)', (done) => {
+		chai.request(app)
+		.post('/api/account/create')
+		.type('form')
+		.send(user_credentials_Login)			
+		.end((err, res) => {
+			res.should.have.status(422);
+			res.body.message.should.equal('email already in use.');
+			done();
+		});
+	});
 
 	it('It should not CREATE a user with no(email)', (done) => {
 		chai.request(app)
@@ -208,6 +183,7 @@ describe('Users', () => {
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('email missing.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -223,6 +199,7 @@ describe('Users', () => {
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('Email should be between 7 - 100 characters long.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -239,6 +216,7 @@ describe('Users', () => {
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('Email should be between 7 - 100 characters long.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -254,11 +232,11 @@ describe('Users', () => {
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('success new user created.');
 			res.should.have.status(201);
 			res.body.token.length.should.be.above(50);			
-			tokens.push( res.body.token );
 			done();
-		});			
+		});
 	});
 
 
@@ -272,12 +250,13 @@ describe('Users', () => {
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('email appears broken, either missing @ or domain.');
 			res.should.have.status(422);
 			done();
 		});			
 	});
 
-// // PASSWORD //
+// // // PASSWORD //
 
 	it('It should not CREATE a user with no(password)', (done) => {
 		chai.request(app)
@@ -288,6 +267,7 @@ describe('Users', () => {
 				email : 'sf1se' + user_credentials_Login.email,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('password missing.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -300,9 +280,10 @@ describe('Users', () => {
 		.send({	
 				name : 's6sa' + user_credentials_Login.name,
 				email : 'sf1se' + user_credentials_Login.email,
-				password : '123',			
+				password : '123',
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('Password should be at least 6 characters long.');
 			res.should.have.status(422);
 			done();
 		});			
@@ -318,12 +299,12 @@ describe('Users', () => {
 				password : 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochllan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-gochusually known as Llanfair-pwll or Llanfairpwllgwyngyll is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave" . Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (llan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-goch) (usually known as Llanfair-pwll or Llanfairpwllgwyngyll) is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave"',
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('success new user created.');
 			res.should.have.status(201);
 			res.body.token.length.should.be.above(50);			
-			tokens.push( res.body.token );
 			done();
 		});			
-	});
+	}).timeout(5000);;
 
 	it('It should CREATE a user with sanitized input(password)', (done) => {
 		chai.request(app)
@@ -335,142 +316,223 @@ describe('Users', () => {
 				password : user_credentials_Login.password + '<script>console.log("runMe!");</script>',
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('success new user created.');
 			res.should.have.status(201);
-			tokens.push( res.body.token );
 			done();
 		});			
-	});
+	}).timeout(5000);;
 
-// // UPDATE //
+// // // UPDATE //
 
 	it('It should UPDATE a user with new(name/email/pass)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				name : 'newName',
-				email : 'newEmail@email.com',
-				password : 'newPassword',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ranomdTestEmail@test.com', password : 'randomPasswordHere' })
 		.end((err, res) => {
-			res.should.have.status(202);
-			tokenDenied.push( tokenLocal );
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({	
+					name : 'newName',
+					email : 'newEmail@email.com',
+					password : 'newPassword',
+				})
+			.end((err, res) => {
+				res.body.message.should.equal('success user updated.');	
+				res.should.have.status(202);
+				done();
+			});
+		});
 	});
+
 
 	it('It should not UPDATE a user with a no(input)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({})			
+		.send({ name : user_credentials_Login.name, email : 'ranomdT1estEmail@tes1t.com', password : 'rand1omPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(422);
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.body.message.should.equal('no fields to update.');	
+				res.should.have.status(422);
+				done();
+			});
+		});
 	});
+
 
 	it('It should UPDATE a user with a only new(name)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				name : 'newName111',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ranomdT1estEmai1l@tes1t.com', password : 'rand1o1mPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(202);
-			res.body.data.name.should.eql('newName111');
-			tokenDenied.push( tokenLocal );
-			tokens.push( res.body.token );
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({ name : 'testupdatedname' })
+			.end((err, res) => {
+				res.body.data.name.should.equal('testupdatedname');	
+				res.body.message.should.equal('success user updated.');	
+				res.should.have.status(202);
+				done();
+			});
+		});
 	});
 
+
 	it('It should not UPDATE a user with a only new short(name)', (done) => {
-		let tokenLocal =  tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-			name : 'b',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ran12omdT1estEmai1l@tes1t.com', password : 'rand113o1mPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(422);
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({ name : 'b' })
+			.end((err, res) => {
+				res.body.message.should.equal('Name should be between 2 - 60 characters long.');	
+				res.should.have.status(422);
+				done();
+			});
+		});
 	});
 
 	it('It should not UPDATE a user with a only new long(name)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				name : 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochllan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-gochusually known as Llanfair-pwll or Llanfairpwllgwyngyll is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave" . Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (llan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-goch) (usually known as Llanfair-pwll or Llanfairpwllgwyngyll) is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave"',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ran12omdT1es1tEmai1l@tes1t.com', password : 'ran1d113o1mPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(422);
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({
+				name : 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogochllan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-gochusually known as Llanfair-pwll or Llanfairpwllgwyngyll is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave" . Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch (llan-vire-pooll-guin-gill-go-ger-u-queern-drob-ooll-llandus-ilio-gogo-goch) (usually known as Llanfair-pwll or Llanfairpwllgwyngyll) is a Welsh word which translates roughly as "St Mary`s Church in the Hollow of the White Hazel near a Rapid Whirlpool and the Church of St. Tysilio near the Red Cave"',
+			 })
+			.end((err, res) => {
+				res.body.message.should.equal('Name should be between 2 - 60 characters long.');	
+				res.should.have.status(422);
+				done();
+			});
+		});
 	});
+
 
 	it('It should UPDATE a user with a only new(email)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				email : 'newerEmailThanBEfore@EmailsYo.com',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ran12om1dT1es1tEmai1l@tes1t.com', password : 'r1and113o1mPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(202);
-			res.body.data.email.should.eql('newerEmailThanBEfore@EmailsYo.com');
-			tokenDenied.push( tokenLocal );
-			tokens.push( res.body.token );
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({ email : 'testingthisnew@email.com' })
+			.end((err, res) => {
+				res.body.data.email.should.eql('testingthisnew@email.com');
+				res.body.message.should.equal('success user updated.');	
+				res.should.have.status(202);
+				done();
+			});
+		});
 	});
+
 
 	it('It should not UPDATE a user with a small(email)', (done) => {
-		let tokenLocal =  tokens.pop();
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				email : '1@1.co',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ran12om1dT1es1tEmai1l@tes1t.com', password : 'r1and113o1mPasswo1rdHere' })
 		.end((err, res) => {
-			res.should.have.status(422);
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({ email : 't@l.c' })
+			.end((err, res) => {
+				res.body.message.should.equal('Email should be between 7 - 100 characters long.');	
+				res.should.have.status(422);
+				done();
+			});
+		});
 	});
 
-	it('It should not UPDATE a user with a long(email)', (done) => {
+	it('It should not UPDATE a user with a only new long(name)', (done) => {
 		chai.request(app)
-		.put('/api/account')
-		.set('Authorization', 'Bearer ' + tokens[0])
+		.post('/api/account/create')
 		.type('form')
-		.send({	
-				email : 'dsfsdflksmflskfoshfiuagudgfywqgdopjwepofjhuqiwgdiuenwjpofjiuehgUFGBHEW1@KJBSFKUHYSFGDUYWGDIUWGIFYGDUYBSDCJNSIUHDYFGWEBF1.co',
-			})			
+		.send({ name : user_credentials_Login.name, email : 'ran12i1l@tes1t.com', password : 'ran1d1o1rdHere111' })
 		.end((err, res) => {
-			res.should.have.status(422);
-			done();
-		});			
+
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.put('/api/account')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({
+				email : 'testingaverylongemailheretestingaverylongemailhere@testingaverylongemailhere.testingaverylongemailhere'
+			 })
+			.end((err, res) => {
+				res.body.message.should.equal('Email should be between 7 - 100 characters long.');
+				res.should.have.status(422);
+				done();
+			});
+		});
 	});
 
 
-// LOGIN SECTION //
+// // LOGIN SECTION //
 
 	it('It should Login a user', (done) => {
 		chai.request(app)
@@ -479,8 +541,8 @@ describe('Users', () => {
 		.send(user_credentials_Login)
 		.end((err, res) => {
 			res.should.have.status(200);
+			res.body.message.should.equal('success welcome back.');
 			res.body.token.length.should.be.above(50);
-			tokens.push( res.body.token );
 			done();
 		});
 	});
@@ -491,10 +553,11 @@ describe('Users', () => {
 		.type('form')
 		.send({	
 				name : user_credentials_Login.name,
-				email : 'extra_' + user_credentials_Login.email,
+				email : 'm_' + user_credentials_Login.email,
 				password : user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('no user found with that email.');
 			res.should.have.status(404);
 			done();
 		});
@@ -507,9 +570,10 @@ describe('Users', () => {
 		.send({	
 				name : user_credentials_Login.name,
 				email : user_credentials_Login.email,
-				password : 'extra_' + user_credentials_Login.password,
+				password : 'e1ra_' + user_credentials_Login.password,
 			})			
 		.end((err, res) => {
+			res.body.message.should.equal('password does not match.');
 			res.should.have.status(401);
 			done();
 		});
@@ -518,99 +582,206 @@ describe('Users', () => {
 // // DELETE SECTION //
 
 	it('It should DELETE a user with correct(token)', (done) => {
-		let tokenLocal = tokens.pop();
 		chai.request(app)
-		.delete('/api/account/')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({})
+		.send({	
+			name : 'testing1231',
+			email : 'newEmails@sdsad.com12',
+			password : 'asdasdasdwdaw231231',
+		})
 		.end((err, res) => {
-			// console.log(err);
-			// console.log(res.body);
-			tokenDenied.push( tokenLocal );
-			res.should.have.status(200);
-			done();
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.delete('/api/account/')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.message.should.equal('user deleted, goodbye.');
+				done();
+			});
 		});
 	});
 
-	it('It should not DELETE a user with bad(token)', (done) => {
-		let fakeToken = 'ejJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzExYTQ3Y2VmNzQxNzJiOGQzNTk3N2QiLCJuYW1lIjoidGVzdFVzZXIiLCJlbWFpbCI6InRlc3RFbWFpbEBFbWFpbC5jb20iLCJsb2dpbiI6IjIwMTgtMTItMTNUMDA6MTQ6NTIuNDYzWiIsImFjdGl2ZSI6dHJ1ZSwiaWF0IjoxNTQ0NjYwMDkyLCJleHAiOjE1NDUyNjQ4OTJ9.VTgtyEQdX6OqE6LEUHj9ak_YA3dWbRLxfc7OqIgN3R4';
+	it('It should not DELETE a user with bad end(token)', (done) => {
 		chai.request(app)
-		.delete('/api/account/')
-		.set('Authorization', 'Bearer ' + fakeToken)
+		.post('/api/account/create')
 		.type('form')
-		.send({})
+		.send({	
+			name : 'testin1g1231',
+			email : 'newE1mails@sd1sad.com12',
+			password : 'asda1sdasdwdaw231231',
+		})
 		.end((err, res) => {
-			res.should.have.status(401);
-			done();
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+
+			let new_token = res.body.token.substring(0, res.body.token.length - 1) + 'E';
+
+			chai.request(app)
+			.delete('/api/account/')
+			.set('Authorization', 'Bearer ' + new_token)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.should.have.status(401);
+				res.body.message.should.equal('invalid signature');
+				done();
+			});
 		});
 	});
 
-	it('It should not DELETE a user with reallyOdd(token)', (done) => {
-		let fakeToken = 'YwMDkyLCJleHAiOjE1NDUyNjQ4OTJ9.VTgtyEQdX6OqE6LEUHj9ak_YA3dWbRLxfc7OqIgN3R4';
+	it('It should not DELETE a user with bad start(token)', (done) => {
 		chai.request(app)
-		.delete('/api/account/')
-		.set('Authorization', 'Bearer ' + fakeToken)
+		.post('/api/account/create')
 		.type('form')
-		.send({})
+		.send({	
+			name : 'test1in1g1231',
+			email : 'newE1m1ails@sd1sad.com12',
+			password : 'asda1s1dasdwdaw231231',
+		})
 		.end((err, res) => {
-			res.should.have.status(401);
-			done();
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+
+			let new_token = 'F' + res.body.token.substring(1, res.body.token.length );
+
+			chai.request(app)
+			.delete('/api/account/')
+			.set('Authorization', 'Bearer ' + new_token)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.should.have.status(401);
+				res.body.message.should.equal('invalid token');
+				done();
+			});
 		});
 	});
+
 
 	it('It should not DELETE a user with old/denied(token)', (done) => {
-		let tokenLocal = tokenDenied.pop();
 		chai.request(app)
-		.delete('/api/account/')
-		.set('Authorization', 'Bearer ' + tokenLocal)
+		.post('/api/account/create')
 		.type('form')
-		.send({})
+		.send({	
+			name : 'tes1tin2g1231',
+			email : 'newEm1ails@sds2ad.com12',
+			password : 'asda1sdasdwda2w231231',
+		})
 		.end((err, res) => {
-			res.should.have.status(401);
-			done();
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.delete('/api/account/')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.message.should.equal('user deleted, goodbye.');
+
+				chai.request(app)
+				.delete('/api/account/')
+				.set('Authorization', 'Bearer ' + token_user)
+				.type('form')
+				.send({})
+				.end((err, res) => {
+					res.should.have.status(401);
+					res.body.message.should.equal('security token previously used/disabled.');
+					done();
+				});
+
+			});
 		});
 	});
 
-// LOGOUT SECTION //
+
+// // LOGOUT SECTION //
 
 	it('It should LOGOUT a user', (done) => {
 		chai.request(app)
-		.post('/api/account/logout')
-		.set('Authorization', 'Bearer ' + tokens[1])
+		.post('/api/account/login')
 		.type('form')
-		.send({})
+		.send(user_credentials_Login)
 		.end((err, res) => {
 			res.should.have.status(200);
-			done();
+			res.body.message.should.equal('success welcome back.');
+			res.body.token.length.should.be.above(50);
+
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.post('/api/account/logout')
+			.set('Authorization', 'Bearer ' + token_user)
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.message.should.equal('success user logged out, goodbye.');
+				done();
+			});
 		});
-	});		
+	});
+
+
 
 	it('It should not LOGOUT a user with bad(token)', (done) => {
 		let fakeToken = 'ejJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzExYTQ3Y2VmNzQxNzJiOGQzNTk3N2QiLCJuYW1lIjoidGVzdFVzZXIiLCJlbWFpbCI6InRlc3RFbWFpbEBFbWFpbC5jb20iLCJsb2dpbiI6IjIwMTgtMTItMTNUMDA6MTQ6NTIuNDYzWiIsImFjdGl2ZSI6dHJ1ZSwiaWF0IjoxNTQ0NjYwMDkyLCJleHAiOjE1NDUyNjQ4OTJ9.VTgtyEQdX6OqE6LEUHj9ak_YA3dWbRLxfc7OqIgN3R4';
 		chai.request(app)
 		.post('/api/account/logout')
 		.set('Authorization', 'Bearer ' + fakeToken)
-		.type('form')
-		.send({})
 		.end((err, res) => {
 			res.should.have.status(401);
+			res.body.message.should.equal('invalid token');
 			done();
 		});
 	});
+
 
 	it('It should not LOGOUT a user with denied(token)', (done) => {
 		chai.request(app)
-		.post('/api/account/logout')
-		.set('Authorization', 'Bearer ' + tokenDenied.pop() )
+		.post('/api/account/create')
 		.type('form')
-		.send({})
+		.send({	
+			name : 'tes1tin2g12131',
+			email : 'newEm11ails@sds2ad.com12',
+			password : 'asda1sdasdwda21w231231',
+		})
 		.end((err, res) => {
-			res.should.have.status(401);
-			done();
+			res.should.have.status(201);
+			res.body.token.length.should.be.above(50);
+			let token_user = res.body.token;
+
+			chai.request(app)
+			.delete('/api/account/')
+			.set('Authorization', 'Bearer ' + token_user)
+			.type('form')
+			.send({})
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.message.should.equal('user deleted, goodbye.');
+
+				chai.request(app)
+				.post('/api/account/logout')
+				.set('Authorization', 'Bearer ' + token_user)
+				.end((err, res) => {
+					res.should.have.status(401);
+					res.body.message.should.equal('security token previously used/disabled.');
+					done();
+				});
+
+			});
 		});
 	});
 
-})
+
+
+});
 
 

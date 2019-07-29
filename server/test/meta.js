@@ -45,41 +45,37 @@ describe('Meta', () => {
 	});
 
 
-	it('It should get an object of played and won boards.', (done) => {
+	it('It should get an object of played and won boards and stats.', (done) => {
 		chai.request(app)
-		.get('/meta/board/wins_plays')
+		.get('/meta/server/stats')
 		.end((err, res) => {
 			res.should.have.status(200);
-			res.body.message.should.equal('Win and plays so far.');
-			chai.expect(res.body.data.wins).to.be.a('number');
-			chai.expect(res.body.data.plays).to.be.a('number');
-			done();
-		});			
-	});
-
-
-	it('It should get an array of games in progress.', (done) => {
-		chai.request(app)
-		.get('/meta/instance/games')
-		.end((err, res) => {
-			res.should.have.status(200);
-			res.body.message.should.equal('Games playing.');
-			chai.expect(res.body.data.games).to.be.an('array');
-			done();
-		});			
-	});
-
-
-	it('It should get current number of players playing.', (done) => {
-		chai.request(app)
-		.get('/meta/instance/players')
-		.end((err, res) => {
-			res.should.have.status(200);
-			res.body.message.should.equal('Players currently.');
+			res.body.message.should.equal('Stats so far.');
+			chai.expect(res.body.data.games_played).to.be.a('number');
+			chai.expect(res.body.data.games_won).to.be.a('number');
 			chai.expect(res.body.data.players).to.be.a('number');
+			chai.expect(res.body.data.games).to.be.a('array');
 			done();
 		});			
 	});
+
+
+	it('It should return all current games in progress.', (done) => {
+		chai.request(app)
+		.get('/meta/instance/all')
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.message.should.equal('Instances current:');
+			chai.expect(res.body.data.players_active).to.be.a('number');
+			chai.expect(res.body.data.instances_active).to.be.a('number');
+			chai.expect(res.body.data.instances_all).to.be.a('number');
+			chai.expect(res.body.data.data).to.be.an('array');
+			done();
+		});			
+	});
+
+
+
 
 
 })

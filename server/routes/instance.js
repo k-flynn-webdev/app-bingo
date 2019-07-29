@@ -29,9 +29,6 @@ module.exports = function( App ) {
 					});
 				}
 
-				// console.log( 'request.body' );
-				// console.log( request.body );
-
 				let var_user = request.body.user || false;
 				let var_board = result.data.board || false;
 				let var_instance = result || false;

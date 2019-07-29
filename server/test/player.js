@@ -12,21 +12,24 @@ let mongoose = require('mongoose');
 let m_board = require('../models/board.model.js');
 
 
-let basic_board = {
-	name : 'testBoard',
-	words : 'basic, board, words, here, things cant make test'
-}
+let basic_board = {"name":"testing 123","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
 
 let basic_player = {
+	name : 'player01',
+}
+
+let basic_player1 = {
 	name : 'testplayer',
-	words : 'asdad adada ,a saaddada ,adsdasdad',
+	lines : 'test test 1§test test 2§test test 3§test test 4',
 	score : 0,
 }
+
+
 let player = null;
 
 let basic_player_2 = {
 	name : 'testplayer2222',
-	words : 'asdad adada ,a saaddada ,adsdasdad',
+	lines : 'test test 1§test test 2§test test 3§test test 4',
 	score : 0,
 }
 let player_2 = null;
@@ -36,7 +39,7 @@ let basic_player_data = {
 	data : {
 		name : 'testplayer',
 		score : 0,
-		words : [],
+		lines : [],
 	},
 }
 
@@ -56,7 +59,6 @@ chai.use(chaiHttp);
 describe('Player', () => {
 
 
-
 	it('It should return a new player on joining an instance.', (done) => {
 
 		chai.request(app)
@@ -68,8 +70,9 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
+
 				instance = res.body.data;
 				instance_url = res.body.data.url;
 
@@ -78,6 +81,7 @@ describe('Player', () => {
 				.type('form')
 				.send( basic_player )
 				.end((err, res) => {
+
 					res.should.have.status(201);
 					res.body.message.should.equal('New player joined.');
 					chai.expect(res.body.data.url).to.be.a('string');
@@ -100,7 +104,7 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
 				instance = res.body.data;
 				instance_url = res.body.data.url;
@@ -130,7 +134,7 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
 				instance = res.body.data;
 				instance_url = res.body.data.url;
@@ -176,7 +180,7 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
 				instance = res.body.data;
 				instance_url = res.body.data.url;
@@ -194,7 +198,6 @@ describe('Player', () => {
 					.send( basic_player_2 )
 					.end((err, res) => {
 						player_2 = res.body.data;
-
 
 						chai.request(app)
 						.delete('/api/instance/' + instance_url)
@@ -241,8 +244,9 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
+
 				instance = res.body.data;
 				instance_url = res.body.data.url;
 
@@ -251,33 +255,31 @@ describe('Player', () => {
 				.type('form')
 				.send( basic_player )
 				.end((err, res) => {
-					player = res.body.data;
 
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
 
 					chai.request(app)
 					.put('/api/instance/' + instance_url)
 					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							word : {
-								add : 'here',
-							},
-						},
-					})
+					.send( {"player":{"url":player_joined.url,"line":{"add":"test test 2"}}}  )
 					.end((err, res) => {
+
 						res.should.have.status(202);
 						res.body.message.should.equal('Player updated successfully.');
-						chai.expect(res.body.data.url).to.equal(player.url);
-						chai.expect(res.body.data.word.add).to.equal('here');
-						chai.expect(res.body.data.score).to.equal(1);
-
+						res.body.data.data.score.should.equal(1);
 						done();
+
 					});
 				});
 			});	
 		});	
-	});
+	});	
 
 	it('It should NOT update the player from an instance with a unavailable word.', (done) => {
 
@@ -290,8 +292,9 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
+
 				instance = res.body.data;
 				instance_url = res.body.data.url;
 
@@ -300,33 +303,34 @@ describe('Player', () => {
 				.type('form')
 				.send( basic_player )
 				.end((err, res) => {
-					player = res.body.data;
 
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
 
 					chai.request(app)
 					.put('/api/instance/' + instance_url)
 					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							word : {
-								add : 'teeeeeeee',
-							},
-						},
-					})
+					.send( {"player":{"url":player_joined.url,"line":{"add":"test this doesnt exist 2"}}}  )
 					.end((err, res) => {
+
 						res.should.have.status(422);
-						res.body.message.should.equal('Player word to add does not exist.');
+						res.body.message.should.equal('Player line to add does not exist.');
 						done();
+
 					});
 				});
 			});	
 		});	
-	});
+	});	
 
 
 	it('It should NOT update the player from an instance with a duplicate word.', (done) => {
-	
+		
 		chai.request(app)
 		.post('/api/board/create')
 		.type('form')
@@ -336,8 +340,9 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
+
 				instance = res.body.data;
 				instance_url = res.body.data.url;
 
@@ -346,144 +351,46 @@ describe('Player', () => {
 				.type('form')
 				.send( basic_player )
 				.end((err, res) => {
-					player = res.body.data;
 
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
 
-					chai.request(app)
-					.put('/api/instance/' + instance_url)
-					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							word : {
-								add : 'here',
-							},
-						},
-					})
-					.end((err, res) => {
-
-						chai.request(app)
-						.put('/api/instance/' + instance_url)
-						.type('form')
-						.send({
-							player : {
-								url : player.url,
-								word : {
-									add : 'here',
-								},
-							},
-						})
-						.end((err, res) => {
-
-							res.should.have.status(403);
-							res.body.message.should.equal('Player already has this word.');
-							done();
-
-						});
-					});
-				});
-			});
-		});
-	});
-
-	it('It should NOT remove a word from the player that they dont have.', (done) => {
-	
-		chai.request(app)
-		.post('/api/board/create')
-		.type('form')
-		.send( basic_board )
-		.end((err, res) => {
-			board = res.body.data;
-			board_url = res.body.data.url;
-
-			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
-			.end((err, res) => {
-				instance = res.body.data;
-				instance_url = res.body.data.url;
-
-				chai.request(app)
-				.post('/api/instance/' + instance_url)
-				.type('form')
-				.send( basic_player )
-				.end((err, res) => {
-					player = res.body.data;
-
+					let player_joined = res.body.data;
 
 					chai.request(app)
 					.put('/api/instance/' + instance_url)
 					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							word : {
-								remove : 'things',
-							},
-						},
-					})
-					.end((err, res) => {
-						res.should.have.status(422);
-						res.body.message.should.equal('Player does not have this word.');
-						done();
-
-					});
-				});
-			});	
-		});	
-	});
-
-
-	it('It should update the player name in an instance.', (done) => {
-	
-		chai.request(app)
-		.post('/api/board/create')
-		.type('form')
-		.send( basic_board )
-		.end((err, res) => {
-			board = res.body.data;
-			board_url = res.body.data.url;
-
-			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
-			.end((err, res) => {
-				instance = res.body.data;
-				instance_url = res.body.data.url;
-
-				chai.request(app)
-				.post('/api/instance/' + instance_url)
-				.type('form')
-				.send( basic_player )
-				.end((err, res) => {
-					player = res.body.data;
-
-
-					chai.request(app)
-					.put('/api/instance/' + instance_url)
-					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							name : {
-								update : 'newNameGoesHere',
-							},
-						},
-					})
+					.send( {"player":{"url":player_joined.url,"line":{"add":"test test 2"}}}  )
 					.end((err, res) => {
 
 						res.should.have.status(202);
 						res.body.message.should.equal('Player updated successfully.');
-						res.body.data.url.should.equal(player.url);
-						res.body.data.name.update.should.equal('newNameGoesHere');
-						done();
+						res.body.data.data.score.should.equal(1);
+
+						chai.request(app)
+						.put('/api/instance/' + instance_url)
+						.type('form')
+						.send( {"player":{"url":player_joined.url,"line":{"add":"test test 2"}}}  )
+						.end((err, res) => {
+
+							res.should.have.status(403);
+							res.body.message.should.equal('Player already has this line.');
+							done();
+
+						});
+
 
 					});
 				});
 			});	
 		});	
-	});
+	});	
 
-	it('It should not update the player name in an instance with an small name.', (done) => {
-	
+	it('It should remove a word from the player that they have.', (done) => {
+
 		chai.request(app)
 		.post('/api/board/create')
 		.type('form')
@@ -493,8 +400,9 @@ describe('Player', () => {
 			board_url = res.body.data.url;
 
 			chai.request(app)
-			.get('/api/instance/' + board_url + '/create')
+			.post('/api/instance/' + board_url + '/create')
 			.end((err, res) => {
+
 				instance = res.body.data;
 				instance_url = res.body.data.url;
 
@@ -503,29 +411,198 @@ describe('Player', () => {
 				.type('form')
 				.send( basic_player )
 				.end((err, res) => {
-					player = res.body.data;
 
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
 
 					chai.request(app)
 					.put('/api/instance/' + instance_url)
 					.type('form')
-					.send({
-						player : {
-							url : player.url,
-							name : {
-								update : 'ne',
-							},
-						},
-					})
+					.send( {"player":{"url":player_joined.url,"line":{"add":"test test 2"}}}  )
 					.end((err, res) => {
-						res.should.have.status(422);
-						res.body.message.should.equal('Player name update is too short.');
-						done();
+
+						res.should.have.status(202);
+						res.body.message.should.equal('Player updated successfully.');
+						res.body.data.data.score.should.equal(1);
+
+						chai.request(app)
+						.put('/api/instance/' + instance_url)
+						.type('form')
+						.send( {"player":{"url":player_joined.url,"line":{"remove":"test test 2"}}}  )
+						.end((err, res) => {
+
+							res.body.data.data.score.should.equal(0);
+							res.should.have.status(202);
+							res.body.message.should.equal('Player updated successfully.');
+							done();
+
+						});
+
 					});
 				});
 			});	
 		});	
-	});
+	});	
+
+	it('It should NOT remove a word from the player that they dont have.', (done) => {
+
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board )
+		.end((err, res) => {
+			board = res.body.data;
+			board_url = res.body.data.url;
+
+			chai.request(app)
+			.post('/api/instance/' + board_url + '/create')
+			.end((err, res) => {
+
+				instance = res.body.data;
+				instance_url = res.body.data.url;
+
+				chai.request(app)
+				.post('/api/instance/' + instance_url)
+				.type('form')
+				.send( basic_player )
+				.end((err, res) => {
+
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
+
+					chai.request(app)
+					.put('/api/instance/' + instance_url)
+					.type('form')
+					.send( {"player":{"url":player_joined.url,"line":{"add":"test test 2"}}}  )
+					.end((err, res) => {
+
+						res.should.have.status(202);
+						res.body.message.should.equal('Player updated successfully.');
+						res.body.data.data.score.should.equal(1);
+
+						chai.request(app)
+						.put('/api/instance/' + instance_url)
+						.type('form')
+						.send( {"player":{"url":player_joined.url,"line":{"remove":"test test 11 2"}}}  )
+						.end((err, res) => {
+
+							res.should.have.status(422);
+							res.body.message.should.equal('Player does not have this line.');
+							done();
+
+						});
+
+					});
+				});
+			});	
+		});	
+	});	
+
+
+	it('It should update the player name in an instance.', (done) => {
+
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board )
+		.end((err, res) => {
+			board = res.body.data;
+			board_url = res.body.data.url;
+
+			chai.request(app)
+			.post('/api/instance/' + board_url + '/create')
+			.end((err, res) => {
+
+				instance = res.body.data;
+				instance_url = res.body.data.url;
+
+				chai.request(app)
+				.post('/api/instance/' + instance_url)
+				.type('form')
+				.send( basic_player )
+				.end((err, res) => {
+
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
+
+					chai.request(app)
+					.put('/api/instance/' + instance_url)
+					.type('form')
+					.send( {"player":{"url":player_joined.url,"name":{"update":"newNameHereYo"}}}  )
+					.end((err, res) => {
+
+						res.should.have.status(202);
+						res.body.message.should.equal('Player updated successfully.');
+						res.body.data.data.name.should.equal('newNameHereYo');
+						done();
+
+					});
+				});
+			});	
+		});	
+	});	
+
+	it('It should not update the player name in an instance with an small name.', (done) => {
+
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board )
+		.end((err, res) => {
+			board = res.body.data;
+			board_url = res.body.data.url;
+
+			chai.request(app)
+			.post('/api/instance/' + board_url + '/create')
+			.end((err, res) => {
+
+				instance = res.body.data;
+				instance_url = res.body.data.url;
+
+				chai.request(app)
+				.post('/api/instance/' + instance_url)
+				.type('form')
+				.send( basic_player )
+				.end((err, res) => {
+
+					res.should.have.status(201);
+					res.body.message.should.equal('New player joined.');
+					chai.expect(res.body.data.url).to.be.a('string');
+					chai.expect(res.body.data.data.name).to.be.a('string');
+					chai.expect(res.body.data.data.score).to.be.a('number');
+
+					let player_joined = res.body.data;
+
+					chai.request(app)
+					.put('/api/instance/' + instance_url)
+					.type('form')
+					.send( {"player":{"url":player_joined.url,"name":{"update":"yo"}}}  )
+					.end((err, res) => {
+
+						res.should.have.status(422);
+						res.body.message.should.equal('Player name update is too short.');
+						done();
+
+					});
+				});
+			});	
+		});	
+	});	
 
 })
 

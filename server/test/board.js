@@ -12,12 +12,11 @@ let mongoose = require('mongoose');
 let m_board = require('../models/board.model.js');
 
 
-let basic_board = {
-	name : 'testBoard',
-	words : 'long ass string here of words, testing ,split,type here'
-}
+let basic_board = {"name":"testing 123","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
+let basic_board_tiny_name = {"name":"12","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
+let basic_board_tiny_lines = {"name":"testing 123","lines":"tes1§te2§test 3§tet 4§test 5§tet 6§te 7§te 8§§"}
+let basic_board_few_lines = {"name":"testing 123","lines":"test test 1§test test 2§test test 3"}
 
-let board_urls = [];
 
 
 chai.use(chaiHttp);
@@ -28,9 +27,10 @@ describe('Board', () => {
 	// board cleanup 
 	m_board.remove({}, (err) => {});
 
-
 	it('It should create a board.', (done) => {
+
 		chai.request(app)
+		
 		.post('/api/board/create')
 		.type('form')
 		.send( basic_board )
@@ -39,20 +39,53 @@ describe('Board', () => {
 			res.body.message.should.equal('New board created.');
 			chai.expect(res.body.data.url).to.be.an('string');
 			chai.expect(res.body.data.data.name).to.be.an('string');
-			chai.expect(res.body.data.data.words).to.be.an('array');
-			chai.expect(res.body.data.data.game.win).to.be.an('number');
-			chai.expect(res.body.data.data.game.display).to.be.an('number');
-			board_urls.push(res.body.data);
+			chai.expect(res.body.data.data.lines).to.be.an('array');
+			done();
+		});			
+	}).timeout(5000);
+
+
+	it('It should not create a board with tiny name.', (done) => {
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board_tiny_name )
+		.end((err, res) => {
+			res.should.have.status(422);
+			res.body.message.should.equal('Board name should be between 2 - 99 characters long.');
 			done();
 		});			
 	});
 
+	// it('It should not create a board with tiny lines.', (done) => {
+	// 	chai.request(app)
+	// 	.post('/api/board/create')
+	// 	.type('form')
+	// 	.send( basic_board_tiny_lines )
+	// 	.end((err, res) => {
+	// 		res.should.have.status(422);
+	// 		res.body.message.should.equal('board name missing.');
+	// 		done();
+	// 	});			
+	// });
+
+	// it('It should not create a board with too few lines.', (done) => {
+	// 	chai.request(app)
+	// 	.post('/api/board/create')
+	// 	.type('form')
+	// 	.send( basic_board_few_lines )
+	// 	.end((err, res) => {
+	// 		res.should.have.status(422);
+	// 		res.body.message.should.equal('board name missing.');
+	// 		done();
+	// 	});			
+	// });
 
 	it('It should not create a board with no name.', (done) => {
 		chai.request(app)
 		.post('/api/board/create')
 		.type('form')
-		.send({ words : 'testFail, things, to', })
+		.send({ lines : 'testFail, things, to', })
 		.end((err, res) => {
 			res.should.have.status(422);
 			res.body.message.should.equal('board name missing.');
@@ -60,14 +93,14 @@ describe('Board', () => {
 		});			
 	});
 
-	it('It should not create a board with no words.', (done) => {
+	it('It should not create a board with no lines.', (done) => {
 		chai.request(app)
 		.post('/api/board/create')
 		.type('form')
 		.send({ name : 'testFail', })
 		.end((err, res) => {
 			res.should.have.status(422);
-			res.body.message.should.equal('board words missing.');
+			res.body.message.should.equal('board lines missing.');
 			done();
 		});			
 	});	
@@ -84,23 +117,38 @@ describe('Board', () => {
 	});
 
 	it('It should get board data.', (done) => {
+
 		chai.request(app)
-		.get('/api/board/' + board_urls[0].url )
+		
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board )
 		.end((err, res) => {
-			res.should.have.status(200);
-			res.body.message.should.equal('Board data.');
+
+			res.should.have.status(201);
+			res.body.message.should.equal('New board created.');
 			chai.expect(res.body.data.url).to.be.an('string');
 			chai.expect(res.body.data.data.name).to.be.an('string');
-			chai.expect(res.body.data.data.words).to.be.an('array');
-			chai.expect(res.body.data.data.game.win).to.be.an('number');
-			chai.expect(res.body.data.data.game.display).to.be.an('number');			
-			done();
-		});
+			chai.expect(res.body.data.data.lines).to.be.an('array');
+
+			let board_data_url = res.body.data.url;
+
+			chai.request(app)
+			.get('/api/board/' + board_data_url )
+			.end((err, res) => {
+				res.should.have.status(200);
+				res.body.message.should.equal('Board data.');
+				chai.expect(res.body.data.url).to.be.an('string');
+				chai.expect(res.body.data.data.name).to.be.an('string');
+				chai.expect(res.body.data.data.lines).to.be.an('array');
+				done();
+			});
+
+		});	
+
 	});
 
-
-
-
+	// now repeat some tests but as a logged in user?
 })
 
 

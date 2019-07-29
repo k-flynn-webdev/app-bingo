@@ -33,7 +33,7 @@ function base_search( url, board){
 
 
 function create( input, next){
-		
+
 	instance_func.create( input, null, function( error, newInstance){
 
 		if( error ){

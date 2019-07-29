@@ -26,6 +26,10 @@
 				},
 			}
 		},	
+		
+		computed : {
+
+		},
 
 		methods : {
 
@@ -85,13 +89,22 @@
 					score : playerScore,
 				};
 
+				// TODO check if this is a rejoin using same user ID but a new player ID?
+				
+				this.attrs.action.body = body;
+
 				if( playerURL === ''){
 					this.attrs.action.method = 'POST';
+
+					// is a user?
+					if( this.$store.getters['user/get_active'] ){
+						this.attrs.action.body.user = this.$store.getters['user/get_user_id'];
+					}
+
 				} else {
 					this.attrs.action.method = 'PUT';
 				}
 
-				this.attrs.action.body = body;
 			},
 
 

@@ -50,7 +50,10 @@ export default {
 		},		
 		get_user : function( state ){
 			return state.session.user;
-		},	
+		},
+		get_user_id : function( state ){
+			return { id : state.session.user.id };
+		},			
 		get_token : function( state ){
 			return state.session.token;
 		},		

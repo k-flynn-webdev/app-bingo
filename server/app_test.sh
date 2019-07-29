@@ -1,4 +1,11 @@
 #!/bin/bash
+pkill mongod
+
+sleep 2s
+
+mongod --bind_ip 127.0.0.1 &
+
+sleep 2s
 
 script_location=$(dirname $0)
 echo $script_location

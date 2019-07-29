@@ -308,7 +308,7 @@
 
 				// is a user?
 				if( this.$store.getters['user/get_active'] ){
-					this.attrs.action.body.user = this.$store.getters['user/get_user'];
+					this.attrs.action.body.user = this.$store.getters['user/get_user_id'];
 				}
 
 				// todo : before sending make a copy locally to repopulate all fields if page breaks/reloads?

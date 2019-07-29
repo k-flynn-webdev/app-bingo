@@ -30,7 +30,10 @@ module.exports = function( App ) {
 					});	
 				}
 
-				App.emit("board-create", request.body, result.url );
+				let var_user = request.body.user || false;
+				let var_board = result.url || false;
+				let var_instance = false;
+				App.emit("board-create", var_user, var_board, var_instance );
 
 				return response.status(status.success.created).json({
 					status : status.success.created,

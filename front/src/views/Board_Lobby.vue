@@ -157,7 +157,8 @@
 			},
 			get_lines : function(){
 				return this.$store.getters['board/get_board'].data.lines || 'Lines';
-			},			
+			},
+
 		},
 		methods:{
 
@@ -213,8 +214,14 @@
 			onPlay : function( event ){
 				let object = {
 					url : ('/api/instance/' + this.board + '/create'),
-					method : 'GET',
-					body : '' };
+					method : 'POST',
+					JSON : true,
+					body : {} };
+
+				// is a user?
+				if( this.$store.getters['user/get_active'] ){
+					object.body.user = this.$store.getters['user/get_user_id'];
+				}
 					
 				let self = this;	
 				let btn = self.$refs.btnPlay;
@@ -224,9 +231,15 @@
 			onRandom : function( event ){
 				let object = {
 					url : ('/api/instance/' + this.board + '/random'),
-					method : 'GET',
-					body : '' };
+					method : 'POST',
+					JSON : true,
+					body : {} };
 
+				// is a user?
+				if( this.$store.getters['user/get_active'] ){
+					object.body.user = this.$store.getters['user/get_user_id'];
+				}
+				
 				let self = this;	
 				let btn = self.$refs.btnRandom;
 

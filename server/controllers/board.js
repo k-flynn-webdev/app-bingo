@@ -17,7 +17,8 @@ let messages = [
 
 // Events
 function add_events( App ){
-	App.on("board-play", board_func.board_is_played );
+	App.on("board-start", board_func.board_start );
+	App.on("board-won", board_func.board_won );
 }
 exports.add_events = add_events;
 

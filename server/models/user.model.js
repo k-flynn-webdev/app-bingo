@@ -14,12 +14,21 @@ var user = mongoose.Schema({
 		login : { type: Date, required: true, default : default_date },
 	},
 	role: { type: String, required: true, default : config.role.user },
-	stats : {
-		played : { type: Date, required: true, default : new Date() },
-		plays : { type: Number, required: true, default : 0, },
-		wins : { type: Number, required: true, default : 0, },
-	},
-	boards : [{ type: mongoose.Schema.Types.ObjectId }],
+	data : {
+		stats : {
+			played : { type: Date, required: true, default : new Date() },
+		},
+		boards : {
+			created : [{ type: mongoose.Schema.Types.ObjectId }],
+			started : [{ type: mongoose.Schema.Types.ObjectId }],
+			played : [{ type: mongoose.Schema.Types.ObjectId }],
+			won : [{ type: mongoose.Schema.Types.ObjectId }],
+		},
+		session : {
+			instance : { type: String, default : '' },
+			player : { type: mongoose.Schema.Types.ObjectId },				
+		},	
+	}
 })
 
 module.exports = mongoose.model('User', user);

@@ -1,5 +1,6 @@
 const user = require('../controllers/user.js');
 const user_func = require('../controllers/user.func.js');
+const user_extra = require('../controllers/user.extra.js');
 const check_user = require('../controllers/user.validate.js');
 
 const token = require('../controllers/token.js');
@@ -13,13 +14,6 @@ let messages = [
 	'success new user created.',
 	'success user updated.',
 	'user deleted, goodbye.' ];
-
-
-// Events
-function add_events( App ){
-	App.on("board-create", user_func.board_add );
-}
-exports.add_events = add_events;
 
 
 

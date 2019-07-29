@@ -5,8 +5,8 @@ const config = require('../config/config.js');
 
 var player = mongoose.Schema({
 	url : { type: String, required: true },
-	owner : { type: mongoose.Schema.Types.ObjectId },
 	data : {
+		owner : { type: mongoose.Schema.Types.ObjectId },
 		time : { type: Date, required: true, default : Date.now() },
 		joined : { type: Date, required: true, default : Date.now() },
 		name : { type: String, required: true },

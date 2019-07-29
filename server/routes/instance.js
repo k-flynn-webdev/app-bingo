@@ -15,7 +15,7 @@ let logger = require( '../log/log.js' );
 module.exports = function( App ) {
 
 
-	App.get('/api/instance/:board/create', 
+	App.post('/api/instance/:board/create', 
 		board_check.board,
 		function(request, response){
 
@@ -29,7 +29,13 @@ module.exports = function( App ) {
 					});
 				}
 
-				App.emit("board-play", { url : result.data.board } );
+				// console.log( 'request.body' );
+				// console.log( request.body );
+
+				let var_user = request.body.user || false;
+				let var_board = result.data.board || false;
+				let var_instance = result || false;
+				App.emit("board-start", var_user, var_board, var_instance );
 
 				return response.status(status.success.created).json({
 					status : status.success.created,
@@ -41,7 +47,7 @@ module.exports = function( App ) {
 	});
 
 
-	App.get('/api/instance/:board/random', 
+	App.post('/api/instance/:board/random', 
 		board_check.board,
 		function(request, response){
 
@@ -55,7 +61,11 @@ module.exports = function( App ) {
 					});	
 				}
 
-				App.emit("board-play", { url : result.data.board } );
+				// todo this needs to be if random was found??
+				let var_user = request.body.user || false;
+				let var_board = result.data.board || false;
+				let var_instance = result || false;
+				App.emit("board-join", var_user, var_board, var_instance );
 
 				return response.status(status.success.ok).json({
 					status : status.success.ok,

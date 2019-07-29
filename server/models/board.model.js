@@ -13,10 +13,6 @@ var board = mongoose.Schema({
 			created : { type: Date, required: true, default : new Date() },
 		},
 		lines : { type: Array, required: true },
-		// game : {
-			// display : { type: Number, required: true, default : 0, },
-			// win : { type: Number, required: true, default : 0, },
-		// },
 		stats : {
 			played : { type: Date, required: true, default : new Date() },
 			plays : { type: Number, required: true, default : 0, },

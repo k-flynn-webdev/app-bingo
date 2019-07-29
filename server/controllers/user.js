@@ -16,7 +16,10 @@ let messages = [
 
 // Events
 function add_events( App ){
-	App.on("board-create", user_extra.board_add );
+	App.on("board-create", user_extra.board_create );
+	App.on("board-start", user_extra.board_start );	
+	App.on("board-join", user_extra.board_join );
+	App.on("board-won", user_extra.board_won );
 }
 exports.add_events = add_events;
 

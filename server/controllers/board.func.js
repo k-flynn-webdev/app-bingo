@@ -5,6 +5,8 @@ const helpers = require('./helpers.js');
 
 const board_validate = require('../controllers/board.validate.js');
 
+let logger = require( '../log/log.js' );
+
 
 function safe( model, all=false ){
 	
@@ -118,6 +120,7 @@ exports.get = get;
 
 
 
+
 function update( input, next ){
 	// TODO 
 	// // use player_validate
@@ -184,9 +187,60 @@ function board_meta( input, next ){
 exports.board_meta = board_meta;
 
 
-function board_is_won( input ){
 
-	m_board.findOne({ url : input.url } , function(error , found){
+
+function board_start( user, board, instance ){
+
+	if( !helpers.existsValid( board )){
+		return;
+	}
+
+	m_board.findOne({ url : board } , function(error , found){
+
+		if( error || !helpers.existsValid(found) ){
+			let pre = '';
+
+			if( helpers.existsValid( user )){
+				pre = 'User (' + user.id + ') ';
+			}
+
+			let error_obj = 'Error: ' + pre + 'failed update played on Board (' + board + ').';
+
+			logger.add( error_obj );
+			return;
+		}
+
+		if( helpers.existsValid( found )){
+			found.data.stats.plays +=1;
+			found.data.stats.played = new Date();
+			found.save();
+		}
+
+	});
+}
+exports.board_start = board_start;
+
+
+function board_won( user, board, instance ){
+
+	if( !helpers.existsValid( board )){
+		return;
+	}
+
+	m_board.findOne({ url : board } , function(error , found){
+
+		if( error || !helpers.existsValid(found) ){
+			let pre = '';
+
+			if( helpers.existsValid( user )){
+				pre = 'User (' + user.id + ') ';
+			}
+
+			let error_obj = 'Error: ' + pre + 'failed update win on Board (' + board + ').';
+
+			logger.add( error_obj );
+			return;
+		}
 
 		if( helpers.existsValid( found )){
 			found.data.stats.wins +=1;
@@ -195,20 +249,5 @@ function board_is_won( input ){
 
 	});
 }
-exports.board_is_won = board_is_won;
-
-function board_is_played( input ){
-
-	m_board.findOne({ url : input.url } , function(error , found){
-
-		if( helpers.existsValid( found )){
-			found.data.stats.played = new Date();
-			found.data.stats.plays +=1;
-			found.save();
-		}
-
-	});
-}
-exports.board_is_played = board_is_played;
-
+exports.board_won = board_won;
 

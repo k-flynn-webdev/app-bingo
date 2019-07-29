@@ -48,6 +48,11 @@ function create( input ){
 		},
 	});
 
+	// if user is logged in, tag as owner ..
+	if( helpers.existsValid( input.user ) ){
+		newPlayer.data.owner = input.user.id;
+	}
+
 	return newPlayer;
 }
 exports.create = create;

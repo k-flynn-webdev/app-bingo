@@ -21,8 +21,6 @@ module.exports = function( App ) {
 
 
 
-
-	
 	// Player join 
 	App.post('/api/instance/:instance', 
 		instance_check.instance,
@@ -58,6 +56,11 @@ module.exports = function( App ) {
 							message : error.message, 
 						});	
 					}
+
+					let var_user = request.body.user || false;
+					let var_board = result_instance.data.board || false;
+					let var_instance = result_instance || false;
+					App.emit("board-join", var_user, var_board, var_instance );
 
 					instance.update( result_instance );
 
@@ -136,7 +139,14 @@ module.exports = function( App ) {
 					
 					if( gameWon ){
 						updateResult.data.game = clean_instance.data.game;
-						App.emit("board-won", { url : result_instance.data.board } );
+					
+						// need to get user id from player in stack ..
+
+						let var_user = { id : result_player.data.owner }|| false;
+						let var_board = result_instance.data.board || false;
+						let var_instance = result_instance || false;
+						App.emit("board-won", var_user, var_board, var_instance );
+
 					}
 
 					return response.status(status.success.accepted).json({

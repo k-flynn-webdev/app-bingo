@@ -7,6 +7,7 @@ var instance = mongoose.Schema({
 	url : { type: String, required: true },
 	data : {
 		board : { type: mongoose.Schema.Types.ObjectId, required: true },
+		owner : { type: mongoose.Schema.Types.ObjectId },
 		players : { type: Array, required: true, default: [] },
 		lines : { type: Array, required: true, default: [] },
 		date : {
@@ -16,8 +17,6 @@ var instance = mongoose.Schema({
 			time : { type: Date, required: true, default : Date.now() },
 			win : { type : Number, required : true, default : 0 },
 			display : { type : Number, required : true, default : 0 },
-			// ahead : { type : String , required : true, default : '' },
-			// winner : { type : String , required : true, default : '' },	
 			winner : { 
 				win : { type : Boolean, required : true, default : false },
 				url : { type : String , required : true, default : '' },

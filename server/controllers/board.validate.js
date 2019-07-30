@@ -1,6 +1,8 @@
 
 const status = require('../config/status_response.js');
 const helpers = require('./helpers.js');
+const board_func = require('../controllers/board.func.js');
+const config = require('../config/config.js');
 
 
 let messages = [
@@ -8,6 +10,8 @@ let messages = [
 'board lines missing.',
 'board url missing or malformed.',
 'board search malformed.',
+'board has too few lines.',
+'board has some lines too short.',
 ]
 
 let nameSize = 99;
@@ -27,6 +31,30 @@ function create( req, res, next){
 			message : messages[1],
 		});
 	}
+
+	// has enough lines?
+	let temp_lines = board_func.split_lines( req.body.lines );
+	if( temp_lines.length < config.game.min ){
+		return res.status( status.client.input_error).json({
+			status : status.client.input_error,
+			message : messages[4],
+		});
+	}
+	// lines long enough?
+	let lines_pass = true;
+	for(let i = 0;i< temp_lines.length;i++){
+		if(temp_lines[i].length < 5){
+			lines_pass = false;
+			break;
+		}
+	}
+	if( !lines_pass ){
+		return res.status( status.client.input_error).json({
+			status : status.client.input_error,
+			message : messages[5],
+		});
+	}
+
 
 	next();
 }

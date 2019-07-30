@@ -57,29 +57,29 @@ describe('Board', () => {
 		});			
 	});
 
-	// it('It should not create a board with tiny lines.', (done) => {
-	// 	chai.request(app)
-	// 	.post('/api/board/create')
-	// 	.type('form')
-	// 	.send( basic_board_tiny_lines )
-	// 	.end((err, res) => {
-	// 		res.should.have.status(422);
-	// 		res.body.message.should.equal('board name missing.');
-	// 		done();
-	// 	});			
-	// });
+	it('It should not create a board with tiny lines.', (done) => {
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board_tiny_lines )
+		.end((err, res) => {
+			res.should.have.status(422);
+			res.body.message.should.equal('board has some lines too short.');
+			done();
+		});
+	});
 
-	// it('It should not create a board with too few lines.', (done) => {
-	// 	chai.request(app)
-	// 	.post('/api/board/create')
-	// 	.type('form')
-	// 	.send( basic_board_few_lines )
-	// 	.end((err, res) => {
-	// 		res.should.have.status(422);
-	// 		res.body.message.should.equal('board name missing.');
-	// 		done();
-	// 	});			
-	// });
+	it('It should not create a board with too few lines.', (done) => {
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board_few_lines )
+		.end((err, res) => {
+			res.should.have.status(422);
+			res.body.message.should.equal('board has too few lines.');
+			done();
+		});
+	});
 
 	it('It should not create a board with no name.', (done) => {
 		chai.request(app)

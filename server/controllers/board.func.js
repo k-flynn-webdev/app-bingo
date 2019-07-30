@@ -42,7 +42,7 @@ function save( model, next ){
 exports.save = save;
 
 
-function split_line_string( input ){
+function split_lines( input ){
 
 	// let lines_array = input.split(/[,\n\r]+/);
 	let lines_array = input.split('§');
@@ -57,6 +57,7 @@ function split_line_string( input ){
 
 	return lines;
 }
+exports.split_lines = split_lines;
 
 
 function create( input ){
@@ -64,7 +65,7 @@ function create( input ){
 	let newBoard = new m_board({
 		data : {
 			name : input.name,
-			lines : split_line_string(input.lines),			
+			lines : split_lines(input.lines),			
 		},
 	});
 	newBoard.url = newBoard._id;

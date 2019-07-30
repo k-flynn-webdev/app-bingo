@@ -71,75 +71,63 @@ exports.logout = logout;
 
 
 
+function board_event( user, error_msg, success_msg, success_action ){
+	
+	user_func.get_by_id( user, function(error, userFound){
+		
+		if(error){
+			logger.add( error );
+			return;
+		}
 
+		success_action( userFound );
+		logger.add( success_msg );
+
+		user_func.save( userFound, function( error, result ){
+
+			if( error ){
+				logger.add( error_obj );
+				return;
+			}
+
+			logger.add( success_msg );
+		});
+	});
+}
 
 
 function board_create( user, board, instance ){
 
-	if( !helpers.existsValid( user ) || !helpers.existsValid( board )){
+	if( !user  || !board ){
 		return;
 	}
 
-	user_func.get_by_id( user, function(error, userFound){
+	let pre = user ? 'User (' + user.id + ') ' : '';
+	let error_obj = 'Error: ' + pre + 'failed adding to user with created Board (' + board + ').';
+	let success_obj = 'Success: ' + pre + 'added to user with created Board (' + board + ').';
 
-		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user with created Board (' + board + ').';
-
-		if( error || !helpers.existsValid(userFound) ){
-			logger.add( error_obj );
-			return;
-		}
-
-		userFound.data.boards.created.push( helpers.escape( board ));
-
-		user_func.save( userFound, function( error, result ){
-
-			if( error ){
-				logger.add( error_obj );
-				return;
-			}
-
-			let success_obj = 'Success: ' + pre + ' updated with new created Board (' + board + ').'
-			logger.add( success_obj );
-
-		});
-
+	board_event( user, error_obj, success_obj, function( input ){
+		input.data.boards.created.push( helpers.escape( board ));
 	});
 }
 exports.board_create = board_create;
 
+
 // instance creator
 function board_start( user, board, instance ){
 
-	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
+	if( !user  || !instance ){
 		return;
 	}
 
-	user_func.get_by_id( user, function(error, userFound){
+	let pre = user ? 'User (' + user.id + ') ' : '';
+	let error_obj = 'Error: ' + pre + 'failed adding to user with started Board (' + instance.data.board + ').';
+	let success_obj = 'Success: ' + pre + 'added to user with started Board (' + instance.data.board + ').';
 
-		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user with started Board (' + board + ').';
-
-		if( error || !helpers.existsValid(userFound) ){
-			logger.add( error_obj );
-			return;
-		}
-
-		userFound.data.boards.started.push( helpers.escape( instance.data.board ));
-
-		user_func.save( userFound, function( error, result ){
-
-			if( error ){
-				logger.add( error_obj );
-				return;
-			}
-
-			let success_obj = 'Success: ' + pre + 'adding to user with started Board (' + board + ').';
-			logger.add( success_obj );
-
-		});
-
+	board_event( user, error_obj, success_obj, function( input ){
+		input.data.boards.started.push( helpers.escape( instance.data.board ));
 	});
+
 }
 exports.board_start = board_start;
 
@@ -147,73 +135,39 @@ exports.board_start = board_start;
 // regular player
 function board_join( user, board, instance, player ){
 
-	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
+	if( !user  || !instance ){
 		return;
 	}
 
-	user_func.get_by_id( user, function(error, userFound){
+	let pre = user ? 'User (' + user.id + ') ' : '';
+	let error_obj = 'Error: ' + pre + 'failed adding to user with played Board (' + instance.data.board + ').';
+	let success_obj = 'Success: ' + pre + 'added to user with played Board (' + instance.data.board + ').';
 
-		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user with played Board (' + instance.data.board + ').';
-
-		if( error || !helpers.existsValid(userFound) ){
-			logger.add( error_obj );
-			return;
-		}
-
-		userFound.data.stats.played = new Date();
-		userFound.data.boards.played.push( helpers.escape( instance.data.board ));
-		userFound.data.session.instance = helpers.escape( instance.url );
-		userFound.data.session.player = helpers.escape( player.url );
-
-		user_func.save( userFound, function( error, result ){
-
-			if( error ){
-				logger.add( error_obj );
-				return;
-			}
-
-			let success_obj = 'Success: ' + pre + 'adding to user with played Board (' + instance.data.board + ').';
-			logger.add( success_obj );
-
-		});
-
+	board_event( user, error_obj, success_obj, function( input ){
+		input.data.stats.played = new Date();
+		input.data.boards.played.push( helpers.escape( instance.data.board ));
+		input.data.session.instance = helpers.escape( instance.url );
+		input.data.session.player = helpers.escape( player.url );
 	});
+
 }
 exports.board_join = board_join;
 
 
 function board_won( user, board, instance, player ){
 
-	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
+	if( !user  || !instance ){
 		return;
 	}
 
-	user_func.get_by_id( user, function(error, userFound){
+	let pre = user ? 'User (' + user.id + ') ' : '';
+	let error_obj = 'Error: ' + pre + 'failed adding to user with won Board (' + instance.data.board + ').';
+	let success_obj = 'Success: ' + pre + 'added to user with won Board (' + instance.data.board + ').';
 
-		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user with won Board (' + instance.data.board + ').';
-
-		if( error || !helpers.existsValid(userFound) ){
-			logger.add( error_obj );
-			return;
-		}
-
-		userFound.data.boards.won.push( helpers.escape( instance.data.board ));
-
-		user_func.save( userFound, function( error, result ){
-
-			if( error ){
-				logger.add( error_obj );
-				return;
-			}
-
-			let success_obj = 'Success: ' + pre + 'adding to user with won Board (' + instance.data.board + ').';
-			logger.add( success_obj );
-
-		});
-
+	board_event( user, error_obj, success_obj, function( input ){
+		input.data.boards.won.push( helpers.escape( instance.data.board ));
 	});
+
 }
 exports.board_won = board_won;
 

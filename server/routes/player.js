@@ -185,7 +185,10 @@ module.exports = function( App ) {
 					}
 
 					instance.update( result_instance );
-					
+
+					let var_user = result_player.data.owner ? { id : result_player.data.owner } : false;
+					App.emit("board-leave", var_user );
+
 					return response.status(status.success.ok).json({
 						status : status.success.ok,
 						message : 'Player removed.',

@@ -8,33 +8,32 @@ let should = chai.should();
 let app = require('../app.js');
 
 // specific
-let mongoose = require('mongoose');
-let m_board = require('../models/board.model.js');
-
-
-let basic_board = {"name":"testing 123456","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
-
-const user_credentials_Login = {
-	name : 'te11stUserTe113st', 
-	email : 'te1st3Ete1stmail@Emai1l.com', 
-	password : 'te23st1P1asst1estw1ord',
-}
-
-let basic_player = {
-	name : 'player01',
-}
-
-let players =[];
-let instance = '';
-let instance_url = '';
+let mongoose = require("mongoose");
+let m_user = require('../models/user.model.js');
+let m_token = require('../models/token.model.js');
 
 chai.use(chaiHttp);
 
 
+let basic_board = {"name":"testing 123456","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
 
-describe('Player Login', () => {
+let basic_player = {
+	name : 'play1er01',
+}
 
-	it('It should return a player after joining an instance and add the user as an owner.', (done) => {
+const user_credentials_Login = {
+	name : 'tes§tUse12313313r', 
+	email : 't13§1311estEmail@Em21ail121.com', 
+	password : 'te§s1tPassw134314o§1rd',
+}
+
+
+
+
+
+describe('User Leave', () => {
+
+	it('User session should be reset after leaving a game.', (done) => {
 
 		chai.request(app)
 		.post('/api/account/create')
@@ -73,7 +72,39 @@ describe('Player Login', () => {
 						.end((err, res) => {
 
 							res.body.data.data.owner.should.equal( user_id );
-							done();
+							let player = res.body.data;
+
+							chai.request(app)
+							.delete('/api/instance/' + instance_url)
+							.type('form')
+							.send({ player : player })
+							.end((err, res) => {
+
+								res.should.have.status(200);
+								res.body.message.should.equal('Player removed.');
+
+								chai.request(app)
+								.get('/api/instance/' + instance_url)
+								.end((err, res) => {
+					
+									instance = res.body.data;
+
+									setTimeout( function() {
+										m_user.findOne( { _id : user_id } ).then((result_user) => {
+
+											chai.expect(result_user.data.session.instance).to.equal('');
+											chai.expect(result_user.data.session.player).to.equal('');
+											done();
+
+										}).catch((err) => {
+											console.log('catch error', done( new Error("user wasn't updated properly.")) );
+										});
+
+									}, 100);
+
+								});
+
+							});
 						});
 					});
 				});
@@ -82,8 +113,5 @@ describe('Player Login', () => {
 	});
 
 })
-
-
-
 
 

@@ -15,9 +15,9 @@ let m_board = require('../models/board.model.js');
 let basic_board = {"name":"testing 123456","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
 
 const user_credentials_Login = {
-	name : 'te11stUserTe113st', 
-	email : 'te1st3Ete1stmail@Emai1l.com', 
-	password : 'te23st1P1asst1estw1ord',
+	name : 'te1stUs1erTe13st', 
+	email : 'te1st3Ete11stmail@Emai11l.com', 
+	password : 'te31st1P1asstestw1ord',
 }
 
 let basic_player = {
@@ -32,9 +32,9 @@ chai.use(chaiHttp);
 
 
 
-describe('Player Login', () => {
+describe('Player Leave', () => {
 
-	it('It should return a player after joining an instance and add the user as an owner.', (done) => {
+	it('It should remove a logged in user whos playing.', (done) => {
 
 		chai.request(app)
 		.post('/api/account/create')
@@ -73,7 +73,36 @@ describe('Player Login', () => {
 						.end((err, res) => {
 
 							res.body.data.data.owner.should.equal( user_id );
-							done();
+							let player = res.body.data;
+
+							chai.request(app)
+							.delete('/api/instance/' + instance_url)
+							.type('form')
+							.send({ player : player })
+							.end((err, res) => {
+
+								res.should.have.status(200);
+								res.body.message.should.equal('Player removed.');
+
+								chai.request(app)
+								.get('/api/instance/' + instance_url)
+								.end((err, res) => {
+					
+									instance = res.body.data;
+
+									players = [];
+
+									for(let i =0;i<instance.data.players.length;i++){
+										players.push(instance.data.players[i].url);
+									}	
+																
+									chai.expect(players).to.not.include(player.url);
+
+									done();
+
+								});
+
+							});
 						});
 					});
 				});

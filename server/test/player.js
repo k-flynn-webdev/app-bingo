@@ -42,6 +42,9 @@ let basic_player_data = {
 	},
 }
 
+let players =[];
+let instance = '';
+let instance_url = '';
 
 chai.use(chaiHttp);
 
@@ -205,7 +208,7 @@ describe('Player', () => {
 				
 								instance = res.body.data;
 
-								players = [];
+								let players = [];
 								for(let i =0;i<instance.data.players.length;i++){
 									players.push(instance.data.players[i].url);
 								}	

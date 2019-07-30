@@ -81,7 +81,6 @@ function board_event( user, error_msg, success_msg, success_action ){
 		}
 
 		success_action( userFound );
-		logger.add( success_msg );
 
 		user_func.save( userFound, function( error, result ){
 
@@ -153,6 +152,24 @@ function board_join( user, board, instance, player ){
 }
 exports.board_join = board_join;
 
+// regular player
+function board_leave( user ){
+
+	if( !user ){
+		return;
+	}
+
+	let pre = user ? 'User (' + user.id + ') ' : '';
+	let error_obj = 'Error: ' + pre + 'failed updating user on exit.';
+	let success_obj = 'Success: ' + pre + 'updated user on exit.';
+
+	board_event( user, error_obj, success_obj, function( input ){
+		input.data.session.instance = '';
+		input.data.session.player = '';
+	});
+
+}
+exports.board_leave = board_leave;
 
 function board_won( user, board, instance, player ){
 

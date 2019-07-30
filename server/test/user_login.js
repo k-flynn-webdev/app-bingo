@@ -132,7 +132,7 @@ describe('User Login', () => {
 
 
 
-	it('User board played should register after joining a game', (done) => {
+	it('User board played + session.player + session.instance should register after joining a game', (done) => {
 
 		chai.request(app)
 		.post('/api/account/create')
@@ -177,6 +177,7 @@ describe('User Login', () => {
 									chai.expect(result_user.data.stats.played).to.be.an('date');
 									chai.expect(result_user.data.boards.played).to.include(board_id);
 									chai.expect(result_user.data.session.instance).to.equal(instance_url);
+									chai.expect(result_user.data.session.player).to.equal(player_url);
 									done();
 
 								}).catch((err) => {

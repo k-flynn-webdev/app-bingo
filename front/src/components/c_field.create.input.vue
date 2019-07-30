@@ -13,7 +13,8 @@
 				v-bind:placeholder=placeholder
 				v-bind:value=value
 				v-on:input=input
-				v-on:change=change>
+				v-on:change=change
+				v-on:keyup.enter=enter>
 
 			<slot name="post"></slot>	
 
@@ -43,6 +44,9 @@ export default {
 		change : function(){
 			this.$emit('change', this.$refs.input.value );	
 		},
+		enter : function(){
+			this.$emit('enter', this.$refs.input.value );	
+		},		
 	},
 	components: {
 		'c-field-result' : FieldResult,

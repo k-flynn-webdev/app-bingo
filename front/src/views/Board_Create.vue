@@ -42,7 +42,8 @@
 					v-bind:ref="'line_'+index"
 					v-bind:placeholder=attrs.line.placeholder
 					v-model=form.lines[index].value 
-					v-on:change=validate_line(index)>
+					v-on:change=validate_line(index)
+					v-on:enter=add_line(index)>
 
 
 						<button
@@ -282,6 +283,11 @@
 					this.form.lines[index].state.remove = true;
 					this.form.lines[index].state.ready = true;
 					Validate.reset( this.$refs[ref_line][0] );
+
+					this.$nextTick(function () {
+						this.$refs['line_' + (index + 1).toString() ][0].$refs['input'].focus()
+					});
+
 				}
 
 				this.check_line_count();

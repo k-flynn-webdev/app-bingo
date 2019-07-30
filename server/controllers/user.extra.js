@@ -75,15 +75,6 @@ exports.logout = logout;
 
 
 function board_create( user, board, instance ){
-	
-	// console.log('board create emit!');
-
-	// console.log('user');
-	// console.log(user);
-	// console.log('board');
-	// console.log(board);
-	// console.log('instance');
-	// console.log(instance);
 
 	if( !helpers.existsValid( user ) || !helpers.existsValid( board )){
 		return;
@@ -94,10 +85,6 @@ function board_create( user, board, instance ){
 		let pre = 'User (' + user.id + ') ';
 		let error_obj = 'Error: ' + pre + 'failed adding to user with created Board (' + board + ').';
 
-		// console.log('board create emit inside!' );
-		// console.log('userFound');
-		// console.log(userFound);
-
 		if( error || !helpers.existsValid(userFound) ){
 			logger.add( error_obj );
 			return;
@@ -105,7 +92,7 @@ function board_create( user, board, instance ){
 
 		userFound.data.boards.created.push( helpers.escape( board ));
 
-		user_func.save( userFound, function( error, next ){
+		user_func.save( userFound, function( error, result ){
 
 			if( error ){
 				logger.add( error_obj );
@@ -124,28 +111,11 @@ exports.board_create = board_create;
 // instance creator
 function board_start( user, board, instance ){
 
-	// console.log('board start emit!');
-
 	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
 		return;
 	}
 
 	user_func.get_by_id( user, function(error, userFound){
-
-		// console.log('user');
-		// console.log(user);
-		// console.log('board');
-		// console.log(board);
-		// console.log('instance');
-		// console.log(instance);
-
-	
-		// console.log('board start emit inside!' );
-
-
-
-		// console.log('userFound');
-		// console.log(userFound);
 
 		let pre = 'User (' + user.id + ') ';
 		let error_obj = 'Error: ' + pre + 'failed adding to user with started Board (' + board + ').';
@@ -157,7 +127,7 @@ function board_start( user, board, instance ){
 
 		userFound.data.boards.started.push( helpers.escape( instance.data.board ));
 
-		user_func.save( userFound, function( error, next ){
+		user_func.save( userFound, function( error, result ){
 
 			if( error ){
 				logger.add( error_obj );
@@ -175,56 +145,35 @@ exports.board_start = board_start;
 
 
 // regular player
-function board_join( user, board, instance ){
+function board_join( user, board, instance, player ){
 
-	// console.log('board_join');
-	// console.log('user');
-	// console.log(user);
-	// console.log('board');
-	// console.log(board);
-	// console.log('instance');
-	// console.log(instance.data);
-
-	if( !helpers.existsValid( user ) || !helpers.existsValid( instance )){
+	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
 		return;
 	}
 
 	user_func.get_by_id( user, function(error, userFound){
 
-		// console.log('board join emit inside!' );
-		// console.log('userFound');
-		// console.log(userFound);
-
 		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user current Instance (' + instance.url + ').';
-
-		// console.log( !helpers.existsValid(userFound) );
+		let error_obj = 'Error: ' + pre + 'failed adding to user with played Board (' + instance.data.board + ').';
 
 		if( error || !helpers.existsValid(userFound) ){
 			logger.add( error_obj );
 			return;
 		}
 
-		// console.log('extra');
-
 		userFound.data.stats.played = new Date();
 		userFound.data.boards.played.push( helpers.escape( instance.data.board ));
-		userFound.data.session.instance = instance.url;
+		userFound.data.session.instance = helpers.escape( instance.url );
+		userFound.data.session.player = helpers.escape( player.url );
 
-		user_func.save( userFound, function( error, next ){
+		user_func.save( userFound, function( error, result ){
 
 			if( error ){
-				// console.log('inside');
-				// console.log('error');
-				// console.log(error);
 				logger.add( error_obj );
 				return;
 			}
 
-			// console.log( 'updated' );
-			// console.log( userFound );			
-
-			let success_obj = 'Success: ' + pre + 'adding to user current Instance (' + instance.url + ').';
+			let success_obj = 'Success: ' + pre + 'adding to user with played Board (' + instance.data.board + ').';
 			logger.add( success_obj );
 
 		});
@@ -234,14 +183,7 @@ function board_join( user, board, instance ){
 exports.board_join = board_join;
 
 
-function board_won( user, board, instance ){
-
-	// console.log('user');
-	// console.log(user);
-	// console.log('board');
-	// console.log(board);
-	// console.log('instance');
-	// console.log(instance);
+function board_won( user, board, instance, player ){
 
 	if( !helpers.existsValid( user ) || !helpers.existsValid( instance ) ){
 		return;
@@ -249,28 +191,24 @@ function board_won( user, board, instance ){
 
 	user_func.get_by_id( user, function(error, userFound){
 
-		// console.log('board won emit inside!' );
-		// console.log('userFound');
-		// console.log(userFound);
-
 		let pre = 'User (' + user.id + ') ';
-		let error_obj = 'Error: ' + pre + 'failed adding to user Board won (' + board + ').';
+		let error_obj = 'Error: ' + pre + 'failed adding to user with won Board (' + instance.data.board + ').';
 
 		if( error || !helpers.existsValid(userFound) ){
 			logger.add( error_obj );
 			return;
 		}
 
-		userFound.data.boards.won = helpers.escape( instance.data.board );
+		userFound.data.boards.won.push( helpers.escape( instance.data.board ));
 
-		user_func.save( userFound, function( error, next ){
+		user_func.save( userFound, function( error, result ){
 
 			if( error ){
 				logger.add( error_obj );
 				return;
 			}
 
-			let success_obj = 'Success: ' + pre + 'adding to user Board won (' + board + ').';
+			let success_obj = 'Success: ' + pre + 'adding to user with won Board (' + instance.data.board + ').';
 			logger.add( success_obj );
 
 		});

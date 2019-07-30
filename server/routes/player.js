@@ -60,7 +60,7 @@ module.exports = function( App ) {
 					let var_user = request.body.user || false;
 					let var_board = result_instance.data.board || false;
 					let var_instance = result_instance || false;
-					App.emit("board-join", var_user, var_board, var_instance );
+					App.emit("board-join", var_user, var_board, var_instance, result_player );
 
 					instance.update( result_instance );
 

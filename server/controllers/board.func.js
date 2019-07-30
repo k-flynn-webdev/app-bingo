@@ -15,12 +15,12 @@ function safe( model, all=false ){
 		data : {
 			name : model.data.name, 
 			lines : model.data.lines,	
-			// game : {
-				// win : model.data.game.win,
-				// display : model.data.game.display,
-			// },	
 		},
 	};
+
+	if(( process.env.NODE_ENV ).toLowerCase() === 'test' ){
+		temp.data.owner = model.data.owner;
+	}
 
 	return temp;
 }

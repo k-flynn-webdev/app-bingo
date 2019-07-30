@@ -42,6 +42,10 @@ function safe( model, all=false ){
 		},
 	};
 
+	if(( process.env.NODE_ENV ).toLowerCase() === 'test' ){
+		temp.data.owner = model.data.owner;
+	}
+	
 	return temp;
 }
 exports.safe = safe;
@@ -70,7 +74,7 @@ function get_var_display( line_count ){
 }
 
 
-function create( input_board, input_url=false, next ){
+function create( input_board, input_url=false, body=false, next ){
 
 	let board_obj = { url : input_board };
 
@@ -93,6 +97,7 @@ function create( input_board, input_url=false, next ){
 					win : win_var,
 					display : display_var,
 				},
+				owner : body.user ? body.user.id : '',
 			},
 		});
 

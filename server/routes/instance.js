@@ -19,7 +19,7 @@ module.exports = function( App ) {
 		board_check.board,
 		function(request, response){
 
-			instance.create( request.params.board, function(error, result){
+			instance.create( request.params.board, request.body, function(error, result){
 
 				if( error ){
 					logger.add( error.message );
@@ -48,7 +48,7 @@ module.exports = function( App ) {
 		board_check.board,
 		function(request, response){
 
-			instance.random( request.params.board, function(error, result){
+			instance.random( request.params.board, request.body, function(error, result){
 				
 				if( error ){
 					logger.add( error.message );

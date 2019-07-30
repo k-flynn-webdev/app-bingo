@@ -32,7 +32,6 @@ let basic_player_2 = {
 	lines : 'test test 1§test test 2§test test 3§test test 4',
 	score : 0,
 }
-let player_2 = null;
 
 let basic_player_data = {
 	url : '',
@@ -43,14 +42,6 @@ let basic_player_data = {
 	},
 }
 
-// let board_urls = [];
-// let instance_urls = [];
-let players = [];
-
-let board = '';
-let board_url = '';
-let instance = '';
-let instance_url = '';
 
 chai.use(chaiHttp);
 

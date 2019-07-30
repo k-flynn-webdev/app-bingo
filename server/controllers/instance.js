@@ -32,9 +32,9 @@ function base_search( url, board){
 }
 
 
-function create( input, next){
+function create( input, body, next){
 
-	instance_func.create( input, null, function( error, newInstance){
+	instance_func.create( input, null, body, function( error, newInstance){
 
 		if( error ){
 			return next( error );
@@ -48,7 +48,7 @@ function create( input, next){
 exports.create = create;
 
 
-function random( board_url, next){
+function random( board_url, body, next){
 
 	let instance = base_search( false, board_url );
 
@@ -60,7 +60,7 @@ function random( board_url, next){
 
 	} else {
 
-		create( board_url, next);
+		create( board_url, null, body, next);
 
 	}
 }

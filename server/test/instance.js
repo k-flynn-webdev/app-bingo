@@ -15,19 +15,10 @@ let m_board = require('../models/board.model.js');
 let basic_board = {"name":"testing 123","lines":"test test 1§test test 2§test test 3§test test 4§test test 5§test test 6§test test 7§test test 8§§"}
 
 
-
 chai.use(chaiHttp);
 
 
 describe('Instance', () => {
-
-
-	// before(function (done) {
-	// 	setTimeout(function(){
-	// 		done();
-	// 	}, 1000);
-	// });
-
 
 	// board cleanup 
 	m_board.remove({}, (err) => {});

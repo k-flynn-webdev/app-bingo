@@ -50,6 +50,7 @@ describe('Users', () => {
 		.type('form')
 		.send(user_credentials_Login)
 		.end((err, res) => {
+
 			res.should.have.status(201);
 
 			chai.expect(res.body.token).to.be.an('string');	

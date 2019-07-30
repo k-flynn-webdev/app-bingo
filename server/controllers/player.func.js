@@ -31,6 +31,10 @@ function safe( model, win=false ){
 		}		
 	}
 
+	if(( process.env.NODE_ENV ).toLowerCase() === 'test' ){
+		temp.data.owner = model.data.owner;
+	}
+	
 	return temp;
 }
 exports.safe = safe;

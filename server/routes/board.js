@@ -9,7 +9,6 @@ let logger = require( '../log/log.js' );
 
 module.exports = function( App ) {
 
-
 	// register events
 	board.add_events( App );
 

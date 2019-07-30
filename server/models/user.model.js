@@ -26,7 +26,7 @@ var user = mongoose.Schema({
 		},
 		session : {
 			instance : { type: String, default : '' },
-			player : { type: mongoose.Schema.Types.ObjectId },				
+			player : { type: String, default : '' },
 		},	
 	}
 })

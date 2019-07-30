@@ -20,6 +20,11 @@ function safe_data( model, all=false ){
 		};	
 	}
 
+	if(( process.env.NODE_ENV ).toLowerCase() === 'test' ){
+		user_safe.date = model.date;
+		user_safe.data = model.data;
+	}
+
 	return user_safe;
 }
 exports.safe_data = safe_data;

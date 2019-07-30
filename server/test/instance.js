@@ -45,39 +45,6 @@ describe('Instance', () => {
 	});
 
 
-
-
-	it('It should create a new instance.', (done) => {
-		chai.request(app)
-		.post('/api/board/create')
-		.type('form')
-		.send( basic_board )
-		.end((err, res) => {
-
-			let basic_board_url = res.body.data.url;
-		
-			chai.request(app)
-			.post('/api/instance/' + basic_board_url + '/create' )
-			.end((err, res) => {
-				res.should.have.status(201);
-				res.body.message.should.equal('New board instance created.');
-				chai.expect(res.body.data.url).to.be.a('string');
-				chai.expect(res.body.data.data.board).to.be.a('string');
-				chai.expect(res.body.data.data.players).to.be.an('array');
-				chai.expect(res.body.data.data.game.win).to.be.a('number');
-				chai.expect(res.body.data.data.game.display).to.be.a('number');	
-				chai.expect(res.body.data.data.game.winner.win).to.be.a('boolean');	
-				chai.expect(res.body.data.data.game.winner.url).to.be.a('string');	
-				chai.expect(res.body.data.data.game.winner.data).to.be.a('object');	
-				chai.expect(res.body.data.data.game.winner.data.name).to.be.a('string');	
-				chai.expect(res.body.data.data.game.winner.data.score).to.be.a('number');	
-				done();
-			});
-		});		
-	});
-
-
-
 	it('It should return a random running instance from those running already.', (done) => {
 
 		chai.request(app)
@@ -125,6 +92,39 @@ describe('Instance', () => {
 			});	
 		});
 	});	
+
+
+
+	it('It should create a new instance.', (done) => {
+		chai.request(app)
+		.post('/api/board/create')
+		.type('form')
+		.send( basic_board )
+		.end((err, res) => {
+
+			let basic_board_url = res.body.data.url;
+		
+			chai.request(app)
+			.post('/api/instance/' + basic_board_url + '/create' )
+			.end((err, res) => {
+				res.should.have.status(201);
+				res.body.message.should.equal('New board instance created.');
+				chai.expect(res.body.data.url).to.be.a('string');
+				chai.expect(res.body.data.data.board).to.be.a('string');
+				chai.expect(res.body.data.data.players).to.be.an('array');
+				chai.expect(res.body.data.data.game.win).to.be.a('number');
+				chai.expect(res.body.data.data.game.display).to.be.a('number');	
+				chai.expect(res.body.data.data.game.winner.win).to.be.a('boolean');	
+				chai.expect(res.body.data.data.game.winner.url).to.be.a('string');	
+				chai.expect(res.body.data.data.game.winner.data).to.be.a('object');	
+				chai.expect(res.body.data.data.game.winner.data.name).to.be.a('string');	
+				chai.expect(res.body.data.data.game.winner.data.score).to.be.a('number');	
+				done();
+			});
+		});		
+	});
+
+
 
 	it('It should not return a malformed instance from those running already.', (done) => {
 		chai.request(app)

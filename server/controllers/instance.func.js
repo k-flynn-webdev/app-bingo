@@ -74,7 +74,7 @@ function get_var_display( line_count ){
 }
 
 
-function create( input_board, input_url=false, body=false, next ){
+function create( input_board, input_url=false, body, next ){
 
 	let board_obj = { url : input_board };
 
@@ -97,7 +97,7 @@ function create( input_board, input_url=false, body=false, next ){
 					win : win_var,
 					display : display_var,
 				},
-				owner : body.user ? body.user.id : '',
+				owner : body ? body.user.id : '',
 			},
 		});
 

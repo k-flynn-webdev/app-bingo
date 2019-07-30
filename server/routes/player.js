@@ -142,7 +142,7 @@ module.exports = function( App ) {
 					
 						// need to get user id from player in stack ..
 
-						let var_user = { id : result_player.data.owner }|| false;
+						let var_user = result_player.data.owner ? { id : result_player.data.owner } : false;
 						let var_board = result_instance.data.board || false;
 						let var_instance = result_instance || false;
 						App.emit("board-won", var_user, var_board, var_instance );

@@ -19,7 +19,9 @@ module.exports = function( App ) {
 		board_check.board,
 		function(request, response){
 
-			instance.create( request.params.board, request.body, function(error, result){
+			let body = request.body.user ? request.body : null;
+
+			instance.create( request.params.board, body, function(error, result){
 
 				if( error ){
 					logger.add( error.message );
@@ -29,7 +31,7 @@ module.exports = function( App ) {
 					});
 				}
 
-				let var_user = request.body.user || false;
+				let var_user = body ? body.user : false;
 				let var_board = result.data.board || false;
 				let var_instance = result || false;
 				App.emit("board-start", var_user, var_board, var_instance );
@@ -48,7 +50,9 @@ module.exports = function( App ) {
 		board_check.board,
 		function(request, response){
 
-			instance.random( request.params.board, request.body, function(error, result){
+			let body = request.body.user ? request.body : null;
+
+			instance.random( request.params.board, body, function(error, result){
 				
 				if( error ){
 					logger.add( error.message );
@@ -59,7 +63,7 @@ module.exports = function( App ) {
 				}
 
 				// todo this needs to be if random was found??
-				let var_user = request.body.user || false;
+				let var_user = body ? body.user : false;
 				let var_board = result.data.board || false;
 				let var_instance = result || false;
 				App.emit("board-join", var_user, var_board, var_instance );

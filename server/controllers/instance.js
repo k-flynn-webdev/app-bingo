@@ -48,9 +48,9 @@ function create( input, body, next){
 exports.create = create;
 
 
-function random( board_url, body, next){
+function random( input, body, next){
 
-	let instance = base_search( false, board_url );
+	let instance = base_search( false, input );
 
 	let randomBoard = instance_live.random( instance, instance );
 
@@ -60,8 +60,16 @@ function random( board_url, body, next){
 
 	} else {
 
-		create( board_url, null, body, next);
+		instance_func.create( input, null, body, function( error, newInstance){
 
+			if( error ){
+				return next( error );
+			}
+
+			instance_live.insert( newInstance );
+
+			return next(null, newInstance );
+		});	
 	}
 }
 exports.random = random;

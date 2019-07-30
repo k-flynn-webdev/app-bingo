@@ -181,6 +181,11 @@ function board_won( user, board, instance, player ){
 	let error_obj = 'Error: ' + pre + 'failed adding to user with won Board (' + instance.data.board + ').';
 	let success_obj = 'Success: ' + pre + 'added to user with won Board (' + instance.data.board + ').';
 
+	// console.log(user)
+	// console.log(board)
+	// console.log(instance)
+	// console.log(player)
+
 	board_event( user, error_obj, success_obj, function( input ){
 		input.data.boards.won.push( helpers.escape( instance.data.board ));
 	});

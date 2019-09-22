@@ -1,18 +1,24 @@
 <!-- # vue-basic-client-server -->
-# Bullshit Bingo
+# BS Bingo
 <!-- A simple complete Vue.js client and Node.js server project. -->
 
 
 
 ## Goals
-Create an online multiplayer bullshit bingo.
+Create an online multiplayer bs bingo game.
 Easy to generate a board with multiple phrases/words and share with any number of people to join an online session. With the winner being announced to everyone currently playing.
 
 
 wip video here: https://www.instagram.com/p/BumuGBPFBdn/
 
 
-![shot](./docs/current.png?raw=true "current wip")
+## Images
+![jpg](./docs/index.jpeg?raw=true "index")
+![jpg](./docs/lobby.jpeg?raw=true "lobby")
+![jpg](./docs/join.jpeg?raw=true "join")
+![jpg](./docs/game.jpeg?raw=true "game")
+![jpg](./docs/game_play.jpeg?raw=true "game_play")
+![jpg](./docs/game_win.jpeg?raw=true "game_win")
 
 
 ## Variables:

@@ -13,12 +13,12 @@ wip video here: https://www.instagram.com/p/BumuGBPFBdn/
 
 
 ## Images
-![jpg](./docs/index.jpeg?raw=true "index")
-![jpg](./docs/lobby.jpeg?raw=true "lobby")
-![jpg](./docs/join.jpeg?raw=true "join")
-![jpg](./docs/game.jpeg?raw=true "game")
-![jpg](./docs/game_play.jpeg?raw=true "game_play")
-![jpg](./docs/game_win.jpeg?raw=true "game_win")
+![jpg](./docs/index.jpeg?raw=true "index" =250x)
+![jpg](./docs/lobby.jpeg?raw=true "lobby" =250x)
+![jpg](./docs/join.jpeg?raw=true "join" =250x)
+![jpg](./docs/game.jpeg?raw=true "game" =250x)
+![jpg](./docs/game_play.jpeg?raw=true "game_play" =250x)
+![jpg](./docs/game_win.jpeg?raw=true "game_win" =250x)
 
 
 ## Variables:

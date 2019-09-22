@@ -5,6 +5,8 @@
 		v-bind:data-open=state.menu.display
 		v-bind:class="{ 'is-active' : state.menu.display }">
 
+		<!-- // todo change all links to buttons and add aria-label //  -->
+
 
 		<div class="nav-step">
 		

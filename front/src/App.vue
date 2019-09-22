@@ -4,6 +4,8 @@
 
 		<c-navbar>
 
+			<!-- // todo change all links to buttons and add aria-label //  -->
+
 			<router-link 
 				class="link colour-bg-pop border-round delay-2" 
 				to="/board/create">

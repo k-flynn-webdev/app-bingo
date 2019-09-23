@@ -9,17 +9,17 @@ Create an online multiplayer bs bingo game.
 Easy to generate a board with multiple phrases/words and share with any number of people to join an online session. With the winner being announced to everyone currently playing.
 
 
-<!-- wip video here: https://www.instagram.com/p/BumuGBPFBdn/ -->
+wip video here: https://www.instagram.com/p/B2wa410DLg9/
 
 
 ## Images
-<img src="./docs/movie.mov" width="250" style="display:inline-block;">
-<img src="./docs/index.jpeg" width="250" style="display:inline-block;">
-<img src="./docs/lobby.jpeg" width="250" style="display:inline-block;">
-<img src="./docs/join.jpeg" width="250" style="display:inline-block;">
-<img src="./docs/game.jpeg" width="250" style="display:inline-block;">
-<img src="./docs/game_play.jpeg" width="250" style="display:inline-block;">
-<img src="./docs/game_win.jpeg" width="250" style="display:inline-block;">
+<!-- <video src="./docs/movie.mov" width="250" style="display:inline-block;"> -->
+<img src="./docs/index.jpeg" width="250" style="display:inline;">
+<img src="./docs/lobby.jpeg" width="250" style="display:inline;">
+<img src="./docs/join.jpeg" width="250" style="display:inline;">
+<img src="./docs/game.jpeg" width="250" style="display:inline;">
+<img src="./docs/game_play.jpeg" width="250" style="display:inline;">
+<img src="./docs/game_win.jpeg" width="250" style="display:inline;">
 
 
 ## Variables:
